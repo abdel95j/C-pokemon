@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <unistd.h>
 
+void printplayer(WINDOW* win,int x,int y){
+    wprintw(win,"o");
+    wmove(win,x+1,y-1);
+    wprintw(win,"/0\\");
+    wmove(win,x+2,y);
+    wprintw(win,"ll");
+}
+
 int main(){
     initscr();
     noecho();
@@ -17,7 +25,7 @@ int main(){
     x=LINES/2;
     y=COLS/2;
     wmove(win,x,y);
-    wprintw(win,"@");
+    printplayer(win,x,y);
     wrefresh(win);
 
     
@@ -46,7 +54,7 @@ int main(){
             wclear(win);
             x=x+1;
 
-            if (x>=LINES-2)
+            if (x>=LINES-4)
             {
                 x=x-1;
             }
@@ -93,7 +101,7 @@ int main(){
 
 
         wmove(win,x,y);
-        wprintw(win,"@");
+        printplayer(win,x,y);
         sleep(1/60);
     }
 
