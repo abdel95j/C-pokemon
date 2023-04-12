@@ -47,12 +47,11 @@ int main(){
 
 while(finish==1){
     box(win,0,0);
-
     while (ch!=10)
     {
         ch=getch();
         wrefresh(win);
-        usleep(1/60);
+
         if (ch==10)
         {
             while (exit!=10)
@@ -60,12 +59,9 @@ while(finish==1){
                 mvwprintw(win,LINES/2,COLS/2,"wsh");
                 exit=getch();   
                 wrefresh(win);
-                usleep(1/60);
-
             }
         }  
     }
-
     finish=0;
 }    
     endwin();
