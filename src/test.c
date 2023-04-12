@@ -69,8 +69,5 @@ while(finish==1){
     finish=0;
 }    
     endwin();
-
-    
-
     return 0;
 }
