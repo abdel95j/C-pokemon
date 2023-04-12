@@ -1,5 +1,6 @@
 #include <curses.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #define ANSI_COLOR_RED "\x1b[31m"
@@ -22,6 +23,7 @@ int main(){
     cbreak();
     start_color();
     nodelay(stdscr,TRUE);
+    keypad(stdscr,TRUE);
     curs_set(0);
 
     if(has_colors()==FALSE){
@@ -37,7 +39,6 @@ int main(){
     int chinv=ERR,ch=ERR,x,y;
     WINDOW* win=newwin(LINES,COLS,0,0);
     WINDOW* invwin=newwin(LINES/1.5,COLS/1.5,0,0);
-    keypad(win,TRUE);
 
     x=LINES/2-1;
     y=COLS/2;
@@ -98,7 +99,7 @@ int main(){
             {
                 wclear(invwin);
                 box(invwin,0,0);
-    
+
                 mvwin(invwin,10,40);
                 overlay(win,invwin);
                 wrefresh(invwin);
