@@ -51,6 +51,7 @@ while(finish==1){
     {
         ch=getch();
         wrefresh(win);
+        sleep(1/60);
 
         if (ch==10)
         {
@@ -59,6 +60,7 @@ while(finish==1){
                 mvwprintw(win,LINES/2,COLS/2,"wsh");
                 exit=getch();   
                 wrefresh(win);
+                sleep(1/60);
             }
         }  
     }
