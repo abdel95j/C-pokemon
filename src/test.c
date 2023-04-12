@@ -45,26 +45,6 @@ int main(){
     refresh();
 
 
-    /*for ( i = 0; i < COLS; i++)
-    {
-        mvprintw(0,i,"_");
-    }
-
-    for ( i = 0; i < COLS; i++)
-    {
-        mvprintw(LINES-1,i,"_");
-    }
-
-    for ( i = 1; i < LINES; i++)
-    {
-        mvprintw(i,0,"|");
-    }
-    
-    for ( i = 1; i < LINES; i++)
-    {
-        mvprintw(i,COLS-1,"|");
-    }*/
-
 while(finish==1){
     box(win,0,0);
     while (ch!=10)
