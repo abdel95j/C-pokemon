@@ -3,8 +3,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#define ANSI_COLOR_RED "\x1b[31m"
-
 void printplayer(WINDOW* win,int x,int y){
     init_pair(1,COLOR_RED,COLOR_BLACK);
     wattron(win,COLOR_PAIR(1));
