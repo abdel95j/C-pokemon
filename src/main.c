@@ -25,12 +25,12 @@ int main(){
     }
 
 
-    int exit=1,x,y;
+    int exit=0,x,y;
 
     x=LINES/2-1;
     y=COLS/2;
 
-    while (exit==1)
+    while (exit==0)
     {
         game(&exit,&x,&y);
     }
