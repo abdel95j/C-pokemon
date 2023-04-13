@@ -12,7 +12,6 @@ void printplayer(WINDOW* win,int x,int y){
     wmove(win,x+2,y);
     wprintw(win,"ll");
     wattroff(win,COLOR_PAIR(1));
-
 }
 
 int main(){
@@ -35,21 +34,21 @@ int main(){
     }
 
     int chinv=ERR,ch=ERR,x,y;
-    WINDOW* win=newwin(LINES,COLS,0,0);
-    WINDOW* invwin=newwin(LINES/1.5,COLS/1.5,0,0);
+    WINDOW* map=newwin(LINES,COLS,0,0);
+    WINDOW* menu=newwin(LINES/1.5,COLS/1.5,0,0);
 
     x=LINES/2-1;
     y=COLS/2;
-    wmove(win,x,y);
+    wmove(map,x,y);
 
     while(ch!='p'){
-        box(win,0,0);
+        box(map,0,0);
         ch=getch();
                 
         switch (ch)
         {
         case 'z':
-            wclear(win);
+            wclear(map);
             x=x-1;
 
             if (x<=0)
@@ -60,10 +59,10 @@ int main(){
             break;
 
         case 's':
-            wclear(win);
+            wclear(map);
             x=x+1;
 
-            if (x>=LINES-4)
+            if (x>=LINES-3)
             {
                 x=x-1;
             }
@@ -71,7 +70,7 @@ int main(){
             break;
 
         case 'd':
-            wclear(win);
+            wclear(map);
             y=y+2;
 
             if (y>=COLS-2)
@@ -82,7 +81,7 @@ int main(){
             break;
 
         case 'q':
-            wclear(win);
+            wclear(map);
             y=y-2;
 
             if (y<=0)
@@ -95,22 +94,21 @@ int main(){
         case 'i':
             while(chinv!='i')
             {
-                wclear(invwin);
-                box(invwin,0,0);
+                wclear(menu);
+                box(menu,0,0);
 
-                mvwin(invwin,10,40);
-                overlay(win,invwin);
-                wrefresh(invwin);
+                mvwin(menu,LINES/6,COLS/6);
+                wrefresh(menu);
                 chinv=getchar();
                 sleep(1/60);
             }
             chinv=ERR;
         }
 
-        wmove(win,x,y);
-        printplayer(win,x,y);
+        wmove(map,x,y);
+        printplayer(map,x,y);
 
-        wrefresh(win);
+        wrefresh(map);
         sleep(1/60);
     }
 
