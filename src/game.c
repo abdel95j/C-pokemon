@@ -20,21 +20,18 @@ void menu(){
     WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
     int chmenu=ERR;
     int finish=0;
-    int maxx=0,maxy=0;
-
-    getmaxyx(winmenu,maxx,maxy);
 
     while(finish==0)
         {
             wclear(winmenu);
-            mvwprintw(winmenu,2,maxy/3,"88b           d88  88888888888  888b      88  88        88\n");
-            mvwprintw(winmenu,3,maxy/3,"888b         d888  88           8888b     88  88        88\n");
-            mvwprintw(winmenu,4,maxy/3,"88`8b       d8'88  88           88 `8b    88  88        88\n");
-            mvwprintw(winmenu,5,maxy/3,"88 `8b     d8' 88  88aaaaa      88  `8b   88  88        88\n");
-            mvwprintw(winmenu,6,maxy/3,"88  `8b   d8'  88  88           88   `8b  88  88        88\n");
-            mvwprintw(winmenu,7,maxy/3,"88   `8b d8'   88  88           88    `8b 88  88        88\n");
-            mvwprintw(winmenu,8,maxy/3,"88    `888'    88  88           88     `8888  Y8a.    .a8P\n"); 
-            mvwprintw(winmenu,9,maxy/3,"88     `8'     88  88888888888  88      `888    `Y8888Y '\n");
+            mvwprintw(winmenu,2,COLS/5,"88b           d88  88888888888  888b      88  88        88\n");
+            mvwprintw(winmenu,3,COLS/5,"888b         d888  88           8888b     88  88        88\n");
+            mvwprintw(winmenu,4,COLS/5,"88`8b       d8'88  88           88 `8b    88  88        88\n");
+            mvwprintw(winmenu,5,COLS/5,"88 `8b     d8' 88  88aaaaa      88  `8b   88  88        88\n");
+            mvwprintw(winmenu,6,COLS/5,"88  `8b   d8'  88  88           88   `8b  88  88        88\n");
+            mvwprintw(winmenu,7,COLS/5,"88   `8b d8'   88  88           88    `8b 88  88        88\n");
+            mvwprintw(winmenu,8,COLS/5,"88    `888'    88  88           88     `8888  Y8a.    .a8P\n"); 
+            mvwprintw(winmenu,9,COLS/5,"88     `8'     88  88888888888  88      `888    `Y8888Y '\n");
             box(winmenu,0,0);
             wrefresh(winmenu);
             chmenu=getchar();                                               
