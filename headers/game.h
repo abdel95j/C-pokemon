@@ -3,8 +3,8 @@
 #include "structs.h"
 #include <curses.h>
 
-void printplayer(WINDOW* win,int x,int y);
-void game(int* exit,int* x,int* y);
+void printplayer(WINDOW* win,double x,double y);
+void game(int* exit,double* x,double* y);
 void menu();
 
 #endif

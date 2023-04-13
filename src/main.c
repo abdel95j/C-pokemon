@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
+#include "../headers/print.h"
 
 int main(){
     initscr();
@@ -25,9 +26,10 @@ int main(){
     }
 
 
-    int exit=0,x,y;
+    int exit=0;
+    double x,y;
 
-    x=LINES/2-1;
+    x=LINES/2;
     y=COLS/2;
 
     while (exit==0)
