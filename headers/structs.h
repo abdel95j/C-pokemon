@@ -51,7 +51,7 @@ typedef struct
     pokemon poke5;
     pokemon poke6;
     pokemon pc[20];
-    objet inventory[20];
+    object inventory[20];
 }trainer;
 
 #endif

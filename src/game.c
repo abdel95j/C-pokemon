@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-#define ANSI_COLOR_RED "\x1b[31m"
+#include "../headers/game.h"
+#include "../headers/structs.h"
 
 void printplayer(WINDOW* win,int x,int y){
     init_pair(1,COLOR_RED,COLOR_BLACK);
@@ -14,109 +14,87 @@ void printplayer(WINDOW* win,int x,int y){
     wmove(win,x+2,y);
     wprintw(win,"ll");
     wattroff(win,COLOR_PAIR(1));
-
 }
 
-int main(){
-    initscr();
-    noecho();
-    cbreak();
-    start_color();
-    nodelay(stdscr,TRUE);
-    keypad(stdscr,TRUE);
-    curs_set(0);
-
-    if(has_colors()==FALSE){
-        printf("Your terminal does not support colors");
-        exit(1);
-    }
-
-    if(can_change_color()==FALSE){
-        printf("Your terminal does not support color changing");
-        exit(1);
-    }
-
-    int chinv=ERR,ch=ERR,x,y;
-    WINDOW* win=newwin(LINES,COLS,0,0);
-    WINDOW* invwin=newwin(LINES/1.5,COLS/1.5,0,0);
-
-    x=LINES/2-1;
-    y=COLS/2;
-    wmove(win,x,y);
-
-    while(ch!='p'){
-        box(win,0,0);
-        ch=getch();
-                
-        switch (ch)
+void menu(){
+    WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,0,0);
+    int chmenu=ERR;
+    while(chmenu!='i')
         {
-        case 'z':
-            wclear(win);
-            x=x-1;
+            wclear(winmenu);
+            box(winmenu,0,0);
 
-            if (x<=0)
-            {
-                x=x+1;
-            }
-
-            break;
-
-        case 's':
-            wclear(win);
-            x=x+1;
-
-            if (x>=LINES-4)
-            {
-                x=x-1;
-            }
-
-            break;
-
-        case 'd':
-            wclear(win);
-            y=y+2;
-
-            if (y>=COLS-2)
-            {
-                y=y-2;
-            }
-
-            break;
-
-        case 'q':
-            wclear(win);
-            y=y-2;
-
-            if (y<=0)
-            {
-                y=y+2;
-            }
-            
-            break;
-        
-        case 'i':
-            while(chinv!='i')
-            {
-                wclear(invwin);
-                box(invwin,0,0);
-
-                mvwin(invwin,10,40);
-                overlay(win,invwin);
-                wrefresh(invwin);
-                chinv=getchar();
-                sleep(1/60);
-            }
-            chinv=ERR;
+            mvwin(winmenu,LINES/6,COLS/6);
+            wrefresh(winmenu);
+            chmenu=getchar();
+            sleep(1/60);
         }
+        chmenu=ERR;
+}
 
-        wmove(win,x,y);
-        printplayer(win,x,y);
+void game(int* exit,int* x,int* y){
+    WINDOW* map=newwin(LINES,COLS-1,0,0);
 
-        wrefresh(win);
-        sleep(1/60);
+    int ch=ERR;
+
+    wmove(map,*x,*y);
+
+    box(map,0,0);
+    ch=getch();
+            
+    switch (ch)
+    {
+    case 'z':
+        wclear(map);
+        *x=*x-1;
+
+        if (*x<=0)
+        {
+            *x=*x+1;
+        }
+        break;
+
+    case 's':
+        wclear(map);
+        *x=*x+1;
+
+        if (*x>=LINES-4)
+        {
+            *x=*x-1;
+        }
+        break;
+
+    case 'd':
+        wclear(map);
+        *y=*y+2;
+
+        if (*y>=COLS-2)
+        {
+            *y=*y-2;
+        }
+        break;
+
+    case 'q':
+        wclear(map);
+        *y=*y-2;
+
+        if (*y<=0)
+        {
+            *y=*y+2;
+        }
+        break;
+    
+    case 'i':
+        menu();
+        break;
+    
+    case 'p':
+        *exit=0;
+        break;
     }
 
-    endwin();
-
-    return 0;
+    wmove(map,*x,*y);
+    printplayer(map,*x,*y);
+    wrefresh(map);
+    sleep(1/60);
 }
