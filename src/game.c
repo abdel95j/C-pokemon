@@ -9,7 +9,7 @@
 void menu(int* exit){
     WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
     int chmenu=ERR,menuexit=0;
-    int x=13,y=COLS/2.5;
+    int x=13,y=90;
 
     while(chmenu!='i' && menuexit==0)
         {
