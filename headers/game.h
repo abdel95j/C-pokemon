@@ -5,6 +5,6 @@
 
 void printplayer(WINDOW* win,double x,double y);
 void game(int* exit,double* x,double* y);
-void menu();
+void menu(int* exit);
 
 #endif

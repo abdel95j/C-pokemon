@@ -6,12 +6,12 @@
 #include "../headers/structs.h"
 #include "../headers/print.h"
 
-void menu(){
+void menu(int* exit){
     WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
-    int chmenu=ERR;
-    int x=13,y=COLS/3;
+    int chmenu=ERR,menuexit=0;
+    int x=13,y=COLS/2.5;
 
-    while(chmenu!='i')
+    while(chmenu!='i' && menuexit==0)
         {
             wclear(winmenu);
             
@@ -53,8 +53,27 @@ void menu(){
                     x=22;
                 }
                 break;
-            }
+            
+            case 'e':
+                switch (x)
+                {
+                case 31:
+                    menuexit=1;
+                    *exit=1;
+                    break;
+                
+                case 22:
+                    /* code */
+                    break;
 
+                case 13:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             sleep(1/60);
         }
         delwin(winmenu);
@@ -84,6 +103,16 @@ void game(int* exit,double* x,double* y){
                 *x=*x+1;
         } 
 
+        if (*x==31 && *y>=190)
+        {
+                *x=*x+1;
+        } 
+
+        if (*x==17 && *y>=190)
+        {
+                *x=*x+1;
+        } 
+
         break;
 
     case 's':
@@ -96,6 +125,16 @@ void game(int* exit,double* x,double* y){
         }
 
         if (*x==34 && *y>=190)
+        {
+                *x=*x-1;
+        } 
+
+        if (*x==19 && *y>=190)
+        {
+                *x=*x-1;
+        } 
+
+        if (*x==2 && *y>=190)
         {
                 *x=*x-1;
         } 
@@ -115,6 +154,16 @@ void game(int* exit,double* x,double* y){
             *y=*y-2;
         } 
 
+        if (*y==190 && *x<=31 && *x>=19)
+        {
+            *y=*y-2;
+        } 
+
+        if (*y==190 && *x<=17 && *x>=2)
+        {
+            *y=*y-2;
+        } 
+
         break;
 
     case 'q':
@@ -128,11 +177,10 @@ void game(int* exit,double* x,double* y){
         break;
     
     case 'i':
-        menu();
+        menu(exit);
         break;
     
-    case 'p':
-        *exit=1;
+    default:
         break;
     }
 
