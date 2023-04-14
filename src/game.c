@@ -83,7 +83,6 @@ void game(int* exit,double* x,double* y){
     WINDOW* map=newwin(LINES,COLS-1,0,0);
     int ch=ERR;
 
-    wmove(map,*x,*y);
 
     ch=getch();
             
@@ -98,21 +97,15 @@ void game(int* exit,double* x,double* y){
             *x=*x+1;
         }
 
-        if (*x==50 && *y>=190)
+        if (*y<=34 && *x<=15)
         {
-                *x=*x+1;
-        } 
+            *x=*x+1;
+        }
 
-        if (*x==31 && *y>=190)
+        if (*y>=COLS-44 && *x<=15)
         {
-                *x=*x+1;
-        } 
-
-        if (*x==17 && *y>=190)
-        {
-                *x=*x+1;
-        } 
-
+            *x=*x+1;
+        }
         break;
 
     case 's':
@@ -124,20 +117,10 @@ void game(int* exit,double* x,double* y){
             *x=*x-1;
         }
 
-        if (*x==34 && *y>=190)
+        if (*y<=34 && *x>=LINES-18)
         {
-                *x=*x-1;
-        } 
-
-        if (*x==19 && *y>=190)
-        {
-                *x=*x-1;
-        } 
-
-        if (*x==2 && *y>=190)
-        {
-                *x=*x-1;
-        } 
+            *x=*x-1;
+        }
         break;
 
     case 'd':
@@ -149,21 +132,12 @@ void game(int* exit,double* x,double* y){
             *y=*y-2;
         }
 
-        if (*y==190 && *x<=50 && *x>=34)
+        if (*y>=COLS-44 && *x<=15)
         {
             *y=*y-2;
-        } 
-
-        if (*y==190 && *x<=31 && *x>=19)
-        {
-            *y=*y-2;
-        } 
-
-        if (*y==190 && *x<=17 && *x>=2)
-        {
-            *y=*y-2;
-        } 
-
+        }
+        
+        
         break;
 
     case 'q':
@@ -174,6 +148,11 @@ void game(int* exit,double* x,double* y){
         {
             *y=*y+2;
         }
+
+        if (*y<=34 && *x<=15 || *y<=34 && *x>=LINES-23)
+        {
+            *y=*y+2;
+        }     
         break;
     
     case 'i':
