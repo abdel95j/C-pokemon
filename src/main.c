@@ -25,20 +25,21 @@ int main(){
         exit(1);
     }
 
+    //set fullscreen if not already set
+    if (LINES== 59 || LINES<63 && COLS<236)
+    {
+        system("wmctrl -r ':ACTIVE:' -b toggle,fullscreen");
+        sleep(1);
+    }  
+
     int exit=0;
-    double x,y;
+    double x,y,xmax,ymax;
 
     x=LINES/2;
     y=COLS/2;  
-
+    
     while (exit==0)
     {
-        if (LINES<60 && COLS<236)
-        {
-            system("wmctrl -r ':ACTIVE:' -b toggle,fullscreen");
-            sleep(1);
-        }  
-        
         game(&exit,&x,&y);
     }
     

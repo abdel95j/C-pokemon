@@ -10,7 +10,7 @@ void menu(int* exit){
     WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
-
+    
     while(chmenu!='i' && menuexit==0)
         {
             wclear(winmenu);
@@ -82,7 +82,7 @@ void menu(int* exit){
 void game(int* exit,double* x,double* y){
     WINDOW* map=newwin(LINES,COLS-1,0,0);
     int ch=ERR;
-
+        
     ch=getch();
             
     switch (ch)
