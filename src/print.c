@@ -26,8 +26,8 @@ void print_menu(WINDOW* win,double x,double y){
     mvwprintw(win,5,COLS/5,"88 `8b     d8' 88  88aaaaa      88  `8b   88  88        88\n");
     mvwprintw(win,6,COLS/5,"88  `8b   d8'  88  88           88   `8b  88  88        88\n");
     mvwprintw(win,7,COLS/5,"88   `8b d8'   88  88           88    `8b 88  88        88\n");
-    mvwprintw(win,8,COLS/5,"88    `888'    88  88           88     `8888  COLS8a.    .a8P\n"); 
-    mvwprintw(win,9,COLS/5,"88     `8'     88  88888888888  88      `888    `COLS8888COLS  '\n");
+    mvwprintw(win,8,COLS/5,"88    `888'    88  88           88     `8888  88a.    .a8P\n"); 
+    mvwprintw(win,9,COLS/5,"88     `8'     88  88888888888  88      `888   '88888888'\n");
         
     mvwprintw(win,13,COLS/15,"__   _____  _   _ ____    _____ _____    _    __  __ ");
     mvwprintw(win,13+1,COLS/15,"\\ \\ / / _ \\| | | |  _ \\  |_   _| ____|  / \\  |  \\/  |");
@@ -54,7 +54,7 @@ void print_menu(WINDOW* win,double x,double y){
     mvwprintw(win,x+4,y,"   ':");
 }
 
-void print_map(WINDOW* map){
+void print_map(WINDOW* map){ 
 
 mvwprintw(map,LINES-18,2,"        ________| |________"); 
 mvwprintw(map,LINES-18+1,2,"       /                  /\\      ");  
@@ -65,7 +65,7 @@ mvwprintw(map,LINES-18+5,2,"   /        |[]| /    /        \\  ");
 mvwprintw(map,LINES-18+6,2,"  /         |__|/    /==========\\ ");                
 mvwprintw(map,LINES-18+7,2," /__________________/    __    I_\\");            
 mvwprintw(map,LINES-18+8,2,"    I     |__|__|       |[]|   I  ");   
-mvwprintw(map,LINES-18+9,2,"    I     |__|__|       | -|   I  ");   
+mvwprintw(map,LINES-18+9,2,"    I     |__|__|       | -|   < ");   
 mvwprintw(map,LINES-18+10,2,"    I      XXXXX        |__|   I  ");
 mvwprintw(map,LINES-18+11,2,"   ~~~~~~~~~~~~~~~~~~~~~~~~~~~"   "~~~ "); 
 
@@ -76,9 +76,9 @@ mvwprintw(map,5+3,COLS-38,"/_______________________________\\");
 mvwprintw(map,5+4,COLS-38,"  |||||||||||||||||||||||||||||"); 
 mvwprintw(map,5+5,COLS-38,"  ||___|___||||||||||||___|__||"); 
 mvwprintw(map,5+6,COLS-38,"  ||___|___||||||||||||___|__||"); 
-mvwprintw(map,5+7,COLS-38,"  |||||||||||||||||||||||||||||"); 
-mvwprintw(map,5+8,COLS-38,"  ||||||||||||||  |||||||||||||"); 
-mvwprintw(map,5+9,COLS-38,"  |||||||||||||| -|||||||||||||"); 
+mvwprintw(map,5+7,COLS-38,"  |||||||||||||    ||||||||||||"); 
+mvwprintw(map,5+8,COLS-38,"  >||||||||||||   -||||||||||||"); 
+mvwprintw(map,5+9,COLS-38,"  |||||||||||||    ||||||||||||"); 
 mvwprintw(map,5+10,COLS-38," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
 mvwprintw(map,5,2,"  _____________________________ ");                   
@@ -89,7 +89,7 @@ mvwprintw(map,5+4,2," |_________| :-()-: |__________|");
 mvwprintw(map,5+5,2,"  | ______ | ',,,,' | _______ | ");                   
 mvwprintw(map,5+6,2,"  ||  |   ||  ____  ||   |   || ");                   
 mvwprintw(map,5+7,2,"  ||--+---|| |    | ||---+---|| ");                   
-mvwprintw(map,5+8,2,"  ||__|___|| |   -| ||___|___|| ");                   
+mvwprintw(map,5+8,2,"  ||__|___|| |   -| ||___|___|< ");                   
 mvwprintw(map,5+9,2,"  |________|_|____|_|_________| ");                   
 mvwprintw(map,5+10,2," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");                   
 }

@@ -97,7 +97,7 @@ void game(int* exit,double* x,double* y){
             *x=*x+1;
         }
 
-        if (*y<=34 && *x<=15)
+        if (*y<=36 && *x<=15)
         {
             *x=*x+1;
         }
@@ -117,7 +117,7 @@ void game(int* exit,double* x,double* y){
             *x=*x-1;
         }
 
-        if (*y<=34 && *x>=LINES-18)
+        if (*y<=36 && *x>=LINES-23)
         {
             *x=*x-1;
         }
@@ -149,7 +149,7 @@ void game(int* exit,double* x,double* y){
             *y=*y+2;
         }
 
-        if (*y<=34 && *x<=15 || *y<=34 && *x>=LINES-23)
+        if (*y<=36 && *x<=15 || *y<=36 && *x>=LINES-23)
         {
             *y=*y+2;
         }     
