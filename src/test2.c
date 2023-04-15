@@ -3,7 +3,7 @@
 
 int main() {
   initscr();
-  int l=5;int c=1;int ch=ERR;
+  int l=1;int c=1;int ch=ERR;
   WINDOW* fenetre = newwin(35, 40, 0, 0);
   nodelay(stdscr,TRUE);
   noecho();
@@ -17,24 +17,33 @@ int main() {
                 switch (ch)
                 {
                 case 'z':
-                 l--;
+                 if(l!=1)
+                 {l--;}
                     break;
                 case 's':
-                l++;
+                if(l!=24){
+                l++;}
                     break;
                 case 'd':
-                c++;
+                if(c!=19){
+                  c++;}
                     break;
                 case 'q':
-                c--;
+                if(c!=1){
+                  c--;}
                     break;
                 default:
                     break;
                 }
   WINDOW* fenetre_affichage=subwin(fenetre,10,20,l,c);
+  WINDOW* cadre= newwin(12,22,LINES/2,COLS/2);
+  box(cadre,0,0);
+  mvwin(cadre,LINES/2-1,COLS/2-1);
   mvwin(fenetre_affichage,LINES/2,COLS/2);
+  wrefresh(cadre);
   wrefresh(fenetre_affichage);
   usleep(80000);
+  delwin(cadre);
   delwin(fenetre_affichage);
   }
   wrefresh(fenetre);
