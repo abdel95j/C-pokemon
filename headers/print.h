@@ -4,8 +4,8 @@
 #include "game.h"
 #include <curses.h>
 
-void print_player(WINDOW* win,double x,double y);
-void print_menu(WINDOW* win,double x,double y);
+void print_player(WINDOW* win,int x,int y);
+void print_menu(WINDOW* win,int x,int y);
 void print_map(WINDOW* map);
 
 #endif
