@@ -33,7 +33,7 @@ int main(){
     }  
 
     int exit=0;
-    double x,y,xmax,ymax;
+    int x,y,xmax,ymax;
 
     x=LINES/2;
     y=COLS/2;  

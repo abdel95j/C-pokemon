@@ -79,7 +79,7 @@ void menu(int* exit){
         delwin(winmenu);
 }
 
-void game(int* exit,double* x,double* y){
+void game(int* exit,int* x,int* y){
     WINDOW* map=newwin(LINES,COLS-1,0,0);
     int ch=ERR;
         
@@ -162,11 +162,15 @@ void game(int* exit,double* x,double* y){
         break;
     }
 
+    WINDOW* affichage=subwin(map,20,50,*x,*y);
+
     wmove(map,*x,*y);
     box(map,0,0);
-    print_player(map,*x,*y);
+    box(affichage,0,0);
+    print_player(affichage,*x-20,*y-50);
     print_map(map);
     wrefresh(map);
     sleep(1/60);
     delwin(map);
+    delwin(affichage);
 }

@@ -6,7 +6,7 @@
 #include "../headers/structs.h"
 
 
-void print_player(WINDOW* win,double x,double y){
+void print_player(WINDOW* win,int x,int y){
     init_pair(1,COLOR_RED,COLOR_BLACK);
     wattron(win,COLOR_PAIR(1));
     mvwprintw(win,x,y,"   _");                
@@ -18,7 +18,7 @@ void print_player(WINDOW* win,double x,double y){
     wattroff(win,COLOR_PAIR(1));
 }
 
-void print_menu(WINDOW* win,double x,double y){
+void print_menu(WINDOW* win,int x,int y){
 
     mvwprintw(win,2,COLS/5,"88b           d88  88888888888  888b      88  88        88\n");
     mvwprintw(win,3,COLS/5,"888b         d888  88           8888b     88  88        88\n");
