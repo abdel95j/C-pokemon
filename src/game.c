@@ -80,78 +80,40 @@ void menu(int* exit){
 }
 
 void game(int* exit,int* x,int* y){
-    WINDOW* map=newwin(LINES,COLS-1,0,0);
+    WINDOW* map=newwin(LINES,COLS-1,*x,*y);
+    WINDOW* affichage=subwin(map,20,50,LINES/2-7,COLS/2-21);
+
+    int Xaff,Yaff;
+    getmaxyx(affichage,Xaff,Yaff);
+
     int ch=ERR;
         
     ch=getch();
             
     switch (ch)
     {
-    case 'z':
-        wclear(map);
-        *x=*x-1;
-
-        if (*x<=0)
-        {
-            *x=*x+1;
-        }
-
-        if (*y<=35 && *x<=15)
-        {
-            *x=*x+1;
-        }
-
-        if (*y>=COLS-44 && *x<=15)
-        {
-            *x=*x+1;
-        }
-        break;
-
     case 's':
         wclear(map);
-        *x=*x+1;
-
-        if (*x>=LINES-6)
-        {
-            *x=*x-1;
-        }
-
-        if (*y<=36 && *x>=LINES-23)
-        {
-            *x=*x-1;
-        }
+        *x=*x-1;
+        
         break;
 
-    case 'd':
+    case 'z':
         wclear(map);
-        *y=*y+2;
-
-        if (*y>=COLS-8)
-        {
-            *y=*y-2;
-        }
-
-        if (*y>=COLS-44 && *x<=15)
-        {
-            *y=*y-2;
-        }
-        
+        *x=*x+1;
         
         break;
 
     case 'q':
         wclear(map);
+        *y=*y+2;
+
+        break;
+
+    case 'd':
+        wclear(map);
         *y=*y-2;
 
-        if (*y<=0)
-        {
-            *y=*y+2;
-        }
-
-        if (*y<=35 && *x<=15 || *y<=36 && *x>=LINES-23)
-        {
-            *y=*y+2;
-        }     
         break;
     
     case 'i':
@@ -162,12 +124,9 @@ void game(int* exit,int* x,int* y){
         break;
     }
 
-    WINDOW* affichage=subwin(map,20,50,*x,*y);
-
-    wmove(map,*x,*y);
     box(map,0,0);
     box(affichage,0,0);
-    print_player(affichage,*x-20,*y-50);
+    print_player(affichage,Xaff/2-3,Yaff/2-4);
     print_map(map);
     wrefresh(map);
     sleep(1/60);

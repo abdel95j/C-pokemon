@@ -33,11 +33,11 @@ int main(){
     }  
 
     int exit=0;
-    int x,y,xmax,ymax;
+    int x,y;
 
-    x=LINES/2;
-    y=COLS/2;  
-    
+    x=0;
+    y=0;
+
     while (exit==0)
     {
         game(&exit,&x,&y);
