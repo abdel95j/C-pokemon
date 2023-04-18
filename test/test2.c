@@ -6,24 +6,31 @@
 
 int main() {
   initscr();
-  int l=1;int c=1;int ch=ERR;int i;int j;int quit=0;
+  int l=1;int c=1;int ch=ERR;int i;int j;int quit=0;int ind_cadre=0;
   struct timespec trm, trq = { 0,10000000 };
-  WINDOW* fenetre = newwin(60, 200, 0, 0);
-  WINDOW* fenetre_backup= newwin(60, 200, 0, 0);
+  WINDOW* fenetre = newwin(100, 400, 0, 0);
+  WINDOW* fenetre_backup= newwin(100, 400, 0, 0);
   nodelay(stdscr,TRUE);
   keypad(stdscr, TRUE);
   noecho();
   curs_set(0);
   box(fenetre,0,0);
-  box(fenetre_backup,0,0);                /*abscisse=ligne, ordonnée=colonne*/
-  for(i=11;i<49;i++){ /*i=abscisse de @ dans fenetre d'affichage +1; i< nombre lignes fenetre - abscisse de @ dans fenêtre d'affichage -1*/
+  box(fenetre_backup,0,0); 
+  mvwprintw(fenetre,1,1,"*");          /*reperage des coins par des étoiles*/
+  mvwprintw(fenetre,1,398,"*");
+  mvwprintw(fenetre,98,1,"*");
+  mvwprintw(fenetre,98,398,"*");                                             /*abscisse=ligne, ordonnée=colonne*/
+  for(i=11;i<89;i++){ /*i=abscisse de @ dans fenetre d'affichage +1; i< nombre lignes fenetre - abscisse de @ dans fenêtre d'affichage -1*/
     mvwprintw(fenetre,i,1,"                                        ligne a  ");/*"ordonnée de @ dans fenetre d'affichage" d'espaces*/
-    for(j=50;j<159;j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
+    for(j=50;j<359;j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
       mvwprintw(fenetre,i,j,"a");
     }
   }
-  copywin(fenetre,fenetre_backup,0,0,0,0,59,199,FALSE);
-  while(quit==0){  
+  fenetre_backup=dupwin(fenetre);
+  while(quit==0){
+     WINDOW* fenetre_affichage=subwin(fenetre,21,81,l,c);
+     mvwin(fenetre_affichage,LINES/4,COLS/4);
+     mvwprintw(fenetre_affichage,10,40,"@");
                 ch=getch();
                 switch (ch)
                 {
@@ -34,12 +41,12 @@ int main() {
                     break;
                 case KEY_DOWN:
                 case 's':
-                if(l!=38){  /*l!= nombre lignes de fenêtre -1 - nombre lignes de fenetre affcihage*/
+                if(l!=78){  /*l!= nombre lignes de fenêtre -1 - nombre lignes de fenetre affcihage*/
                 l++;}
                     break;
                 case KEY_RIGHT:
                 case 'd':
-                if(c!=118){ /*c!= nombre colonnes de fenêtre -1 - nombre colonnes de fenetre affcihage*/
+                if(c!=318){ /*c!= nombre colonnes de fenêtre -1 - nombre colonnes de fenetre affcihage*/
                   c++;}
                     break;
                 case KEY_LEFT:
@@ -48,16 +55,15 @@ int main() {
                   c--;}
                     break;
                 case 'm':
-                menu(&quit);
+                menu(&quit,fenetre_affichage);
+                cadre_cam();
                 default:
                     break;
                 }
-  WINDOW* fenetre_affichage=subwin(fenetre,21,81,l,c);
-  mvwin(fenetre_affichage,LINES/4,COLS/4);
-  mvwprintw(fenetre_affichage,10,40,"@");
-  cadre();
-  wrefresh(fenetre_affichage);
-  copywin(fenetre_backup,fenetre,0,0,0,0,59,199,FALSE);
+   if(ind_cadre==0){cadre_cam();
+                  ind_cadre++;}      /*pour cadrer la camera la première fois sans cadrer à chaque fois dans la boucle*/
+  wrefresh(fenetre_affichage);       //affichage camera
+  fenetre=dupwin(fenetre_backup); // remise à neuf de la fenêtre avec la fenêtre backup
   nanosleep(&trq,&trm);
   delwin(fenetre_affichage);
   }
