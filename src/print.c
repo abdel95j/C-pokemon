@@ -54,7 +54,7 @@ void print_menu(WINDOW* win,int x,int y){
     mvwprintw(win,x+4,y,"   ':");    
 }
 
-void print_map(WINDOW* map){ 
+void create_map(WINDOW* map){ 
 
     mvwprintw(map,LINES-18,2,"        ________| |________"); 
     mvwprintw(map,LINES-18+1,2,"       /                  /\\      ");  

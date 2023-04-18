@@ -11,7 +11,7 @@ void menu(int* exit){
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
     
-    while(chmenu!='i' && menuexit==0)
+    while(chmenu!='m' && menuexit==0)
         {
             wclear(winmenu);
             
@@ -80,8 +80,8 @@ void menu(int* exit){
 }
 
 void game(int* exit,int* x,int* y){
-    WINDOW* map=newwin(LINES,COLS-1,*x,*y);
-    WINDOW* affichage=subwin(map,20,50,LINES/2-7,COLS/2-21);
+    WINDOW* map=newwin(LINES,COLS,*x,*y);
+    WINDOW* affichage=subwin(map,50,170,LINES/4-7,COLS/4-30);
 
     int Xaff,Yaff;
     getmaxyx(affichage,Xaff,Yaff);
@@ -116,10 +116,13 @@ void game(int* exit,int* x,int* y){
 
         break;
     
-    case 'i':
+    case 'm':
         menu(exit);
         break;
-    
+
+    case 'p':
+        *exit=1;
+        break;
     default:
         break;
     }
@@ -127,8 +130,8 @@ void game(int* exit,int* x,int* y){
     box(map,0,0);
     box(affichage,0,0);
     print_player(affichage,Xaff/2-3,Yaff/2-4);
-    print_map(map);
-    wrefresh(map);
+    create_map(map);
+    wrefresh(affichage);
     sleep(1/60);
     delwin(map);
     delwin(affichage);
