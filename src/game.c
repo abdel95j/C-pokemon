@@ -80,8 +80,8 @@ void menu(int* exit){
 }
 
 void game(int* exit,int* x,int* y){
-    WINDOW* map=newwin(LINES,COLS,*x,*y);
-    WINDOW* affichage=subwin(map,50,170,LINES/4-7,COLS/4-30);
+    WINDOW* map=newwin(200,300,*x,*y);
+    WINDOW* affichage=subwin(map,50,170,20,20);
 
     int Xaff,Yaff;
     getmaxyx(affichage,Xaff,Yaff);
@@ -127,7 +127,6 @@ void game(int* exit,int* x,int* y){
         break;
     }
 
-    box(map,0,0);
     box(affichage,0,0);
     print_player(affichage,Xaff/2-3,Yaff/2-4);
     create_map(map);

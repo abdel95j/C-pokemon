@@ -34,8 +34,8 @@ int main(){
     int exit=0;
     int x,y;
 
-    x=0;
-    y=0;
+    x=20;
+    y=20;
 
     while (exit==0)
     {
