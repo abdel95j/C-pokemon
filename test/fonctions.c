@@ -12,7 +12,58 @@ void reset(){
     wrefresh(ecrannoir);
     delwin(ecrannoir);
 }
-void menu(int* pquit){
+void sac(WINDOW* cam_state){
+  int ch=ERR; int x=5;
+    struct timespec trm, trq = { 0,10000000 };
+    while(ch!='q'){
+      ch=getch();
+      WINDOW* sac=newwin(16,23,(LINES/8)+13,(COLS/8)-11);
+      box(sac,0,0);
+      switch (ch)
+      {
+      case KEY_UP:
+      case 'z':
+        if(x!=5){
+            x-=3;
+        }
+        break;
+      case KEY_DOWN:
+      case 's':
+        if(x!=14){
+            x+=3;
+        }
+        break;
+      case KEY_ENTER:
+      case 'e':
+      case '\r':
+      case '\n':
+        switch (x)
+        {
+        case 14:
+          ch='q';
+          break;
+        default:
+          break;
+        }
+        break;
+      default:
+        break;
+      }
+      mvwprintw(sac,1,10,"sac");
+      mvwprintw(sac,5,1,"Pokeballs");
+      mvwprintw(sac,8,1,"Potions");
+      mvwprintw(sac,11,1,"CT");
+      mvwprintw(sac,14,1,"Fermer le sac");
+      mvwprintw(sac,x,17,"<-");
+      wrefresh(sac);
+      delwin(sac);
+      nanosleep(&trq,&trm);
+    }
+    reset();
+    cadre_cam();
+    wrefresh(cam_state);
+}
+void menu(int* pquit,WINDOW* cam_state){
     int ch=ERR; int x=4;
     struct timespec trm, trq = { 0,10000000 };
     while(ch!='m' && *pquit==0){
@@ -37,11 +88,19 @@ void menu(int* pquit){
       case 'e':
       case '\r':
       case '\n':
-        if(x==7){
-            ch='m';
-        }
-        if(x==8){
-            *pquit=1;
+        switch (x)
+        {
+        case 5:
+          sac(cam_state);
+          break;
+        case 7:
+          ch='m';
+          break;
+        case 8:
+          *pquit=1;
+         break;
+        default:
+          break;
         }
         break;
       default:
@@ -60,7 +119,7 @@ void menu(int* pquit){
     }
     reset();
 }
-void cadre(){
+void cadre_cam(){
     WINDOW* cadre= newwin(23,83,LINES/4-1,COLS/4-1);
     box(cadre,0,0);
     wrefresh(cadre);

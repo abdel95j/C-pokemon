@@ -28,7 +28,7 @@ int main(){
     //set fullscreen if not already set
     if (LINES== 59 || LINES<63 && COLS<236)
     {
-        system("xdotool key F11"); //sudo apt install xdotool
+        system("xdotool key FN+F11"); //sudo apt install xdotool
     }  
 
     int exit=0;

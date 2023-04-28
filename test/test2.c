@@ -20,17 +20,17 @@ int main() {
   mvwprintw(fenetre,1,398,"*");
   mvwprintw(fenetre,98,1,"*");
   mvwprintw(fenetre,98,398,"*");                                             /*abscisse=ligne, ordonnée=colonne*/
-  for(i=11;i<89;i++){ /*i=abscisse de @ dans fenetre d'affichage +1; i< nombre lignes fenetre - abscisse de @ dans fenêtre d'affichage -1*/
-    mvwprintw(fenetre,i,1,"                                        ligne a  ");/*"ordonnée de @ dans fenetre d'affichage" d'espaces*/
-    for(j=50;j<359;j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
+  for(i=((LINES-2)/2)+1;i<99-((LINES-2)/2);i++){ /*i=abscisse de @ dans fenetre d'affichage +1; i< nombre lignes fenetre - abscisse de @ dans fenêtre d'affichage -1*/
+    mvwprintw(fenetre,i,1,"                                                                      ligne a  ");/*"ordonnée de @ dans fenetre d'affichage" d'espaces*/
+    for(j=80;j<399-((COLS-2)/2);j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
       mvwprintw(fenetre,i,j,"a");
     }
   }
   fenetre_backup=dupwin(fenetre);
   while(quit==0){
-     WINDOW* fenetre_affichage=subwin(fenetre,21,81,l,c);
-     mvwin(fenetre_affichage,LINES/4,COLS/4);
-     mvwprintw(fenetre_affichage,10,40,"@");
+     WINDOW* fenetre_affichage=subwin(fenetre,LINES-1,COLS-1,l,c); //21,81
+     mvwin(fenetre_affichage,0,0); //LINES/4,COLS/4
+     mvwprintw(fenetre_affichage,(LINES-2)/2,(COLS-2)/2,"@"); //10,40
                 ch=getch();
                 switch (ch)
                 {
@@ -41,12 +41,12 @@ int main() {
                     break;
                 case KEY_DOWN:
                 case 's':
-                if(l!=78){  /*l!= nombre lignes de fenêtre -1 - nombre lignes de fenetre affcihage*/
+                if(l!=62){  /*l!= nombre lignes de fenêtre -1 - nombre lignes de fenetre affcihage*/
                 l++;}
                     break;
                 case KEY_RIGHT:
                 case 'd':
-                if(c!=318){ /*c!= nombre colonnes de fenêtre -1 - nombre colonnes de fenetre affcihage*/
+                if(c!=258){ /*c!= nombre colonnes de fenêtre -1 - nombre colonnes de fenetre affcihage*/
                   c++;}
                     break;
                 case KEY_LEFT:
