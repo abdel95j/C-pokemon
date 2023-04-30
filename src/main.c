@@ -8,7 +8,6 @@
 
 int main(){
     initscr();
-    noecho();
     cbreak();
     start_color();
     nodelay(stdscr,TRUE);

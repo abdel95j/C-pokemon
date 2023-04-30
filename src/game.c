@@ -11,6 +11,7 @@ void menu(int* exit){
     WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
+    keypad(stdscr,TRUE);
     
     while(chmenu!='m' && menuexit==0)
         {
@@ -25,60 +26,60 @@ void menu(int* exit){
 
             switch (chmenu)
             {
-            case KEY_UP:
-            case 'z':
-                if (x==13)
-                {
-                    //nothin happens
-                }
-                else if (x==22)
-                {
-                    x=13;
-                }
-                else if (x==31)
-                {
-                    x=22;
-                }
-                break;
-            
-            case KEY_DOWN:
-            case 's':
-                if (x==31)
-                {
-                    //nothin happens
-                }
-                else if (x==22)
-                {
-                    x=31;
-                }
-                else if (x==13)
-                {
-                    x=22;
-                }
-                break;
-
-            case KEY_ENTER:
-            case 'e':
-            case '\r':
-            case '\n':
-                switch (x)
-                {
-                case 31:
-                    menuexit=1;
-                    *exit=1;
-                    break;
-                
-                case 22:
-                    /* code */
+                case KEY_UP:
+                case 'z':
+                    if (x==13)
+                    {
+                        //nothing happens
+                    }
+                    else if (x==22)
+                    {
+                        x=13;
+                    }
+                    else if (x==31)
+                    {
+                        x=22;
+                    }
                     break;
 
-                case 13:
+                case KEY_DOWN:
+                case 's':
+                    if (x==31)
+                    {
+                        //nothing happens
+                    }
+                    else if (x==22)
+                    {
+                        x=31;
+                    }
+                    else if (x==13)
+                    {
+                        x=22;
+                    }
                     break;
-                }
-                break;
-            
-            default:
-                break;
+
+                case KEY_ENTER:
+                case 'e':
+                case '\r':
+                case '\n':
+                    switch (x)
+                    {
+                    case 31:
+                        menuexit=1;
+                        *exit=1;
+                        break;
+
+                    case 22:
+                        /* code */
+                        break;
+
+                    case 13:
+                        break;
+                    }
+                    break;
+
+                default:
+                    break;
             }
             sleep(1/60);
         }
@@ -95,9 +96,9 @@ void game(int* exit,int* l,int* c){
     box(fenetre_backup,0,0);
 
     for(i=((LINES-2)/2);i<169-((LINES-2)/2);i++){ /*i=abscisse de @ dans map d'affichage +1; i< nombre lignes map - abscisse de @ dans fenêtre d'affichage -1*/
-        mvwprintw(map,i,1,"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");/*"ordonnée de @ dans map d'affichage" d'espaces*/
+        mvwprintw(map,i,1,"                                                                                                                             ");/*"ordonnée de @ dans map d'affichage" d'espaces*/
         for(j=126;j<500-((COLS-2)/2);j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
-          mvwprintw(map,i,j,"░");
+          mvwprintw(map,i,j," ");
         }
     }
 
