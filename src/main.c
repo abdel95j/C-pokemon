@@ -32,14 +32,12 @@ int main(){
     }  
 
     int exit=0;
-    int x,y;
-
-    x=20;
-    y=20;
+    int l=0,c=0;
 
     while (exit==0)
     {
-        game(&exit,&x,&y);
+        game(&exit,&l,&c);
+
     }
     
     endwin();

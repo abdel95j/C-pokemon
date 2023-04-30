@@ -24,6 +24,7 @@ void menu(int* exit){
 
             switch (chmenu)
             {
+            case KEY_UP:
             case 'z':
                 if (x==13)
                 {
@@ -39,6 +40,7 @@ void menu(int* exit){
                 }
                 break;
             
+            case KEY_DOWN:
             case 's':
                 if (x==31)
                 {
@@ -79,59 +81,43 @@ void menu(int* exit){
         delwin(winmenu);
 }
 
-void game(int* exit,int* x,int* y){
-    WINDOW* map=newwin(200,300,*x,*y);
-    WINDOW* affichage=subwin(map,50,170,20,20);
-
-    int Xaff,Yaff;
-    getmaxyx(affichage,Xaff,Yaff);
-
-    int ch=ERR;
-        
-    ch=getch();
-            
-    switch (ch)
-    {
-    case 's':
-        wclear(map);
-        *x=*x-1;
-        
-        break;
-
-    case 'z':
-        wclear(map);
-        *x=*x+1;
-        
-        break;
-
-    case 'q':
-        wclear(map);
-        *y=*y+2;
-
-        break;
-
-    case 'd':
-        wclear(map);
-        *y=*y-2;
-
-        break;
+void game(int* exit,int* l,int* c){
+    int ch=ERR;int i;int j;
+    WINDOW* map = newwin(100+LINES/2+LINES/2, 350+COLS/2+COLS/2, 0, 0);
+    WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
+    box(map,0,0);
+    box(cam,0,0);
     
-    case 'm':
-        menu(exit);
-        break;
-
-    case 'p':
-        *exit=1;
-        break;
-    default:
-        break;
-    }
-
-    box(affichage,0,0);
-    print_player(affichage,Xaff/2-3,Yaff/2-4);
-    create_map(map);
-    wrefresh(affichage);
+       mvwprintw(cam,LINES/2,COLS/2,"@");
+                ch=getch();
+                switch (ch)
+                {
+                case KEY_UP:
+                case 'z':
+                 *l=*l-1;
+                    break;
+                case KEY_DOWN:
+                case 's':
+                *l=*l+1;
+                    break;
+                case KEY_RIGHT:
+                case 'd':
+                  *c=*c+1;
+                    break;
+                case KEY_LEFT:
+                case 'q':
+                  *c=*c-1;
+                    break;
+                case 'm':
+                menu(exit);
+                case 'p':
+                *exit=1;
+                    break;
+                default:
+                    break;
+                }     /*pour cadrer la camera la première fois sans cadrer à chaque fois dans la boucle*/
+    wrefresh(cam);       //affichage camera
     sleep(1/60);
+    delwin(cam);
     delwin(map);
-    delwin(affichage);
 }
