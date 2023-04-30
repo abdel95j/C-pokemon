@@ -32,7 +32,7 @@ void print_menu(WINDOW* win,int x,int y){
     mvwprintw(win,13,COLS/15,"__   _____  _   _ ____    _____ _____    _    __  __ ");
     mvwprintw(win,13+1,COLS/15,"\\ \\ / / _ \\| | | |  _ \\  |_   _| ____|  / \\  |  \\/  |");
     mvwprintw(win,13+2,COLS/15," \\ V / | | | | | | |_) |   | | |  _|   / _ \\ | |\\/| |");
-    mvwprintw(win,13+3,COLS/15,"  | || |_| | |_| |  _ <    | | | |___ / ___ \\| |  | |");
+    mvwprintw(win,13+3,COLS/15,"  | || |_| | |_| |  _ /    | | | |___ / ___ \\| |  | |");
     mvwprintw(win,13+4,COLS/15,"  |_| '___/ '___/|_| '_\\   |_| |_____/_/   \\_\\_|  |_|");
 
     mvwprintw(win,22,COLS/15," ____    ___     _______ ");
@@ -54,7 +54,11 @@ void print_menu(WINDOW* win,int x,int y){
     mvwprintw(win,x+4,y,"   ':");    
 }
 
-void create_map(WINDOW* map){ 
+void create_map(WINDOW* map){
+    mvwprintw(map,0,1,"*");
+    mvwprintw(map,0,1,"*");
+    mvwprintw(map,0,1,"*");
+    mvwprintw(map,0,1,"*");
 
     mvwprintw(map,LINES-18,2,"        ________| |________"); 
     mvwprintw(map,LINES-18+1,2,"       /                  /\\      ");  

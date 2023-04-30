@@ -13,7 +13,7 @@ void chargement(){
 
     WINDOW* pikachu_screen=newwin(LINES-1,COLS-1,0,0);
     FILE* f = NULL;
-    int frame_number, ch=ERR;
+    int count_points=0, frame_number, ch=ERR;
 
     f=fopen("pikachus.txt","r");
     if(f==NULL){
@@ -25,7 +25,7 @@ void chargement(){
         if(ch=='q'){break;}
         char ligne[101];int ligne_limite;
 
-        for(frame_number=1;frame_number<=4;frame_number++)
+        for(frame_number=1;frame_number<=4;frame_number++) 
         {
             switch (frame_number)
             {
@@ -47,14 +47,41 @@ void chargement(){
             for(int i=0;i<ligne_limite;i++){
                 fgets(ligne,100,f);
                 mvwprintw(pikachu_screen,i+2,15,"%s",ligne);
-                mvwprintw(pikachu_screen,5,120,"CHARGEMENT .....");
             }
+
+            // 4 affichages = 1sec
+            if (count_points<4)
+            {
+                mvwprintw(pikachu_screen,5,120,"CHARGEMENT."); 
+            }
+
+            else if (count_points<8)
+            {
+                mvwprintw(pikachu_screen,5,120,"CHARGEMENT.."); 
+            }
+            
+            else if (count_points<12)
+            {
+                mvwprintw(pikachu_screen,5,120,"CHARGEMENT..."); 
+            }
+
             wrefresh(pikachu_screen);
             wclear(pikachu_screen);
+            
             usleep(60000);
         }
+        if (count_points==11)
+        {
+            count_points=0;
+        }
+        else
+        {
+            count_points++;
+        }
+
         rewind(f);
     }
+    
     fclose(f);
     delwin(pikachu_screen);
     endwin();
