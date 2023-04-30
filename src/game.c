@@ -98,7 +98,7 @@ void game(int* exit,int* l,int* c){
 
     mvwin(cam,0,0);
     print_player(cam);
-    create_map(map);
+    create_map(map); 
 
     ch=getch();
     switch (ch)
