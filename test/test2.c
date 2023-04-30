@@ -61,7 +61,7 @@ int main() {
                     break;
                 }
    if(ind_cadre==0){cadre_cam();
-                  ind_cadre++;}      /*pour cadrer la camera la première fois sans cadrer à chaque fois dans la boucle*/
+                    ind_cadre++;}      /*pour cadrer la camera la première fois sans cadrer à chaque fois dans la boucle*/
   wrefresh(fenetre_affichage);       //affichage camera
   fenetre=dupwin(fenetre_backup); // remise à neuf de la fenêtre avec la fenêtre backup
   nanosleep(&trq,&trm);

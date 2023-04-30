@@ -59,6 +59,8 @@ void menu(int* exit){
 
             case KEY_ENTER:
             case 'e':
+            case '\r':
+            case '\n':
                 switch (x)
                 {
                 case 31:
@@ -93,9 +95,9 @@ void game(int* exit,int* l,int* c){
     box(fenetre_backup,0,0);
 
     for(i=((LINES-2)/2);i<169-((LINES-2)/2);i++){ /*i=abscisse de @ dans map d'affichage +1; i< nombre lignes map - abscisse de @ dans fenêtre d'affichage -1*/
-        mvwprintw(map,i,1,"                                                                                                                             ");/*"ordonnée de @ dans map d'affichage" d'espaces*/
+        mvwprintw(map,i,1,"░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░");/*"ordonnée de @ dans map d'affichage" d'espaces*/
         for(j=126;j<500-((COLS-2)/2);j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
-          mvwprintw(map,i,j," ");
+          mvwprintw(map,i,j,"░");
         }
     }
 
