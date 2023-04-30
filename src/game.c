@@ -8,21 +8,19 @@
 #include "../headers/print.h"
 
 void menu(int* exit){
-    WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
+    struct timespec trm, trq = { 0,10000000 };
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
-    keypad(stdscr,TRUE);
     
     while(chmenu!='m' && menuexit==0)
-        {
-            wclear(winmenu);
-            
+        {            
+            WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
             print_menu(winmenu,x,y);
 
             box(winmenu,0,0);
             wrefresh(winmenu);  
             
-            chmenu=getchar();                                         
+            chmenu=getch();                                         
 
             switch (chmenu)
             {
@@ -80,32 +78,27 @@ void menu(int* exit){
 
                 default:
                     break;
-            }
-            sleep(1/60);
+            } 
+            nanosleep(&trq,&trm);
+            delwin(winmenu);
         }
-        delwin(winmenu);
 }
 
 void game(int* exit,int* l,int* c){
     int ch=ERR;int i;int j;
     struct timespec trm, trq = { 0,10000000 };
     WINDOW* map = newwin(170,500, 0, 0);
-    WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
     WINDOW* fenetre_backup= newwin(170, 500, 0, 0);
-    box(map,0,0);
+    WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
+    WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
+    box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
     box(fenetre_backup,0,0);
-
-    for(i=((LINES-2)/2);i<169-((LINES-2)/2);i++){ /*i=abscisse de @ dans map d'affichage +1; i< nombre lignes map - abscisse de @ dans fenêtre d'affichage -1*/
-        mvwprintw(map,i,1,"                                                                                                                             ");/*"ordonnée de @ dans map d'affichage" d'espaces*/
-        for(j=126;j<500-((COLS-2)/2);j++){/*j= ordonnée qui suit;j< nombre colonnes fenêtre - ordonnée de @ dans fenêtre d'affichage -1 */
-          mvwprintw(map,i,j," ");
-        }
-    }
 
     fenetre_backup=dupwin(map);
 
     mvwin(cam,0,0);
-    mvwprintw(cam,(LINES-2)/2,(COLS-2)/2,"@"); //10,40
+    print_player(cam);
+    create_map(map);
 
     ch=getch();
     switch (ch)
@@ -119,7 +112,7 @@ void game(int* exit,int* l,int* c){
             break;
         case KEY_DOWN:
         case 's':
-            if (*l!=108)
+            if (*l!=103)
             {
                 *l=*l+1;
             }
@@ -127,9 +120,9 @@ void game(int* exit,int* l,int* c){
             break;
         case KEY_RIGHT:
         case 'd':
-            if (*c!=265)
+            if (*c!=256)
             {
-                *c=*c+1;
+                *c=*c+2;
             }
             
             break;
@@ -137,7 +130,7 @@ void game(int* exit,int* l,int* c){
         case 'q':
             if (*c!=0)
             {
-                *c=*c-1;
+                *c=*c-2;
             }
             
             break;
@@ -157,5 +150,6 @@ void game(int* exit,int* l,int* c){
     nanosleep(&trq,&trm);
     delwin(cam);
     delwin(map);
+    delwin(cadre);
     delwin(fenetre_backup);
 }

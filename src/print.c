@@ -6,16 +6,16 @@
 #include "../headers/structs.h"
 
 
-void print_player(WINDOW* win,int x,int y){
+void print_player(WINDOW* cam){
     init_pair(1,COLOR_RED,COLOR_BLACK);
-    wattron(win,COLOR_PAIR(1));
-    mvwprintw(win,x,y,"   _");                
-    mvwprintw(win,x+1,y,"  '_'");                
-    mvwprintw(win,x+2,y," /| |\\");
-    mvwprintw(win,x+3,y,"* |_| *");
-    mvwprintw(win,x+4,y,"  | |");
-    mvwprintw(win,x+5,y,"  - -");
-    wattroff(win,COLOR_PAIR(1));
+    wattron(cam,COLOR_PAIR(1));
+    mvwprintw(cam,((LINES-2)/2),(COLS-2)/2,"   _");                
+    mvwprintw(cam,((LINES-2)/2)+1,(COLS-2)/2,"  '_'");                
+    mvwprintw(cam,((LINES-2)/2)+2,(COLS-2)/2," /| |\\");
+    mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"* |_| *");
+    mvwprintw(cam,((LINES-2)/2)+4,(COLS-2)/2,"  | |");
+    mvwprintw(cam,((LINES-2)/2)+5,(COLS-2)/2,"  - -");
+    wattroff(cam,COLOR_PAIR(1));
 }
 
 void print_menu(WINDOW* win,int x,int y){
@@ -55,25 +55,24 @@ void print_menu(WINDOW* win,int x,int y){
 }
 
 void create_map(WINDOW* map){
-    mvwprintw(map,0,1,"*");
-    mvwprintw(map,0,1,"*");
-    mvwprintw(map,0,1,"*");
-    mvwprintw(map,0,1,"*");
 
-    mvwprintw(map,LINES-18,2,"        ________| |________"); 
-    mvwprintw(map,LINES-18+1,2,"       /                  /\\      ");  
-    mvwprintw(map,LINES-18+2,2,"      / HOME  ______     /  \\     ");   
-    mvwprintw(map,LINES-18+3,2,"     /       /\\    /    /    \\    ");  
-    mvwprintw(map,LINES-18+4,2,"    /       /  /__/    /      \\   ");   
-    mvwprintw(map,LINES-18+5,2,"   /        |[]| /    /        \\  ");       
-    mvwprintw(map,LINES-18+6,2,"  /         |__|/    /==========\\ ");                
-    mvwprintw(map,LINES-18+7,2," /__________________/    __    I_\\");            
-    mvwprintw(map,LINES-18+8,2,"    I     |__|__|       |[]|   I  ");   
-    mvwprintw(map,LINES-18+9,2,"    I     |__|__|       | -|   I<-");   
-    mvwprintw(map,LINES-18+10,2,"    I      XXXXX        |__|   I  ");
-    mvwprintw(map,LINES-18+11,2,"   ~~~~~~~~~~~~~~~~~~~~~~~~~~~"   "~~~ "); 
+    //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
 
-    mvwprintw(map,5,COLS-38,"                     ____");
+    mvwprintw(map,32,118,"        ________| |________"); 
+    mvwprintw(map,32+1,118,"       /                  /\\      ");  
+    mvwprintw(map,32+2,118,"      /       ______     /  \\     ");   
+    mvwprintw(map,32+3,118,"     /       /\\    /    /    \\    ");  
+    mvwprintw(map,32+4,118,"    /       /  /__/    /      \\   ");   
+    mvwprintw(map,32+5,118,"   /        |[]| /    /        \\  ");       
+    mvwprintw(map,32+6,118,"  /         |__|/    /==========\\ ");                
+    mvwprintw(map,32+7,118," /__________________/   HOME   I_\\");            
+    mvwprintw(map,32+8,118,"    I      _____         __    I  ");   
+    mvwprintw(map,32+9,118,"    I     |__|__|       |[]|   I");   
+    mvwprintw(map,32+10,118,"    I     |__|__|       | -|   I<-");
+    mvwprintw(map,32+11,118,"    I      XXXXX        |__|   I  ");
+    mvwprintw(map,32+12,118,"   ~~~~~~~~~~~~~~~~~~~~~~~~~~~"   "~~~ "); 
+
+/*    mvwprintw(map,5,COLS-38,"                     ____");
     mvwprintw(map,5+1,COLS-38,"  ___________________|  |______");
     mvwprintw(map,5+2,COLS-38," /      LAB                    \\ ");
     mvwprintw(map,5+3,COLS-38,"/_______________________________\\");
@@ -105,6 +104,6 @@ void create_map(WINDOW* map){
     mvwprintw(map,50+5,234," ");
     mvwprintw(map,50+6,234," ");
     mvwprintw(map,50+7,234," ");
-    mvwprintw(map,50+8,233,"==");
+    mvwprintw(map,50+8,233,"==");*/
 
 }

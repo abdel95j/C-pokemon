@@ -9,6 +9,7 @@
 int main(){
     initscr();
     cbreak();
+    noecho();
     start_color();
     nodelay(stdscr,TRUE);
     keypad(stdscr,TRUE);
@@ -31,12 +32,11 @@ int main(){
     }  
 
     int exit=0;
-    int l=0,c=0;
+    int l=52,c=130;
 
     while (exit==0)
     {
         game(&exit,&l,&c);
-
     }
     
     endwin();
