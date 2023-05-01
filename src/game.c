@@ -2,13 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
 
 void menu(int* exit){
-    struct timespec trm, trq = { 0,10000000 };
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
     
@@ -79,14 +77,13 @@ void menu(int* exit){
                 default:
                     break;
             } 
-            nanosleep(&trq,&trm);
+            usleep(16666.67);
             delwin(winmenu);
         }
 }
 
 void game(int* exit,int* l,int* c){
     int ch=ERR;int i;int j;
-    struct timespec trm, trq = { 0,10000000 };
     WINDOW* map = newwin(170,500, 0, 0);
     WINDOW* fenetre_backup= newwin(170, 500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
@@ -105,32 +102,136 @@ void game(int* exit,int* l,int* c){
     {
         case KEY_UP:
         case 'z':
-            if (*l!=0)
+            if (*l!=0)  //physic bordermap
             {
                 *l=*l-1;
             }
-            break;
-        case KEY_DOWN:
-        case 's':
-            if (*l!=103)
+
+            if (*c<=36 && *l==54)   //physic pokeshop
             {
                 *l=*l+1;
             }
+
+            if (*c<=36 && *l==14)   //physic home
+            {
+                *l=*l+1;
+            }
+
+            if (*c>=220 && *l==14)   //physic lab
+            {
+                *l=*l+1;
+            }
+
+            if (*c>=220 && *l==54)   //physic house 3
+            {
+                *l=*l+1;
+            }
+
+            if (*c>=220 && *l==79)   //physic house 4
+            {
+                *l=*l+1;
+            }
+
+            if (*c>=246 && *l==23)   //physic "OUTDSIDE"
+            {
+                *l=*l+1;
+            }
+
+            break;
+
+        case KEY_DOWN:
+        case 's':
+            if (*l!=103)    //physic bordermap
+            {
+                *l=*l+1;
+            }
+
+            if (*c<=36 && *l==39)   //physic pokeshop
+            {
+                *l=*l-1;
+            }
+
+            if (*c<=36 && *l==87)   //physic house 2
+            {
+                *l=*l-1;
+            }
+
+            if (*c>=220 && *l==37)   //physic house 3
+            {
+                *l=*l-1;
+            }
+
+            if (*c>=220 && *l==62)   //physic house 4
+            {
+                *l=*l-1;
+            }
+
+            if (*c>=220 && *l==87)   //physic house 5
+            {
+                *l=*l-1;
+            }
+
+            if (*c>=246 && *l==16)   //physic "OUTDSIDE"
+            {
+                *l=*l-1;
+            }
+            
             
             break;
         case KEY_RIGHT:
         case 'd':
-            if (*c!=256)
+            if (*c!=256)    //physic bordermap
             {
                 *c=*c+2;
             }
+
+            if (*c==220 && *l<=14)  //physic lab
+            {
+                *c=*c-2;
+            }
+
+            if (*c==220 && *l>=37 && *l<=54)  //physic house 3
+            {
+                *c=*c-2;
+            }
+
+            if (*c==220 && *l>=62 && *l<=79)  //physic house 4
+            {
+                *c=*c-2;
+            }
+
+            if (*c==220 && *l>=87)  //physic house 5
+            {
+                *c=*c-2;
+            }
+
+            if (*c==246 && *l>=16 && *l<=23)  //physic "OUTSIDE"
+            {
+                *c=*c-2;
+            }
+            
             
             break;
         case KEY_LEFT:
         case 'q':
-            if (*c!=0)
+            if (*c!=0)  //physic bordermap
             {
                 *c=*c-2;
+            }
+            
+            if (*c==36 && *l>=39 && *l<=54) //physic pokeshop
+            {
+                *c=*c+2;
+            }
+
+            if (*c==36 && *l<=14) //physic home
+            {
+                *c=*c+2;
+            }
+            
+            if (*c==36 && *l>=87) //physic house 2
+            {
+                *c=*c+2;
             }
             
             break;
@@ -144,10 +245,10 @@ void game(int* exit,int* l,int* c){
 
         default:
             break;
-    }                     /*pour cadrer la camera la première fois sans cadrer à chaque fois dans la boucle*/
-    wrefresh(cam);       //affichage camera
+    }                 
+    wrefresh(cam);       
     map=dupwin(fenetre_backup);
-    nanosleep(&trq,&trm);
+    usleep(16666.67);
     delwin(cam);
     delwin(map);
     delwin(cadre);
