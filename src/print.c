@@ -18,6 +18,104 @@ void print_player(WINDOW* cam){
     wattroff(cam,COLOR_PAIR(1));
 }
 
+void chargement(int time){
+    WINDOW* pikachu_screen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* pikachu_screen_void=newwin(LINES-1,COLS-1,0,0);
+    FILE* f = NULL;
+    int sec=0,count_points=0, frame_number;
+
+    f=fopen("../saves/pikachu_frames","r");
+    if(f==NULL){
+        printw("ouverture du fichier ratée");
+        exit(1);
+    }
+
+    while(sec!=6){
+        char ligne[101];int ligne_limite;
+
+        for(frame_number=1;frame_number<=4;frame_number++) 
+        {
+            switch (frame_number)
+            {
+            case 1:
+                ligne_limite=34;
+                break;
+            case 2:
+                ligne_limite=29;    /*ligne_limite=nombre de lignes de l'image*/
+                break;
+            case 3:
+                ligne_limite=30;
+                break;
+            case 4:
+                ligne_limite=34;
+                break;
+            default:
+                break;
+            }
+
+            int j=15; 
+            for(int i=0;i<ligne_limite;i++){
+                fgets(ligne,100,f);
+                mvwprintw(pikachu_screen,j,60,"%s",ligne);
+                j++;
+            }
+
+            // 4 affichages = 1sec
+            if (count_points<4)
+            {
+                mvwprintw(pikachu_screen,15,160,"    __                    ___                   ");
+                mvwprintw(pikachu_screen,15+1,160,"   / /   ____  ____ _____/ (_)___  ____ _       ");
+                mvwprintw(pikachu_screen,15+2,160,"  / /   / __ \\/ __ `/ __  / / __ \\/ __ `/       ");
+                mvwprintw(pikachu_screen,15+3,160," / /___/ /_/ / /_/ / /_/ / / / / / /_/ /  _ ");
+                mvwprintw(pikachu_screen,15+4,160,"/_____/\\____/\\__,_/\\__,_/_/_/ /_/\\__, /  (_)");
+                mvwprintw(pikachu_screen,15+5,160,"                                /____/          ");    
+            }
+
+            else if (count_points<8)
+            {
+                mvwprintw(pikachu_screen,15,160,"    __                    ___                   ");
+                mvwprintw(pikachu_screen,15+1,160,"   / /   ____  ____ _____/ (_)___  ____ _       ");
+                mvwprintw(pikachu_screen,15+2,160,"  / /   / __ \\/ __ `/ __  / / __ \\/ __ `/       ");
+                mvwprintw(pikachu_screen,15+3,160," / /___/ /_/ / /_/ / /_/ / / / / / /_/ /  _ _");
+                mvwprintw(pikachu_screen,15+4,160,"/_____/\\____/\\__,_/\\__,_/_/_/ /_/\\__, /  (_|_)");
+                mvwprintw(pikachu_screen,15+5,160,"                                /____/          ");
+            }
+            
+            else if (count_points<12)
+            {
+                mvwprintw(pikachu_screen,15,160,"    __                    ___                   ");
+                mvwprintw(pikachu_screen,15+1,160,"   / /   ____  ____ _____/ (_)___  ____ _       ");
+                mvwprintw(pikachu_screen,15+2,160,"  / /   / __ \\/ __ `/ __  / / __ \\/ __ `/       ");
+                mvwprintw(pikachu_screen,15+3,160," / /___/ /_/ / /_/ / /_/ / / / / / /_/ /  _ _ _ ");
+                mvwprintw(pikachu_screen,15+4,160,"/_____/\\____/\\__,_/\\__,_/_/_/ /_/\\__, /  (_|_|_)");
+                mvwprintw(pikachu_screen,15+5,160,"                                /____/          ");
+            }
+            
+            wrefresh(pikachu_screen);
+            wclear(pikachu_screen);
+            
+            usleep(68000);
+        }
+
+        if (count_points==11)
+        {
+            count_points=0;
+            sec+=3;
+        }
+        else
+        {
+            count_points++;
+        }
+
+        rewind(f);
+    }
+    
+    fclose(f);
+    delwin(pikachu_screen);
+    wrefresh(pikachu_screen_void);
+    endwin();
+}
+
 void print_menu(WINDOW* win,int x,int y){
 
     mvwprintw(win,2,COLS/5,"88b           d88  88888888888  888b      88  88        88\n");

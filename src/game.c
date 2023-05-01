@@ -66,7 +66,7 @@ void menu(int* exit){
                         break;
 
                     case 22:
-                        /* code */
+                        chargement();
                         break;
 
                     case 13:
@@ -77,7 +77,7 @@ void menu(int* exit){
                 default:
                     break;
             } 
-            usleep(16666.67);
+            usleep(16667);
             delwin(winmenu);
         }
 }
@@ -248,7 +248,7 @@ void game(int* exit,int* l,int* c){
     }                 
     wrefresh(cam);       
     map=dupwin(fenetre_backup);
-    usleep(16666.67);
+    usleep(16667);
     delwin(cam);
     delwin(map);
     delwin(cadre);

@@ -7,5 +7,6 @@
 void print_player(WINDOW* win);
 void print_menu(WINDOW* win,int x,int y);
 void create_map(WINDOW* map);
+void chargement();
 
 #endif
