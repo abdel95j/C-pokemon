@@ -32,8 +32,15 @@ int main(){
     }  
 
     int exit=0;
-    int l=52,c=130;
+    int l=52,c=130; //position caméra
+    int x=28,y=8; //position curseur menu principal
 
+    while (exit==0)
+    {
+        main_menu(&exit,&x,&y);
+    }
+    exit=0;
+    chargement();
     while (exit==0)
     {
         game(&exit,&l,&c);

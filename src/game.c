@@ -154,7 +154,62 @@ void inventory(){
         }
         delwin(sac);
         delwin(bag_array);
+        
     }
+}
+
+void main_menu(int* exit,int* x, int* y){
+    WINDOW* win=newwin(LINES-1,COLS-1,0,0);
+    int ch=ERR;
+    
+    box(win,0,0);
+    ch=getch();
+    print_main_menu(win,*x,*y);
+
+    wrefresh(win);
+    switch (ch)
+    {
+
+    case 'z':
+    case KEY_UP:
+        if (*x==38)
+        {
+            *x=28;
+        }
+        
+        break;
+
+    case 's':
+    case KEY_DOWN:
+        if (*x==28)
+        {
+            *x=38;
+        }
+        break; 
+
+    case 'e' :
+    case '\n' :
+    case '\r' :
+        switch (*x)
+        {
+        case 28:
+            *exit=1;
+            break;
+
+        case 38:
+            *exit=1;
+            break;
+        
+        default:
+            break;
+        }
+        break;  
+    
+    default:
+        break;
+    }
+    usleep(16667);
+    delwin(win);
 }
 
 void game(int* exit,int* l,int* c){

@@ -29,6 +29,7 @@ typedef struct
 /*
 types: 
 
+no obj=0
 pokeballs = 1
 potions=2
 bonbons=3
