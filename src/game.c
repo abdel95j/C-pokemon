@@ -27,6 +27,77 @@ void create_newplayer(trainer* newplayer){
     delwin(write);
 }
 
+void get_firstpoke(trainer* player){
+    int finish=0,ch=ERR;
+    int x=50,y=60;
+
+    while (finish==0)
+    {
+        WINDOW* pokewin=newwin(LINES-1,COLS-1,0,0);
+        print_get_firstpoke(pokewin,x,y);   
+        wrefresh(pokewin);
+        ch=getch();
+
+        switch (ch)
+        {
+        case 'd':
+        case KEY_RIGHT:
+            if (y==60)
+            {
+                y=115;
+            }
+
+            else if (y==115)
+            {
+                y=180;
+            }
+            break;
+
+        case 'q':
+        case KEY_LEFT :
+            if (y==115)
+            {
+                y=60;
+            }
+
+            else if (y==180)
+            {
+                y=115;
+            }
+            break;
+
+        case 'e':
+        case '\n':
+        case '\r':
+            switch (y)
+            {
+            case 60:
+                //trainer->poke1=bulbasaur
+                finish=1;
+                break;
+
+            case 115:
+                //trainer->poke1=charmander
+                finish=1;
+                break;
+
+            case 180:
+                //trainer->poke1=squirtle
+                finish=1;
+                break;
+            
+            default:
+                break;
+            }
+            break;
+        
+        default:
+            break;
+        }  
+        delwin(pokewin);
+    } 
+}
+
 void menu(int* exit){
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
@@ -215,6 +286,7 @@ void main_menu(trainer* player,int* exit,int* x, int* y){
         {
         case 28:
             create_newplayer(player);
+            get_firstpoke(player);
             *exit=1;
             chargement();
             break;
