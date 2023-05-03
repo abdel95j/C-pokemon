@@ -152,6 +152,39 @@ void print_menu(WINDOW* win,int x,int y){
     mvwprintw(win,x+4,y,"   ':");    
 }
 
+void print_inventory(WINDOW* sac,int x,int y){
+    int i;
+    
+    for ( i = 0; i < 40; i++)
+    {
+        mvwprintw(sac,1+i,(COLS/1.5)/2,"|");    //colonne du millieu
+    }    
+
+    for ( i = 0; i < 40; i++)
+    {
+        mvwprintw(sac,1+i,(COLS/1.5)/4,"|");    //colonne de gauche
+    }  
+
+    for ( i = 0; i < 40; i++)
+    {
+        mvwprintw(sac,1+i,(COLS/1.5)/1.33,"|");    //colonne de droite
+    } 
+
+    for ( i = 0; i < 155; i++)
+    {
+        mvwprintw(sac,(LINES/1.5)/3,1+i,"_");    //ligne du haut
+    }
+
+    for ( i = 0; i < 155; i++)
+    {
+        mvwprintw(sac,(LINES/1.5)/1.5,1+i,"_");    //ligne du bas
+    }
+
+    mvwprintw(sac,x,y,"  ,");      
+    mvwprintw(sac,x+1,y,".:::.");
+
+}
+
 void create_map(WINDOW* map){
 
     //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116

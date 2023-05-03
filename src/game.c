@@ -82,6 +82,81 @@ void menu(int* exit){
         }
 }
 
+void inventory(){
+    int finish=0,ch=ERR;
+    int x=12,y=17;
+
+    while (finish==0)
+    {
+        WINDOW* sac = newwin(LINES/1.5,COLS/1.5,(LINES/6)+5,(COLS/6)+1);
+        WINDOW* bag_array=newwin(5,COLS/1.5,(LINES/6),COLS/6+1);
+        box(sac,0,0);
+
+        mvwprintw(bag_array,1,12," ___   _   ___ ");
+        mvwprintw(bag_array,1+1,12,"| _ ) /_\\ / __|");
+        mvwprintw(bag_array,1+2,12,"| _ \\/ _ \\ (_ |");
+        mvwprintw(bag_array,1+3,12,"|___/_/ \\_\\___|");
+                                  
+        ch=getch();
+        print_inventory(sac,x,y);        
+        wrefresh(sac);
+        wrefresh(bag_array);
+        switch (ch)
+        {
+        case 'i':
+            finish=1;
+            break;
+
+        case 'q' :
+        case KEY_LEFT :
+            if (y!=17)
+            {
+                y-=40;
+            }
+            break;
+
+        case 'd' :
+        case KEY_RIGHT :
+            if (y!=137)
+            {
+                y+=40;
+            }
+            break;
+
+        case 'z' :
+        case KEY_UP :
+            if (x==39)
+            {
+                x=26;
+            }
+
+            else if (x==26)
+            {
+                x=12;
+            }
+            break;
+
+        case 's' :
+        case KEY_DOWN :
+            if (x==12)
+            {
+                x=26;
+            }
+
+            else if (x==26)
+            {
+                x=39;
+            }
+            break;
+        
+        default:
+            break;
+        }
+        delwin(sac);
+        delwin(bag_array);
+    }
+}
+
 void game(int* exit,int* l,int* c){
     int ch=ERR;int i;int j;
     WINDOW* map = newwin(170,500, 0, 0);
@@ -235,8 +310,13 @@ void game(int* exit,int* l,int* c){
             }
             
             break;
+
         case 'm':
             menu(exit);
+            break;
+
+        case 'i':
+            inventory();
             break;
 
         case 'p':
