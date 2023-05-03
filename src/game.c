@@ -6,6 +6,27 @@
 #include "../headers/structs.h"
 #include "../headers/print.h"
 
+void create_newplayer(trainer* newplayer){
+    WINDOW* chatwin=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* write=subwin(chatwin,5,50,30,55);
+    nodelay(stdscr,FALSE);
+    echo();
+    curs_set(1);
+
+    box(chatwin,0,0);
+    box(write,0,0);
+    print_newtrainer(chatwin);
+    wrefresh(chatwin);
+    wmove(write,2,22);
+    wscanw(write,"%s",newplayer->name);
+
+    curs_set(0);
+    nodelay(stdscr,TRUE);
+    noecho();
+    delwin(chatwin);
+    delwin(write);
+}
+
 void menu(int* exit){
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
@@ -158,7 +179,7 @@ void inventory(){
     }
 }
 
-void main_menu(int* exit,int* x, int* y){
+void main_menu(trainer* player,int* exit,int* x, int* y){
     WINDOW* win=newwin(LINES-1,COLS-1,0,0);
     int ch=ERR;
     
@@ -193,11 +214,14 @@ void main_menu(int* exit,int* x, int* y){
         switch (*x)
         {
         case 28:
+            create_newplayer(player);
             *exit=1;
+            chargement();
             break;
 
         case 38:
             *exit=1;
+            chargement();
             break;
         
         default:

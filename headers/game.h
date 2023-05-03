@@ -4,7 +4,8 @@
 #include <curses.h>
 
 void game(int* exit,int* l, int* c);
-void main_menu(int* exit,int* x,int* y);
+void main_menu(trainer* player,int* exit,int* x,int* y);
 void menu(int* exit);
+void create_newplayer(trainer* newplayer);
 
 #endif

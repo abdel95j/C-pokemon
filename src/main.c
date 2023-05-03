@@ -31,18 +31,19 @@ int main(){
         system("xdotool key FN+F11"); //sudo apt install xdotool
     }  
 
-    int exit=0;
+    int exit=0,exitmenu=0;
     int l=52,c=130; //position caméra
     int x=28,y=8; //position curseur menu principal
 
+    trainer player;
+
     while (exit==0)
     {
-        main_menu(&exit,&x,&y);
-    }
-    exit=0;
-    chargement();
-    while (exit==0)
-    {
+        while (exitmenu==0)
+        {
+            main_menu(&player,&exitmenu,&x,&y);
+        }
+
         game(&exit,&l,&c);
     }
     
