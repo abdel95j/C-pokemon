@@ -36,6 +36,7 @@ int main(){
     int x=28,y=8; //position curseur menu principal
 
     trainer player;
+    pokemon pokenull, charmander, squirtle, bulbasaur;
 
     while (exit==0)
     {

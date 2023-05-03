@@ -8,5 +8,6 @@ void main_menu(trainer* player,int* exit,int* x,int* y);
 void menu(int* exit);
 void create_newplayer(trainer* newplayer);
 void get_firstpoke(trainer* player);
+void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle);
 
 #endif

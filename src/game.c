@@ -6,6 +6,64 @@
 #include "../headers/structs.h"
 #include "../headers/print.h"
 
+void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
+    
+    //  PAS FAIT, SYSTEME À RÉALISER ENCORE
+
+    //pokenull
+    pokenull->atk=0;
+    pokenull->def=0;
+    pokenull->dodge=0;
+    pokenull->pv=0;
+    pokenull->lvl=0;
+    pokenull->spetaux=0;
+    pokenull->catchrate=0;
+    pokenull->art=0;
+    sprintf(pokenull->basicatk,"none");
+    sprintf(pokenull->speatk,"none");
+    sprintf(pokenull->name,"no-pokemon");
+
+    //charmander -
+    charmander->atk=10.0;
+    charmander->def=30.0/100;
+    charmander->dodge=18;
+    charmander->pv=35.0;
+    charmander->lvl=1;
+    charmander->spetaux=30;
+    charmander->catchrate=50;
+    charmander->art=4;
+    sprintf(charmander->basicatk,"fire-punch");
+    sprintf(charmander->speatk,"flamethrower");
+    sprintf(charmander->name,"charmander");
+    
+    //bulbasaur -
+    bulbasaur->atk=10.0;
+    bulbasaur->def=45.0/100;
+    bulbasaur->dodge=10;
+    bulbasaur->pv=40.0;
+    bulbasaur->lvl=1;
+    bulbasaur->spetaux=22;
+    bulbasaur->catcerate=50;
+    bulbasaur->art=1;
+    sprintf(bulbasaur->basicatk,"bullet-seed");
+    sprintf(bulbasaur->speatk,"solar-beam");
+    sprintf(bulbasaur->name,"bulbasaur");
+
+    //squirtle -
+    squirtle->atk=10.0;
+    squirtle->def=35.0/100;
+    squirtle->dodge=15;
+    squirtle->pv=35.0;
+    squirtle->lvl=1;
+    squirtle->spetaux=21;
+    squirtle->catchrate=50;
+    squirtle->art=7;
+    sprintf(squirtle->basicatk,"water-gun");
+    sprintf(squirtle->speatk,"hydropump");
+    sprintf(squirtle->name,"squirtle");
+
+}
+
 void create_newplayer(trainer* newplayer){
     WINDOW* chatwin=newwin(LINES-1,COLS-1,0,0);
     WINDOW* write=subwin(chatwin,5,50,30,55);
@@ -19,6 +77,8 @@ void create_newplayer(trainer* newplayer){
     wrefresh(chatwin);
     wmove(write,2,22);
     wscanw(write,"%s",newplayer->name);
+    newplayer->lvl=1;
+    newplayer->money=200;
 
     curs_set(0);
     nodelay(stdscr,TRUE);
