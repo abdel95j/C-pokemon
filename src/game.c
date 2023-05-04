@@ -43,7 +43,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->pv=40.0;
     bulbasaur->lvl=1;
     bulbasaur->spetaux=22;
-    bulbasaur->catcerate=50;
+    bulbasaur->catchrate=50;
     bulbasaur->art=1;
     sprintf(bulbasaur->basicatk,"bullet-seed");
     sprintf(bulbasaur->speatk,"solar-beam");
@@ -83,8 +83,15 @@ void create_newplayer(trainer* newplayer){
     curs_set(0);
     nodelay(stdscr,TRUE);
     noecho();
-    delwin(chatwin);
-    delwin(write);
+    if(delwin(write)==ERR)
+    {
+        exit(1);
+    }
+    if(delwin(chatwin)==ERR)
+    {
+        exit(2);
+    }
+
 }
 
 void get_firstpoke(trainer* player){
@@ -154,11 +161,14 @@ void get_firstpoke(trainer* player){
         default:
             break;
         }  
-        delwin(pokewin);
+        if(delwin(pokewin)==ERR)
+        {
+            exit(3);
+        }
     } 
 }
 
-void menu(int* exit){
+void menu(int* quit){
     int chmenu=ERR,menuexit=0;
     int x=13,y=90;
     
@@ -214,7 +224,7 @@ void menu(int* exit){
                     {
                     case 31:
                         menuexit=1;
-                        *exit=1;
+                        *quit=1;
                         break;
 
                     case 22:
@@ -230,7 +240,10 @@ void menu(int* exit){
                     break;
             } 
             usleep(16667);
-            delwin(winmenu);
+            if(delwin(winmenu)==ERR)
+            {
+                exit(4);
+            }
         }
 }
 
@@ -304,13 +317,19 @@ void inventory(){
         default:
             break;
         }
-        delwin(sac);
-        delwin(bag_array);
+        if(delwin(sac)==ERR)
+        {
+            exit(5);
+        }
+        if(delwin(bag_array)==ERR)
+        {
+            exit(6);
+        }
         
     }
 }
 
-void main_menu(trainer* player,int* exit,int* x, int* y){
+void main_menu(trainer* player,int* quit,int* x, int* y){
     WINDOW* win=newwin(LINES-1,COLS-1,0,0);
     int ch=ERR;
     
@@ -347,12 +366,12 @@ void main_menu(trainer* player,int* exit,int* x, int* y){
         case 28:
             create_newplayer(player);
             get_firstpoke(player);
-            *exit=1;
+            *quit=1;
             chargement();
             break;
 
         case 38:
-            *exit=1;
+            *quit=1;
             chargement();
             break;
         
@@ -365,19 +384,19 @@ void main_menu(trainer* player,int* exit,int* x, int* y){
         break;
     }
     usleep(16667);
-    delwin(win);
+    if(delwin(win)==ERR)
+    {
+        exit(7);
+    }
 }
 
-void game(int* exit,int* l,int* c){
+void game(int* quit,int* l,int* c){
     int ch=ERR;int i;int j;
     WINDOW* map = newwin(170,500, 0, 0);
-    WINDOW* fenetre_backup= newwin(170, 500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
     WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
     box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
-    box(fenetre_backup,0,0);
 
-    fenetre_backup=dupwin(map);
 
     mvwin(cam,0,0);
     print_player(cam);
@@ -523,7 +542,7 @@ void game(int* exit,int* l,int* c){
             break;
 
         case 'm':
-            menu(exit);
+            menu(quit);
             break;
 
         case 'i':
@@ -531,17 +550,24 @@ void game(int* exit,int* l,int* c){
             break;
 
         case 'p':
-            *exit=1;
+            *quit=1;
                 break;
 
         default:
             break;
     }                 
     wrefresh(cam);       
-    map=dupwin(fenetre_backup);
     usleep(16667);
-    delwin(cam);
-    delwin(map);
-    delwin(cadre);
-    delwin(fenetre_backup);
+    if(delwin(cam)==ERR)
+    {
+        exit(8);
+    }
+    if(delwin(cadre)==ERR)
+    {
+        exit(9);
+    }
+    if(delwin(map)==ERR)
+    {
+        exit(10);
+    }
 }

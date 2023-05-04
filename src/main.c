@@ -31,21 +31,21 @@ int main(){
         system("xdotool key FN+F11"); //sudo apt install xdotool
     }  
 
-    int exit=0,exitmenu=0;
+    int quit=0,exitmenu=0;
     int l=52,c=130; //position caméra
     int x=28,y=8; //position curseur menu principal
 
     trainer player;
     pokemon pokenull, charmander, squirtle, bulbasaur;
 
-    while (exit==0)
+    while (quit==0)
     {
         while (exitmenu==0)
         {
             main_menu(&player,&exitmenu,&x,&y);
         }
 
-        game(&exit,&l,&c);
+        game(&quit,&l,&c);
     }
     
     endwin();
