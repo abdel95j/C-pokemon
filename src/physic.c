@@ -225,10 +225,46 @@ void physic_shop(int ch, int* x, int* y){
     {
         case 'z':
         case KEY_UP:
-            if (*x!=6 || *y>=127)
+            if (*x!=6)
             {
                 *x-=1;
             }
+
+            if (*x==26 && *y<=115 && *y>=107) // rayon millieu bas
+            {
+                *x+=1;
+            }
+
+            if (*x==26 && *y<=95 && *y>=87) // rayon gauche bas
+            {
+                *x+=1;
+            }
+
+            if (*x==26 && *y>=140) // rayon droite bas
+            {
+                *x+=1;
+            }
+
+            if (*x==15 && *y<=115 && *y>=107) // rayon millieu haut
+            {
+                *x+=1;
+            }
+
+            if (*x==15 && *y<=95 && *y>=87) // rayon gauche haut
+            {
+                *x+=1;
+            }
+
+            if (*x==15 && *y>=140) // rayon droite bas
+            {
+                *x+=1;
+            }
+
+            if (*x==17 && *y<=65) // comptoir
+            {
+                *x+=1;
+            }
+            
             break;
 
         case 's':
@@ -237,6 +273,37 @@ void physic_shop(int ch, int* x, int* y){
             {
                 *x+=1;
             }
+
+            if (*x==19 && *y<=115 && *y>=107) // rayon millieu bas
+            {
+                *x-=1;
+            }
+
+            if (*x==8 && *y<=95 && *y>=87) // rayon gauche bas
+            {
+                *x-=1;
+            }
+
+            if (*x==8 && *y>=140) // rayon droite bas
+            {
+                *x-=1;
+            }
+
+            if (*x==8 && *y<=115 && *y>=107) // rayon millieu haut
+            {
+                *x-=1;
+            }
+
+            if (*x==19 && *y<=95 && *y>=87) // rayon gauche haut
+            {
+                *x-=1;
+            }
+
+            if (*x==19 && *y>=140) // rayon droite bas
+            {
+                *x-=1;
+            }
+            
             break;
 
         case 'q':
@@ -245,6 +312,32 @@ void physic_shop(int ch, int* x, int* y){
             {
                 *y-=2;
             }  
+
+            if (*y==115 && *x<=26 && *x>=19) // rayon millieu bas
+            {
+                *y+=2;
+            }
+
+            if (*y==95 && *x<=26 && *x>=19) // rayon gauche bas
+            {
+                *y+=2;
+            }
+
+            if (*y==115 && *x<=15 && *x>=8) // rayon millieu haut
+            {
+                *y+=2;
+            }
+
+            if (*y==95 && *x<=15 && *x>=8) // rayon gauche haut
+            {
+                *y+=2;
+            }
+
+            if (*x<=17 && *x>=1  && *y==65) // comptoir
+            {
+                *y+=2;
+            }
+
             break;
         
         case 'd':
@@ -252,6 +345,36 @@ void physic_shop(int ch, int* x, int* y){
             if (*y!=143)
             {
                 *y+=2;
+            }
+
+            if (*y==107 && *x<=26 && *x>=19) // rayon millieu bas
+            {
+                *y-=2;
+            }
+
+            if (*y==87 && *x<=26 && *x>=19) // rayon gauche bas
+            {
+                *y-=2;
+            }
+
+            if (*y==141 && *x<=26 && *x>=19) // rayon droite bas
+            {
+                *y-=2;
+            }
+
+            if (*y==107 && *x<=15 && *x>=8) // rayon millieu haut
+            {
+                *y-=2;
+            }
+
+            if (*y==87 && *x<=15 && *x>=8) // rayon gauche haut
+            {
+                *y-=2;
+            }
+
+            if (*y==141 && *x<=15 && *x>=8) // rayon droite haut
+            {
+                *y-=2;
             }
             break;
 

@@ -219,9 +219,9 @@ void shop(trainer* player){
             case 'e':
             case '\r':
             case '\n':
-                if (x<=19 && x>=13 && y<=9) // mom area
+                if (x==18 && y>=29 && y<=33) // cashier area
                 {
-                    //talk to mom
+                    //talk to cashier
                     chargement();
                 }
 
@@ -386,9 +386,6 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
-            wclear(win);
-            wrefresh(win);
-            shop(player);
             *quit=1;
             chargement();
             break;
@@ -438,7 +435,7 @@ void game(trainer* player, int* quit,int* l,int* c){
             if (*l==50 && *c>=14 && *c<=18) // shop area
             {
                 chargement();
-                //shop(player);
+                shop(player);
             } 
             break;
 
