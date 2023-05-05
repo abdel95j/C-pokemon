@@ -225,7 +225,10 @@ void house(trainer* player){
                 x++;
             }
             
-            
+            if (y<=7 && x==18) // mom
+            {
+                x++;
+            }
             break;
 
         case 's':
@@ -241,6 +244,11 @@ void house(trainer* player){
             }
 
             if (x==23 && y>=7 && y<=27) // table
+            {
+                x--;
+            }
+
+            if (y<=7 && x==14) // mom
             {
                 x--;
             }
@@ -273,10 +281,16 @@ void house(trainer* player){
                 y+=2;
             }
 
-            if (y==27 && x>=23 && x<=31)
+            if (y==27 && x>=23 && x<=31) // table
             {
                 y+=2;
             }
+
+            if (y==7 && x<=18 && x>=14) // mom
+            {
+                y+=2;
+            }
+            
             
             
             break;
@@ -312,6 +326,15 @@ void house(trainer* player){
             {
                 y-=2;
             }
+            break;
+
+        case 'e':
+        case '\r':
+        case '\n':
+            if (x<=19 && x>=13 && y<=9)
+            {
+                //talk to mom
+            }  
             break;
 
         case 'p':

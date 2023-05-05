@@ -199,9 +199,19 @@ void print_house(WINDOW* house_map, int x, int y){
     mvwprintw(house_map,35+3,120,"|             |");
     mvwprintw(house_map,35+4,120,"               ");
 
+    init_pair(2,COLOR_MAGENTA,COLOR_BLACK);
+    wattron(house_map,COLOR_PAIR(2));
+    mvwprintw(house_map,18-1,3,"MOM");
+    mvwprintw(house_map,18,3,".,_  ");
+    mvwprintw(house_map,18+1,3,"/'_' ");
+    mvwprintw(house_map,18+2,3," \\|\\");   
+    mvwprintw(house_map,18+3,3,"  | ");
+    mvwprintw(house_map,18+4,3,"  -' ");
+    wattroff(house_map,COLOR_PAIR(2));                             
+
     init_pair(1,COLOR_RED,COLOR_BLACK);
     wattron(house_map,COLOR_PAIR(1));
-    mvwprintw(house_map,x,y+2,"_ ");  
+    mvwprintw(house_map,x,y+2,"_");  
     mvwprintw(house_map,x+1,y+1,"'_'");
     mvwprintw(house_map,x+2,y,"/| |\\");
     mvwprintw(house_map,x+3,y+1,"|-|");
