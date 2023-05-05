@@ -5,6 +5,7 @@
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
+#include "../headers/physic.h"
 
 int main(){
     initscr();

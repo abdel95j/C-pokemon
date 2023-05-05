@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
+#include "../headers/physic.h"
 
 
 void print_player(WINDOW* cam){

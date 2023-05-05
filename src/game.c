@@ -5,6 +5,7 @@
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
+#include "../headers/physic.h"
 
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
     
@@ -71,7 +72,6 @@ void create_newplayer(trainer* newplayer){
     echo();
     curs_set(1);
 
-    box(chatwin,0,0);
     box(write,0,0);
     print_newtrainer(chatwin);
     wrefresh(chatwin);
@@ -105,34 +105,9 @@ void get_firstpoke(trainer* player){
         wrefresh(pokewin);
         ch=getch();
 
-        switch (ch)
+        physic_get_firstpoke(ch,&y); // colisions
+        switch (ch) // actions
         {
-        case 'd':
-        case KEY_RIGHT:
-            if (y==60)
-            {
-                y=115;
-            }
-
-            else if (y==115)
-            {
-                y=180;
-            }
-            break;
-
-        case 'q':
-        case KEY_LEFT :
-            if (y==115)
-            {
-                y=60;
-            }
-
-            else if (y==180)
-            {
-                y=115;
-            }
-            break;
-
         case 'e':
         case '\n':
         case '\r':
@@ -186,163 +161,28 @@ void house(trainer* player){
 
         ch=getch();
 
-        switch (ch)
+        physic_house(ch,&x,&y); // colisions
+
+        switch (ch) // actions
         {
+            case 'e':
+            case '\r':
+            case '\n':
+                if (x<=19 && x>=13 && y<=9) // mom area
+                {
+                    //talk to mom
+                    chargement();
+                }
 
-        case 'z':
-        case KEY_UP:
-            if (x!=6 || y>=127)
-            {
-                x--;
-            }
+                if (x==34 && y>=121 && y<=129) // exit area
+                {
+                    chargement();
+                    finish=1;
+                }  
+                break;
 
-            if (x==6 && y<=31)  // lavabo + frigo + poubelle
-            {
-                x++;
-            }
-
-            if (x==6 && y>=41 && y<=53)  // four
-            {
-                x++;
-            }
-
-            if (x==9 && y>=67 && y<=93)  // télé
-            {
-                x++;
-            }
-
-            if (x==18 && y>=67 && y<=93)  // sofa
-            {
-                x++;
-            }
-
-            if (x==9 && y>=125)  // stairs
-            {
-                x++;
-            }
-
-            if (x==31 && y>=7 && y<=27)
-            {
-                x++;
-            }
-            
-            if (y<=7 && x==18) // mom
-            {
-                x++;
-            }
-            break;
-
-        case 's':
-        case KEY_DOWN:
-            if (x!=34)
-            {
-                x++;
-            }
-
-            if (x==13 && y>=67 && y<=93)  // sofa
-            {
-                x--;
-            }
-
-            if (x==23 && y>=7 && y<=27) // table
-            {
-                x--;
-            }
-
-            if (y<=7 && x==14) // mom
-            {
-                x--;
-            }
-            break;
-
-        case 'q':
-        case KEY_LEFT:
-            if (y!=1)
-            {
-                y-=2;
-            }
-
-            if (x==6 && y==31)  // lavabo + frigo + poubelle
-            {
-                y+=2;
-            }
-
-            if (x==6 && y==53)  // four
-            {
-                y+=2;
-            }
-
-            if (x>=6 && x<=9 && y==93)  // télé
-            {
-                y+=2;
-            }
-
-            if (x>=13 && x<=18 && y==93)  // sofa
-            {
-                y+=2;
-            }
-
-            if (y==27 && x>=23 && x<=31) // table
-            {
-                y+=2;
-            }
-
-            if (y==7 && x<=18 && x>=14) // mom
-            {
-                y+=2;
-            }    
-            break;
-        
-        case 'd':
-        case KEY_RIGHT:
-            if (y!=143)
-            {
-                y+=2;
-            }
-
-            if (x==6 && y==41)  // four
-            {
-                y-=2;
-            }
-
-            if (x>=6 && x<=9 && y==67)  // télé
-            {
-                y-=2;
-            }
-
-            if (x>=13 && x<=18 && y==67)  // télé
-            {
-                y-=2;
-            }
-
-            if (x>=6 && x<=9 && y==125)  // stairs
-            {
-                y-=2; 
-            }
-
-            if (y==7 && x<=31 && x>=23) // table
-            {
-                y-=2;
-            }
-            break;
-
-        case 'e':
-        case '\r':
-        case '\n':
-            if (x<=19 && x>=13 && y<=9)
-            {
-                //talk to mom
-            }
-
-            if (x==34 && y>=121 && y<=129)
-            {
-                chargement();
-                finish=1;
-            }  
-            break;
-
-        default:
-            break;
+            default:
+                break;
         }
 
         usleep(16667);
@@ -359,7 +199,7 @@ void house(trainer* player){
 
 void menu(int* quit){
     int chmenu=ERR,menuexit=0;
-    int x=13,y=90;
+    int x=13,y=95;
     
     while(chmenu!='m' && menuexit==0)
         {            
@@ -369,42 +209,11 @@ void menu(int* quit){
             box(winmenu,0,0);
             wrefresh(winmenu);  
             
-            chmenu=getch();                                         
+            chmenu=getch();        
 
-            switch (chmenu)
+            physic_menu(chmenu,&x); // colisions
+            switch (chmenu) // actions
             {
-                case KEY_UP:
-                case 'z':
-                    if (x==13)
-                    {
-                        //nothing happens
-                    }
-                    else if (x==22)
-                    {
-                        x=13;
-                    }
-                    else if (x==31)
-                    {
-                        x=22;
-                    }
-                    break;
-
-                case KEY_DOWN:
-                case 's':
-                    if (x==31)
-                    {
-                        //nothing happens
-                    }
-                    else if (x==22)
-                    {
-                        x=31;
-                    }
-                    else if (x==13)
-                    {
-                        x=22;
-                    }
-                    break;
-
                 case KEY_ENTER:
                 case 'e':
                 case '\r':
@@ -455,57 +264,23 @@ void inventory(){
         print_inventory(sac,x,y);        
         wrefresh(sac);
         wrefresh(bag_array);
-        switch (ch)
+
+        physic_inventory(ch,&x,&y); // colisions
+
+        switch (ch) // actions
         {
         case 'i':
             finish=1;
             break;
-
-        case 'q' :
-        case KEY_LEFT :
-            if (y!=17)
-            {
-                y-=40;
-            }
+        case 'e':
+        case '\n':
+        case '\r':
+            // à faire
             break;
-
-        case 'd' :
-        case KEY_RIGHT :
-            if (y!=137)
-            {
-                y+=40;
-            }
-            break;
-
-        case 'z' :
-        case KEY_UP :
-            if (x==39)
-            {
-                x=26;
-            }
-
-            else if (x==26)
-            {
-                x=12;
-            }
-            break;
-
-        case 's' :
-        case KEY_DOWN :
-            if (x==12)
-            {
-                x=26;
-            }
-
-            else if (x==26)
-            {
-                x=39;
-            }
-            break;
-        
         default:
             break;
         }
+
         if(delwin(sac)==ERR)
         {
             exit(5);
@@ -522,14 +297,13 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     WINDOW* win=newwin(LINES-1,COLS-1,0,0);
     int ch=ERR;
     
-    box(win,0,0);
     ch=getch();
     print_main_menu(win,*x,*y);
 
     wrefresh(win);
     switch (ch)
     {
-
+        // colisions
     case 'z':
     case KEY_UP:
         if (*x==38)
@@ -547,6 +321,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         }
         break; 
 
+        // actions
     case 'e' :
     case '\n' :
     case '\r' :
@@ -593,167 +368,23 @@ void game(trainer* player, int* quit,int* l,int* c){
     wrefresh(cam); 
 
     ch=getch();
-    switch (ch)
+
+    physic_map(ch,l,c); // colisions
+    switch (ch) // actions
     {
-        case KEY_UP:
-        case 'z':
-            if (*l!=0)  //physic bordermap
-            {
-                *l=*l-1;
-            }
-
-            if (*c<=36 && *l==49)   //physic pokeshop
-            {
-                *l=*l+1;
-            }
-
-            if (*c<=36 && *l==9)   //physic home
-            {
-                *l=*l+1;
-            }
-
-            if (*c>=220 && *l==9)   //physic lab
-            {
-                *l=*l+1;
-            }
-
-            if (*c<=36 && *l==99)   //physic house 3
-            {
-                *l=*l+1;
-            }
-
-            if (*c>=220 && *l==49)   //physic house 3
-            {
-                *l=*l+1;
-            }
-
-            if (*c>=220 && *l==74)   //physic house 4
-            {
-                *l=*l+1;
-            }
-
-            if (*c>=220 && *l==99)   //physic house 5
-            {
-                *l=*l+1;
-            }
-
-            if (*c>=246 && *l==18)   //physic "OUTDSIDE"
-            {
-                *l=*l+1;
-            }
-
-            break;
-
-        case KEY_DOWN:
-        case 's':
-            if (*l!=103)    //physic bordermap
-            {
-                *l=*l+1;
-            }
-
-            if (*c<=36 && *l==39)   //physic pokeshop
-            {
-                *l=*l-1;
-            }
-
-            if (*c<=36 && *l==87)   //physic house 2
-            {
-                *l=*l-1;
-            }
-
-            if (*c>=220 && *l==37)   //physic house 3
-            {
-                *l=*l-1;
-            }
-
-            if (*c>=220 && *l==62)   //physic house 4
-            {
-                *l=*l-1;
-            }
-
-            if (*c>=220 && *l==87)   //physic house 5
-            {
-                *l=*l-1;
-            }
-
-            if (*c>=246 && *l==16)   //physic "OUTDSIDE"
-            {
-                *l=*l-1;
-            }
-            
-            
-            break;
-        case KEY_RIGHT:
-        case 'd':
-            if (*c!=256)    //physic bordermap
-            {
-                *c=*c+2;
-            }
-
-            if (*c==220 && *l<=9)  //physic lab
-            {
-                *c=*c-2;
-            }
-
-            if (*c==220 && *l>=37 && *l<=49)  //physic house 3
-            {
-                *c=*c-2;
-            }
-
-            if (*c==220 && *l>=62 && *l<=74)  //physic house 4
-            {
-                *c=*c-2;
-            }
-
-            if (*c==220 && *l>=87 && *l<=99)  //physic house 5
-            {
-                *c=*c-2;
-            }
-
-            if (*c==246 && *l>=16 && *l<=18)  //physic "OUTSIDE"
-            {
-                *c=*c-2;
-            }
-            
-            
-            break;
-        case KEY_LEFT:
-        case 'q':
-            if (*c!=0)  //physic bordermap
-            {
-                *c=*c-2;
-            }
-            
-            if (*c==36 && *l>=39 && *l<=49) //physic pokeshop
-            {
-                *c=*c+2;
-            }
-
-            if (*c==36 && *l<=9) //physic home
-            {
-                *c=*c+2;
-            }
-            
-            if (*c==36 && *l>=87 && *l<=99) //physic house 2
-            {
-                *c=*c+2;
-            }
-            
-            break;
-
         case 'e':
         case '\r':
         case '\n':
-            if (*l==10 && *c<=28 && *c>=24)
+            if (*l==10 && *c<=28 && *c>=24) // house area
             {
                 chargement();
                 house(player);
             }  
 
-            if (*l==50 && *c>=14 && *c<=18)
+            if (*l==50 && *c>=14 && *c<=18) // shop area
             {
                 chargement();
-                //labo(player);
+                //shop(player);
             } 
             break;
 
