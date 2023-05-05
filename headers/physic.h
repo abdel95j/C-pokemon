@@ -8,6 +8,7 @@ void physic_map(int ch, int* l, int* c);
 void physic_inventory(int ch, int* x, int* y);
 void physic_menu(int chmenu, int* x);
 void physic_get_firstpoke(int ch, int* y);
+void physic_shop(int ch, int* x, int* y);
 
 
 #endif

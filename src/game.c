@@ -91,12 +91,11 @@ void create_newplayer(trainer* newplayer){
     {
         exit(2);
     }
-
 }
 
 void get_firstpoke(trainer* player){
     int finish=0,ch=ERR;
-    int x=50,y=60;
+    int x=50,y=50;
 
     while (finish==0)
     {
@@ -113,7 +112,7 @@ void get_firstpoke(trainer* player){
         case '\r':
             switch (y)
             {
-            case 60:
+            case 50:
                 //trainer->poke1=bulbasaur
                 finish=1;
                 break;
@@ -123,7 +122,7 @@ void get_firstpoke(trainer* player){
                 finish=1;
                 break;
 
-            case 180:
+            case 183:
                 //trainer->poke1=squirtle
                 finish=1;
                 break;
@@ -191,6 +190,58 @@ void house(trainer* player){
             exit(12);
         }
         if (delwin(house_map)==ERR)
+        {
+            exit(11);
+        }
+    }
+}
+
+void shop(trainer* player){
+    int finish=0,ch=ERR;
+    int x=34,y=125;
+
+    while (finish==0)
+    {
+        WINDOW* shop_map=newwin(40,150,13,43);
+        WINDOW* line_wall=subwin(shop_map,1,148,22,44);
+        box(shop_map,0,0);
+        box(line_wall,0,0);
+
+        print_shop(shop_map,x,y);
+        wrefresh(shop_map);
+
+        ch=getch();
+
+        physic_shop(ch,&x,&y); // colisions
+
+        switch (ch) // actions
+        {
+            case 'e':
+            case '\r':
+            case '\n':
+                if (x<=19 && x>=13 && y<=9) // mom area
+                {
+                    //talk to mom
+                    chargement();
+                }
+
+                if (x==34 && y>=121 && y<=129) // exit area
+                {
+                    chargement();
+                    finish=1;
+                }  
+                break;
+
+            default:
+                break;
+        }
+
+        usleep(16667);
+        if (delwin(line_wall)==ERR)
+        {
+            exit(12);
+        }
+        if (delwin(shop_map)==ERR)
         {
             exit(11);
         }
@@ -281,6 +332,7 @@ void inventory(){
             break;
         }
 
+        usleep(16667);
         if(delwin(sac)==ERR)
         {
             exit(5);
@@ -288,8 +340,7 @@ void inventory(){
         if(delwin(bag_array)==ERR)
         {
             exit(6);
-        }
-        
+        }   
     }
 }
 
@@ -335,6 +386,9 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
+            wclear(win);
+            wrefresh(win);
+            shop(player);
             *quit=1;
             chargement();
             break;

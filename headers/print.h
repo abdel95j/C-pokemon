@@ -12,6 +12,7 @@ void print_main_menu(WINDOW* win,int x,int y);
 void print_newtrainer(WINDOW* chat);
 void print_get_firstpoke(WINDOW* win,int x,int y);
 void print_house(WINDOW* house_map, int x, int y);
+void print_shop(WINDOW*shop_map,int x, int y);
 void chargement();
 
 #endif

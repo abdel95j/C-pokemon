@@ -12,14 +12,14 @@ void physic_get_firstpoke(int ch, int* y){
             
         case 'd':
         case KEY_RIGHT:
-            if (*y==60)
+            if (*y==50)
             {
                 *y=115;
             }
 
             else if (*y==115)
             {
-                *y=180;
+                *y=183;
             }
             break;
 
@@ -27,10 +27,10 @@ void physic_get_firstpoke(int ch, int* y){
         case KEY_LEFT :
             if (*y==115)
             {
-                *y=60;
+                *y=50;
             }
 
-            else if (*y==180)
+            else if (*y==183)
             {
                 *y=115;
             }
@@ -212,6 +212,46 @@ void physic_house(int ch, int* x, int* y){
             if (*y==7 && *x<=31 && *x>=23) // table
             {
                 *y-=2;
+            }
+            break;
+
+        default:
+            break;
+    }
+}
+
+void physic_shop(int ch, int* x, int* y){
+    switch (ch)
+    {
+        case 'z':
+        case KEY_UP:
+            if (*x!=6 || *y>=127)
+            {
+                *x-=1;
+            }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (*x!=34)
+            {
+                *x+=1;
+            }
+            break;
+
+        case 'q':
+        case KEY_LEFT:
+            if (*y!=1)
+            {
+                *y-=2;
+            }  
+            break;
+        
+        case 'd':
+        case KEY_RIGHT:
+            if (*y!=143)
+            {
+                *y+=2;
             }
             break;
 

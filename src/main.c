@@ -32,6 +32,14 @@ int main(){
         system("xdotool key FN+F11"); //sudo apt install xdotool
     }  
 
+    // INIT COLOR PAIR FOR WATTR
+    init_pair(1,COLOR_RED,COLOR_BLACK);     // red = 1
+    init_pair(2,COLOR_MAGENTA,COLOR_BLACK); // magenta = 2
+    init_pair(3,COLOR_YELLOW,COLOR_BLACK);  // yellow = 3
+    init_pair(4,COLOR_BLUE,COLOR_BLACK);    // blue = 4
+    init_pair(5,COLOR_GREEN,COLOR_BLACK);    // green = 5
+
+
     int quit=0,exitmenu=0;
     int l=52,c=130; //position caméra
     int x=28,y=8; //position curseur menu principal
