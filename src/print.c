@@ -52,14 +52,12 @@ void chargement(int time){
                 break;
             }
             
-            wattron(pikachu_screen,COLOR_PAIR(3));
             int j=15; 
             for(int i=0;i<ligne_limite;i++){
                 fgets(ligne,100,f);
                 mvwprintw(pikachu_screen,j,60,"%s",ligne);
                 j++;
             }
-            wattroff(pikachu_screen,COLOR_PAIR(3));
 
             // 4 affichages = 1sec
             if (count_points<4)
@@ -417,7 +415,6 @@ mvwprintw(win,5+3,55,"| |/ |/ / /___/ /___/ /___/ /_/ / /  / / /___     / / / /_
 mvwprintw(win,5+4,55,"|__/|__/_____/_____/\\____/\\____/_/  /_/_____/    /_/  \\____/   \\____/           /_/    \\____/_/ |_/_____/_/  /_/\\____/_/ |_/  (_)   ");
 
 
-wattron(win,COLOR_PAIR(3));
 mvwprintw(win,20,130,"                         &&@&@#                                                                    "); 
 mvwprintw(win,20+1,130,"                         &&&&@&..*.                                                                ");
 mvwprintw(win,20+2,130,"                          .@&@/....,,&                                                           ,(");
@@ -453,7 +450,6 @@ mvwprintw(win,20+31,130,"                                   /.....**#****@**,.,*
 mvwprintw(win,20+32,130,"                                    #***************************************                       ");
 mvwprintw(win,20+33,130,"                                       @**********************************/                        ");
 mvwprintw(win,20+34,130,"                                              #*(                     *(                           ");
-wattroff(win,COLOR_PAIR(3));
 
 mvwprintw(win,28,30," ___           _                                         _             _                ");
 mvwprintw(win,28+1,30,"| _ ) ___ __ _(_)_ _    __ _   _ _  _____ __ __  __ _ __| |_ _____ _ _| |_ _  _ _ _ ___ ");
@@ -656,7 +652,6 @@ void print_newtrainer(WINDOW* chat){
 
 void print_get_firstpoke(WINDOW* win,int x,int y){
 
-    wattron(win,COLOR_PAIR(1));
     mvwprintw(win,15-1,95,"          .(*,@°@,*#.                                         ");
     mvwprintw(win,15,95,"           #,,,,,,,,,,(/                                                ");
     mvwprintw(win,15+1,95,"        &,   ,,,,,,,,,,*/&                                    ");
@@ -687,9 +682,7 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,15+26,95,"    /,#/(///////*               #////////@                   ");
     mvwprintw(win,15+27,95,"  &(&  . .&                      &//////&@./                 ");
     mvwprintw(win,15+28,95,"                                  ,@  @&,.&                 ");
-    wattroff(win,COLOR_PAIR(1));
 
-    wattron(win,COLOR_PAIR(5));
     mvwprintw(win,20,25,"                                          ,            ");   
     mvwprintw(win,20+1,25,"                                         (*(&*(        ");   
     mvwprintw(win,20+2,25,"                         ,#*****//***/////#**/@(@      ");   
@@ -712,9 +705,7 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,20+19,25,"         (**//////(     #(@####****//# /((//////((/    ");   
     mvwprintw(win,20+20,25,"         .*.@/*//,        /*****///(     @(/#//(/#     ");   
     mvwprintw(win,20+21,25,"                            ,./.@                      ");   
-    wattroff(win,COLOR_PAIR(5));
 
-    wattron(win,COLOR_PAIR(4));
     mvwprintw(win,21,160,"                         .(*,,*#.");
     mvwprintw(win,21+1,160,"                     *,,,,,,,,,,.. .&");
     mvwprintw(win,21+2,160,"                   .*///,*.*.,,,,,,,,(,");
@@ -737,7 +728,6 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,21+19,160,"      /#(///#@.  ///***/*(          //////**@,");
     mvwprintw(win,21+20,160,"                 //////(/                ,");
     mvwprintw(win,21+21,160,"                   .#");
-    wattroff(win,COLOR_PAIR(4));
 
     mvwprintw(win,7,85,"  ___ _                                        _                        _ ");
     mvwprintw(win,7+1,85," / __| |_  ___  ___ ___ ___   __ _   _ __  ___| |_____ _ __  ___ _ _   | |");
