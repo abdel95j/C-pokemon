@@ -161,19 +161,19 @@ void print_house(WINDOW* house_map, int x, int y){
     mvwprintw(house_map,17+2,70,"||                     ||");
     mvwprintw(house_map,17+3,70,"||                     ||");
     mvwprintw(house_map,17+4,70,"||_____________________||");
-    mvwprintw(house_map,17+5,70,"    °               °    ");
+    mvwprintw(house_map,17+5,70,"    o               o    ");
                                                                            
-    mvwprintw(house_map,3,127,"                  .'");                                                                                  
-    mvwprintw(house_map,3+1,127,"               .'   __ ");
-    mvwprintw(house_map,3+2,127,"            .'   _,|   ");                                       
-    mvwprintw(house_map,3+3,127,"         .'   _,| ||   ");                                          
-    mvwprintw(house_map,3+4,127,"      .'   _,| || ||__ ");
-    mvwprintw(house_map,3+5,127,"   .'   _,| || ||_|²  ");
-    mvwprintw(house_map,3+6,127,"     _,| || ||_|²     ");              
-    mvwprintw(house_map,3+7,127,"  _,| || ||_|²        ");
-    mvwprintw(house_map,3+8,127," | || ||_|²           ");
-    mvwprintw(house_map,3+9,127," | ||_|²              ");
-    mvwprintw(house_map,3+10,127," |_|²_________________");
+    mvwprintw(house_map,3,125,"                  .'");                                                                                  
+    mvwprintw(house_map,3+1,125,"               .'   ____ ");
+    mvwprintw(house_map,3+2,125,"            .'   _,|     ");                                       
+    mvwprintw(house_map,3+3,125,"         .'   _,| ||     ");                                          
+    mvwprintw(house_map,3+4,125,"      .'   _,| || ||____ ");
+    mvwprintw(house_map,3+5,125,"   .'   _,| || ||_|'    ");
+    mvwprintw(house_map,3+6,125,"     _,| || ||_|'       ");              
+    mvwprintw(house_map,3+7,125,"  _,| || ||_|'          ");
+    mvwprintw(house_map,3+8,125," | || ||_|'             ");
+    mvwprintw(house_map,3+9,125," | ||_|'                ");
+    mvwprintw(house_map,3+10,125," |_|'___________________");
 
     mvwprintw(house_map,29,10,"   ____________  "); 
     mvwprintw(house_map,29+1,10," /'            '\\"); 

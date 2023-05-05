@@ -190,10 +190,42 @@ void house(trainer* player){
 
         case 'z':
         case KEY_UP:
-            if (x!=6)
+            if (x!=6 || y>=127)
             {
                 x--;
             }
+
+            if (x==6 && y<=31)  // lavabo + frigo + poubelle
+            {
+                x++;
+            }
+
+            if (x==6 && y>=41 && y<=53)  // four
+            {
+                x++;
+            }
+
+            if (x==9 && y>=67 && y<=93)  // télé
+            {
+                x++;
+            }
+
+            if (x==18 && y>=67 && y<=93)  // sofa
+            {
+                x++;
+            }
+
+            if (x==9 && y>=125)  // stairs
+            {
+                x++;
+            }
+
+            if (x==31 && y>=7 && y<=27)
+            {
+                x++;
+            }
+            
+            
             break;
 
         case 's':
@@ -201,6 +233,16 @@ void house(trainer* player){
             if (x!=34)
             {
                 x++;
+            }
+
+            if (x==13 && y>=67 && y<=93)  // sofa
+            {
+                x--;
+            }
+
+            if (x==23 && y>=7 && y<=27) // table
+            {
+                x--;
             }
             break;
 
@@ -210,6 +252,33 @@ void house(trainer* player){
             {
                 y-=2;
             }
+
+            if (x==6 && y==31)  // lavabo + frigo + poubelle
+            {
+                y+=2;
+            }
+
+            if (x==6 && y==53)  // four
+            {
+                y+=2;
+            }
+
+            if (x>=6 && x<=9 && y==93)  // télé
+            {
+                y+=2;
+            }
+
+            if (x>=13 && x<=18 && y==93)  // sofa
+            {
+                y+=2;
+            }
+
+            if (y==27 && x>=23 && x<=31)
+            {
+                y+=2;
+            }
+            
+            
             break;
         
         case 'd':
@@ -217,6 +286,31 @@ void house(trainer* player){
             if (y!=143)
             {
                 y+=2;
+            }
+
+            if (x==6 && y==41)  // four
+            {
+                y-=2;
+            }
+
+            if (x>=6 && x<=9 && y==67)  // télé
+            {
+                y-=2;
+            }
+
+            if (x>=13 && x<=18 && y==67)  // télé
+            {
+                y-=2;
+            }
+
+            if (x>=6 && x<=9 && y==125)  // stairs
+            {
+                y-=2; 
+            }
+
+            if (y==7 && x<=31 && x>=23) // table
+            {
+                y-=2;
             }
             break;
 
