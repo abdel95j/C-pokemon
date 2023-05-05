@@ -161,11 +161,84 @@ void get_firstpoke(trainer* player){
         default:
             break;
         }  
+
+        usleep(16667);
         if(delwin(pokewin)==ERR)
         {
             exit(3);
         }
     } 
+}
+
+void house(trainer* player){
+    int finish=0,ch=ERR;
+    int x=34,y=125;
+
+    while (finish==0)
+    {
+        WINDOW* house_map=newwin(40,150,13,43);
+        WINDOW* line_wall=subwin(house_map,1,148,22,44);
+        box(house_map,0,0);
+        box(line_wall,0,0);
+
+        print_house(house_map,x,y);
+
+        ch=getch();
+
+        switch (ch)
+        {
+
+        case 'z':
+        case KEY_UP:
+            if (x!=6)
+            {
+                x--;
+            }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (x!=34)
+            {
+                x++;
+            }
+            break;
+
+        case 'q':
+        case KEY_LEFT:
+            if (y!=1)
+            {
+                y-=2;
+            }
+            break;
+        
+        case 'd':
+        case KEY_RIGHT:
+            if (y!=143)
+            {
+                y+=2;
+            }
+            break;
+
+        case 'p':
+            finish=1;
+            break;
+        
+        default:
+            break;
+        }
+
+        wrefresh(house_map);
+        usleep(16667);
+        if (delwin(line_wall)==ERR)
+        {
+            exit(12);
+        }
+        if (delwin(house_map)==ERR)
+        {
+            exit(11);
+        }
+    }
 }
 
 void menu(int* quit){
@@ -371,6 +444,9 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
+            wclear(win);
+            wrefresh(win);
+            house(player);
             *quit=1;
             chargement();
             break;
@@ -558,6 +634,7 @@ void game(int* quit,int* l,int* c){
     }                 
     wrefresh(cam);       
     usleep(16667);
+
     if(delwin(cam)==ERR)
     {
         exit(8);

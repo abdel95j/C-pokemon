@@ -116,6 +116,99 @@ void chargement(int time){
     endwin();
 }
 
+void print_house(WINDOW* house_map, int x, int y){
+        
+    mvwprintw(house_map,3,20," _______");
+    mvwprintw(house_map,3+1,20,"|_______|");
+    mvwprintw(house_map,3+2,20,"|       |");
+    mvwprintw(house_map,3+3,20,"|]      |");
+    mvwprintw(house_map,3+4,20,"|_______|");
+    mvwprintw(house_map,3+5,20,"|]      |");
+    mvwprintw(house_map,3+6,20,"|       |");
+    mvwprintw(house_map,3+7,20,"|_______|");
+        
+    mvwprintw(house_map,6,3," __=||=________ ");   
+    mvwprintw(house_map,6+1,3,"|,--''-- |     |");
+    mvwprintw(house_map,6+2,3,"||______||     |");
+    mvwprintw(house_map,6+3,3,"|________|_____|");
+    mvwprintw(house_map,6+4,3," |____________|");
+
+    mvwprintw(house_map,5,45," ________ "); 
+    mvwprintw(house_map,5+1,45,"|(_)++(_)|");
+    mvwprintw(house_map,5+2,45,"|________|");
+    mvwprintw(house_map,5+3,45,"|.------.|");
+    mvwprintw(house_map,5+4,45,"||     o||");
+    mvwprintw(house_map,5+5,45,"|`------'|");
+
+    mvwprintw(house_map,7,29," _ ");
+    mvwprintw(house_map,7+1,29,"| |");
+    mvwprintw(house_map,7+2,29,"|-|");
+    mvwprintw(house_map,7+3,29,"|_|");
+      
+    mvwprintw(house_map,4,70,"     __________");
+    mvwprintw(house_map,4+1,70,"   _/__________\\_");
+    mvwprintw(house_map,4+2,70,"  | ,----------. |");
+    mvwprintw(house_map,4+3,70,"  | |  ...     | |");
+    mvwprintw(house_map,4+4,70," _| | :-o-:    | |_____");
+    mvwprintw(house_map,4+5,70,"| | |  '''     | |   __|");
+    mvwprintw(house_map,4+6,70,"| | `----------' |  /~/|");
+    mvwprintw(house_map,4+7,70,"|  ~~~~~~~~~~~~~~  /_/ |");
+    mvwprintw(house_map,4+8,70,"|______________________|");
+    mvwprintw(house_map,4+9,70," |____________________|");
+   
+    mvwprintw(house_map,17,70,"   ___________________   ");
+    mvwprintw(house_map,17+1,70," _|                   |_ ");
+    mvwprintw(house_map,17+2,70,"||                     ||");
+    mvwprintw(house_map,17+3,70,"||                     ||");
+    mvwprintw(house_map,17+4,70,"||_____________________||");
+    mvwprintw(house_map,17+5,70,"    °               °    ");
+                                                                           
+    mvwprintw(house_map,3,127,"                  .'");                                                                                  
+    mvwprintw(house_map,3+1,127,"               .'   __ ");
+    mvwprintw(house_map,3+2,127,"            .'   _,|   ");                                       
+    mvwprintw(house_map,3+3,127,"         .'   _,| ||   ");                                          
+    mvwprintw(house_map,3+4,127,"      .'   _,| || ||__ ");
+    mvwprintw(house_map,3+5,127,"   .'   _,| || ||_|²  ");
+    mvwprintw(house_map,3+6,127,"     _,| || ||_|²     ");              
+    mvwprintw(house_map,3+7,127,"  _,| || ||_|²        ");
+    mvwprintw(house_map,3+8,127," | || ||_|²           ");
+    mvwprintw(house_map,3+9,127," | ||_|²              ");
+    mvwprintw(house_map,3+10,127," |_|²_________________");
+
+    mvwprintw(house_map,29,10,"   ____________  "); 
+    mvwprintw(house_map,29+1,10," /'            '\\"); 
+    mvwprintw(house_map,29+2,10,"|                | "); 
+    mvwprintw(house_map,29+3,10,"|                | "); 
+    mvwprintw(house_map,29+4,10," \\,____________,/ "); 
+    
+    mvwprintw(house_map,34,13," ___ ");
+    mvwprintw(house_map,34+1,13,"|___|");
+    
+    mvwprintw(house_map,34,20," ___ ");
+    mvwprintw(house_map,34+1,20,"|___|");
+
+    mvwprintw(house_map,27,13," ___ ");
+    mvwprintw(house_map,27+1,13,"|___|");
+    
+    mvwprintw(house_map,27,20," ___ ");
+    mvwprintw(house_map,27+1,20,"|___|");
+
+    mvwprintw(house_map,35,120," _____________ ");
+    mvwprintw(house_map,35+1,120,"|             |");
+    mvwprintw(house_map,35+2,120,"|   WELCOME   |");
+    mvwprintw(house_map,35+3,120,"|             |");
+    mvwprintw(house_map,35+4,120,"               ");
+
+    init_pair(1,COLOR_RED,COLOR_BLACK);
+    wattron(house_map,COLOR_PAIR(1));
+    mvwprintw(house_map,x,y+2,"_ ");  
+    mvwprintw(house_map,x+1,y+1,"'_'");
+    mvwprintw(house_map,x+2,y,"/| |\\");
+    mvwprintw(house_map,x+3,y+1,"|-|");
+    mvwprintw(house_map,x+4,y+1,"- -");       
+    wattroff(house_map,COLOR_PAIR(1));
+}                           
+
 void print_menu(WINDOW* win,int x,int y){
 
     mvwprintw(win,2,COLS/5,"88b           d88  88888888888  888b      88  88        88\n");
