@@ -182,6 +182,7 @@ void house(trainer* player){
         box(line_wall,0,0);
 
         print_house(house_map,x,y);
+        wrefresh(house_map);
 
         ch=getch();
 
@@ -289,10 +290,7 @@ void house(trainer* player){
             if (y==7 && x<=18 && x>=14) // mom
             {
                 y+=2;
-            }
-            
-            
-            
+            }    
             break;
         
         case 'd':
@@ -334,18 +332,19 @@ void house(trainer* player){
             if (x<=19 && x>=13 && y<=9)
             {
                 //talk to mom
+            }
+
+            if (x==34 && y>=121 && y<=129)
+            {
+                chargement();
+                finish=1;
             }  
             break;
 
-        case 'p':
-            finish=1;
-            break;
-        
         default:
             break;
         }
 
-        wrefresh(house_map);
         usleep(16667);
         if (delwin(line_wall)==ERR)
         {
@@ -561,9 +560,6 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
-            wclear(win);
-            wrefresh(win);
-            house(player);
             *quit=1;
             chargement();
             break;
@@ -583,7 +579,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     }
 }
 
-void game(int* quit,int* l,int* c){
+void game(trainer* player, int* quit,int* l,int* c){
     int ch=ERR;int i;int j;
     WINDOW* map = newwin(170,500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
@@ -592,8 +588,9 @@ void game(int* quit,int* l,int* c){
 
 
     mvwin(cam,0,0);
-    print_player(cam);
-    create_map(map); 
+    create_map(map);
+    print_player(cam); 
+    wrefresh(cam); 
 
     ch=getch();
     switch (ch)
@@ -605,32 +602,42 @@ void game(int* quit,int* l,int* c){
                 *l=*l-1;
             }
 
-            if (*c<=36 && *l==54)   //physic pokeshop
+            if (*c<=36 && *l==49)   //physic pokeshop
             {
                 *l=*l+1;
             }
 
-            if (*c<=36 && *l==14)   //physic home
+            if (*c<=36 && *l==9)   //physic home
             {
                 *l=*l+1;
             }
 
-            if (*c>=220 && *l==14)   //physic lab
+            if (*c>=220 && *l==9)   //physic lab
             {
                 *l=*l+1;
             }
 
-            if (*c>=220 && *l==54)   //physic house 3
+            if (*c<=36 && *l==99)   //physic house 3
             {
                 *l=*l+1;
             }
 
-            if (*c>=220 && *l==79)   //physic house 4
+            if (*c>=220 && *l==49)   //physic house 3
             {
                 *l=*l+1;
             }
 
-            if (*c>=246 && *l==23)   //physic "OUTDSIDE"
+            if (*c>=220 && *l==74)   //physic house 4
+            {
+                *l=*l+1;
+            }
+
+            if (*c>=220 && *l==99)   //physic house 5
+            {
+                *l=*l+1;
+            }
+
+            if (*c>=246 && *l==18)   //physic "OUTDSIDE"
             {
                 *l=*l+1;
             }
@@ -683,27 +690,27 @@ void game(int* quit,int* l,int* c){
                 *c=*c+2;
             }
 
-            if (*c==220 && *l<=14)  //physic lab
+            if (*c==220 && *l<=9)  //physic lab
             {
                 *c=*c-2;
             }
 
-            if (*c==220 && *l>=37 && *l<=54)  //physic house 3
+            if (*c==220 && *l>=37 && *l<=49)  //physic house 3
             {
                 *c=*c-2;
             }
 
-            if (*c==220 && *l>=62 && *l<=79)  //physic house 4
+            if (*c==220 && *l>=62 && *l<=74)  //physic house 4
             {
                 *c=*c-2;
             }
 
-            if (*c==220 && *l>=87)  //physic house 5
+            if (*c==220 && *l>=87 && *l<=99)  //physic house 5
             {
                 *c=*c-2;
             }
 
-            if (*c==246 && *l>=16 && *l<=23)  //physic "OUTSIDE"
+            if (*c==246 && *l>=16 && *l<=18)  //physic "OUTSIDE"
             {
                 *c=*c-2;
             }
@@ -717,21 +724,37 @@ void game(int* quit,int* l,int* c){
                 *c=*c-2;
             }
             
-            if (*c==36 && *l>=39 && *l<=54) //physic pokeshop
+            if (*c==36 && *l>=39 && *l<=49) //physic pokeshop
             {
                 *c=*c+2;
             }
 
-            if (*c==36 && *l<=14) //physic home
+            if (*c==36 && *l<=9) //physic home
             {
                 *c=*c+2;
             }
             
-            if (*c==36 && *l>=87) //physic house 2
+            if (*c==36 && *l>=87 && *l<=99) //physic house 2
             {
                 *c=*c+2;
             }
             
+            break;
+
+        case 'e':
+        case '\r':
+        case '\n':
+            if (*l==10 && *c<=28 && *c>=24)
+            {
+                chargement();
+                house(player);
+            }  
+
+            if (*l==50 && *c>=14 && *c<=18)
+            {
+                chargement();
+                //labo(player);
+            } 
             break;
 
         case 'm':
@@ -748,8 +771,7 @@ void game(int* quit,int* l,int* c){
 
         default:
             break;
-    }                 
-    wrefresh(cam);       
+    }                       
     usleep(16667);
 
     if(delwin(cam)==ERR)

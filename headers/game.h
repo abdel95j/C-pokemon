@@ -3,7 +3,7 @@
 #include "structs.h"
 #include <curses.h>
 
-void game(int* quit,int* l, int* c);
+void game(trainer* player, int* quit,int* l, int* c);
 void main_menu(trainer* player,int* quit,int* x,int* y);
 void menu(int* quit);
 void create_newplayer(trainer* newplayer);

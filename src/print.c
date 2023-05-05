@@ -9,12 +9,12 @@
 void print_player(WINDOW* cam){
     init_pair(1,COLOR_RED,COLOR_BLACK);
     wattron(cam,COLOR_PAIR(1));
-    mvwprintw(cam,((LINES-2)/2),(COLS-2)/2,"   _");                
-    mvwprintw(cam,((LINES-2)/2)+1,(COLS-2)/2,"  '_'");                
-    mvwprintw(cam,((LINES-2)/2)+2,(COLS-2)/2," /| |\\");
+    mvwprintw(cam,((LINES-2)/2),((COLS-2)/2)+3,"_");                
+    mvwprintw(cam,((LINES-2)/2)+1,((COLS-2)/2)+2,"'_'");                
+    mvwprintw(cam,((LINES-2)/2)+2,((COLS-2)/2)+1,"/| |\\");
     mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"* |_| *");
-    mvwprintw(cam,((LINES-2)/2)+4,(COLS-2)/2,"  | |");
-    mvwprintw(cam,((LINES-2)/2)+5,(COLS-2)/2,"  - -");
+    mvwprintw(cam,((LINES-2)/2)+4,((COLS-2)/2)+2,"| |");
+    mvwprintw(cam,((LINES-2)/2)+5,((COLS-2)/2)+2,"- -");
     wattroff(cam,COLOR_PAIR(1));
 }
 
@@ -100,7 +100,7 @@ void chargement(int time){
         if (count_points==11)
         {
             count_points=0;
-            sec+=3;
+            sec+=6;
         }
         else
         {
@@ -364,9 +364,9 @@ void create_map(WINDOW* map){
     mvwprintw(map,32+7,120," /__________________/   HOME   I_\\");            
     mvwprintw(map,32+8,120,"    I      _____         __    I");   
     mvwprintw(map,32+9,120,"    I     |__|__|  ___  |[]|   I");   
-    mvwprintw(map,32+10,120,"    I     |__|__| |_1_| | -|   I<-");       //line = 9, col = 38  (+- 1)
-    mvwprintw(map,32+11,120,"    I      XXXXX    |   |__|   I  ");
-    mvwprintw(map,32+12,120,"   ~~~~~~~~~~~~~~~~~~~~~~~~~~~"   "~~~"); 
+    mvwprintw(map,32+10,120,"    I     |__|__| |_1_| | -|   I");       //line = 9, col = 38  (+- 1)
+    mvwprintw(map,32+11,120,"    I      XXXXX    |   |__|   I");
+    mvwprintw(map,32+12,120,"   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
 
     mvwprintw(map,34,343,"                     ____");
     mvwprintw(map,34+1,343,"  ___________________|  |______");
@@ -376,7 +376,7 @@ void create_map(WINDOW* map){
     mvwprintw(map,34+5,343,"  ||___|___||||||||||||___|__||"); 
     mvwprintw(map,34+6,343,"  ||___|___||||||||||||___|__||"); 
     mvwprintw(map,34+7,343,"  |||||||||||||    ||||||||||||"); 
-    mvwprintw(map,34+8,343,"->|||||||||||||   -||||||||||||");            //line = 9, col = 218  (+- 1)
+    mvwprintw(map,34+8,343,"  |||||||||||||   -||||||||||||");            //line = 9, col = 218  (+- 1)
     mvwprintw(map,34+9,343,"  |||||||||||||    ||||||||||||"); 
     mvwprintw(map,34+10,343," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
@@ -385,11 +385,11 @@ void create_map(WINDOW* map){
     mvwprintw(map,74+2,121," |     SHOP ________           |");                   
     mvwprintw(map,74+3,121," |         | .''''. |          |");                   
     mvwprintw(map,74+4,121," |_________| :-()-: |__________|");                   
-    mvwprintw(map,74+5,121,"  | ______ | ',,,,' | _______ | ");                   
-    mvwprintw(map,74+6,121,"  ||  |   ||  ____  ||   |   || ");                   
-    mvwprintw(map,74+7,121,"  ||--+---|| |    | ||---+---|| ");                   
-    mvwprintw(map,74+8,121,"  ||__|___|| |   -| ||___|___||<-");        //line = 49, col = 38  (+- 1)                 
-    mvwprintw(map,74+9,121,"  |________|_|____|_|_________| ");                   
+    mvwprintw(map,74+5,121,"  | ______ | ',,,,' | _______ |");                   
+    mvwprintw(map,74+6,121,"  ||  |   ||  ____  ||   |   ||");                   
+    mvwprintw(map,74+7,121,"  ||--+---|| |    | ||---+---||");                   
+    mvwprintw(map,74+8,121,"  ||__|___|| |   -| ||___|___||");        //line = 49, col = 38  (+- 1)                 
+    mvwprintw(map,74+9,121,"  |________|_|____|_|_________|");                   
     mvwprintw(map,74+10,121," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");   
 
     mvwprintw(map,54-3,369,"___________");

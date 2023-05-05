@@ -45,7 +45,7 @@ int main(){
             main_menu(&player,&exitmenu,&x,&y);
         }
 
-        game(&quit,&l,&c);
+        game(&player,&quit,&l,&c);
     }
     
     endwin();
