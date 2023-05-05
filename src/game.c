@@ -410,6 +410,7 @@ void game(trainer* player, int* quit,int* l,int* c){
     WINDOW* map = newwin(170,500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
     WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
 
 
@@ -429,12 +430,14 @@ void game(trainer* player, int* quit,int* l,int* c){
             if (*l==10 && *c<=28 && *c>=24) // house area
             {
                 chargement();
+                wrefresh(blackscreen);
                 house(player);
             }  
 
             if (*l==50 && *c>=14 && *c<=18) // shop area
             {
                 chargement();
+                wrefresh(blackscreen);
                 shop(player);
             } 
             break;
@@ -467,5 +470,9 @@ void game(trainer* player, int* quit,int* l,int* c){
     if(delwin(map)==ERR)
     {
         exit(10);
+    }
+    if(delwin(blackscreen)==ERR)
+    {
+        exit(14);
     }
 }
