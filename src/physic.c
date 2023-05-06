@@ -5,6 +5,7 @@
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
+#include "../headers/talk.h"
 
 void physic_get_firstpoke(int ch, int* y){
     switch (ch)

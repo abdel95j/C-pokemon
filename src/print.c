@@ -5,6 +5,7 @@
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/physic.h"
+#include "../headers/talk.h"
 
 
 void print_player(WINDOW* cam){
@@ -651,7 +652,7 @@ void create_map(WINDOW* map){
     mvwprintw(map,104+1,116," ");
     mvwprintw(map,104+2,116," ");
     mvwprintw(map,104+3,116," ");
-    mvwprintw(map,104+4,116," ");     //line = 25, col = 256 (+- 1)
+    mvwprintw(map,104+4,116," ");     
     mvwprintw(map,104+5,116," ");
     mvwprintw(map,104+6,116," ");
     mvwprintw(map,104+7,116," ");

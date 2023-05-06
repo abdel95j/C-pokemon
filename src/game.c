@@ -6,20 +6,19 @@
 #include "../headers/structs.h"
 #include "../headers/print.h"
 #include "../headers/physic.h"
+#include "../headers/talk.h"
 
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
     
-    //  PAS FAIT, SYSTEME À RÉALISER ENCORE
-
     //pokenull
     pokenull->atk=0;
     pokenull->def=0;
     pokenull->dodge=0;
     pokenull->pv=0;
     pokenull->lvl=0;
-    pokenull->spetaux=0;
     pokenull->catchrate=0;
     pokenull->art=0;
+    pokenull->type=0;
     sprintf(pokenull->basicatk,"none");
     sprintf(pokenull->speatk,"none");
     sprintf(pokenull->name,"no-pokemon");
@@ -27,42 +26,41 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     //charmander -
     charmander->atk=10.0;
     charmander->def=30.0/100;
-    charmander->dodge=18;
+    charmander->dodge=15;
     charmander->pv=35.0;
     charmander->lvl=1;
-    charmander->spetaux=30;
     charmander->catchrate=50;
     charmander->art=4;
+    charmander->type=FIRE;
     sprintf(charmander->basicatk,"fire-punch");
     sprintf(charmander->speatk,"flamethrower");
     sprintf(charmander->name,"charmander");
     
     //bulbasaur -
-    bulbasaur->atk=10.0;
+    bulbasaur->atk=8.0;
     bulbasaur->def=45.0/100;
     bulbasaur->dodge=10;
     bulbasaur->pv=40.0;
     bulbasaur->lvl=1;
-    bulbasaur->spetaux=22;
     bulbasaur->catchrate=50;
     bulbasaur->art=1;
+    bulbasaur->type=GRASS;
     sprintf(bulbasaur->basicatk,"bullet-seed");
     sprintf(bulbasaur->speatk,"solar-beam");
     sprintf(bulbasaur->name,"bulbasaur");
 
     //squirtle -
-    squirtle->atk=10.0;
+    squirtle->atk=9.0;
     squirtle->def=35.0/100;
-    squirtle->dodge=15;
-    squirtle->pv=35.0;
+    squirtle->dodge=18;
+    squirtle->pv=33.0;
     squirtle->lvl=1;
-    squirtle->spetaux=21;
     squirtle->catchrate=50;
     squirtle->art=7;
+    squirtle->type=WATER;
     sprintf(squirtle->basicatk,"water-gun");
     sprintf(squirtle->speatk,"hydropump");
     sprintf(squirtle->name,"squirtle");
-
 }
 
 void create_newplayer(trainer* newplayer){
@@ -72,14 +70,41 @@ void create_newplayer(trainer* newplayer){
     echo();
     curs_set(1);
 
+    pokemon pokenull,charmander,bulbasaur,squirtle;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+
     box(write,0,0);
     print_newtrainer(chatwin);
     wrefresh(chatwin);
     wmove(write,2,22);
     wscanw(write,"%s",newplayer->name);
+
     newplayer->lvl=1;
     newplayer->money=200;
+    newplayer->xp=0;
 
+    newplayer->inventory[0].type=1; // pokeballs
+    newplayer->inventory[1].type=2; // potions
+    newplayer->inventory[2].type=3; // bonbons
+
+    for (int i = 3; i < 12 ; i++)
+    {
+        newplayer->inventory[i].type=0; // no obj
+    }
+
+    for (int i = 0; i < 20; i++)
+    {
+        newplayer->pc[i]=pokenull;
+    }
+
+    newplayer->pokefight=pokenull;
+    newplayer->poke1=pokenull;
+    newplayer->poke2=pokenull;
+    newplayer->poke3=pokenull;
+    newplayer->poke4=pokenull;
+    newplayer->poke5=pokenull;
+    newplayer->poke6=pokenull;
+    
     curs_set(0);
     nodelay(stdscr,TRUE);
     noecho();
@@ -97,6 +122,9 @@ void get_firstpoke(trainer* player){
     int finish=0,ch=ERR;
     int x=50,y=50;
 
+    pokemon pokenull, charmander, bulbasaur, squirtle;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+
     while (finish==0)
     {
         WINDOW* pokewin=newwin(LINES-1,COLS-1,0,0);
@@ -113,17 +141,17 @@ void get_firstpoke(trainer* player){
             switch (y)
             {
             case 50:
-                //trainer->poke1=bulbasaur
+                player->poke1=bulbasaur;
                 finish=1;
                 break;
 
             case 115:
-                //trainer->poke1=charmander
+                player->poke1=charmander;
                 finish=1;
                 break;
 
             case 183:
-                //trainer->poke1=squirtle
+                player->poke1=squirtle;
                 finish=1;
                 break;
             
@@ -214,6 +242,22 @@ void lab(trainer* player){
 
         ch=getch();
 
+        switch (ch)
+        {
+        case 'e':
+        case '\n':
+        case '\r':
+            if (x==34 && y>=69 && y<=77)
+            {
+                chargement();
+                finish=1;
+            }
+            break;
+        
+        default:
+            break;
+        }
+
         if(delwin(line_wall_lab)==ERR)
         {
             exit(19);
@@ -250,8 +294,7 @@ void shop(trainer* player){
             case '\n':
                 if (x==18 && y>=29 && y<=33) // cashier area
                 {
-                    //talk to cashier
-                    chargement();
+                    talkto_cashier(shop_map,player);
                 }
 
                 if (x==34 && y>=121 && y<=129) // exit area
@@ -458,7 +501,8 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             wclear(win);
             wrefresh(win);
-            lab(player);
+            shop(player);
+            //lab(player);
             //roadto_league(player);
             *quit=1;
             chargement();
@@ -510,6 +554,18 @@ void game(trainer* player, int* quit,int* l,int* c){
                 chargement();
                 shop(player);
             } 
+
+            if (*l==10 && *c>=238 && *c<=242) // lab area
+            {
+                chargement();
+                lab(player);
+            }
+
+            if (*c==0 && *l>=70 && *l<=76) // lab area
+            {
+                chargement();
+                roadto_league(player);
+            }
             break;
 
         case 'm':

@@ -6,6 +6,7 @@
 #include "../headers/structs.h"
 #include "../headers/print.h"
 #include "../headers/physic.h"
+#include "../headers/talk.h"
 
 int main(){
     initscr();
