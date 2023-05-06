@@ -82,6 +82,7 @@ void create_newplayer(trainer* newplayer){
     newplayer->lvl=1;
     newplayer->money=200;
     newplayer->xp=0;
+    newplayer->is_on_water=0;
 
     newplayer->inventory[0].type=1; // pokeballs
     newplayer->inventory[1].type=2; // potions
@@ -252,6 +253,18 @@ void lab(trainer* player){
                 chargement();
                 finish=1;
             }
+
+            if (x<=7 && y>=95 && y<=105)
+            {
+                chargement();
+                //talk to prof
+            }
+
+            if (x==7 && y>=35 && y<=41)
+            {
+                chargement();
+                //pc
+            }
             break;
         
         default:
@@ -417,7 +430,7 @@ void inventory(){
 }
 
 void roadto_league(trainer* player){
-    int l=10,c=10;
+    int l=97,c=70;
     int finish=0, ch=ERR;
 
     while(finish==0)
@@ -425,17 +438,65 @@ void roadto_league(trainer* player){
         WINDOW* road = newwin(200,400, 0, 0);
         WINDOW* cam= subwin(road,LINES-1,COLS-1,l,c);
         WINDOW* cadre= subwin(road,111,150,29,116);
+        WINDOW* chute= subwin(road,10,150,139,116);
+        WINDOW* limite_bas= subwin(road,1,150,110,116);
+        WINDOW* limite_haut= subwin(road,1,150,84,116);
         WINDOW* blackscreen= newwin(LINES-1,COLS-1,0,0);
 
-        box(road,0,0);
         box(cadre,0,0);
+        box(chute,0,0);
+        box(limite_bas,0,0);
+        box(limite_haut,0,0);
         mvwin(cam,0,0);
-        print_player(cam);
+        print_roadto_league(road);
+        print_player(cam,player);
         physic_roadto_league(ch,&l,&c);
 
         wrefresh(cam);
 
         ch=getch();
+
+        switch (ch)
+        {
+        case 'e':
+        case '\n':
+        case '\r':
+            if (l==103 && c<=74 && c>=68)  //  exit zone
+            {
+                finish=1;
+                chargement;
+            }
+
+            if (l==76)  // border water down 
+            {
+                l-=2;
+                player->is_on_water=1;
+            }
+
+            else if (l==74)  // border water down 
+            {
+                l+=2;
+                player->is_on_water=0;
+            }
+
+            if (l==50) // border water up
+            {
+                l-=2;
+                player->is_on_water=0;
+            }
+            
+            else if (l==48) // border water up
+            {
+                l+=2;
+                player->is_on_water=1;
+            }
+
+            
+            break;
+        
+        default:
+            break;
+        }
 
         usleep(16667);
         if(delwin(cam)==ERR)
@@ -445,6 +506,18 @@ void roadto_league(trainer* player){
         if(delwin(cadre)==ERR)
         {
             exit(16);
+        }
+        if(delwin(chute)==ERR)
+        {
+            exit(21);
+        }
+        if(delwin(limite_bas)==ERR)
+        {
+            exit(22);
+        }
+        if(delwin(limite_haut)==ERR)
+        {
+            exit(23);
         }
         if(delwin(road)==ERR)
         {
@@ -501,9 +574,8 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             wclear(win);
             wrefresh(win);
-            shop(player);
-            //lab(player);
-            //roadto_league(player);
+            //shop(player);
+            roadto_league(player);
             *quit=1;
             chargement();
             break;
@@ -532,7 +604,7 @@ void game(trainer* player, int* quit,int* l,int* c){
 
     mvwin(cam,0,0);
     create_map(map);
-    print_player(cam); 
+    print_player(cam,player); 
     wrefresh(cam); 
 
     ch=getch();

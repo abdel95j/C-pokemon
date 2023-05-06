@@ -230,6 +230,36 @@ void physic_lab(int ch, int* x, int* y){
             {
                 *x-=1;
             }
+
+            if (*x==20 && *y>=103 && *y<=127) // table
+            {
+                *x+=1;
+            }
+
+            if (*y>=116 && *x==6) // grande armoire en haut à droite 
+            {
+                *x+=1;
+            }   
+
+            if (*x==6 && *y<=51 && *y>=33) // pc
+            {
+                *x+=1;
+            }
+
+            if (*y<=25 && *x==6) // tiroirs en haut a gauche 
+            {
+                *x+=1;
+            }
+
+            if (*x==18 && *y<=23 && *y>=9) // truc à gauche
+            {
+                *x+=1;
+            }
+
+            if (*x==6 && *y>=97 && *y<=103) // prof
+            {
+                *x+=1;
+            }
             break;
 
         case 's':
@@ -237,6 +267,36 @@ void physic_lab(int ch, int* x, int* y){
             if (*x!=34)
             {
                 *x+=1;
+            }
+
+            if (*x==28 && *y>=91 && *y<=113) // petite armoire en bas à droite
+            {
+                *x-=1;
+            }
+
+            if (*x==28 && *y>=117) // grande armoire en bas à droite
+            {
+                *x-=1;
+            }
+
+            if (*x==28 && *y>=31 && *y<=53) // petite armoire en bas à gauche
+            {
+                *x-=1;
+            }
+            
+            if (*x==28 && *y<=28) // grande armoire en bas à gauche
+            {
+                *x-=1;
+            }
+
+            if (*x==15 && *y>=103 && *y<=127) // table
+            {
+                *x-=1;
+            }
+
+            if (*x==13 && *y<=23 && *y>=9) // truc a gauche 
+            {
+                *x-=1;
             }
             break;
 
@@ -246,6 +306,46 @@ void physic_lab(int ch, int* x, int* y){
             {
                 *y-=2;
             }   
+
+            if (*x>=28 && *y==113) // petite armoire en bas à droite
+            {
+                *y+=2;
+            }
+
+            if (*x>=28 && *y==53) // petite armoire en bas à gauche
+            {
+                *y+=2;
+            }
+
+            if (*x>=28 && *y==27) // grande armoire en bas à gauche
+            {
+                *y+=2;
+            }
+
+            if (*y==127 && *x>=15 && *x<=20) // table
+            {
+                *y+=2;
+            }
+            
+            if (*x==6 && *y==51) // pc
+            {
+                *y+=2;
+            }
+
+            if (*x==6 && *y==25) // tiroirs en haut a gauche
+            {
+                *y+=2;
+            }
+
+            if (*y==23 && *x>=13 && *x<=18) // truc a gauche 
+            {
+                *y+=2;
+            }
+
+            if (*x==6 && *y==103) // prof
+            {
+                *y+=2;
+            } 
             break;
         
         case 'd':
@@ -255,11 +355,45 @@ void physic_lab(int ch, int* x, int* y){
                 *y+=2;
             }
 
-            if (*x>=28 && *y==91)
+            if (*x>=28 && *y==91) // petite armoire en bas à droite
             {
                 *y-=2;
             }
             
+            if (*x>=28 && *y==117) // grande armoire en bas à droite
+            {
+                *y-=2;
+            }
+
+            if (*x>=28 && *y==31) // petite armoire en bas a gauche
+            {
+                *y-=2;
+            }
+
+            if (*y==103 && *x>=15 && *x<=20) // table
+            {
+                *y-=2;
+            }
+
+            if (*x==6 && *y>=116) // armoire haut à droite
+            {
+                *y-=2;
+            }
+
+            if (*x==6 && *y==33) // pc
+            {
+                *y-=2;
+            }
+            
+            if (*y==9 && *x>=13 && *x<=18) // truc a gauche 
+            {
+                *y-=2;
+            }
+            
+            if (*x==6 && *y==97) // prof
+            {
+                *y-=2;
+            } 
             break;
 
         default:
@@ -608,6 +742,16 @@ void physic_roadto_league(int ch, int* l, int* c){
             {
                 *l=*l-1;
             }
+
+            if (*l==75)  //  border water down
+            {
+                *l=*l+1;
+            }
+
+            if (*l==49)  //  border water up (surf)
+            {
+                *l=*l+1;
+            }
             break;
 
         case KEY_DOWN:
@@ -615,14 +759,25 @@ void physic_roadto_league(int ch, int* l, int* c){
             if (*l!=103)    //physic bordermap
             {
                 *l=*l+1;
-            }            
+            }  
+
+            if (*l==49)  // border water up
+            {
+                *l-=1;
+            }
+
+            if (*l==75)  // border water up
+            {
+                *l-=1;
+            }
+                      
             break;
         case KEY_RIGHT:
         case 'd':
             if (*c!=140)    //physic bordermap
             {
                 *c=*c+2;
-            }     
+            }    
             break;
         case KEY_LEFT:
         case 'q':

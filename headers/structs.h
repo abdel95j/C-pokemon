@@ -48,6 +48,7 @@ typedef struct
     int xp;
     int money;
     int art;
+    int is_on_water;
     pokemon pokefight;
     pokemon poke1;
     pokemon poke2;

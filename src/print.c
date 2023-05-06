@@ -8,15 +8,30 @@
 #include "../headers/talk.h"
 
 
-void print_player(WINDOW* cam){
-    wattron(cam,COLOR_PAIR(1));
-    mvwprintw(cam,((LINES-2)/2),((COLS-2)/2)+3,"_");                
-    mvwprintw(cam,((LINES-2)/2)+1,((COLS-2)/2)+2,"'_'");                
-    mvwprintw(cam,((LINES-2)/2)+2,((COLS-2)/2)+1,"/| |\\");
-    mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"' |_| '");
-    mvwprintw(cam,((LINES-2)/2)+4,((COLS-2)/2)+2,"| |");
-    mvwprintw(cam,((LINES-2)/2)+5,((COLS-2)/2)+2,"- -");
-    wattroff(cam,COLOR_PAIR(1));
+void print_player(WINDOW* cam,trainer* player){
+    
+    if (player->is_on_water==1)
+    {
+        wattron(cam,COLOR_PAIR(1));
+        mvwprintw(cam,((LINES-2)/2),((COLS-2)/2)+3,"_");                
+        mvwprintw(cam,((LINES-2)/2)+1,((COLS-2)/2)+2,"'_'");                
+        mvwprintw(cam,((LINES-2)/2)+2,((COLS-2)/2)+1,"/| |\\");
+        mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"' |_| '");
+        mvwprintw(cam,((LINES-2)/2)+4,((COLS-2)/2)+2,"| |");
+        mvwprintw(cam,((LINES-2)/2)+5,((COLS-2)/2)+1,"-----");
+        wattroff(cam,COLOR_PAIR(1));
+    }
+    else
+    {
+        wattron(cam,COLOR_PAIR(1));
+        mvwprintw(cam,((LINES-2)/2),((COLS-2)/2)+3,"_");                
+        mvwprintw(cam,((LINES-2)/2)+1,((COLS-2)/2)+2,"'_'");                
+        mvwprintw(cam,((LINES-2)/2)+2,((COLS-2)/2)+1,"/| |\\");
+        mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"' |_| '");
+        mvwprintw(cam,((LINES-2)/2)+4,((COLS-2)/2)+2,"| |");
+        mvwprintw(cam,((LINES-2)/2)+5,((COLS-2)/2)+2,"- -");
+        wattroff(cam,COLOR_PAIR(1));
+    }
 }
 
 void chargement(int time){
@@ -329,6 +344,15 @@ void print_lab(WINDOW*lab_map,int x, int y){
     mvwprintw(lab_map,35+3,68,"|             |");
     mvwprintw(lab_map,35+4,68,"               ");
 
+    wattron(lab_map,COLOR_PAIR(4));
+    mvwprintw(lab_map,6-1,100-2,"Professor");  
+    mvwprintw(lab_map,6,100+2,"-");  
+    mvwprintw(lab_map,6+1,100+1,"'~'");
+    mvwprintw(lab_map,6+2,100,"/|+|\\");
+    mvwprintw(lab_map,6+3,100+1,"|-|");
+    mvwprintw(lab_map,6+4,100+1,"- -"); 
+    wattroff(lab_map,COLOR_PAIR(4));
+
     wattron(lab_map,COLOR_PAIR(1));
     mvwprintw(lab_map,x,y+2,"_");  
     mvwprintw(lab_map,x+1,y+1,"'_'");
@@ -456,6 +480,177 @@ void print_shop(WINDOW*shop_map,int x, int y){
     mvwprintw(shop_map,x+3,y+1,"|-|");
     mvwprintw(shop_map,x+4,y+1,"- -");       
     wattroff(shop_map,COLOR_PAIR(1));
+}
+
+void print_roadto_league(WINDOW* road){
+    
+    mvwprintw(road,85,116," "); // cassure gauche
+    mvwprintw(road,85+1,116," "); 
+    mvwprintw(road,85+2,116," ");
+    mvwprintw(road,85+3,116," ");
+    mvwprintw(road,85+4,116," ");
+    mvwprintw(road,85+5,116," ");
+    mvwprintw(road,85+6,116," ");
+    mvwprintw(road,85+7,116," ");
+    mvwprintw(road,85+8,116," ");
+    mvwprintw(road,85+9,116," ");
+    mvwprintw(road,85+10,116," ");
+    mvwprintw(road,85+11,116," ");
+    mvwprintw(road,85+12,116," ");
+    mvwprintw(road,85+13,116," ");
+    mvwprintw(road,85+14,116," ");
+    mvwprintw(road,85+15,116," ");
+    mvwprintw(road,85+16,116," ");
+    mvwprintw(road,85+17,116," ");
+    mvwprintw(road,85+18,116," ");
+    mvwprintw(road,85+19,116," ");
+    mvwprintw(road,85+20,116," ");
+    mvwprintw(road,85+21,116," ");
+    mvwprintw(road,85+22,116," ");
+    mvwprintw(road,85+23,116," ");
+    mvwprintw(road,85+24,116," ");
+
+    mvwprintw(road,85,265," "); // cassure gauche
+    mvwprintw(road,85+1,265," "); 
+    mvwprintw(road,85+2,265," ");
+    mvwprintw(road,85+3,265," ");
+    mvwprintw(road,85+4,265," ");
+    mvwprintw(road,85+5,265," ");
+    mvwprintw(road,85+6,265," ");
+    mvwprintw(road,85+7,265," ");
+    mvwprintw(road,85+8,265," ");
+    mvwprintw(road,85+9,265," ");
+    mvwprintw(road,85+10,265," ");
+    mvwprintw(road,85+11,265," ");
+    mvwprintw(road,85+12,265," ");
+    mvwprintw(road,85+13,265," ");
+    mvwprintw(road,85+14,265," ");
+    mvwprintw(road,85+15,265," ");
+    mvwprintw(road,85+16,265," ");
+    mvwprintw(road,85+17,265," ");
+    mvwprintw(road,85+18,265," ");
+    mvwprintw(road,85+19,265," ");
+    mvwprintw(road,85+20,265," ");
+    mvwprintw(road,85+21,265," ");
+    mvwprintw(road,85+22,265," ");
+    mvwprintw(road,85+23,265," ");
+    mvwprintw(road,85+24,265," ");
+
+    mvwprintw(road,139,183,"|"); // exit zone
+    mvwprintw(road,139,183+1," ");
+    mvwprintw(road,139,183+2," ");
+    mvwprintw(road,139,183+3," ");
+    mvwprintw(road,139,183+4," ");
+    mvwprintw(road,139,183+5," ");
+    mvwprintw(road,139,183+6," ");
+    mvwprintw(road,139,183+7," ");
+    mvwprintw(road,139,183+8," ");
+    mvwprintw(road,139,183+9," ");
+    mvwprintw(road,139,183+10," ");
+    mvwprintw(road,139,183+11," ");
+    mvwprintw(road,139,183+12," ");
+    mvwprintw(road,139,183+13," ");
+    mvwprintw(road,139,183+14,"|");
+
+    mvwprintw(road,140,177,"EXIT");
+
+
+    wattron(road,COLOR_PAIR(4));
+    for (int j = 0; j <= 200; j++)  
+    {
+        if (j%2==0)
+        {
+            for (int i = 0; i <= 115 ; i+=2) // eau a gauche
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+
+        else
+        {
+            for (int i = 1; i <= 115 ; i+=2) // eau a gauche
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+    }
+
+    for (int j = 0; j <= 200; j++)  
+    {
+        if (j%2==0)
+        {
+            for (int i = 266; i <= 400 ; i+=2) // eau a gauche
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+
+        else
+        {
+            for (int i = 267; i <= 400 ; i+=2) // eau a gauche
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+    }
+
+    for (int j = 0; j <= 28; j++)  
+    {
+        if (j%2==0)
+        {
+            for (int i = 116; i <= 266 ; i+=2) // eau en haut
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+
+        else
+        {
+            for (int i = 115; i <= 267 ; i+=2) // eau en haut 
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+    }
+
+    for (int j = 149; j <= 200; j++)  
+    {
+        if (j%2==0)
+        {
+            for (int i = 116; i <= 266 ; i+=2) // eau en bas
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+
+        else
+        {
+            for (int i = 115; i <= 267 ; i+=2) // eau en bas
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+    }
+
+    for (int j = 85; j <= 109; j++)  
+    {
+        if (j%2==0)
+        {
+            for (int i = 116; i <= 266 ; i+=2) // eau cassure
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+
+        else
+        {
+            for (int i = 115; i <= 267 ; i+=2) // eau cassure
+            {
+                mvwprintw(road,j,i,"~");
+            }
+        }
+    }
+    wattroff(road,COLOR_PAIR(4));
 }
 
 void print_menu(WINDOW* win,int x,int y){
