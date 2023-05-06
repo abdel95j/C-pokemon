@@ -220,6 +220,53 @@ void physic_house(int ch, int* x, int* y){
     }
 }
 
+void physic_lab(int ch, int* x, int* y){
+    switch (ch)
+    {
+        case 'z':
+        case KEY_UP:
+            if (*x!=6)
+            {
+                *x-=1;
+            }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (*x!=34)
+            {
+                *x+=1;
+            }
+            break;
+
+        case 'q':
+        case KEY_LEFT:
+            if (*y!=1)
+            {
+                *y-=2;
+            }   
+            break;
+        
+        case 'd':
+        case KEY_RIGHT:
+            if (*y!=143)
+            {
+                *y+=2;
+            }
+
+            if (*x>=28 && *y==91)
+            {
+                *y-=2;
+            }
+            
+            break;
+
+        default:
+            break;
+    }
+}
+
+
 void physic_shop(int ch, int* x, int* y){
     switch (ch)
     {
@@ -429,7 +476,12 @@ void physic_map(int ch, int* l, int* c){
                 *l=*l+1;
             }
 
-            if (*c>=246 && *l==18)   //physic "OUTDSIDE"
+            if (*c>=242 && *l==18)   //physic "THE FOREST"
+            {
+                *l=*l+1;
+            }
+
+            if (*c<=14 && *l==68)   //physic "THE LEAGUE"
             {
                 *l=*l+1;
             }
@@ -468,7 +520,12 @@ void physic_map(int ch, int* l, int* c){
                 *l=*l-1;
             }
 
-            if (*c>=246 && *l==16)   //physic "OUTDSIDE"
+            if (*c>=242 && *l==16)   //physic "THE FOREST"
+            {
+                *l=*l-1;
+            }
+
+            if (*c<=14 && *l==66)   //physic "THE LEAGUE"
             {
                 *l=*l-1;
             }
@@ -502,7 +559,7 @@ void physic_map(int ch, int* l, int* c){
                 *c=*c-2;
             }
 
-            if (*c==246 && *l>=16 && *l<=18)  //physic "OUTSIDE"
+            if (*c==242 && *l>=16 && *l<=18)  //physic "THE FOREST"
             {
                 *c=*c-2;
             }
@@ -530,7 +587,48 @@ void physic_map(int ch, int* l, int* c){
             {
                 *c=*c+2;
             }
+
+            if (*c==14 && *l>=66 && *l<=68)  //physic "THE LEAGUE"
+            {
+                *c=*c+2;
+            }
             
+            break;
+    }
+}
+
+void physic_roadto_league(int ch, int* l, int* c){
+
+    switch (ch)
+    {
+        case KEY_UP:
+        case 'z':
+            if (*l!=0)  //physic bordermap
+            {
+                *l=*l-1;
+            }
+            break;
+
+        case KEY_DOWN:
+        case 's':
+            if (*l!=103)    //physic bordermap
+            {
+                *l=*l+1;
+            }            
+            break;
+        case KEY_RIGHT:
+        case 'd':
+            if (*c!=140)    //physic bordermap
+            {
+                *c=*c+2;
+            }     
+            break;
+        case KEY_LEFT:
+        case 'q':
+            if (*c!=0)  //physic bordermap
+            {
+                *c=*c-2;
+            }     
             break;
     }
 }

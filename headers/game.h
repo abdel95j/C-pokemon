@@ -11,5 +11,7 @@ void get_firstpoke(trainer* player);
 void house(trainer* player);
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle);
 void shop(trainer* player);
+void roadto_league(trainer* player);
+void lab(trainer* player);
 
 #endif

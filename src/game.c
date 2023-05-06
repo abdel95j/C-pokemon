@@ -196,6 +196,35 @@ void house(trainer* player){
     }
 }
 
+void lab(trainer* player){
+    int ch=ERR, finish=0;
+    int x=34,y=73;
+
+    while(finish==0)
+    {
+        WINDOW* lab_map=newwin(40,150,13,43);
+        WINDOW* line_wall_lab=subwin(lab_map,1,148,22,44);
+        
+        box(lab_map,0,0);
+        box(line_wall_lab,0,0);
+
+        print_lab(lab_map,x,y);
+        physic_lab(ch,&x,&y);
+        wrefresh(lab_map);
+
+        ch=getch();
+
+        if(delwin(line_wall_lab)==ERR)
+        {
+            exit(19);
+        }
+        if(delwin(lab_map)==ERR)
+        {
+            exit(20);
+        }
+    }
+}
+
 void shop(trainer* player){
     int finish=0,ch=ERR;
     int x=34,y=125;
@@ -344,6 +373,47 @@ void inventory(){
     }
 }
 
+void roadto_league(trainer* player){
+    int l=10,c=10;
+    int finish=0, ch=ERR;
+
+    while(finish==0)
+    {
+        WINDOW* road = newwin(200,400, 0, 0);
+        WINDOW* cam= subwin(road,LINES-1,COLS-1,l,c);
+        WINDOW* cadre= subwin(road,111,150,29,116);
+        WINDOW* blackscreen= newwin(LINES-1,COLS-1,0,0);
+
+        box(road,0,0);
+        box(cadre,0,0);
+        mvwin(cam,0,0);
+        print_player(cam);
+        physic_roadto_league(ch,&l,&c);
+
+        wrefresh(cam);
+
+        ch=getch();
+
+        usleep(16667);
+        if(delwin(cam)==ERR)
+        {
+            exit(15);
+        }
+        if(delwin(cadre)==ERR)
+        {
+            exit(16);
+        }
+        if(delwin(road)==ERR)
+        {
+            exit(17);
+        }
+        if(delwin(blackscreen)==ERR)
+        {
+            exit(18);
+        }
+    }
+}
+
 void main_menu(trainer* player,int* quit,int* x, int* y){
     WINDOW* win=newwin(LINES-1,COLS-1,0,0);
     int ch=ERR;
@@ -386,6 +456,10 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
+            wclear(win);
+            wrefresh(win);
+            lab(player);
+            //roadto_league(player);
             *quit=1;
             chargement();
             break;
@@ -410,9 +484,7 @@ void game(trainer* player, int* quit,int* l,int* c){
     WINDOW* map = newwin(170,500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
     WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
-
 
     mvwin(cam,0,0);
     create_map(map);
@@ -430,14 +502,12 @@ void game(trainer* player, int* quit,int* l,int* c){
             if (*l==10 && *c<=28 && *c>=24) // house area
             {
                 chargement();
-                wrefresh(blackscreen);
                 house(player);
             }  
 
             if (*l==50 && *c>=14 && *c<=18) // shop area
             {
                 chargement();
-                wrefresh(blackscreen);
                 shop(player);
             } 
             break;
@@ -470,9 +540,5 @@ void game(trainer* player, int* quit,int* l,int* c){
     if(delwin(map)==ERR)
     {
         exit(10);
-    }
-    if(delwin(blackscreen)==ERR)
-    {
-        exit(14);
     }
 }
