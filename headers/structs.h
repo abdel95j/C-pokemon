@@ -18,6 +18,9 @@
 #define BLUE 4
 #define GREEN 5
 
+#define SURF 1
+#define LEER 2
+
 typedef struct
 {
     char name[25];

@@ -19,7 +19,11 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pokenull->lvl=0;
     pokenull->catchrate=0;
     pokenull->art=0;
-    pokenull->type=0;
+    pokenull->type=NOPOKEMON;
+    pokenull->CTstat->type=0; 
+    pokenull->CTutil->type=0; 
+    pokenull->CTstat->quant=0;
+    pokenull->CTutil->quant=0;
     sprintf(pokenull->basicatk,"none");
     sprintf(pokenull->speatk,"none");
     sprintf(pokenull->CTutil->name,"none");
@@ -36,6 +40,10 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->catchrate=50;
     charmander->art=4;
     charmander->type=FIRE;
+    charmander->CTstat->type=0;     
+    charmander->CTutil->type=0; 
+    charmander->CTstat->quant=0;
+    charmander->CTutil->quant=0;    
     sprintf(charmander->basicatk,"fire-punch");
     sprintf(charmander->speatk,"flamethrower");
     sprintf(charmander->CTutil->name,"none");
@@ -52,6 +60,10 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->catchrate=50;
     bulbasaur->art=1;
     bulbasaur->type=GRASS;
+    bulbasaur->CTstat->type=0; 
+    bulbasaur->CTutil->type=0; 
+    bulbasaur->CTstat->quant=0;
+    bulbasaur->CTutil->quant=0;    
     sprintf(bulbasaur->basicatk,"bullet-seed");
     sprintf(bulbasaur->speatk,"solar-beam");
     sprintf(bulbasaur->CTutil->name,"none");
@@ -68,13 +80,15 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->catchrate=50;
     squirtle->art=7;
     squirtle->type=WATER;
+    squirtle->CTstat->type=0; 
+    squirtle->CTutil->type=0; 
+    squirtle->CTstat->quant=0;
+    squirtle->CTutil->quant=0;    
     sprintf(squirtle->basicatk,"water-gun");
     sprintf(squirtle->speatk,"hydropump");
     sprintf(squirtle->CTutil->name,"none");
     sprintf(squirtle->CTstat->name,"none");
-    sprintf(squirtle->name,"squirtle");
-
-    
+    sprintf(squirtle->name,"squirtle");  
 }
 
 void create_newplayer(trainer* newplayer){
@@ -599,8 +613,65 @@ void roadto_league(trainer* player){
 
             if (l==76)  // border water down 
             {
-                l-=2;
-                player->is_on_water=1;
+                if (player->poke1.CTutil->type==SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke1.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l-=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke2.CTutil->type==SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke2.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l-=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke3.CTutil->type==SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke3.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l-=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke4.CTutil->type==SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke4.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l-=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke5.CTutil->type==SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke5.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l-=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke6.CTutil->type==SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke6.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l-=2;
+                    player->is_on_water=1;
+                }
+
+                else
+                {
+                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon does have surf !");
+                    sleep(1);
+                }
             }
 
             else if (l==74)  // border water down 
@@ -617,8 +688,65 @@ void roadto_league(trainer* player){
             
             else if (l==48) // border water up
             {
-                l+=2;
-                player->is_on_water=1;
+                if (player->poke1.CTutil->type=SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke1.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l+=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke2.CTutil->type=SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke2.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l+=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke3.CTutil->type=SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke3.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l+=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke4.CTutil->type=SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke4.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l+=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke5.CTutil->type=SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke5.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l+=2;
+                    player->is_on_water=1;
+                }
+
+                else if (player->poke6.CTutil->type=SURF)
+                {
+                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke6.name);
+                    wrefresh(cam);
+                    sleep(1);
+                    l+=2;
+                    player->is_on_water=1;
+                }
+
+                else
+                {
+                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon have surf !");
+                    sleep(1);
+                }
             }
             break;
         

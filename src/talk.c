@@ -402,7 +402,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
 
     object leer;
     sprintf(leer.name,"leer");
-    leer.type=3;
+    leer.type=SURF;
     leer.quant=1;
 
     write_flush(lab_map,3,108,"Hey");
@@ -574,7 +574,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                             if (player->poke1.type==WATER)
                                             {
                                                 player->poke1.CTutil->quant=1;
-                                                player->poke1.CTutil->type=3;
+                                                player->poke1.CTutil->type=SURF;
                                                 sprintf(player->poke1.CTutil->name,"surf");
 
                                                 mvwprintw(lab_map,3,108,"                                         ");
@@ -600,7 +600,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                             if (player->poke2.type==WATER)
                                             {
                                                 player->poke2.CTutil->quant=1;
-                                                player->poke2.CTutil->type=3;
+                                                player->poke2.CTutil->type=SURF;
                                                 sprintf(player->poke2.CTutil->name,"surf");
 
                                                 mvwprintw(lab_map,3,108,"                                         ");
@@ -626,7 +626,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                             if (player->poke3.type==WATER)
                                             {
                                                 player->poke3.CTutil->quant=1;
-                                                player->poke3.CTutil->type=3;
+                                                player->poke3.CTutil->type=SURF;
                                                 sprintf(player->poke3.CTutil->name,"surf");
 
                                                 mvwprintw(lab_map,3,108,"                                         ");
@@ -652,7 +652,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                             if (player->poke4.type==WATER)
                                             {
                                                 player->poke4.CTutil->quant=1;
-                                                player->poke4.CTutil->type=3;
+                                                player->poke4.CTutil->type=SURF;
                                                 sprintf(player->poke4.CTutil->name,"surf");
 
                                                 mvwprintw(lab_map,3,108,"                                         ");
@@ -678,7 +678,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                             if (player->poke5.type==WATER)
                                             {
                                                 player->poke5.CTutil->quant=1;
-                                                player->poke5.CTutil->type=3;
+                                                player->poke5.CTutil->type=SURF;
                                                 sprintf(player->poke5.CTutil->name,"surf");
 
                                                 mvwprintw(lab_map,3,108,"                                         ");
@@ -704,7 +704,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                             if (player->poke6.type==WATER)
                                             {
                                                 player->poke6.CTutil->quant=1;
-                                                player->poke6.CTutil->type=3;
+                                                player->poke6.CTutil->type=SURF;
                                                 sprintf(player->poke6.CTutil->name,"surf");
 
                                                 mvwprintw(lab_map,3,108,"                                         ");
@@ -811,7 +811,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                         {
                                         case 2:
                                                 player->poke1.CTstat->quant=1;
-                                                player->poke1.CTstat->type=3;
+                                                player->poke1.CTstat->type=LEER;
                                                 sprintf(player->poke1.CTstat->name,"leer");
 
                                                 if (player->poke1.type!=0)
@@ -835,6 +835,10 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                                 break;
 
                                         case 3:
+                                                player->poke2.CTstat->quant=1;
+                                                player->poke2.CTstat->type=LEER;
+                                                sprintf(player->poke2.CTstat->name,"leer");
+
                                                 if (player->poke2.type!=0)
                                                 {
                                                     mvwprintw(lab_map,3,108,"                                         ");
@@ -856,6 +860,10 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                                 break;
 
                                         case 4:
+                                                player->poke3.CTstat->quant=1;
+                                                player->poke3.CTstat->type=LEER;
+                                                sprintf(player->poke3.CTstat->name,"leer");
+
                                                 if (player->poke3.type!=0)
                                                 {
                                                     mvwprintw(lab_map,3,108,"                                         ");
@@ -877,6 +885,10 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                                 break;
 
                                         case 5:
+                                                player->poke4.CTstat->quant=1;
+                                                player->poke4.CTstat->type=LEER;
+                                                sprintf(player->poke4.CTstat->name,"leer");
+
                                                 if (player->poke4.type!=0)
                                                 {
                                                     mvwprintw(lab_map,3,108,"                                         ");
@@ -898,6 +910,10 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                                 break;
 
                                         case 6:
+                                                player->poke5.CTstat->quant=1;
+                                                player->poke5.CTstat->type=LEER;
+                                                sprintf(player->poke5.CTstat->name,"leer");
+
                                                 if (player->poke5.type!=0)
                                                 {
                                                     mvwprintw(lab_map,3,108,"                                         ");
@@ -919,6 +935,10 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                                 break;
 
                                         case 7:
+                                                player->poke6.CTstat->quant=1;
+                                                player->poke6.CTstat->type=LEER;
+                                                sprintf(player->poke6.CTstat->name,"leer");
+
                                                 if (player->poke6.type!=0)
                                                 {
                                                     mvwprintw(lab_map,3,108,"                                         ");
