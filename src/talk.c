@@ -257,7 +257,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     write_flush(shop_map,16,37,"to buy today ?");
                 }     
 
-                else
+                else 
                 {
                     mvwprintw(shop_map,15,37,"                       ");
                     mvwprintw(shop_map,16,37,"              ");
