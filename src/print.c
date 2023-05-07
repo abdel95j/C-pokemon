@@ -40,7 +40,7 @@ void chargement(int time){
     FILE* f = NULL;
     int sec=0,count_points=0, frame_number;
 
-    f=fopen("../saves/pikachu_frames","r");
+    f=fopen("../ressources/pikachu_frames","r");
     if(f==NULL){
         printw("ouverture du fichier ratée");
         exit(1);
@@ -261,7 +261,9 @@ void print_lab(WINDOW*lab_map,int x, int y){
     mvwprintw(lab_map,4+5,16,"| |_*_*_| |");
     mvwprintw(lab_map,4+6,16,"|_________|");
 
-
+    wattron(lab_map,COLOR_PAIR(BLUE));
+    mvwprintw(lab_map,3-1,35,"   [PC]");
+    wattroff(lab_map,COLOR_PAIR(BLUE));
     mvwprintw(lab_map,3,35,"   _____");
     mvwprintw(lab_map,3+1,35,"  |_____|   ___");
     mvwprintw(lab_map,3+2,35,"  |     |  |___|");
@@ -346,22 +348,22 @@ void print_lab(WINDOW*lab_map,int x, int y){
     mvwprintw(lab_map,35+3,68,"|             |");
     mvwprintw(lab_map,35+4,68,"               ");
 
-    wattron(lab_map,COLOR_PAIR(4));
+    wattron(lab_map,COLOR_PAIR(BLUE));
     mvwprintw(lab_map,6-1,100-2,"Professor");  
     mvwprintw(lab_map,6,100+2,"-");  
     mvwprintw(lab_map,6+1,100+1,"'~'");
     mvwprintw(lab_map,6+2,100,"/|+|\\");
     mvwprintw(lab_map,6+3,100+1,"|-|");
     mvwprintw(lab_map,6+4,100+1,"- -"); 
-    wattroff(lab_map,COLOR_PAIR(4));
+    wattroff(lab_map,COLOR_PAIR(BLUE));
 
-    wattron(lab_map,COLOR_PAIR(1));
+    wattron(lab_map,COLOR_PAIR(RED));
     mvwprintw(lab_map,x,y+2,"_");  
     mvwprintw(lab_map,x+1,y+1,"'_'");
     mvwprintw(lab_map,x+2,y,"/| |\\");
     mvwprintw(lab_map,x+3,y+1,"|-|");
     mvwprintw(lab_map,x+4,y+1,"- -");       
-    wattroff(lab_map,COLOR_PAIR(1));
+    wattroff(lab_map,COLOR_PAIR(RED));
 }
 
 void print_shop(WINDOW*shop_map,int x, int y){
@@ -755,18 +757,15 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     }
 
     mvwprintw(sac,x,y,"  ,");      
-    mvwprintw(sac,x+1,y,".:::.");
+    mvwprintw(sac,x+1,y,".:::."); 
 
-    mvwprintw(sac,1,6,"        , - - ,");       
-    mvwprintw(sac,1+1,6,"    , '         ' ,");       
-    mvwprintw(sac,1+2,6,"  ,                 ,");   
-    mvwprintw(sac,1+3,6,",          _          ,");   
-    mvwprintw(sac,1+4,6,",       =     =       ,");   
-    mvwprintw(sac,1+5,6,",------=       =------,");   
-    mvwprintw(sac,1+6,6," ,      =  _  =      ,");
-    mvwprintw(sac,1+7,6,"  ,                 ,");   
-    mvwprintw(sac,1+8,6,"    ,            , '");   
-    mvwprintw(sac,1+9,6,"      ' - , ,  '");     
+    mvwprintw(sac,4,13,"   ______   ");
+    mvwprintw(sac,4+1,13," *        * ");                              
+    mvwprintw(sac,4+2,13,"*          *");            
+    mvwprintw(sac,4+3,13,"*----()----*"); 
+    mvwprintw(sac,4+4,13,"*          *");            
+    mvwprintw(sac,4+5,13," *________* ");
+
     mvwprintw(sac,2,33,"x%d",player->inventory[POKEBALLS].quant);     
 
     mvwprintw(sac,1,44,"     @@@@@@@@@@(     ");     
@@ -792,6 +791,149 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,3+7,84,"   **,,.        ");
     mvwprintw(sac,2,113,"x%d",player->inventory[CANDYS].quant);     
                     
+}
+
+void print_yourteam(WINDOW* yourteam,trainer* player, int x,int y){
+    int i;
+    
+    for ( i = 0; i < 27; i++)
+    {
+        mvwprintw(yourteam,1+i,(COLS/1.5)/2,"|");    //colonne du droite
+    }    
+
+    for ( i = 0; i < 27; i++)
+    {
+        mvwprintw(yourteam,1+i,(COLS/1.5)/4,"|");    //colonne de gauche
+    }  
+
+    for ( i = 0; i < 116; i++)
+    {
+        mvwprintw(yourteam,(LINES/1.5)/3,1+i,"_");    //ligne
+    }
+
+    // poke1
+    mvwprintw(yourteam,4,3,"   ______   ");
+    mvwprintw(yourteam,4+1,3," *        * ");                              
+    mvwprintw(yourteam,4+2,3,"*          *");            
+    mvwprintw(yourteam,4+3,3,"*----()----*"); 
+    mvwprintw(yourteam,4+4,3,"*          *");            
+    mvwprintw(yourteam,4+5,3," *________* ");
+
+    mvwprintw(yourteam,3,4,"%s",player->poke1.name);
+    if (player->poke1.type!=0)
+    {
+        mvwprintw(yourteam,2,19,"lvl %d",player->poke1.lvl);
+        mvwprintw(yourteam,4,19,"HP : %.1f/%.1f",player->poke1.pv,player->poke1.pv_save);
+        mvwprintw(yourteam,5,19,"ATK : %.1f",player->poke1.atk);
+        mvwprintw(yourteam,6,19,"DEF : %.1f",player->poke1.def);
+        mvwprintw(yourteam,7,19,"DODGE : %.1f",player->poke1.dodge);
+        mvwprintw(yourteam,9,19,"UTILITARY : %s",player->poke1.CTutil->name);
+        mvwprintw(yourteam,10,19,"STAT : %s",player->poke1.CTstat->name);
+    }
+
+    //poke2
+    mvwprintw(yourteam,4,43,"   ______   ");
+    mvwprintw(yourteam,4+1,43," *        * ");                              
+    mvwprintw(yourteam,4+2,43,"*          *");            
+    mvwprintw(yourteam,4+3,43,"*----()----*"); 
+    mvwprintw(yourteam,4+4,43,"*          *");            
+    mvwprintw(yourteam,4+5,43," *________* ");
+
+    mvwprintw(yourteam,3,44,"%s",player->poke2.name);
+    if (player->poke2.type!=0)
+    {
+        mvwprintw(yourteam,2,59,"lvl %d",player->poke2.lvl);
+        mvwprintw(yourteam,4,59,"HP : %.1f/%.1f",player->poke2.pv,player->poke2.pv_save);
+        mvwprintw(yourteam,5,59,"ATK : %.1f",player->poke2.atk);
+        mvwprintw(yourteam,6,59,"DEF : %.1f",player->poke2.def);
+        mvwprintw(yourteam,7,59,"DODGE : %.1f",player->poke2.dodge);
+        mvwprintw(yourteam,9,59,"UTILITARY : %s",player->poke2.CTutil->name);
+        mvwprintw(yourteam,10,59,"STAT : %s",player->poke2.CTstat->name);
+    }
+
+    //poke3
+    mvwprintw(yourteam,4,83,"   ______   ");
+    mvwprintw(yourteam,4+1,83," *        * ");                              
+    mvwprintw(yourteam,4+2,83,"*          *");            
+    mvwprintw(yourteam,4+3,83,"*----()----*"); 
+    mvwprintw(yourteam,4+4,83,"*          *");            
+    mvwprintw(yourteam,4+5,83," *________* ");
+
+    mvwprintw(yourteam,3,84,"%s",player->poke3.name);
+    if (player->poke3.type!=0)
+    {
+        mvwprintw(yourteam,2,99,"lvl %d",player->poke3.lvl);
+        mvwprintw(yourteam,4,99,"HP : %.1f/%.1f",player->poke3.pv,player->poke3.pv_save);
+        mvwprintw(yourteam,5,99,"ATK : %.1f",player->poke3.atk);
+        mvwprintw(yourteam,6,99,"DEF : %.1f",player->poke3.def);
+        mvwprintw(yourteam,7,99,"DODGE : %.1f",player->poke3.dodge);
+        mvwprintw(yourteam,9,99,"UTILITARY : %s",player->poke3.CTutil->name);
+        mvwprintw(yourteam,10,99,"STAT : %s",player->poke3.CTstat->name);
+    }
+
+    //poke4
+    mvwprintw(yourteam,18,3,"   ______   ");
+    mvwprintw(yourteam,18+1,3," *        * ");                              
+    mvwprintw(yourteam,18+2,3,"*          *");            
+    mvwprintw(yourteam,18+3,3,"*----()----*"); 
+    mvwprintw(yourteam,18+4,3,"*          *");            
+    mvwprintw(yourteam,18+5,3," *________* ");
+
+    mvwprintw(yourteam,17,4,"%s",player->poke4.name);
+    if (player->poke4.type!=0)
+    {
+        mvwprintw(yourteam,16,19,"lvl %d",player->poke4.lvl);
+        mvwprintw(yourteam,18,19,"HP : %.1f/%.1f",player->poke4.pv,player->poke4.pv_save);
+        mvwprintw(yourteam,19,19,"ATK : %.1f",player->poke4.atk);
+        mvwprintw(yourteam,20,19,"DEF : %.1f",player->poke4.def);
+        mvwprintw(yourteam,21,19,"DODGE : %.1f",player->poke4.dodge);
+        mvwprintw(yourteam,23,19,"UTILITARY : %s",player->poke4.CTutil->name);
+        mvwprintw(yourteam,24,19,"STAT : %s",player->poke4.CTstat->name);
+    }
+
+    //poke5
+    mvwprintw(yourteam,18,43,"   ______   ");
+    mvwprintw(yourteam,18+1,43," *        * ");                              
+    mvwprintw(yourteam,18+2,43,"*          *");            
+    mvwprintw(yourteam,18+3,43,"*----()----*"); 
+    mvwprintw(yourteam,18+4,43,"*          *");            
+    mvwprintw(yourteam,18+5,43," *________* ");
+
+    mvwprintw(yourteam,17,44,"%s",player->poke5.name);
+    if (player->poke5.type!=0)
+    {
+        mvwprintw(yourteam,16,59,"lvl %d",player->poke5.lvl);
+        mvwprintw(yourteam,18,59,"HP : %.1f/%.1f",player->poke5.pv,player->poke5.pv_save);
+        mvwprintw(yourteam,19,59,"ATK : %.1f",player->poke5.atk);
+        mvwprintw(yourteam,20,59,"DEF : %.1f",player->poke5.def);
+        mvwprintw(yourteam,21,59,"DODGE : %.1f",player->poke5.dodge);
+        mvwprintw(yourteam,23,59,"UTILITARY : %s",player->poke5.CTutil->name);
+        mvwprintw(yourteam,24,59,"STAT : %s",player->poke5.CTstat->name);
+    }
+
+    //poke6
+    mvwprintw(yourteam,18,83,"   ______   ");
+    mvwprintw(yourteam,18+1,83," *        * ");                              
+    mvwprintw(yourteam,18+2,83,"*          *");            
+    mvwprintw(yourteam,18+3,83,"*----()----*"); 
+    mvwprintw(yourteam,18+4,83,"*          *");            
+    mvwprintw(yourteam,18+5,83," *________* ");
+
+    mvwprintw(yourteam,17,84,"%s",player->poke6.name);
+    if (player->poke6.type!=0)
+    {
+        mvwprintw(yourteam,16,99,"lvl %d",player->poke6.lvl);
+        mvwprintw(yourteam,18,99,"HP : %.1f/%.1f",player->poke6.pv,player->poke6.pv_save);
+        mvwprintw(yourteam,19,99,"ATK : %.1f",player->poke6.atk);
+        mvwprintw(yourteam,20,99,"DEF : %.1f",player->poke6.def);
+        mvwprintw(yourteam,21,99,"DODGE : %.1f",player->poke6.dodge);
+        mvwprintw(yourteam,23,99,"UTILITARY : %s",player->poke6.CTutil->name);
+        mvwprintw(yourteam,24,99,"STAT : %s",player->poke6.CTstat->name);
+    }
+
+
+    mvwprintw(yourteam,x,y,"  ,");      
+    mvwprintw(yourteam,x+1,y,".:::.");   
 }
 
 void print_main_menu(WINDOW* win,int x,int y){

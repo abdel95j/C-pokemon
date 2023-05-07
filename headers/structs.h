@@ -1,6 +1,7 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+#define NOPOKEMON 0
 #define WATER 1
 #define FIRE 2
 #define GRASS 3
@@ -9,12 +10,20 @@
 #define POKEBALLS 0
 #define POTIONS 1
 #define CANDYS 2
+#define CT 3
 
 #define RED 1
 #define MAGENTA 2
 #define YELLOW 3
 #define BLUE 4
 #define GREEN 5
+
+typedef struct
+{
+    char name[25];
+    int quant;
+    int type;
+}object;
 typedef struct
 {
     char name[30];
@@ -30,27 +39,9 @@ typedef struct
     int catchrate;
     char basicatk[30];
     char speatk[30];
-    char statatk[30];
-    char utilitary[30];
+    object CTstat[30];
+    object CTutil[30];
 }pokemon;
-
-
-typedef struct
-{
-    char name[25];
-    int quant;
-    int type;
-}object;
-
-/*
-types: 
-
-no obj=0
-pokeballs = 1
-potions=2
-bonbons=3
-*/
-
 
 typedef struct 
 {

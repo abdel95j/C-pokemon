@@ -829,3 +829,44 @@ void physic_inventory(int ch, int* x, int* y){
             break;
         }
 }
+
+void physic_yourteam(int ch, int* x, int* y){
+
+    switch (ch)
+        {
+        case 'q' :
+        case KEY_LEFT :
+            if (*y!=17)
+            {
+                *y-=40;
+            }
+            break;
+
+        case 'd' :
+        case KEY_RIGHT :
+            if (*y!=97)
+            {
+                *y+=40;
+            }
+            break;
+
+        case 'z' :
+        case KEY_UP :
+            if (*x==26)
+            {
+                *x=12;
+            }
+            break;
+
+        case 's' :
+        case KEY_DOWN :
+            if (*x==12)
+            {
+                *x=26;
+            }
+            break;
+        
+        default:
+            break;
+        }
+}

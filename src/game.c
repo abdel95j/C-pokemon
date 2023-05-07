@@ -22,6 +22,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pokenull->type=0;
     sprintf(pokenull->basicatk,"none");
     sprintf(pokenull->speatk,"none");
+    sprintf(pokenull->CTutil->name,"none");
+    sprintf(pokenull->CTstat->name,"none");
     sprintf(pokenull->name,"no-pokemon");
 
     //charmander -
@@ -36,6 +38,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->type=FIRE;
     sprintf(charmander->basicatk,"fire-punch");
     sprintf(charmander->speatk,"flamethrower");
+    sprintf(charmander->CTutil->name,"none");
+    sprintf(charmander->CTstat->name,"none");
     sprintf(charmander->name,"charmander");
     
     //bulbasaur -
@@ -50,6 +54,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->type=GRASS;
     sprintf(bulbasaur->basicatk,"bullet-seed");
     sprintf(bulbasaur->speatk,"solar-beam");
+    sprintf(bulbasaur->CTutil->name,"none");
+    sprintf(bulbasaur->CTstat->name,"none");
     sprintf(bulbasaur->name,"bulbasaur");
 
     //squirtle -
@@ -64,7 +70,11 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->type=WATER;
     sprintf(squirtle->basicatk,"water-gun");
     sprintf(squirtle->speatk,"hydropump");
+    sprintf(squirtle->CTutil->name,"none");
+    sprintf(squirtle->CTstat->name,"none");
     sprintf(squirtle->name,"squirtle");
+
+    
 }
 
 void create_newplayer(trainer* newplayer){
@@ -81,7 +91,12 @@ void create_newplayer(trainer* newplayer){
     print_newtrainer(chatwin);
     wrefresh(chatwin);
     wmove(write,2,22);
-    wscanw(write,"%s",newplayer->name);
+
+    while (wscanw(write,"%s",newplayer->name)!=1)
+    {
+        mvwprintw(write,2,22,"                 ");
+        wmove(write,2,22);
+    }
 
     newplayer->lvl=1;
     newplayer->money=200;
@@ -213,7 +228,7 @@ void house(trainer* player){
                 break;
 
             case 'm':
-                menu(&quit);
+                menu(&quit,player);
                 break;
 
             case 'i':
@@ -267,8 +282,7 @@ void lab(trainer* player){
 
             if (x<=7 && y>=95 && y<=105)
             {
-                chargement();
-                //talk to prof
+                talkto_prof(lab_map,player);                
             }
 
             if (x==7 && y>=35 && y<=41)
@@ -278,7 +292,7 @@ void lab(trainer* player){
             break;
 
         case 'm':
-            menu(&quit);
+            menu(&quit,player);
             break;
         
         case 'i':
@@ -289,6 +303,7 @@ void lab(trainer* player){
             break;
         }
 
+        usleep(16667);
         if(delwin(line_wall_lab)==ERR)
         {
             exit(19);
@@ -336,7 +351,7 @@ void shop(trainer* player){
                 break;
 
             case 'm':
-                menu(&quit);
+                menu(&quit,player);
                 break;
 
             case 'i':
@@ -359,7 +374,62 @@ void shop(trainer* player){
     }
 }
 
-void menu(int* quit){
+void your_team(trainer* player){
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    int finish=0,ch=ERR;
+    int x=12,y=17;
+    
+     while (finish==0)
+    {
+        WINDOW* yourteam = newwin(29,118,20,60);
+        WINDOW* yourteam_array=newwin(5,100,15,60);
+        box(yourteam,0,0);
+
+        mvwprintw(yourteam_array,1,10,"__  ______  __  _____    _____________   __  ___");
+        mvwprintw(yourteam_array,1+1,10,"\\ \\/ / __ \\/ / / / _ \\  /_  __/ __/ _ | /  |/  /");
+        mvwprintw(yourteam_array,1+2,10," \\  / /_/ / /_/ / , _/   / / / _// __ |/ /|_/ / ");
+        mvwprintw(yourteam_array,1+3,10," /_/\\____/\\____/_/|_|   /_/ /___/_/ |_/_/  /_/  ");
+                                  
+        ch=getch();
+        print_yourteam(yourteam,player,x,y);        
+        wrefresh(yourteam);
+        wrefresh(yourteam_array);
+
+        physic_yourteam(ch,&x,&y); // colisions
+
+        switch (ch) // actions
+        {
+        case ' ':
+            wrefresh(blackscreen);
+            finish=1;
+            break;
+        case 'e':
+        case '\n':
+        case '\r':
+            // à faire
+            break;
+        default:
+            break;
+        }
+
+        usleep(16667);
+        if(delwin(yourteam)==ERR)
+        {
+            exit(34);
+        }
+        if(delwin(yourteam_array)==ERR)
+        {
+            exit(33);
+        }   
+    }
+    wrefresh(blackscreen);
+        if (delwin(blackscreen)==ERR)
+        {
+            exit(32);
+        }
+}
+
+void menu(int* quit,trainer* player){
     WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     int chmenu=ERR,menuexit=0;
     int x=13,y=95;
@@ -387,6 +457,8 @@ void menu(int* quit){
                     case 31:
                         menuexit=1;
                         *quit=1;
+                        //end music
+                        system("killall -9 vlc");
                         endwin();
                         exit(0);
                         break;
@@ -396,8 +468,16 @@ void menu(int* quit){
                         break;
 
                     case 13:
+                        wrefresh(blackscreen);
+                        your_team(player);
                         break;
                     }
+                    break;
+
+                case ' ':
+                    wclear(blackscreen);
+                    wrefresh(blackscreen);
+                    menuexit=1;
                     break;
 
                 default:
@@ -409,6 +489,7 @@ void menu(int* quit){
                 exit(4);
             }
         }
+        wclear(blackscreen);
         wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
@@ -442,6 +523,7 @@ void inventory(trainer* player){
         switch (ch) // actions
         {
         case 'i':
+        case ' ':
             finish=1;
             break;
         case 'e':
@@ -541,7 +623,7 @@ void roadto_league(trainer* player){
             break;
         
         case 'm':
-            menu(&quit);
+            menu(&quit,player);
             break;
 
         case 'i':
@@ -586,11 +668,13 @@ void roadto_league(trainer* player){
 
 void main_menu(trainer* player,int* quit,int* x, int* y){
     WINDOW* win=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     int ch=ERR;
     
     ch=getch();
     print_main_menu(win,*x,*y);
 
+    wrefresh(blackscreen);
     wrefresh(win);
     switch (ch)
     {
@@ -626,11 +710,6 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
-            wclear(win);
-            wrefresh(win);
-            create_newplayer(player);
-            get_firstpoke(player);
-            lab(player);
             *quit=1;
             chargement();
             break;
@@ -645,6 +724,10 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     }
     usleep(16667);
     if(delwin(win)==ERR)
+    {
+        exit(7);
+    }
+    if(delwin(blackscreen)==ERR)
     {
         exit(7);
     }
@@ -696,7 +779,7 @@ void game(trainer* player, int* quit,int* l,int* c){
             break;
 
         case 'm':
-            menu(quit);
+            menu(quit,player);
             break;
 
         case 'i':

@@ -33,6 +33,9 @@ int main(){
         system("xdotool key FN+F11"); //sudo apt install xdotool
     }  
 
+    //launch music
+    system("cvlc ../ressources/Main-Theme.mp3 &");  // sudo aapt_get install vlc
+
     // INIT COLOR PAIR FOR WATTR
     init_pair(1,COLOR_RED,COLOR_BLACK);     // red = 1
     init_pair(2,COLOR_MAGENTA,COLOR_BLACK); // magenta = 2
@@ -46,7 +49,6 @@ int main(){
     int x=28,y=8; //position curseur menu principal
 
     trainer player;
-    pokemon pokenull, charmander, squirtle, bulbasaur;
 
     while (quit==0)
     {
@@ -58,6 +60,8 @@ int main(){
         game(&player,&quit,&l,&c);
     }
     
+    //end music
+    system("killall -9 vlc");
     endwin();
     return 0;
 }
