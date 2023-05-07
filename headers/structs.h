@@ -6,10 +6,20 @@
 #define GRASS 3
 #define ELECTRIC 4
 
+#define POKEBALLS 0
+#define POTIONS 1
+#define CANDYS 2
+
+#define RED 1
+#define MAGENTA 2
+#define YELLOW 3
+#define BLUE 4
+#define GREEN 5
 typedef struct
 {
     char name[30];
     float pv;
+    float pv_save;
     float atk;
     float def;
     float dodge;
@@ -28,7 +38,8 @@ typedef struct
 typedef struct
 {
     char name[25];
-    int type;   //type of the object to know what the player wants to use in his inventory
+    int quant;
+    int type;
 }object;
 
 /*
@@ -57,7 +68,7 @@ typedef struct
     pokemon poke5;
     pokemon poke6;
     pokemon pc[20];
-    object inventory[12];
+    object inventory[6];
 }trainer;
 
 #endif

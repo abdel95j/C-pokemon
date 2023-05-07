@@ -15,6 +15,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pokenull->def=0;
     pokenull->dodge=0;
     pokenull->pv=0;
+    pokenull->pv_save=0;
     pokenull->lvl=0;
     pokenull->catchrate=0;
     pokenull->art=0;
@@ -28,6 +29,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->def=30.0/100;
     charmander->dodge=15;
     charmander->pv=35.0;
+    charmander->pv_save=35.0;
     charmander->lvl=1;
     charmander->catchrate=50;
     charmander->art=4;
@@ -41,6 +43,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->def=45.0/100;
     bulbasaur->dodge=10;
     bulbasaur->pv=40.0;
+    bulbasaur->pv_save=40.0;
     bulbasaur->lvl=1;
     bulbasaur->catchrate=50;
     bulbasaur->art=1;
@@ -54,6 +57,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->def=35.0/100;
     squirtle->dodge=18;
     squirtle->pv=33.0;
+    squirtle->pv_save=33.0;
     squirtle->lvl=1;
     squirtle->catchrate=50;
     squirtle->art=7;
@@ -84,14 +88,14 @@ void create_newplayer(trainer* newplayer){
     newplayer->xp=0;
     newplayer->is_on_water=0;
 
-    newplayer->inventory[0].type=1; // pokeballs
-    newplayer->inventory[1].type=2; // potions
-    newplayer->inventory[2].type=3; // bonbons
+    newplayer->inventory[0].quant=10;
+    sprintf(newplayer->inventory[0].name,"pokeballs"); 
 
-    for (int i = 3; i < 12 ; i++)
-    {
-        newplayer->inventory[i].type=0; // no obj
-    }
+    newplayer->inventory[1].quant=5;
+    sprintf(newplayer->inventory[1].name,"potions"); 
+
+    newplayer->inventory[2].quant=2; // bonbons
+    sprintf(newplayer->inventory[2].name,"candys"); 
 
     for (int i = 0; i < 20; i++)
     {
@@ -174,7 +178,7 @@ void get_firstpoke(trainer* player){
 }
 
 void house(trainer* player){
-    int finish=0,ch=ERR;
+    int quit=0,finish=0,ch=ERR;
     int x=34,y=125;
 
     while (finish==0)
@@ -196,10 +200,9 @@ void house(trainer* player){
             case 'e':
             case '\r':
             case '\n':
-                if (x<=19 && x>=13 && y<=9) // mom area
+                if (x<=19 && x>=18 && y<=9) // mom area
                 {
-                    //talk to mom
-                    chargement();
+                    talkto_mom(house_map,player);
                 }
 
                 if (x==34 && y>=121 && y<=129) // exit area
@@ -207,6 +210,14 @@ void house(trainer* player){
                     chargement();
                     finish=1;
                 }  
+                break;
+
+            case 'm':
+                menu(&quit);
+                break;
+
+            case 'i':
+                inventory(player);
                 break;
 
             default:
@@ -226,7 +237,7 @@ void house(trainer* player){
 }
 
 void lab(trainer* player){
-    int ch=ERR, finish=0;
+    int quit=0,ch=ERR, finish=0;
     int x=34,y=73;
 
     while(finish==0)
@@ -262,9 +273,16 @@ void lab(trainer* player){
 
             if (x==7 && y>=35 && y<=41)
             {
-                chargement();
-                //pc
+                computer(player);                
             }
+            break;
+
+        case 'm':
+            menu(&quit);
+            break;
+        
+        case 'i':
+            inventory(player);
             break;
         
         default:
@@ -283,7 +301,7 @@ void lab(trainer* player){
 }
 
 void shop(trainer* player){
-    int finish=0,ch=ERR;
+    int quit=0,finish=0,ch=ERR;
     int x=34,y=125;
 
     while (finish==0)
@@ -317,6 +335,14 @@ void shop(trainer* player){
                 }  
                 break;
 
+            case 'm':
+                menu(&quit);
+                break;
+
+            case 'i':
+                inventory(player);
+                break;
+
             default:
                 break;
         }
@@ -334,12 +360,14 @@ void shop(trainer* player){
 }
 
 void menu(int* quit){
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     int chmenu=ERR,menuexit=0;
     int x=13,y=95;
     
     while(chmenu!='m' && menuexit==0)
         {            
-            WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6,COLS/6);
+            WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+            
             print_menu(winmenu,x,y);
 
             box(winmenu,0,0);
@@ -359,6 +387,8 @@ void menu(int* quit){
                     case 31:
                         menuexit=1;
                         *quit=1;
+                        endwin();
+                        exit(0);
                         break;
 
                     case 22:
@@ -379,16 +409,22 @@ void menu(int* quit){
                 exit(4);
             }
         }
+        wrefresh(blackscreen);
+        if (delwin(blackscreen)==ERR)
+        {
+            exit(24);
+        }      
 }
 
-void inventory(){
+void inventory(trainer* player){
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     int finish=0,ch=ERR;
     int x=12,y=17;
 
     while (finish==0)
     {
-        WINDOW* sac = newwin(LINES/1.5,COLS/1.5,(LINES/6)+5,(COLS/6)+1);
-        WINDOW* bag_array=newwin(5,COLS/1.5,(LINES/6),COLS/6+1);
+        WINDOW* sac = newwin(29,118,20,60);
+        WINDOW* bag_array=newwin(5,50,15,60);
         box(sac,0,0);
 
         mvwprintw(bag_array,1,12," ___   _   ___ ");
@@ -397,7 +433,7 @@ void inventory(){
         mvwprintw(bag_array,1+3,12,"|___/_/ \\_\\___|");
                                   
         ch=getch();
-        print_inventory(sac,x,y);        
+        print_inventory(sac,player,x,y);        
         wrefresh(sac);
         wrefresh(bag_array);
 
@@ -427,11 +463,16 @@ void inventory(){
             exit(6);
         }   
     }
+    wrefresh(blackscreen);
+        if (delwin(blackscreen)==ERR)
+        {
+            exit(25);
+        } 
 }
 
 void roadto_league(trainer* player){
     int l=97,c=70;
-    int finish=0, ch=ERR;
+    int quit=0,finish=0, ch=ERR;
 
     while(finish==0)
     {
@@ -464,8 +505,15 @@ void roadto_league(trainer* player){
             if (l==103 && c<=74 && c>=68)  //  exit zone
             {
                 finish=1;
-                chargement;
+                chargement();
             }
+
+            if (l==13 && c>=68 && c<=72) // league door
+            {
+                //league(player);
+                chargement();
+            }
+            
 
             if (l==76)  // border water down 
             {
@@ -490,10 +538,16 @@ void roadto_league(trainer* player){
                 l+=2;
                 player->is_on_water=1;
             }
-
-            
             break;
         
+        case 'm':
+            menu(&quit);
+            break;
+
+        case 'i':
+            inventory(player);
+            break;
+
         default:
             break;
         }
@@ -574,8 +628,9 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             wclear(win);
             wrefresh(win);
-            //shop(player);
-            roadto_league(player);
+            create_newplayer(player);
+            get_firstpoke(player);
+            lab(player);
             *quit=1;
             chargement();
             break;
@@ -645,7 +700,7 @@ void game(trainer* player, int* quit,int* l,int* c){
             break;
 
         case 'i':
-            inventory();
+            inventory(player);
             break;
 
         case 'p':

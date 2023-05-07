@@ -69,12 +69,14 @@ void chargement(int time){
                 break;
             }
             
+            //wattron(pikachu_screen,COLOR_PAIR(3));
             int j=15; 
             for(int i=0;i<ligne_limite;i++){
                 fgets(ligne,100,f);
                 mvwprintw(pikachu_screen,j,60,"%s",ligne);
                 j++;
             }
+            //wattroff(pikachu_screen,COLOR_PAIR(3));
 
             // 4 affichages = 1sec
             if (count_points<4)
@@ -484,6 +486,51 @@ void print_shop(WINDOW*shop_map,int x, int y){
 
 void print_roadto_league(WINDOW* road){
     
+    mvwprintw(road,30,148,"      ________________________________________________________________________ ");
+    mvwprintw(road,30+1,148,"     |                                                                        |");
+    mvwprintw(road,30+2,148,"     |                                                                        |");
+    mvwprintw(road,30+3,148,"     |                                                                        |");
+    mvwprintw(road,30+4,148,"     |                                                                        |");
+    mvwprintw(road,30+5,148,"     |                                                                        |");
+    mvwprintw(road,30+6,148,"     |                                                                        |");
+    mvwprintw(road,30+7,148,"     |                                                                        |");
+    mvwprintw(road,30+8,148,"     |                                                                        |");
+    mvwprintw(road,30+9,148,"     |________________________________________________________________________|");
+    mvwprintw(road,30+10,148,"      |    __    __    __               _____               __     __    __  |");
+    mvwprintw(road,30+11,148,"      |   |  |  |  |  |  |             / ___ \\             |  |   |  |  |  | |");
+    mvwprintw(road,30+12,148,"      |   |__|  |__|  |__|            / /   \\ \\            |__|   |__|  |__| |");
+    mvwprintw(road,30+13,148,"      |                            ___|_|___|_|___                           |");
+    mvwprintw(road,30+14,148,"      |     League                |   |___,___|   |                          |");
+    mvwprintw(road,30+15,148,"      |      Pokemon              /  ,/   |   \\,  \\                          |");
+    mvwprintw(road,30+16,148,"      |                           |  |    |    |  |                          |");
+    mvwprintw(road,30+17,148,"      |___________________________|--|    |    |--|__________________________|");
+
+    mvwprintw(road,36,118,"          &&& &&  & &&");
+    mvwprintw(road,36+1,118,"      && &\\/&\\|& ()|/ @, &&");
+    mvwprintw(road,36+2,118,"      &\\/(/&/&||/& /_/)_&/_&");
+    mvwprintw(road,36+3,118,"   &() &\\/&|()|/&\\/ '@' & ()");
+    mvwprintw(road,36+4,118,"  &_\\_&&_\\ |& |&&/&__@_/_& &&");
+    mvwprintw(road,36+5,118,"&&   && & &| &| /& & @ ()& /&&");
+    mvwprintw(road,36+6,118," ()&_---()&\\&\\|&&-&&--@---()~");
+    mvwprintw(road,36+7,118,"     &&     \\|||");
+    mvwprintw(road,36+8,118,"             |||");
+    mvwprintw(road,36+9,118,"             |||");   
+    mvwprintw(road,36+10,118,"             |||");   
+    mvwprintw(road,36+11,118,"        ,-=-~  .-^-_");     
+
+    mvwprintw(road,36,230,"          &&& &&  & &&");
+    mvwprintw(road,36+1,230,"      && &\\/&\\|& ()|/ @, &&");
+    mvwprintw(road,36+2,230,"      &\\/(/&/&||/& /_/)_&/_&");
+    mvwprintw(road,36+3,230,"   &() &\\/&|()|/&\\/ '@' & ()");
+    mvwprintw(road,36+4,230,"  &_\\_&&_\\ |& |&&/&__@_/_& &&");
+    mvwprintw(road,36+5,230,"&&   && & &| &| /& & @ ()& /&&");
+    mvwprintw(road,36+6,230," ()&_---()&\\&\\|&&-&&--@---()~");
+    mvwprintw(road,36+7,230,"     &&     \\|||");
+    mvwprintw(road,36+8,230,"             |||");
+    mvwprintw(road,36+9,230,"             |||");   
+    mvwprintw(road,36+10,230,"             |||");   
+    mvwprintw(road,36+11,230,"        ,-=-~  .-^-_");   
+    
     mvwprintw(road,85,116," "); // cassure gauche
     mvwprintw(road,85+1,116," "); 
     mvwprintw(road,85+2,116," ");
@@ -689,36 +736,62 @@ void print_menu(WINDOW* win,int x,int y){
     mvwprintw(win,x+4,y,"   ':");    
 }
 
-void print_inventory(WINDOW* sac,int x,int y){
+void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     int i;
     
-    for ( i = 0; i < 40; i++)
+    for ( i = 0; i < 27; i++)
     {
-        mvwprintw(sac,1+i,(COLS/1.5)/2,"|");    //colonne du millieu
+        mvwprintw(sac,1+i,(COLS/1.5)/2,"|");    //colonne du droite
     }    
 
-    for ( i = 0; i < 40; i++)
+    for ( i = 0; i < 27; i++)
     {
         mvwprintw(sac,1+i,(COLS/1.5)/4,"|");    //colonne de gauche
     }  
 
-    for ( i = 0; i < 40; i++)
+    for ( i = 0; i < 116; i++)
     {
-        mvwprintw(sac,1+i,(COLS/1.5)/1.33,"|");    //colonne de droite
-    } 
-
-    for ( i = 0; i < 155; i++)
-    {
-        mvwprintw(sac,(LINES/1.5)/3,1+i,"_");    //ligne du haut
-    }
-
-    for ( i = 0; i < 155; i++)
-    {
-        mvwprintw(sac,(LINES/1.5)/1.5,1+i,"_");    //ligne du bas
+        mvwprintw(sac,(LINES/1.5)/3,1+i,"_");    //ligne
     }
 
     mvwprintw(sac,x,y,"  ,");      
     mvwprintw(sac,x+1,y,".:::.");
+
+    mvwprintw(sac,1,6,"        , - - ,");       
+    mvwprintw(sac,1+1,6,"    , '         ' ,");       
+    mvwprintw(sac,1+2,6,"  ,                 ,");   
+    mvwprintw(sac,1+3,6,",          _          ,");   
+    mvwprintw(sac,1+4,6,",       =     =       ,");   
+    mvwprintw(sac,1+5,6,",------=       =------,");   
+    mvwprintw(sac,1+6,6," ,      =  _  =      ,");
+    mvwprintw(sac,1+7,6,"  ,                 ,");   
+    mvwprintw(sac,1+8,6,"    ,            , '");   
+    mvwprintw(sac,1+9,6,"      ' - , ,  '");     
+    mvwprintw(sac,2,33,"x%d",player->inventory[POKEBALLS].quant);     
+
+    mvwprintw(sac,1,44,"     @@@@@@@@@@(     ");     
+    mvwprintw(sac,1+1,44,"    *@@@@@@@####&&   ");      
+    mvwprintw(sac,1+2,44,"    @@@( &@######.   ");      
+    mvwprintw(sac,1+3,44,"    &#@#*,###//##.   ");      
+    mvwprintw(sac,1+4,44,"     ##&&###///##    ");      
+    mvwprintw(sac,1+5,44,"     ##&&,/////##    ");      
+    mvwprintw(sac,1+6,44,"    ###(((/(((((##   ");      
+    mvwprintw(sac,1+7,44," ####(((((/#(#(//##  ");      
+    mvwprintw(sac,1+8,44,"##((##(#((/#(/(///((.");      
+    mvwprintw(sac,1+9,44,"#((//(((((/(//*//*/##");      
+    mvwprintw(sac,1+10,44,"   #(#//(#/////#( ");      
+    mvwprintw(sac,2,73,"x%d",player->inventory[POTIONS].quant);     
+
+    mvwprintw(sac,3,84,"              ..");
+    mvwprintw(sac,3+1,84,"             \\@(");
+    mvwprintw(sac,3+2,84,"       .((((,,//##(/");
+    mvwprintw(sac,3+3,84,"     *@&*####(/.,,, ");
+    mvwprintw(sac,3+4,84,"     (#(#####(/.");
+    mvwprintw(sac,3+5,84,",(((((/,(((((*, ");
+    mvwprintw(sac,3+6,84,"  **,//*        ");
+    mvwprintw(sac,3+7,84,"   **,,.        ");
+    mvwprintw(sac,2,113,"x%d",player->inventory[CANDYS].quant);     
+                    
 }
 
 void print_main_menu(WINDOW* win,int x,int y){
@@ -979,6 +1052,7 @@ void print_newtrainer(WINDOW* chat){
 
 void print_get_firstpoke(WINDOW* win,int x,int y){
 
+    //wattron(win,COLOR_PAIR(RED));
     mvwprintw(win,15-1,95,"          .(*,@°@,*#.                                         ");
     mvwprintw(win,15,95,"           #,,,,,,,,,,(/                                                ");
     mvwprintw(win,15+1,95,"        &,   ,,,,,,,,,,*/&                                    ");
@@ -1009,7 +1083,9 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,15+26,95,"    /,#/(///////*               #////////@                   ");
     mvwprintw(win,15+27,95,"  &(&  . .&                      &//////&@./                 ");
     mvwprintw(win,15+28,95,"                                  ,@  @&,.&                 ");
+    wattroff(win,COLOR_PAIR(RED));
 
+    //wattron(win,COLOR_PAIR(GREEN));
     mvwprintw(win,20,25,"                                          ,            ");   
     mvwprintw(win,20+1,25,"                                         (*(&*(        ");   
     mvwprintw(win,20+2,25,"                         ,#*****//***/////#**/@(@      ");   
@@ -1032,7 +1108,9 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,20+19,25,"         (**//////(     #(@####****//# /((//////((/    ");   
     mvwprintw(win,20+20,25,"         .*.@/*//,        /*****///(     @(/#//(/#     ");   
     mvwprintw(win,20+21,25,"                            ,./.@                      ");   
+    //wattroff(win,COLOR_PAIR(GREEN));
 
+    //wattron(win,COLOR_PAIR(BLUE));
     mvwprintw(win,21,160,"                         .(*,,*#.");
     mvwprintw(win,21+1,160,"                     *,,,,,,,,,,.. .&");
     mvwprintw(win,21+2,160,"                   .*///,*.*.,,,,,,,,(,");
@@ -1055,6 +1133,7 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,21+19,160,"      /#(///#@.  ///***/*(          //////**@,");
     mvwprintw(win,21+20,160,"                 //////(/                ,");
     mvwprintw(win,21+21,160,"                   .#");
+    //wattroff(win,COLOR_PAIR(BLUE));
 
     mvwprintw(win,7,85,"  ___ _                                        _                        _ ");
     mvwprintw(win,7+1,85," / __| |_  ___  ___ ___ ___   __ _   _ __  ___| |_____ _ __  ___ _ _   | |");
@@ -1066,4 +1145,16 @@ void print_get_firstpoke(WINDOW* win,int x,int y){
     mvwprintw(win,x+1,y,"  .:;:.");      
     mvwprintw(win,x+2,y,".:;;;;;:.");        
     mvwprintw(win,x+3,y,"  ;;;;;");    
+}
+
+void print_computer_connect(WINDOW* pc, trainer* player){
+
+    mvwprintw(pc,6,45,"   ___       __         _____                     __");
+    mvwprintw(pc,6+1,45,"  / _ \\___  / /_____   / ___/__  __ _  ___  __ __/ /____ ____");
+    mvwprintw(pc,6+2,45," / ___/ _ \\/  '_/ -_) / /__/ _ \\/  ' \\/ _ \\/ // / __/ -_) __/");
+    mvwprintw(pc,6+3,45,"/_/   \\___/_/\\_\\\\__/  \\___/\\___/_/_/_/ .__/\\_,_/\\__/\\__/_/");
+    mvwprintw(pc,6+4,45,"                                    /_/");
+    
+    mvwprintw(pc,19,37,"Login");
+    mvwprintw(pc,26,35,"Password");
 }

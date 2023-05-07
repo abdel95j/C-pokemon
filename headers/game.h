@@ -13,5 +13,6 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
 void shop(trainer* player);
 void roadto_league(trainer* player);
 void lab(trainer* player);
+void inventory(trainer* player);
 
 #endif

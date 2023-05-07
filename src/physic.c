@@ -738,7 +738,7 @@ void physic_roadto_league(int ch, int* l, int* c){
     {
         case KEY_UP:
         case 'z':
-            if (*l!=0)  //physic bordermap
+            if (*l!=13)  //physic bordermap + bat and trees
             {
                 *l=*l-1;
             }
@@ -803,7 +803,7 @@ void physic_inventory(int ch, int* x, int* y){
 
         case 'd' :
         case KEY_RIGHT :
-            if (*y!=137)
+            if (*y!=97)
             {
                 *y+=40;
             }
@@ -811,12 +811,7 @@ void physic_inventory(int ch, int* x, int* y){
 
         case 'z' :
         case KEY_UP :
-            if (*x==39)
-            {
-                *x=26;
-            }
-
-            else if (*x==26)
+            if (*x==26)
             {
                 *x=12;
             }
@@ -827,11 +822,6 @@ void physic_inventory(int ch, int* x, int* y){
             if (*x==12)
             {
                 *x=26;
-            }
-
-            else if (*x==26)
-            {
-                *x=39;
             }
             break;
         
