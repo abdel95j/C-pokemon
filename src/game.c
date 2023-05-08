@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
@@ -10,30 +11,91 @@
 #include "../headers/talkbis.h"
 
 void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
-
+    int sort1=rand()%3;
+    int sort2=rand()%2;
     pokemon charmander,pokenull,bulbasaur,squirtle;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
 
     sprintf(blue->name,"Blue");
-    blue->lvl=1;
     blue->poke1=charmander;
     blue->poke1=bulbasaur;
     blue->poke1=squirtle;
     blue->art=CHAMPIONBLUE;
 
-    sprintf(blue->name,"Red");
-    blue->lvl=1;
-    blue->poke1=charmander;
-    blue->poke1=bulbasaur;
-    blue->poke1=squirtle;
-    blue->art=CHAMPIONBLUE;
+    sprintf(red->name,"Red");
+    red->poke1=charmander;
+    red->poke1=bulbasaur;
+    red->poke1=squirtle;
+    red->art=CHAMPIONRED;
 
-    sprintf(blue->name,"Yellow");
-    blue->lvl=1;
-    blue->poke1=charmander;
-    blue->poke1=bulbasaur;
-    blue->poke1=squirtle;
-    blue->art=CHAMPIONBLUE;
+    sprintf(yellow->name,"Yellow");
+    yellow->poke1=charmander;
+    yellow->poke1=bulbasaur;
+    yellow->poke1=squirtle;
+    yellow->art=CHAMPIONYELLOW;
+
+    switch (sort2)
+    {
+    case 0: // MINUS
+        switch (sort1)
+        {
+        case 0:
+            red->lvl=player->lvl;
+            blue->lvl=player->lvl;
+            yellow->lvl=player->lvl;
+            //lvl poke adjustment
+            break;
+        
+        case 1:
+            red->lvl=player->lvl-1;
+            blue->lvl=player->lvl-1;
+            yellow->lvl=player->lvl-1;
+            //lvl poke adjustment
+            break;
+        
+        case 2:
+            red->lvl=player->lvl-2;
+            blue->lvl=player->lvl-2;
+            yellow->lvl=player->lvl-2;
+            //lvl poke adjustment
+            break;
+        
+        default:
+            break;
+        }
+        break;
+
+    case 1: // ADD
+        switch (sort1)
+        {
+        case 0:
+            red->lvl=player->lvl;
+            blue->lvl=player->lvl;
+            yellow->lvl=player->lvl;
+            //lvl poke adjustment
+            break;
+        
+        case 1:
+            red->lvl=player->lvl+1;
+            blue->lvl=player->lvl+1;
+            yellow->lvl=player->lvl+1;
+            //lvl poke adjustment
+            break;
+        
+        case 2:
+            red->lvl=player->lvl+2;
+            blue->lvl=player->lvl+2;
+            yellow->lvl=player->lvl+2;
+            //lvl poke adjustment
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
@@ -314,6 +376,24 @@ void league(trainer* player){
     int finish=0,ch=ERR,quit=0;
     int x=34,y=71;
 
+    trainer red,blue,yellow,champion;
+    init_champions(player,&blue,&red,&yellow);
+
+    int sort=rand()%3+1;
+
+    if (sort==1)
+    {
+        champion=red;
+    }
+    else if (sort==2)
+    {
+        champion=blue;
+    }
+    else if (sort==3)
+    {
+        champion=yellow;
+    }
+    
     while (finish==0)
     {
         WINDOW* league_map=newwin(40,150,13,43);
@@ -323,7 +403,7 @@ void league(trainer* player){
         box(arena_zone, 0, 0);
         box(league_map,0,0);
         
-        print_league(league_map,x,y);
+        print_league(league_map,x,y,champion);
         wrefresh(league_map);
         physic_league(ch,&x,&y);
         ch=getch();
@@ -340,8 +420,7 @@ void league(trainer* player){
 
             if (x==14 && y>61 && y<69) // champion of the ligue area
             {
-                chargement(); 
-                //talkto_master();
+                talkto_champion(league_map,player,champion);                
             }
             break;
 

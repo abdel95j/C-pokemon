@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
@@ -10,6 +11,7 @@
 #include "../headers/talkbis.h"
 
 int main(){
+    srand(time(NULL));
     initscr();
     cbreak();
     noecho();

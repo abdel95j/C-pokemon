@@ -367,7 +367,7 @@ void print_lab(WINDOW*lab_map,int x, int y){
     wattroff(lab_map,COLOR_PAIR(RED));
 }
 
-void print_league(WINDOW* league_map,int x,int y){
+void print_league(WINDOW* league_map,int x,int y,trainer champion){
 
     mvwprintw(league_map,39,70-2," ");
     mvwprintw(league_map,39,70-1," ");
@@ -496,15 +496,44 @@ void print_league(WINDOW* league_map,int x,int y){
     mvwprintw(league_map,28+6,110," -||||||||-  ");
     mvwprintw(league_map,28+7,110,"|__________|");
 
-    wattron(league_map,COLOR_PAIR(BLUE));
-    mvwprintw(league_map,13,65-11,"Champion");  
-    mvwprintw(league_map,13+1,65-14,"of the league");  
-    mvwprintw(league_map,13,65+2,"-");  
-    mvwprintw(league_map,13+1,65+1,"'~'");
-    mvwprintw(league_map,13+2,65,"/| |\\");
-    mvwprintw(league_map,13+3,65+1,"|-|");
-    mvwprintw(league_map,13+4,65+1,"- -"); 
-    wattroff(league_map,COLOR_PAIR(BLUE));
+    if (champion.art==CHAMPIONBLUE)
+    {
+        wattron(league_map,COLOR_PAIR(BLUE));
+        mvwprintw(league_map,13,65-14,"Blue, Champion");  
+        mvwprintw(league_map,13+1,65-13,"of the league");  
+        mvwprintw(league_map,13,65+2,"-");  
+        mvwprintw(league_map,13+1,65+1,"'~'");
+        mvwprintw(league_map,13+2,65,"/| |\\");
+        mvwprintw(league_map,13+3,65+1,"|-|");
+        mvwprintw(league_map,13+4,65+1,"- -"); 
+        wattroff(league_map,COLOR_PAIR(BLUE));
+    }
+
+    else if (champion.art==CHAMPIONYELLOW)
+    {
+        wattron(league_map,COLOR_PAIR(YELLOW));
+        mvwprintw(league_map,13,65-15,"Yellow, Champion");  
+        mvwprintw(league_map,13+1,65-14,"of the league");  
+        mvwprintw(league_map,13,65+2,"-");  
+        mvwprintw(league_map,13+1,65+1,"'~'");
+        mvwprintw(league_map,13+2,65,"/| |\\");
+        mvwprintw(league_map,13+3,65+1,"|-|");
+        mvwprintw(league_map,13+4,65+1,"- -"); 
+        wattroff(league_map,COLOR_PAIR(YELLOW));
+    }
+
+    else if (champion.art==CHAMPIONRED)
+    {
+        wattron(league_map,COLOR_PAIR(RED));
+        mvwprintw(league_map,13,65-14,"Red, Champion");  
+        mvwprintw(league_map,13+1,65-13,"of the league");  
+        mvwprintw(league_map,13,65+2,"-");  
+        mvwprintw(league_map,13+1,65+1,"'~'");
+        mvwprintw(league_map,13+2,65,"/| |\\");
+        mvwprintw(league_map,13+3,65+1,"|-|");
+        mvwprintw(league_map,13+4,65+1,"- -"); 
+        wattroff(league_map,COLOR_PAIR(RED));
+    } 
 
     wattron(league_map,COLOR_PAIR(1));
     mvwprintw(league_map,x,y+2,"_");  

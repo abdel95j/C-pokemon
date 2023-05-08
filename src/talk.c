@@ -858,3 +858,304 @@ void talkto_mom(WINDOW* house_map, trainer* player){
         }
     }
 }
+
+void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
+    int finish=0,ch=ERR;
+    int x=1;
+
+    if (champion.art==CHAMPIONRED)
+    {
+        write_flush(league_map,13,72,"What ? You want to");
+        write_flush(league_map,14,72,"challenge me ?");
+
+        while (finish==0)
+        {
+            WINDOW* chat=subwin(league_map,5,8,29,126);
+            box(chat,0,0);
+
+            mvwprintw(chat,x,1,">");
+            mvwprintw(chat,1,3,"Yes");
+            mvwprintw(chat,3,3,"No");
+            wrefresh(chat);
+
+            ch=getch();
+            switch (ch)
+            {
+            case 'z':
+            case KEY_UP:
+                if (x!=1)
+                {
+                    mvwprintw(chat,x,1," ");
+                    x=1;
+                }
+                break;
+
+            case 's':
+            case KEY_DOWN:
+                if (x!=3)
+                {
+                    mvwprintw(chat,x,1," ");
+                    x=3;
+                }
+
+                break;
+
+            case ' ':
+                mvwprintw(league_map,13,72,"                  ");
+                mvwprintw(league_map,14,72,"              ");
+                write_flush(league_map,13,72,"Yeah, wise choice, don't");
+                write_flush(league_map,14,72,"try me, you'll loose");
+                sleep(1);
+                mvwprintw(league_map,13,72,"                        ");
+                mvwprintw(league_map,14,72,"                     ");
+                finish=1;
+                break;
+
+            case 'e':
+            case '\r':
+            case '\n':
+                if (x==3)
+                {
+                    mvwprintw(league_map,13,72,"                  ");
+                    mvwprintw(league_map,14,72,"              ");
+                    write_flush(league_map,13,72,"Yeah, wise choice, don't");
+                    write_flush(league_map,14,72,"try me, you'll loose");
+                    sleep(1);
+                    mvwprintw(league_map,13,72,"                        ");
+                    mvwprintw(league_map,14,72,"                     ");
+                    finish=1;
+                }
+
+                else
+                if (x==1)
+                {
+                    wclear(chat);
+                    mvwprintw(league_map,13,72,"                  ");
+                    mvwprintw(league_map,14,72,"              ");
+                    write_flush(league_map,13,72,"Ho ? You say you'll win ?");
+                    write_flush(league_map,14,72,"You fool ... Let's see");
+                    write_flush(league_map,15,72,"what you've got");
+                    sleep(1);
+                    mvwprintw(league_map,13,72,"                         ");
+                    mvwprintw(league_map,14,72,"                         ");
+                    mvwprintw(league_map,15,72,"                         ");
+                    //duel(player,champion);
+                }
+                break;
+
+            default:
+                break;
+            }
+
+            usleep(16667);
+            if (delwin(chat)==ERR)
+            {
+                exit(41);
+            }
+        }
+    }   
+
+    else if (champion.art==CHAMPIONBLUE)
+    {
+        mvwprintw(league_map,13,72,"Z");
+        wrefresh(league_map);
+        sleep(1);
+        mvwprintw(league_map,13,73,"z");
+        wrefresh(league_map);
+        sleep(1);
+        mvwprintw(league_map,13,74,"z");
+        wrefresh(league_map);
+        sleep(1);
+        mvwprintw(league_map,13,72,"                 ");
+        write_flush(league_map,13,72,"AAH WHAT ?! A DUEL ?");
+
+        while (finish==0)
+        {
+            WINDOW* chat=subwin(league_map,5,8,29,126);
+            box(chat,0,0);
+
+            mvwprintw(chat,x,1,">");
+            mvwprintw(chat,1,3,"Yes");
+            mvwprintw(chat,3,3,"No");
+            wrefresh(chat);
+
+            ch=getch();
+            switch (ch)
+            {
+            case 'z':
+            case KEY_UP:
+                if (x!=1)
+                {
+                    mvwprintw(chat,x,1," ");
+                    x=1;
+                }
+                break;
+
+            case 's':
+            case KEY_DOWN:
+                if (x!=3)
+                {
+                    mvwprintw(chat,x,1," ");
+                    x=3;
+                }
+
+                break;
+
+            case ' ':
+                mvwprintw(league_map,13,72,"                    ");
+                write_flush(league_map,13,72,"OKAY THEN ...");
+                sleep(1);
+                mvwprintw(league_map,13,72,"                        ");
+                mvwprintw(league_map,13,72,"Z");
+                wrefresh(league_map);
+                sleep(1);
+                mvwprintw(league_map,13,73,"z");
+                wrefresh(league_map);
+                sleep(1);
+                mvwprintw(league_map,13,74,"z");
+                wrefresh(league_map);
+                sleep(1);
+                mvwprintw(league_map,13,72,"                        ");
+                finish=1;
+                break;
+
+            case 'e':
+            case '\r':
+            case '\n':
+                if (x==3)
+                {
+                    mvwprintw(league_map,13,72,"                    ");
+                write_flush(league_map,13,72,"OKAY THEN ...");
+                sleep(1);
+                mvwprintw(league_map,13,72,"                        ");
+                mvwprintw(league_map,13,72,"Z");
+                wrefresh(league_map);
+                sleep(1);
+                mvwprintw(league_map,13,73,"z");
+                wrefresh(league_map);
+                sleep(1);
+                mvwprintw(league_map,13,74,"z");
+                wrefresh(league_map);
+                sleep(1);
+                mvwprintw(league_map,13,72,"                        ");
+                finish=1;
+                }
+
+                else
+                if (x==1)
+                {
+                    wclear(chat);
+                    mvwprintw(league_map,13,72,"                    ");
+                    write_flush(league_map,13,72,"AAAAAH DON'T HURT ME,");
+                    write_flush(league_map,14,72,"TAKE MY MONEY AAAAH");
+                    sleep(1);
+                    mvwprintw(league_map,13,72,"                        ");
+                    mvwprintw(league_map,14,72,"                        ");
+                    //duel(player,champion);
+                }
+                break;
+
+            default:
+                break;
+            }
+
+            usleep(16667);
+            if (delwin(chat)==ERR)
+            {
+                exit(41);
+            }
+        }
+    }  
+
+    else if (champion.art==CHAMPIONYELLOW)
+    {
+        write_flush(league_map,13,72,"HEY YOU !");
+        write_flush(league_map,14,72,"I challenge you");
+
+        while (finish==0)
+        {
+            WINDOW* chat=subwin(league_map,5,8,29,126);
+            box(chat,0,0);
+
+            mvwprintw(chat,x,1,">");
+            mvwprintw(chat,1,3,"Ok");
+            mvwprintw(chat,3,3,"No");
+            wrefresh(chat);
+
+            ch=getch();
+            switch (ch)
+            {
+            case 'z':
+            case KEY_UP:
+                if (x!=1)
+                {
+                    mvwprintw(chat,x,1," ");
+                    x=1;
+                }
+                break;
+
+            case 's':
+            case KEY_DOWN:
+                if (x!=3)
+                {
+                    mvwprintw(chat,x,1," ");
+                    x=3;
+                }
+
+                break;
+
+            case ' ':
+                mvwprintw(league_map,13,72,"                    ");
+                mvwprintw(league_map,14,72,"                    ");
+                write_flush(league_map,13,72,"Oh ... haha that's okay");
+                write_flush(league_map,14,72,"I can't force you anyways");
+                sleep(1);
+                mvwprintw(league_map,13,72,"                        ");
+                mvwprintw(league_map,14,72,"                         ");
+                finish=1;
+                break;
+
+            case 'e':
+            case '\r':
+            case '\n':
+                if (x==3)
+                {
+                    mvwprintw(league_map,13,72,"                    ");
+                    mvwprintw(league_map,14,72,"                    ");
+                    write_flush(league_map,13,72,"Oh ... haha that's okay");
+                    write_flush(league_map,14,72,"I can't force you anyways");
+                    sleep(1);
+                    mvwprintw(league_map,13,72,"                        ");
+                    mvwprintw(league_map,14,72,"                         ");
+                    finish=1;
+                }
+
+                else
+                if (x==1)
+                {
+                    wclear(chat);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    write_flush(league_map,13,72,"YEEES THANK YOU AHAHAHA");
+                    write_flush(league_map,14,72,"let's see who's the");
+                    write_flush(league_map,15,72,"strongest !");
+                    sleep(1);
+                    mvwprintw(league_map,13,72,"                          ");
+                    mvwprintw(league_map,14,72,"                     ");
+                    mvwprintw(league_map,15,72,"                    ");
+                    //duel(player,champion);
+                }
+                break;
+
+            default:
+                break;
+            }
+
+            usleep(16667);
+            if (delwin(chat)==ERR)
+            {
+                exit(41);
+            }
+        }
+    }  
+}
