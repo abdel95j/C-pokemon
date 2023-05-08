@@ -7,6 +7,7 @@
 #include "../headers/print.h"
 #include "../headers/physic.h"
 #include "../headers/talk.h"
+#include "../headers/talkbis.h"
 
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
     
@@ -118,13 +119,30 @@ void create_newplayer(trainer* newplayer){
     newplayer->is_on_water=0;
 
     newplayer->inventory[0].quant=10;
+    newplayer->inventory[0].type=OTHER;
     sprintf(newplayer->inventory[0].name,"pokeballs"); 
 
     newplayer->inventory[1].quant=5;
+    newplayer->inventory[1].type=OTHER;
     sprintf(newplayer->inventory[1].name,"potions"); 
 
-    newplayer->inventory[2].quant=2; // bonbons
+    newplayer->inventory[2].quant=2;
+    newplayer->inventory[2].type=OTHER;
     sprintf(newplayer->inventory[2].name,"candys"); 
+
+    newplayer->inventory[3].quant=0;
+    newplayer->inventory[3].type=EMPTY;
+    sprintf(newplayer->inventory[3].name,"empty"); 
+
+    newplayer->inventory[4].quant=0;
+    newplayer->inventory[4].type=EMPTY;
+    sprintf(newplayer->inventory[4].name,"empty"); 
+
+    newplayer->inventory[5].quant=EMPTY;
+    newplayer->inventory[5].type=0;
+    sprintf(newplayer->inventory[5].name,"empty"); 
+
+
 
     for (int i = 0; i < 20; i++)
     {

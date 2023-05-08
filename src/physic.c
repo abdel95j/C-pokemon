@@ -6,6 +6,7 @@
 #include "../headers/structs.h"
 #include "../headers/print.h"
 #include "../headers/talk.h"
+#include "../headers/talkbis.h"
 
 void physic_get_firstpoke(int ch, int* y){
     switch (ch)

@@ -18,8 +18,11 @@
 #define BLUE 4
 #define GREEN 5
 
+#define OTHER -1
+#define EMPTY 0
 #define SURF 1
 #define LEER 2
+#define ROAR 3
 
 typedef struct
 {

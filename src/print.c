@@ -6,6 +6,7 @@
 #include "../headers/structs.h"
 #include "../headers/physic.h"
 #include "../headers/talk.h"
+#include "../headers/talkbis.h"
 
 
 void print_player(WINDOW* cam,trainer* player){
@@ -40,7 +41,7 @@ void chargement(int time){
     FILE* f = NULL;
     int sec=0,count_points=0, frame_number;
 
-    f=fopen("../ressources/pikachu_frames","r");
+    f=fopen("ressources/pikachu_frames","r");
     if(f==NULL){
         printw("ouverture du fichier ratée");
         exit(1);
@@ -765,7 +766,6 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,4+3,13,"*----()----*"); 
     mvwprintw(sac,4+4,13,"*          *");            
     mvwprintw(sac,4+5,13," *________* ");
-
     mvwprintw(sac,2,33,"x%d",player->inventory[POKEBALLS].quant);     
 
     mvwprintw(sac,1,44,"     @@@@@@@@@@(     ");     
@@ -789,8 +789,53 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,3+5,84,",(((((/,(((((*, ");
     mvwprintw(sac,3+6,84,"  **,//*        ");
     mvwprintw(sac,3+7,84,"   **,,.        ");
-    mvwprintw(sac,2,113,"x%d",player->inventory[CANDYS].quant);     
-                    
+    mvwprintw(sac,2,113,"x%d",player->inventory[CANDYS].quant); 
+
+    mvwprintw(sac,16,30,"%s",player->inventory[3].name);
+    mvwprintw(sac,16,70,"%s",player->inventory[4].name);
+    mvwprintw(sac,16,110,"%s",player->inventory[5].name);
+
+    if (player->inventory[3].type!=EMPTY || player->inventory[3].quant!=0)
+    {
+        mvwprintw(sac,16,5,"     (@@@@@&&@@(       ");
+        mvwprintw(sac,16+1,5,"  &/(($$$$$&@@@@@&&    ");
+        mvwprintw(sac,16+2,5," $##(/(#$$$&@@@&$$$$   ");
+        mvwprintw(sac,16+3,5,"$$$$$$#((...$$$$$$$$$  ");
+        mvwprintw(sac,16+4,5,"########*   *######((  ");
+        mvwprintw(sac,16+5,5,"&$$$$$$&@&#(((##$$$$&  ");
+        mvwprintw(sac,16+6,5," &##$&@@@&###(//(##&   ");
+        mvwprintw(sac,16+7,5,"   &@@@@&$#####(/&     ");
+        mvwprintw(sac,16+8,5,"        &&&&&          ");   
+        mvwprintw(sac,17,30,"x%d",player->inventory[3].quant);
+    }
+    
+    if (player->inventory[4].type!=EMPTY || player->inventory[4].quant!=0)
+    {
+        mvwprintw(sac,16,45,"     (@@@@@&&@@(       ");
+        mvwprintw(sac,16+1,45,"  &/(($$$$$&@@@@@&&    ");
+        mvwprintw(sac,16+2,45," $##(/(#$$$&@@@&$$$$   ");
+        mvwprintw(sac,16+3,45,"$$$$$$#((...$$$$$$$$$  ");
+        mvwprintw(sac,16+4,45,"########*   *######((  ");
+        mvwprintw(sac,16+5,45,"&$$$$$$&@&#(((##$$$$&  ");
+        mvwprintw(sac,16+6,45," &##$&@@@&###(//(##&   ");
+        mvwprintw(sac,16+7,45,"   &@@@@&$#####(/&     ");
+        mvwprintw(sac,16+8,45,"        &&&&&          "); 
+        mvwprintw(sac,17,70,"x%d",player->inventory[4].quant);
+    }
+
+    if (player->inventory[5].type!=EMPTY || player->inventory[5].quant!=0)
+    {
+        mvwprintw(sac,16,84,"     (@@@@@&&@@(       ");
+        mvwprintw(sac,16+1,84,"  &/(($$$$$&@@@@@&&    ");
+        mvwprintw(sac,16+2,84," $##(/(#$$$&@@@&$$$$   ");
+        mvwprintw(sac,16+3,84,"$$$$$$#((...$$$$$$$$$  ");
+        mvwprintw(sac,16+4,84,"########*   *######((  ");
+        mvwprintw(sac,16+5,84,"&$$$$$$&@&#(((##$$$$&  ");
+        mvwprintw(sac,16+6,84," &##$&@@@&###(//(##&   ");
+        mvwprintw(sac,16+7,84,"   &@@@@&$#####(/&     ");
+        mvwprintw(sac,16+8,84,"        &&&&&          "); 
+        mvwprintw(sac,17,110,"x%d",player->inventory[5].quant);
+    }     
 }
 
 void print_yourteam(WINDOW* yourteam,trainer* player, int x,int y){
@@ -1297,6 +1342,24 @@ void print_computer_connect(WINDOW* pc, trainer* player){
     mvwprintw(pc,6+3,45,"/_/   \\___/_/\\_\\\\__/  \\___/\\___/_/_/_/ .__/\\_,_/\\__/\\__/_/");
     mvwprintw(pc,6+4,45,"                                    /_/");
     
+    mvwprintw(pc,12,65,"       _.-;;-._ ");
+    mvwprintw(pc,12+1,65,"'-..-'|   ||   |");
+    mvwprintw(pc,12+2,65,"'-..-'|_.-;;-._|");
+    mvwprintw(pc,12+3,65,"'-..-'|   ||   |");
+    mvwprintw(pc,12+4,65,"'-..-'|_.-''-._|");
+
+                             
+    mvwprintw(pc,22,110,"    @           ");         
+    mvwprintw(pc,22+1,110,"    @  @        ");         
+    mvwprintw(pc,22+2,110,"    @    @      ");        
+    mvwprintw(pc,22+3,110,"    @      @    ");        
+    mvwprintw(pc,22+4,110,"    @        (@ ");        
+    mvwprintw(pc,22+5,110,"    @      @/.  ");         
+    mvwprintw(pc,22+6,110,"    @    @  @   ");          
+    mvwprintw(pc,22+7,110,"      @   @  @  ");          
+    mvwprintw(pc,22+8,110,"           @  @ ");          
+    mvwprintw(pc,22+9,110,"            @ #@");  
+
     mvwprintw(pc,19,37,"Login");
     mvwprintw(pc,26,35,"Password");
 }

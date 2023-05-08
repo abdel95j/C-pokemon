@@ -7,6 +7,7 @@
 #include "../headers/print.h"
 #include "../headers/physic.h"
 #include "../headers/talk.h"
+#include "../headers/talkbis.h"
 
 int main(){
     initscr();
@@ -34,7 +35,7 @@ int main(){
     }  
 
     //launch music
-    system("cvlc ../ressources/Main-Theme.mp3 &");  // sudo aapt_get install vlc
+    system("cvlc ressources/Main-Theme.mp3 &");  // sudo apt_get install vlc
 
     // INIT COLOR PAIR FOR WATTR
     init_pair(1,COLOR_RED,COLOR_BLACK);     // red = 1
