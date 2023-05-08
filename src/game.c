@@ -283,6 +283,61 @@ void house(trainer* player){
     }
 }
 
+void league(trainer* player){
+    int finish=0,ch=ERR;
+    int x=34,y=71;
+
+    while (finish==0)
+    {
+        WINDOW* league_map=newwin(40,150,13,43);
+        WINDOW* line_wall_league=subwin(league_map,1,148,22,44);
+        WINDOW* arena_zone=subwin(league_map, 25, 50, 25, 92);
+        box(line_wall_league,0,0);
+        box(arena_zone, 0, 0);
+        box(league_map,0,0);
+        
+        print_league(league_map,x,y);
+        wrefresh(league_map);
+        physic_league(ch,&x,&y);
+        ch=getch();
+        switch (ch)
+        {
+        case 'e':
+        case '\r':
+        case '\n':
+            if (x==34 && y>68 && y<79) // exit area
+            {
+                chargement(); 
+                finish=1;   
+            }
+
+            if (x==14 && y>61 && y<69) // master of the ligue area
+            {
+                chargement(); 
+                //talkto_master();
+            }
+            break;
+        
+        default:
+            break;
+        }
+
+        usleep(16667);
+        if (delwin(line_wall_league)==ERR)
+        {
+            exit(37);
+        }
+        if (delwin(arena_zone)==ERR)
+        {
+            exit(38);
+        }
+        if (delwin(league_map)==ERR)
+        {
+            exit(36);
+        }
+    }
+}
+
 void lab(trainer* player){
     int quit=0,ch=ERR, finish=0;
     int x=34,y=73;
@@ -622,10 +677,10 @@ void roadto_league(trainer* player){
                 chargement();
             }
 
-            if (l==13 && c>=68 && c<=72) // league door
+            if (l==13 && c>=66 && c<=74) // league door
             {
-                //league(player);
                 chargement();
+                league(player);
             }
             
 
@@ -856,6 +911,9 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
+            create_newplayer(player);
+            get_firstpoke(player);
+            league(player);
             *quit=1;
             chargement();
             break;

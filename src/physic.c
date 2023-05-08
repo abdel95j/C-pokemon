@@ -82,7 +82,7 @@ void physic_house(int ch, int* x, int* y){
     {
         case 'z':
         case KEY_UP:
-            if (*x!=6 || *y>=127)
+            if (*x!=6)
             {
                 *x-=1;
             }
@@ -220,6 +220,220 @@ void physic_house(int ch, int* x, int* y){
         default:
             break;
     }
+}
+
+void physic_league(int ch, int* x, int* y){
+    switch (ch)
+    {
+        case 'z':
+        case KEY_UP:
+            if (*x!=6)
+            {
+                *x-=1;
+            }
+
+            if (*x==6 && *y>=63 && *y<=81) // door
+            {
+                *x+=1;
+            }
+
+            if (*x==13 && *y>=61 && *y<=69) // Master of the league
+            {
+                *x+=1;
+            }
+
+            //droite
+
+            if (*x==14 && *y>=107 && *y<=121) // poteau haut droite
+            {
+                *x+=1;
+            }
+
+            if (*x==31 && *y>=107 && *y<=121) // poteau bas droite
+            {
+                *x+=1;
+            }
+
+            if (*x==20 && *y>=107 && *y<=119) // flamme droite
+            {
+                *x+=1;
+            }
+
+            //gauche
+
+            if (*x==14 && *y>=19 && *y<=33) // poteau haut gauche
+            {
+                *x+=1;
+            }
+
+            if (*x==31 && *y>=19 && *y<=33) // poteau bas gauche
+            {
+                *x+=1;
+            }
+
+            if (*x==20 && *y>=19 && *y<=31) // flamme gauche
+            {
+                *x+=1;
+            }        
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (*x!=34)
+            {
+                *x+=1;
+            }
+
+            if (*x==9 && *y>=61 && *y<=69) // Master of the league
+            {
+                *x-=1;
+            }
+
+            //droite
+
+            if (*x==7 && *y>=107 && *y<=121) // poteau haut droite
+            {
+                *x-=1;
+            }
+
+            if (*x==24 && *y>=107 && *y<=121) // poteau bas droite
+            {
+                *x-=1;
+            }
+
+            if (*x==16 && *y>=107 && *y<=119) // flamme droite
+            {
+                *x-=1;
+            }
+
+            //gauche
+
+            if (*x==7 && *y>=19 && *y<=33) // poteau haut gauche
+            {
+                *x-=1;
+            }
+
+            if (*x==24 && *y>=19 && *y<=33) // poteau bas gauche
+            {
+                *x-=1;
+            }
+
+            if (*x==16 && *y>=19 && *y<=31) // flamme gauche
+            {
+                *x-=1;
+            }
+
+            break;
+
+        case 'q':
+        case KEY_LEFT:
+            if (*y!=1)
+            {
+                *y-=2;
+            }
+
+            if (*x==6 && *y==81) // door
+            {
+                *y+=2;
+            }
+
+            if (*y==69 && *x>=9 && *x<=13) // Master of the league
+            {
+                *y+=2;
+            }
+            
+            //droite
+
+            if (*y==121 && *x>=7 && *x<=14) // poteau haut droite
+            {
+                *y+=2;
+            }
+
+            if (*y==121 && *x>=24 && *x<=31) // poteau bas droite
+            {
+                *y+=2;
+            }
+
+            if (*y==119 && *x>=16 && *x<=20) // flamme droite
+            {
+                *y+=2;
+            }
+
+            //gauche
+
+            if (*y==33 && *x>=7 && *x<=14) // poteau haut gauche
+            {
+                *y+=2;
+            }
+
+            if (*y==33 && *x>=24 && *x<=31) // poteau bas gauche
+            {
+                *y+=2;
+            }
+
+            if (*y==31 && *x>=16 && *x<=20) // flamme gauche
+            {
+                *y+=2;
+            }
+
+            break;
+        
+        case 'd':
+        case KEY_RIGHT:
+            if (*y!=143)
+            {
+                *y+=2;
+            }
+
+            if (*x==6 && *y==63) // door
+            {
+                *y-=2;
+            }
+
+            if (*y==61 && *x>=9 && *x<=13) // Master of the league
+            {
+                *y-=2;
+            }
+
+            //droite
+
+            if (*y==107 && *x>=7 && *x<=14) // poteau haut droite
+            {
+                *y-=2;
+            }
+
+            if (*y==107 && *x>=24 && *x<=31) // poteau bas droite
+            {
+                *y-=2;
+            }
+
+            if (*y==107 && *x>=16 && *x<=20) // flamme droite
+            {
+                *y-=2;
+            }
+
+            //gauche
+
+            if (*y==19 && *x>=7 && *x<=14) // poteau haut gauche
+            {
+                *y-=2;
+            }
+
+            if (*y==19 && *x>=24 && *x<=31) // poteau bas gauche
+            {
+                *y-=2;
+            }
+
+            if (*y==19 && *x>=16 && *x<=20) // flamme gauche
+            {
+                *y-=2;
+            }
+            break;
+
+        default:
+            break;
+    }
+
 }
 
 void physic_lab(int ch, int* x, int* y){

@@ -17,6 +17,7 @@ void print_lab(WINDOW*lab_map,int x, int y);
 void print_roadto_league(WINDOW* road);
 void print_computer_connect(WINDOW* pc, trainer* player);
 void print_yourteam(WINDOW* yourteam,trainer* player, int x,int y);
+void print_league(WINDOW* league_map,int x,int y);
 void chargement();
 
 #endif

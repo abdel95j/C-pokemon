@@ -14,6 +14,7 @@ void shop(trainer* player);
 void roadto_league(trainer* player);
 void lab(trainer* player);
 void inventory(trainer* player);
+void league(trainer* player);
 void your_team(trainer* player);
 
 #endif

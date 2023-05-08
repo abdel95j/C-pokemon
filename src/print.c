@@ -367,6 +367,154 @@ void print_lab(WINDOW*lab_map,int x, int y){
     wattroff(lab_map,COLOR_PAIR(RED));
 }
 
+void print_league(WINDOW* league_map,int x,int y){
+
+    mvwprintw(league_map,39,70-2," ");
+    mvwprintw(league_map,39,70-1," ");
+    mvwprintw(league_map,39,70," ");
+    mvwprintw(league_map,39,70+1," ");
+    mvwprintw(league_map,39,70+2," ");
+    mvwprintw(league_map,39,70+3," ");
+    mvwprintw(league_map,39,70+4," ");
+    mvwprintw(league_map,39,70+5," ");
+    mvwprintw(league_map,39,70+6," ");
+    mvwprintw(league_map,39,70+7," ");
+    mvwprintw(league_map,39,70+8," ");
+    mvwprintw(league_map,39,70+9," ");
+
+    mvwprintw(league_map,3,1,  "       _________       ");
+    mvwprintw(league_map,3+1,1,"------|   .-.   |------");
+    mvwprintw(league_map,3+2,1,"______|  (-o-)  |______");
+    mvwprintw(league_map,3+3,1,"      |___'-'___|      ");
+    
+
+    mvwprintw(league_map,3,24,  "       _________    ");
+    mvwprintw(league_map,3+1,24,"------|   .-.   |---");
+    mvwprintw(league_map,3+2,24,"______|  (-o-)  |___");
+    mvwprintw(league_map,3+3,24,"      |___'-'___|   ");
+
+    mvwprintw(league_map,3,44,  "       _________       ");
+    mvwprintw(league_map,3+1,44,"------|   .-.   |------");
+    mvwprintw(league_map,3+2,44,"______|  (-o-)  |______");
+    mvwprintw(league_map,3+3,44,"      |___'-'___|      ");
+
+    mvwprintw(league_map,1,67,  "     ______         ");
+    mvwprintw(league_map,1+1,67,"  ,-' |__| `-.      ");
+    mvwprintw(league_map,1+2,67," / __________ \\    ");
+    mvwprintw(league_map,1+3,67,"| |    ||    | |");
+    mvwprintw(league_map,1+4,67,") |   =||=   | (");
+    mvwprintw(league_map,1+5,67,"| | =  ||  = | |");
+    mvwprintw(league_map,1+6,67,"| | =  ||  = | |");
+    mvwprintw(league_map,1+7,67,"| |   =||=   | |");
+    mvwprintw(league_map,1+8,67,") |    ||    | (");
+    mvwprintw(league_map,1+9,67,"|_|_;-------;|_|");
+  
+
+    mvwprintw(league_map,3,83,  "       _________     ");
+    mvwprintw(league_map,3+1,83,"------|   .-.   |----");
+    mvwprintw(league_map,3+2,83,"______|  (-o-)  |____");
+    mvwprintw(league_map,3+3,83,"      |___'-'___|    ");
+
+    mvwprintw(league_map,3,104,  "       _________       ");
+    mvwprintw(league_map,3+1,104,"------|   .-.   |------");
+    mvwprintw(league_map,3+2,104,"______|  (-o-)  |______");
+    mvwprintw(league_map,3+3,104,"      |___'-'___|      ");
+
+    mvwprintw(league_map,3,127,  "       _________     ");
+    mvwprintw(league_map,3+1,127,"------|   .-.   |-----");
+    mvwprintw(league_map,3+2,127,"______|  (-o-)  |_____");
+    mvwprintw(league_map,3+3,127,"      |___'-'___|     ");
+
+    //
+
+    mvwprintw(league_map,20,66,  "     .-'""'-.");
+    mvwprintw(league_map,20+1,66,"  .'        '.");
+    mvwprintw(league_map,20+2,66," /    .--.    \\");
+    mvwprintw(league_map,20+3,66,";____/    \\____;");
+    mvwprintw(league_map,20+4,66,";----\\    /----;");
+    mvwprintw(league_map,20+5,66," \\    '--'    /");
+    mvwprintw(league_map,20+6,66,"  '.        .'");
+    mvwprintw(league_map,20+7,66,"    '-....-'");
+   
+    mvwprintw(league_map,23,50,  "________________;");
+    mvwprintw(league_map,24,50,  "----------------;");
+    mvwprintw(league_map,23,81,  ";________________");
+    mvwprintw(league_map,24,81,  ";----------------");
+
+    mvwprintw(league_map,11,22,  " __________ ");
+    mvwprintw(league_map,11+1,22,"|__________|");
+    mvwprintw(league_map,11+2,22,"  ||||||||  ");
+    mvwprintw(league_map,11+3,22,"  ||||||||  ");
+    mvwprintw(league_map,11+4,22,"  ||||||||  ");
+    mvwprintw(league_map,11+5,22,"  ||||||||  ");
+    mvwprintw(league_map,11+6,22," -||||||||-  ");
+    mvwprintw(league_map,11+7,22,"|__________|");  
+
+    mvwprintw(league_map,23,50,    "________________;");
+    mvwprintw(league_map,23+1,50,  "----------------;");
+    mvwprintw(league_map,23,50,    "________________;");
+    mvwprintw(league_map,23+1,50,  "----------------;");
+    mvwprintw(league_map,23,50,    "________________;");
+    mvwprintw(league_map,23+1,50,  "----------------;");
+
+    mvwprintw(league_map,28,22,  " __________ ");
+    mvwprintw(league_map,28+1,22,"|__________|");
+    mvwprintw(league_map,28+2,22,"  ||||||||  ");
+    mvwprintw(league_map,28+3,22,"  ||||||||  ");
+    mvwprintw(league_map,28+4,22,"  ||||||||  ");
+    mvwprintw(league_map,28+5,22,"  ||||||||  ");
+    mvwprintw(league_map,28+6,22," -||||||||-  ");
+    mvwprintw(league_map,28+7,22,"|__________|");
+
+    mvwprintw(league_map,20,22,"     )    ");
+    mvwprintw(league_map,20+1,22,"    ) \\  ");
+    mvwprintw(league_map,20+2,22,"   / ) (  ");
+    mvwprintw(league_map,20+3,22," --\\(_)/--");
+    mvwprintw(league_map,20+4,22,"|_________|");
+
+    mvwprintw(league_map,11,110,  " __________ ");
+    mvwprintw(league_map,11+1,110,"|__________|");
+    mvwprintw(league_map,11+2,110,"  ||||||||  ");
+    mvwprintw(league_map,11+3,110,"  ||||||||  ");
+    mvwprintw(league_map,11+4,110,"  ||||||||  ");
+    mvwprintw(league_map,11+5,110,"  ||||||||  ");
+    mvwprintw(league_map,11+6,110," -||||||||-  ");
+    mvwprintw(league_map,11+7,110,"|__________|");  
+
+    mvwprintw(league_map,20,110,"     )    ");
+    mvwprintw(league_map,20+1,110,"    ) \\  ");
+    mvwprintw(league_map,20+2,110,"   / ) (  ");
+    mvwprintw(league_map,20+3,110," --\\(_)/--");
+    mvwprintw(league_map,20+4,110,"|_________|");
+
+    mvwprintw(league_map,28,110,  " __________ ");
+    mvwprintw(league_map,28+1,110,"|__________|");
+    mvwprintw(league_map,28+2,110,"  ||||||||  ");
+    mvwprintw(league_map,28+3,110,"  ||||||||  ");
+    mvwprintw(league_map,28+4,110,"  ||||||||  ");
+    mvwprintw(league_map,28+5,110,"  ||||||||  ");
+    mvwprintw(league_map,28+6,110," -||||||||-  ");
+    mvwprintw(league_map,28+7,110,"|__________|");
+
+    wattron(league_map,COLOR_PAIR(BLUE));
+    mvwprintw(league_map,13,65-11,"Master");  
+    mvwprintw(league_map,13+1,65-14,"of the league");  
+    mvwprintw(league_map,13,65+2,"-");  
+    mvwprintw(league_map,13+1,65+1,"'~'");
+    mvwprintw(league_map,13+2,65,"/| |\\");
+    mvwprintw(league_map,13+3,65+1,"|-|");
+    mvwprintw(league_map,13+4,65+1,"- -"); 
+    wattroff(league_map,COLOR_PAIR(BLUE));
+
+    wattron(league_map,COLOR_PAIR(1));
+    mvwprintw(league_map,x,y+2,"_");  
+    mvwprintw(league_map,x+1,y+1,"'_'");
+    mvwprintw(league_map,x+2,y,"/| |\\");
+    mvwprintw(league_map,x+3,y+1,"|-|");
+    mvwprintw(league_map,x+4,y+1,"- -");       
+    wattroff(league_map,COLOR_PAIR(1));
+}
+
 void print_shop(WINDOW*shop_map,int x, int y){
    
     mvwprintw(shop_map,2,13,"   ___       __         ______           ");

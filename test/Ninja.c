@@ -6,206 +6,135 @@ int main()
 {
     
     initscr();
-    WINDOW *house = newwin(LINES, COLS, 0, 0);
-    box(house, 0, 0);
+    WINDOW* lab_map=newwin(40,150,13,43);
+    WINDOW* line_wall_lab=subwin(lab_map,1,148,22,44);
+    WINDOW* arena_zone=subwin(lab_map, 25, 50, 25, 92);
+    box(lab_map,0,0);
+    box(line_wall_lab,0,0);
+    box(arena_zone, 0, 0);
+    refresh();
 
-    // Coordonnées et dimensions du mur
-    int x_r = 1;
-    int y_r = 1;
-    int l_r = COLS - 2;
-    int h_r = 10;
-
-    
-    mvwprintw(house, y_r, x_r, "+");    // Dessin des coins supérieurs mur
-    mvwprintw(house, y_r, x_r+l_r, "+");
-    
-
-    for (int i = x_r + 1; i < x_r + l_r; i++) {   // Dessin des côtés horizontaux mur
-        mvwprintw(house, y_r, i, "-");
-        mvwprintw(house, y_r + h_r, i, "-");
-    }
-
-    for (int i = y_r + 1; i < y_r + h_r; i++) {    // Dessin des côtés verticaux mur
-        mvwprintw(house, i, x_r, "|");
-        mvwprintw(house, i, x_r + l_r, "|");
-    }
-
-    // TAPIS
-    mvwprintw(house, LINES/2,     COLS/2 - 15, "+----------------------------------+");
-    mvwprintw(house, LINES/2 + 1, COLS/2 - 15, "| *   *   *   *   *   *   *  *   * |");
-    mvwprintw(house, LINES/2 + 2, COLS/2 - 15, "| *   _    _                     * |");
-    mvwprintw(house, LINES/2 + 3, COLS/2 - 15, "| *  | |  | |                    * |");
-    mvwprintw(house, LINES/2 + 4, COLS/2 - 15, "| *  | |__| | ___  _   _ ____    * |");
-    mvwprintw(house, LINES/2 + 5, COLS/2 - 15, "| *  |  _ | |/ _ \\| |_| |  _ \\   * |");
-    mvwprintw(house, LINES/2 + 6, COLS/2 - 15, "| *  | |  | | (_) | |-| |  __/   * |");
-    mvwprintw(house, LINES/2 + 7, COLS/2 - 15, "| *  |_|  |_|\\___/|_| |_|\\___|   * |");
-    mvwprintw(house, LINES/2 + 8, COLS/2 - 15, "| *                              * |");
-    mvwprintw(house, LINES/2 + 9, COLS/2 - 15, "| *   *   *   *   *   *   *  *   * |");
-    mvwprintw(house, LINES/2 + 10, COLS/2 - 15, "+----------------------------------+");
-
-
-    // Dessin four
-    int x_four = x_r + 5;
-    int y_four = y_r + h_r - 7;
-    mvwprintw(house, y_four, x_four,   "    ())");
-    mvwprintw(house, y_four+1, x_four, "    (()");
-    mvwprintw(house, y_four+2, x_four, "  \\__~__/");
-    mvwprintw(house, y_four+3, x_four, " _(_)(_)_");
-    mvwprintw(house, y_four+4, x_four, "|.------.|");
-    mvwprintw(house, y_four+5, x_four, "||     o||");
-    mvwprintw(house, y_four+6, x_four, "|`------'|");
-
-      
-    // Dessin freg
-    int x_freg = x_r + 20;
-    int y_freg = y_r + h_r - 7;
-    mvwprintw(house, y_freg, x_freg,   " _______");
-    mvwprintw(house, y_freg+1, x_freg, "|       |");
-    mvwprintw(house, y_freg+2, x_freg, "|]      |");
-    mvwprintw(house, y_freg+3, x_freg, "|_______|");
-    mvwprintw(house, y_freg+4, x_freg, "|]      |");
-    mvwprintw(house, y_freg+5, x_freg, "|       |");
-    mvwprintw(house, y_freg+6, x_freg, "|_______|");
-
-
-    // Stairs
-    int x_pot_droit = x_r + l_r - 16;
-    mvwprintw(house, y_four-2, x_pot_droit+14, "__");
-    mvwprintw(house, y_four-1, x_pot_droit+11, "__|");
-    mvwprintw(house, y_four,   x_pot_droit+8, "__|");
-    mvwprintw(house, y_four+1, x_pot_droit+5, "__|");
-    mvwprintw(house, y_four+2, x_pot_droit+2, "__|");
-    mvwprintw(house, y_four+3, x_pot_droit-1, "__|");
-    mvwprintw(house, y_four+4, x_pot_droit-4, "__|");
-    mvwprintw(house, y_four+5, x_pot_droit-7, "__|");
-    mvwprintw(house, y_four+6, x_pot_droit-10, "__|");
-    mvwprintw(house, y_four+7, x_pot_droit-11, "'");
-
-
-    // Dessin cab
-    int x_cab = x_r + 155;
-    int y_cab = y_r + h_r - 7;
-    mvwprintw(house, y_cab, x_cab,   " _______");
-    mvwprintw(house, y_cab+1, x_cab, "||__°__||");
-    mvwprintw(house, y_cab+2, x_cab, "| _____ |");
-    mvwprintw(house, y_cab+3, x_cab, "||__°__||");
-    mvwprintw(house, y_cab+4, x_cab, "| _____ |");
-    mvwprintw(house, y_cab+5, x_cab, "||__°__||");
-    mvwprintw(house, y_cab+6, x_cab, "|_______|");
-
-
-    // Dessin win1
-    int x_win1 = x_r + 100;
-    int y_win1 = y_r + h_r - 7;
-    mvwprintw(house, y_win1, x_win1,   "+_______+");
-    mvwprintw(house, y_win1+1, x_win1, "| ~ | ~ |");
-    mvwprintw(house, y_win1+2, x_win1, "|___0___|");
-    mvwprintw(house, y_win1+3, x_win1, "| ~ | ~ |");
-    mvwprintw(house, y_win1+4, x_win1, "|___|___|");
+    mvwprintw(lab_map,3,1,  "       _________       ");
+    mvwprintw(lab_map,3+1,1,"------|   .-.   |------");
+    mvwprintw(lab_map,3+2,1,"______|  ( o )  |______");
+    mvwprintw(lab_map,3+3,1,"      |___'-'___|      ");
     
 
-    // Dessin win2
-    int x_win2 = x_r + 90;
-    int y_win2 = y_r + h_r - 7;
-    mvwprintw(house, y_win2, x_win2,   "+_______+");
-    mvwprintw(house, y_win2+1, x_win2, "| ~ | ~ |");
-    mvwprintw(house, y_win2+2, x_win2, "|___0___|");
-    mvwprintw(house, y_win2+3, x_win2, "| ~ | ~ |");
-    mvwprintw(house, y_win2+4, x_win2, "|___|___|");
+    mvwprintw(lab_map,3,24,  "       _________    ");
+    mvwprintw(lab_map,3+1,24,"------|   .-.   |---");
+    mvwprintw(lab_map,3+2,24,"______|  ( o )  |___");
+    mvwprintw(lab_map,3+3,24,"      |___'-'___|   ");
 
+    mvwprintw(lab_map,3,44,  "       _________       ");
+    mvwprintw(lab_map,3+1,44,"------|   .-.   |------");
+    mvwprintw(lab_map,3+2,44,"______|  ( o )  |______");
+    mvwprintw(lab_map,3+3,44,"      |___'-'___|      ");
 
-    // Dessin flower pot1
-    int x_flo = x_r + 60;
-    int y_flo = y_r + h_r - 7;
+    mvwprintw(lab_map,1,67,  "     ______         ");
+    mvwprintw(lab_map,1+1,67,"  ,-' |__| `-.      ");
+    mvwprintw(lab_map,1+2,67," / __________ \\    ");
+    mvwprintw(lab_map,1+3,67,"| |    ||    | |");
+    mvwprintw(lab_map,1+4,67,") |   =||=   | (");
+    mvwprintw(lab_map,1+5,67,"| | =  ||  = | |");
+    mvwprintw(lab_map,1+6,67,"| | =  ||  = | |");
+    mvwprintw(lab_map,1+7,67,"| |   =||=   | |");
+    mvwprintw(lab_map,1+8,67,") |    ||    | (");
+    mvwprintw(lab_map,1+9,67,"|_|_;-------;|_|");
+  
 
-    mvwprintw(house, y_flo+2, x_flo, "  @ @ @ ");
-    mvwprintw(house, y_flo+3, x_flo, "  _\\|/_");
-    mvwprintw(house, y_flo+4, x_flo, " |_____|");
-    mvwprintw(house, y_flo+5, x_flo, "  |   | ");
-    mvwprintw(house, y_flo+6, x_flo, "  |___| ");
+    mvwprintw(lab_map,3,83,  "       _________     ");
+    mvwprintw(lab_map,3+1,83,"------|   .-.   |----");
+    mvwprintw(lab_map,3+2,83,"______|  ( o )  |____");
+    mvwprintw(lab_map,3+3,83,"      |___'-'___|    ");
 
+    mvwprintw(lab_map,3,104,  "       _________       ");
+    mvwprintw(lab_map,3+1,104,"------|   .-.   |------");
+    mvwprintw(lab_map,3+2,104,"______|  ( o )  |______");
+    mvwprintw(lab_map,3+3,104,"      |___'-'___|      ");
 
-    // Dessin flower pot2
-    int x_flo2 = x_r + 140;
-    int y_flo2 = y_r + h_r - 7;
+    mvwprintw(lab_map,3,127,  "       _________     ");
+    mvwprintw(lab_map,3+1,127,"------|   .-.   |-----");
+    mvwprintw(lab_map,3+2,127,"______|  ( o )  |_____");
+    mvwprintw(lab_map,3+3,127,"      |___'-'___|     ");
 
-    mvwprintw(house, y_flo2+2, x_flo2, "  @ @ @ ");
-    mvwprintw(house, y_flo2+3, x_flo2, "  _\\|/_");
-    mvwprintw(house, y_flo2+4, x_flo2, " |_____|");
-    mvwprintw(house, y_flo2+5, x_flo2, "  |   | ");
-    mvwprintw(house, y_flo2+6, x_flo2, "  |___| ");
+    //
 
+    mvwprintw(lab_map,20,66,  "     .-'""'-.");
+    mvwprintw(lab_map,20+1,66,"  .'        '.");
+    mvwprintw(lab_map,20+2,66," /    .--.    \\");
+    mvwprintw(lab_map,20+3,66,";____/    \\____;");
+    mvwprintw(lab_map,20+4,66,";----\\    /----;");
+    mvwprintw(lab_map,20+5,66," \\    '--'    /");
+    mvwprintw(lab_map,20+6,66,"  '.        .'");
+    mvwprintw(lab_map,20+7,66,"    '-....-'");
+   
+    mvwprintw(lab_map,23,50,  "________________;");
+    mvwprintw(lab_map,24,50,  "----------------;");
+    mvwprintw(lab_map,23,81,  ";________________");
+    mvwprintw(lab_map,24,81,  ";----------------");
 
-    // Dessin cab2
-    int x_cab2 = x_r + 40;
-    int y_cab2 = y_r + h_r - 7;
-    mvwprintw(house, y_cab2+2, x_cab2, " _______ ");
-    mvwprintw(house, y_cab2+3, x_cab2, "|_o_|_o_|");
-    mvwprintw(house, y_cab2+4, x_cab2, "|___o___|");
-    mvwprintw(house, y_cab2+5, x_cab2, "|___o___|");
-    mvwprintw(house, y_cab2+6, x_cab2, " ||   || ");
+    mvwprintw(lab_map,11,22,  " __________ ");
+    mvwprintw(lab_map,11+1,22,"|__________|");
+    mvwprintw(lab_map,11+2,22,"  ||||||||  ");
+    mvwprintw(lab_map,11+3,22,"  ||||||||  ");
+    mvwprintw(lab_map,11+4,22,"  ||||||||  ");
+    mvwprintw(lab_map,11+5,22,"  ||||||||  ");
+    mvwprintw(lab_map,11+6,22," -||||||||-  ");
+    mvwprintw(lab_map,11+7,22,"|__________|");  
 
+    mvwprintw(lab_map,23,50,    "________________;");
+    mvwprintw(lab_map,23+1,50,  "----------------;");
+    mvwprintw(lab_map,23,50,    "________________;");
+    mvwprintw(lab_map,23+1,50,  "----------------;");
+    mvwprintw(lab_map,23,50,    "________________;");
+    mvwprintw(lab_map,23+1,50,  "----------------;");
 
-    // Sofa
-    mvwprintw(house, LINES/2 - 7,     COLS/2 - 7, ".-=-------------=-.");
-    mvwprintw(house, LINES/2 - 6,     COLS/2 - 7, "| . . . . . . .'. |");
-    mvwprintw(house, LINES/2 - 5,     COLS/2 - 7, "| .'.'.'.'.'.'.'. |");
-    mvwprintw(house, LINES/2 - 4,     COLS/2 - 7, "()_______________()");
-    mvwprintw(house, LINES/2 - 3,     COLS/2 - 7, "||_______________||");
-    mvwprintw(house, LINES/2 - 2,     COLS/2 - 7, " W               W");
+    mvwprintw(lab_map,28,22,  " __________ ");
+    mvwprintw(lab_map,28+1,22,"|__________|");
+    mvwprintw(lab_map,28+2,22,"  ||||||||  ");
+    mvwprintw(lab_map,28+3,22,"  ||||||||  ");
+    mvwprintw(lab_map,28+4,22,"  ||||||||  ");
+    mvwprintw(lab_map,28+5,22,"  ||||||||  ");
+    mvwprintw(lab_map,28+6,22," -||||||||-  ");
+    mvwprintw(lab_map,28+7,22,"|__________|");
 
+    mvwprintw(lab_map,20,22,"     )    ");
+    mvwprintw(lab_map,20+1,22,"    ) \\  ");
+    mvwprintw(lab_map,20+2,22,"   / ) (  ");
+    mvwprintw(lab_map,20+3,22," --\\(_)/--");
+    mvwprintw(lab_map,20+4,22,"|_________|");
 
-    // Chair1
-    mvwprintw(house, LINES/2 + 2, COLS/2 - 30, ".____.");
-    mvwprintw(house, LINES/2 + 3, COLS/2 - 30, "||o o|");
-    mvwprintw(house, LINES/2 + 4, COLS/2 - 30, "||o o|");
-    mvwprintw(house, LINES/2 + 5, COLS/2 - 30, "()___|_()");
-    mvwprintw(house, LINES/2 + 6, COLS/2 - 30, "||     ||");
-    mvwprintw(house, LINES/2 + 7, COLS/2 - 30, "||_____||");
-    mvwprintw(house, LINES/2 + 8, COLS/2 - 30, " W     W");
+    mvwprintw(lab_map,11,110,  " __________ ");
+    mvwprintw(lab_map,11+1,110,"|__________|");
+    mvwprintw(lab_map,11+2,110,"  ||||||||  ");
+    mvwprintw(lab_map,11+3,110,"  ||||||||  ");
+    mvwprintw(lab_map,11+4,110,"  ||||||||  ");
+    mvwprintw(lab_map,11+5,110,"  ||||||||  ");
+    mvwprintw(lab_map,11+6,110," -||||||||-  ");
+    mvwprintw(lab_map,11+7,110,"|__________|");  
 
+    mvwprintw(lab_map,20,110,"     )    ");
+    mvwprintw(lab_map,20+1,110,"    ) \\  ");
+    mvwprintw(lab_map,20+2,110,"   / ) (  ");
+    mvwprintw(lab_map,20+3,110," --\\(_)/--");
+    mvwprintw(lab_map,20+4,110,"|_________|");
 
-    // Chair2
-    mvwprintw(house, LINES/2 + 2, COLS/2 + 27, "   .____.");
-    mvwprintw(house, LINES/2 + 3, COLS/2 + 27, "   |o o||");
-    mvwprintw(house, LINES/2 + 4, COLS/2 + 27, "   |o o||");
-    mvwprintw(house, LINES/2 + 5, COLS/2 + 27, "()_|___()");
-    mvwprintw(house, LINES/2 + 6, COLS/2 + 27, "||     ||");
-    mvwprintw(house, LINES/2 + 7, COLS/2 + 27, "||_____||");
-    mvwprintw(house, LINES/2 + 8, COLS/2 + 27, " W     W");
+    mvwprintw(lab_map,28,110,  " __________ ");
+    mvwprintw(lab_map,28+1,110,"|__________|");
+    mvwprintw(lab_map,28+2,110,"  ||||||||  ");
+    mvwprintw(lab_map,28+3,110,"  ||||||||  ");
+    mvwprintw(lab_map,28+4,110,"  ||||||||  ");
+    mvwprintw(lab_map,28+5,110,"  ||||||||  ");
+    mvwprintw(lab_map,28+6,110," -||||||||-  ");
+    mvwprintw(lab_map,28+7,110,"|__________|");
 
-
-
-    // Porte de sortie
-    int x_d = COLS - 10;
-    int y_d = LINES - 10;
-
-    mvwprintw(house, y_d, x_d,   "       /|");
-    mvwprintw(house, y_d+1, x_d, "      / |");
-    mvwprintw(house, y_d+2, x_d, " ____/__|");
-    mvwprintw(house, y_d+3, x_d, "|       |");
-    mvwprintw(house, y_d+4, x_d, "|       |");
-    mvwprintw(house, y_d+5, x_d, "|       |");
-    mvwprintw(house, y_d+6, x_d, "+       |");
-    mvwprintw(house, y_d+7, x_d, "|       |");
-    mvwprintw(house, y_d+8, x_d, "|_______|"); 
-    
-
-
-    // TABLE 
-    mvwprintw(house, LINES/2 + 2, COLS/2 - 70, "  .___________. ");
-    mvwprintw(house, LINES/2 + 3, COLS/2 - 70, " /             \\");
-    mvwprintw(house, LINES/2 + 4, COLS/2 - 70, "|              |");
-    mvwprintw(house, LINES/2 + 5, COLS/2 - 70, "\\.___________./");
-    mvwprintw(house, LINES/2 + 6, COLS/2 - 70, "  || ||  || ||  ");
-
-
-    
-
-    wrefresh(house);
+    wrefresh(lab_map);
     getch();
-    delwin(house);
+    delwin(lab_map);
     endwin();
 
     return 0;
 }
+
+
+
