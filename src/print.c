@@ -497,7 +497,7 @@ void print_league(WINDOW* league_map,int x,int y){
     mvwprintw(league_map,28+7,110,"|__________|");
 
     wattron(league_map,COLOR_PAIR(BLUE));
-    mvwprintw(league_map,13,65-11,"Master");  
+    mvwprintw(league_map,13,65-11,"Champion");  
     mvwprintw(league_map,13+1,65-14,"of the league");  
     mvwprintw(league_map,13,65+2,"-");  
     mvwprintw(league_map,13+1,65+1,"'~'");
@@ -908,13 +908,21 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,x,y,"  ,");      
     mvwprintw(sac,x+1,y,".:::."); 
 
-    mvwprintw(sac,4,13,"   ______   ");
-    mvwprintw(sac,4+1,13," *        * ");                              
-    mvwprintw(sac,4+2,13,"*          *");            
-    mvwprintw(sac,4+3,13,"*----()----*"); 
-    mvwprintw(sac,4+4,13,"*          *");            
-    mvwprintw(sac,4+5,13," *________* ");
-    mvwprintw(sac,2,33,"x%d",player->inventory[POKEBALLS].quant);     
+    mvwprintw(sac,2,28,"%s",player->inventory[POKEBALLS].name);
+    mvwprintw(sac,2,68,"%s",player->inventory[POTIONS].name);
+    mvwprintw(sac,2,108,"%s",player->inventory[CANDYS].name);
+
+    mvwprintw(sac,2,4,"       ,,,,,,,,,     ");
+    mvwprintw(sac,2+1,4,"     @((((((((((((&     ");
+    mvwprintw(sac,2+2,4,"  &      ((((((((((((&  ");
+    mvwprintw(sac,2+3,4," ((    ((((((###&(((((( ");
+    mvwprintw(sac,2+4,4,"(((((((&####    &&#(((((");
+    mvwprintw(sac,2+5,4,"############&&   #######");
+    mvwprintw(sac,2+6,4,"*****        &##        ");
+    mvwprintw(sac,2+7,4," *****               *   ");
+    mvwprintw(sac,2+8,4,"   ******          **   ");
+    mvwprintw(sac,2+9,4,"      ************     ");
+    mvwprintw(sac,3,33,"x%d",player->inventory[POKEBALLS].quant);     
 
     mvwprintw(sac,1,44,"     @@@@@@@@@@(     ");     
     mvwprintw(sac,1+1,44,"    *@@@@@@@####&&   ");      
@@ -927,7 +935,7 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,1+8,44,"##((##(#((/#(/(///((.");      
     mvwprintw(sac,1+9,44,"#((//(((((/(//*//*/##");      
     mvwprintw(sac,1+10,44,"   #(#//(#/////#( ");      
-    mvwprintw(sac,2,73,"x%d",player->inventory[POTIONS].quant);     
+    mvwprintw(sac,3,73,"x%d",player->inventory[POTIONS].quant);     
 
     mvwprintw(sac,3,84,"              ..");
     mvwprintw(sac,3+1,84,"             \\@(");
@@ -937,11 +945,11 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,3+5,84,",(((((/,(((((*, ");
     mvwprintw(sac,3+6,84,"  **,//*        ");
     mvwprintw(sac,3+7,84,"   **,,.        ");
-    mvwprintw(sac,2,113,"x%d",player->inventory[CANDYS].quant); 
+    mvwprintw(sac,3,113,"x%d",player->inventory[CANDYS].quant); 
 
-    mvwprintw(sac,16,30,"%s",player->inventory[3].name);
-    mvwprintw(sac,16,70,"%s",player->inventory[4].name);
-    mvwprintw(sac,16,110,"%s",player->inventory[5].name);
+    mvwprintw(sac,16,28,"%s",player->inventory[SLOT4].name);
+    mvwprintw(sac,16,68,"%s",player->inventory[SLOT5].name);
+    mvwprintw(sac,16,108,"%s",player->inventory[SLOT6].name);
 
     if (player->inventory[3].type!=EMPTY || player->inventory[3].quant!=0)
     {
@@ -954,7 +962,7 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,16+6,5," &##$&@@@&###(//(##&   ");
         mvwprintw(sac,16+7,5,"   &@@@@&$#####(/&     ");
         mvwprintw(sac,16+8,5,"        &&&&&          ");   
-        mvwprintw(sac,17,30,"x%d",player->inventory[3].quant);
+        mvwprintw(sac,17,30,"x%d",player->inventory[SLOT4].quant);
     }
     
     if (player->inventory[4].type!=EMPTY || player->inventory[4].quant!=0)
@@ -968,7 +976,7 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,16+6,45," &##$&@@@&###(//(##&   ");
         mvwprintw(sac,16+7,45,"   &@@@@&$#####(/&     ");
         mvwprintw(sac,16+8,45,"        &&&&&          "); 
-        mvwprintw(sac,17,70,"x%d",player->inventory[4].quant);
+        mvwprintw(sac,17,70,"x%d",player->inventory[SLOT5].quant);
     }
 
     if (player->inventory[5].type!=EMPTY || player->inventory[5].quant!=0)
@@ -982,151 +990,423 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,16+6,84," &##$&@@@&###(//(##&   ");
         mvwprintw(sac,16+7,84,"   &@@@@&$#####(/&     ");
         mvwprintw(sac,16+8,84,"        &&&&&          "); 
-        mvwprintw(sac,17,110,"x%d",player->inventory[5].quant);
+        mvwprintw(sac,17,110,"x%d",player->inventory[SLOT6].quant);
     }     
 }
 
-void print_yourteam(WINDOW* yourteam,trainer* player, int x,int y){
+void print_art_box(WINDOW* box,trainer player,int whatpoke){
+
+    switch (whatpoke)
+    {
+    case 1:
+        switch (player.poke1.art_box)
+        {
+        case CHARMANDER:
+            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6+1,4," $$$$$##          ");
+            mvwprintw(box,6+2,4,"*$$$$$,*          ");
+            mvwprintw(box,6+3,4,"#,$$$. (        # ");
+            mvwprintw(box,6+4,4,"   ###(#$      ###");
+            mvwprintw(box,6+5,4,"$$#@@@@$$$$(   &&(");
+            mvwprintw(box,6+6,4,"   @@@&@$$      $ ");
+            mvwprintw(box,6+7,4," &$&&&&&&$$#(((#  ");
+            mvwprintw(box,6+8,4," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
+            mvwprintw(box,6+2,3,"   ( (((.*((*        ");
+            mvwprintw(box,6+3,3,"    $$((((,((        ");
+            mvwprintw(box,6+4,3,",$$#&&$..$$#((#      ");
+            mvwprintw(box,6+5,3,"   &&&.&*((#$((      ");
+            mvwprintw(box,6+6,3,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(box,6+7,3,"  $#((###$$$$((((((( ");
+            mvwprintw(box,6+8,3,"          ((((       ");    
+            break;
+
+        case BULBASAUR:               
+            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
+            mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
+            mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
+            mvwprintw(box,6+7,2,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(box,6+8,2,"    & #    #$##   $&((  ");   
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    
+    case 2:
+        switch (player.poke2.art_box)
+        {
+        case CHARMANDER:
+            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6+1,4," $$$$$##          ");
+            mvwprintw(box,6+2,4,"*$$$$$,*          ");
+            mvwprintw(box,6+3,4,"#,$$$. (        # ");
+            mvwprintw(box,6+4,4,"   ###(#$      ###");
+            mvwprintw(box,6+5,4,"$$#@@@@$$$$(   &&(");
+            mvwprintw(box,6+6,4,"   @@@&@$$      $ ");
+            mvwprintw(box,6+7,4," &$&&&&&&$$#(((#  ");
+            mvwprintw(box,6+8,4," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
+            mvwprintw(box,6+2,3,"   ( (((.*((*        ");
+            mvwprintw(box,6+3,3,"    $$((((,((        ");
+            mvwprintw(box,6+4,3,",$$#&&$..$$#((#      ");
+            mvwprintw(box,6+5,3,"   &&&.&*((#$((      ");
+            mvwprintw(box,6+6,3,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(box,6+7,3,"  $#((###$$$$((((((( ");
+            mvwprintw(box,6+8,3,"          ((((       ");    
+            break;
+
+        case BULBASAUR:               
+            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
+            mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
+            mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
+            mvwprintw(box,6+7,2,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(box,6+8,2,"    & #    #$##   $&((  ");   
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    
+    case 3:
+        switch (player.poke3.art_box)
+        {
+        case CHARMANDER:
+            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6+1,4," $$$$$##          ");
+            mvwprintw(box,6+2,4,"*$$$$$,*          ");
+            mvwprintw(box,6+3,4,"#,$$$. (        # ");
+            mvwprintw(box,6+4,4,"   ###(#$      ###");
+            mvwprintw(box,6+5,4,"$$#@@@@$$$$(   &&(");
+            mvwprintw(box,6+6,4,"   @@@&@$$      $ ");
+            mvwprintw(box,6+7,4," &$&&&&&&$$#(((#  ");
+            mvwprintw(box,6+8,4," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
+            mvwprintw(box,6+2,3,"   ( (((.*((*        ");
+            mvwprintw(box,6+3,3,"    $$((((,((        ");
+            mvwprintw(box,6+4,3,",$$#&&$..$$#((#      ");
+            mvwprintw(box,6+5,3,"   &&&.&*((#$((      ");
+            mvwprintw(box,6+6,3,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(box,6+7,3,"  $#((###$$$$((((((( ");
+            mvwprintw(box,6+8,3,"          ((((       ");    
+            break;
+
+        case BULBASAUR:               
+            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
+            mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
+            mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
+            mvwprintw(box,6+7,2,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(box,6+8,2,"    & #    #$##   $&((  ");   
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    
+    case 4:
+        switch (player.poke4.art_box)
+        {
+        case CHARMANDER:
+            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6+1,4," $$$$$##          ");
+            mvwprintw(box,6+2,4,"*$$$$$,*          ");
+            mvwprintw(box,6+3,4,"#,$$$. (        # ");
+            mvwprintw(box,6+4,4,"   ###(#$      ###");
+            mvwprintw(box,6+5,4,"$$#@@@@$$$$(   &&(");
+            mvwprintw(box,6+6,4,"   @@@&@$$      $ ");
+            mvwprintw(box,6+7,4," &$&&&&&&$$#(((#  ");
+            mvwprintw(box,6+8,4," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
+            mvwprintw(box,6+2,3,"   ( (((.*((*        ");
+            mvwprintw(box,6+3,3,"    $$((((,((        ");
+            mvwprintw(box,6+4,3,",$$#&&$..$$#((#      ");
+            mvwprintw(box,6+5,3,"   &&&.&*((#$((      ");
+            mvwprintw(box,6+6,3,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(box,6+7,3,"  $#((###$$$$((((((( ");
+            mvwprintw(box,6+8,3,"          ((((       ");    
+            break;
+
+        case BULBASAUR:               
+            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
+            mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
+            mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
+            mvwprintw(box,6+7,2,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(box,6+8,2,"    & #    #$##   $&((  ");   
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    
+    case 5:
+        switch (player.poke5.art_box)
+        {
+        case CHARMANDER:
+            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6+1,4," $$$$$##          ");
+            mvwprintw(box,6+2,4,"*$$$$$,*          ");
+            mvwprintw(box,6+3,4,"#,$$$. (        # ");
+            mvwprintw(box,6+4,4,"   ###(#$      ###");
+            mvwprintw(box,6+5,4,"$$#@@@@$$$$(   &&(");
+            mvwprintw(box,6+6,4,"   @@@&@$$      $ ");
+            mvwprintw(box,6+7,4," &$&&&&&&$$#(((#  ");
+            mvwprintw(box,6+8,4," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
+            mvwprintw(box,6+2,3,"   ( (((.*((*        ");
+            mvwprintw(box,6+3,3,"    $$((((,((        ");
+            mvwprintw(box,6+4,3,",$$#&&$..$$#((#      ");
+            mvwprintw(box,6+5,3,"   &&&.&*((#$((      ");
+            mvwprintw(box,6+6,3,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(box,6+7,3,"  $#((###$$$$((((((( ");
+            mvwprintw(box,6+8,3,"          ((((       ");    
+            break;
+
+        case BULBASAUR:               
+            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
+            mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
+            mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
+            mvwprintw(box,6+7,2,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(box,6+8,2,"    & #    #$##   $&((  ");   
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    
+    case 6:
+        switch (player.poke6.art_box)
+        {
+        case CHARMANDER:
+            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6+1,4," $$$$$##          ");
+            mvwprintw(box,6+2,4,"*$$$$$,*          ");
+            mvwprintw(box,6+3,4,"#,$$$. (        # ");
+            mvwprintw(box,6+4,4,"   ###(#$      ###");
+            mvwprintw(box,6+5,4,"$$#@@@@$$$$(   &&(");
+            mvwprintw(box,6+6,4,"   @@@&@$$      $ ");
+            mvwprintw(box,6+7,4," &$&&&&&&$$#(((#  ");
+            mvwprintw(box,6+8,4," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
+            mvwprintw(box,6+2,3,"   ( (((.*((*        ");
+            mvwprintw(box,6+3,3,"    $$((((,((        ");
+            mvwprintw(box,6+4,3,",$$#&&$..$$#((#      ");
+            mvwprintw(box,6+5,3,"   &&&.&*((#$((      ");
+            mvwprintw(box,6+6,3,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(box,6+7,3,"  $#((###$$$$((((((( ");
+            mvwprintw(box,6+8,3,"          ((((       ");    
+            break;
+
+        case BULBASAUR:               
+            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
+            mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
+            mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
+            mvwprintw(box,6+7,2,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(box,6+8,2,"    & #    #$##   $&((  ");   
+            break;
+        
+        default:
+            break;
+        }
+        break;
+    
+    default:
+        break;
+    }
+}
+
+void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* box5,WINDOW* box6,trainer* player, int x,int y){
     int i;
     
-    for ( i = 0; i < 27; i++)
+    if (x==1)
     {
-        mvwprintw(yourteam,1+i,(COLS/1.5)/2,"|");    //colonne du droite
-    }    
-
-    for ( i = 0; i < 27; i++)
-    {
-        mvwprintw(yourteam,1+i,(COLS/1.5)/4,"|");    //colonne de gauche
-    }  
-
-    for ( i = 0; i < 116; i++)
-    {
-        mvwprintw(yourteam,(LINES/1.5)/3,1+i,"_");    //ligne
+        switch (y)
+        {
+        case 1:
+                mvwprintw(box1,17,22,"  ,");      
+                mvwprintw(box1,17+1,22,".:::.");   
+            break;
+        
+        case 2:
+                mvwprintw(box2,17,22,"  ,");      
+                mvwprintw(box2,17+1,22,".:::.");   
+            break;
+        
+        case 3:
+                mvwprintw(box3,17,22,"  ,");      
+                mvwprintw(box3,17+1,22,".:::.");   
+            break;
+        
+        default:
+            break;
+        }
     }
 
-    // poke1
-    mvwprintw(yourteam,4,3,"   ______   ");
-    mvwprintw(yourteam,4+1,3," *        * ");                              
-    mvwprintw(yourteam,4+2,3,"*          *");            
-    mvwprintw(yourteam,4+3,3,"*----()----*"); 
-    mvwprintw(yourteam,4+4,3,"*          *");            
-    mvwprintw(yourteam,4+5,3," *________* ");
+    if (x==2)
+    {
+        switch (y)
+        {
+        case 1:
+                mvwprintw(box4,17,22,"  ,");      
+                mvwprintw(box4,17+1,22,".:::.");   
+            break;
+        
+        case 2:
+                mvwprintw(box5,17,22,"  ,");      
+                mvwprintw(box5,17+1,22,".:::.");   
+            break;
+        
+        case 3:
+                mvwprintw(box6,17,22,"  ,");      
+                mvwprintw(box6,17+1,22,".:::.");   
+            break;
+        
+        default:
+            break;
+        }
+    }
+    
+    //box1
+    print_art_box(box1,*player,1);
 
-    mvwprintw(yourteam,3,4,"%s",player->poke1.name);
+    mvwprintw(box1,3,4,"%s",player->poke1.name);
     if (player->poke1.type!=0)
     {
-        mvwprintw(yourteam,2,19,"lvl %d",player->poke1.lvl);
-        mvwprintw(yourteam,4,19,"HP : %.1f/%.1f",player->poke1.pv,player->poke1.pv_save);
-        mvwprintw(yourteam,5,19,"ATK : %.1f",player->poke1.atk);
-        mvwprintw(yourteam,6,19,"DEF : %.1f",player->poke1.def);
-        mvwprintw(yourteam,7,19,"DODGE : %.1f",player->poke1.dodge);
-        mvwprintw(yourteam,9,19,"UTILITARY : %s",player->poke1.CTutil->name);
-        mvwprintw(yourteam,10,19,"STAT : %s",player->poke1.CTstat->name);
+        mvwprintw(box1,3,40,"lvl %d",player->poke1.lvl);
+        mvwprintw(box1,7,30,"HP : %.1f/%.1f",player->poke1.pv,player->poke1.pv_save);
+        mvwprintw(box1,8,30,"ATK : %.1f",player->poke1.atk);
+        mvwprintw(box1,9,30,"DEF : %.1f",player->poke1.def);
+        mvwprintw(box1,10,30,"DODGE : %.1f",player->poke1.dodge);
+        mvwprintw(box1,12,30,"UTILITARY : %s",player->poke1.CTutil->name);
+        mvwprintw(box1,13,30,"STAT : %s",player->poke1.CTstat->name);
     }
 
-    //poke2
-    mvwprintw(yourteam,4,43,"   ______   ");
-    mvwprintw(yourteam,4+1,43," *        * ");                              
-    mvwprintw(yourteam,4+2,43,"*          *");            
-    mvwprintw(yourteam,4+3,43,"*----()----*"); 
-    mvwprintw(yourteam,4+4,43,"*          *");            
-    mvwprintw(yourteam,4+5,43," *________* ");
+    //box2
+    print_art_box(box2,*player,2);
 
-    mvwprintw(yourteam,3,44,"%s",player->poke2.name);
+    mvwprintw(box2,3,4,"%s",player->poke2.name);
     if (player->poke2.type!=0)
     {
-        mvwprintw(yourteam,2,59,"lvl %d",player->poke2.lvl);
-        mvwprintw(yourteam,4,59,"HP : %.1f/%.1f",player->poke2.pv,player->poke2.pv_save);
-        mvwprintw(yourteam,5,59,"ATK : %.1f",player->poke2.atk);
-        mvwprintw(yourteam,6,59,"DEF : %.1f",player->poke2.def);
-        mvwprintw(yourteam,7,59,"DODGE : %.1f",player->poke2.dodge);
-        mvwprintw(yourteam,9,59,"UTILITARY : %s",player->poke2.CTutil->name);
-        mvwprintw(yourteam,10,59,"STAT : %s",player->poke2.CTstat->name);
+        mvwprintw(box2,3,40,"lvl %d",player->poke2.lvl);
+        mvwprintw(box2,7,30,"HP : %.1f/%.1f",player->poke2.pv,player->poke2.pv_save);
+        mvwprintw(box2,8,30,"ATK : %.1f",player->poke2.atk);
+        mvwprintw(box2,9,30,"DEF : %.1f",player->poke2.def);
+        mvwprintw(box2,10,30,"DODGE : %.1f",player->poke2.dodge);
+        mvwprintw(box2,12,30,"UTILITARY : %s",player->poke2.CTutil->name);
+        mvwprintw(box2,13,30,"STAT : %s",player->poke2.CTstat->name);
     }
 
-    //poke3
-    mvwprintw(yourteam,4,83,"   ______   ");
-    mvwprintw(yourteam,4+1,83," *        * ");                              
-    mvwprintw(yourteam,4+2,83,"*          *");            
-    mvwprintw(yourteam,4+3,83,"*----()----*"); 
-    mvwprintw(yourteam,4+4,83,"*          *");            
-    mvwprintw(yourteam,4+5,83," *________* ");
+    //box3
+    print_art_box(box3,*player,3);
 
-    mvwprintw(yourteam,3,84,"%s",player->poke3.name);
+    mvwprintw(box3,3,4,"%s",player->poke3.name);
     if (player->poke3.type!=0)
     {
-        mvwprintw(yourteam,2,99,"lvl %d",player->poke3.lvl);
-        mvwprintw(yourteam,4,99,"HP : %.1f/%.1f",player->poke3.pv,player->poke3.pv_save);
-        mvwprintw(yourteam,5,99,"ATK : %.1f",player->poke3.atk);
-        mvwprintw(yourteam,6,99,"DEF : %.1f",player->poke3.def);
-        mvwprintw(yourteam,7,99,"DODGE : %.1f",player->poke3.dodge);
-        mvwprintw(yourteam,9,99,"UTILITARY : %s",player->poke3.CTutil->name);
-        mvwprintw(yourteam,10,99,"STAT : %s",player->poke3.CTstat->name);
+        mvwprintw(box3,3,40,"lvl %d",player->poke3.lvl);
+        mvwprintw(box3,7,30,"HP : %.1f/%.1f",player->poke3.pv,player->poke3.pv_save);
+        mvwprintw(box3,8,30,"ATK : %.1f",player->poke3.atk);
+        mvwprintw(box3,9,30,"DEF : %.1f",player->poke3.def);
+        mvwprintw(box3,10,30,"DODGE : %.1f",player->poke3.dodge);
+        mvwprintw(box3,12,30,"UTILITARY : %s",player->poke3.CTutil->name);
+        mvwprintw(box3,13,30,"STAT : %s",player->poke3.CTstat->name);
     }
 
-    //poke4
-    mvwprintw(yourteam,18,3,"   ______   ");
-    mvwprintw(yourteam,18+1,3," *        * ");                              
-    mvwprintw(yourteam,18+2,3,"*          *");            
-    mvwprintw(yourteam,18+3,3,"*----()----*"); 
-    mvwprintw(yourteam,18+4,3,"*          *");            
-    mvwprintw(yourteam,18+5,3," *________* ");
+    //box4
+    print_art_box(box4,*player,4);
 
-    mvwprintw(yourteam,17,4,"%s",player->poke4.name);
+    mvwprintw(box4,3,4,"%s",player->poke4.name);
     if (player->poke4.type!=0)
     {
-        mvwprintw(yourteam,16,19,"lvl %d",player->poke4.lvl);
-        mvwprintw(yourteam,18,19,"HP : %.1f/%.1f",player->poke4.pv,player->poke4.pv_save);
-        mvwprintw(yourteam,19,19,"ATK : %.1f",player->poke4.atk);
-        mvwprintw(yourteam,20,19,"DEF : %.1f",player->poke4.def);
-        mvwprintw(yourteam,21,19,"DODGE : %.1f",player->poke4.dodge);
-        mvwprintw(yourteam,23,19,"UTILITARY : %s",player->poke4.CTutil->name);
-        mvwprintw(yourteam,24,19,"STAT : %s",player->poke4.CTstat->name);
+        mvwprintw(box4,3,40,"lvl %d",player->poke4.lvl);
+        mvwprintw(box4,7,30,"HP : %.1f/%.1f",player->poke4.pv,player->poke4.pv_save);
+        mvwprintw(box4,8,30,"ATK : %.1f",player->poke4.atk);
+        mvwprintw(box4,9,30,"DEF : %.1f",player->poke4.def);
+        mvwprintw(box4,10,30,"DODGE : %.1f",player->poke4.dodge);
+        mvwprintw(box4,12,30,"UTILITARY : %s",player->poke4.CTutil->name);
+        mvwprintw(box4,13,30,"STAT : %s",player->poke4.CTstat->name);
     }
 
-    //poke5
-    mvwprintw(yourteam,18,43,"   ______   ");
-    mvwprintw(yourteam,18+1,43," *        * ");                              
-    mvwprintw(yourteam,18+2,43,"*          *");            
-    mvwprintw(yourteam,18+3,43,"*----()----*"); 
-    mvwprintw(yourteam,18+4,43,"*          *");            
-    mvwprintw(yourteam,18+5,43," *________* ");
+    //box5
+    print_art_box(box5,*player,5);
 
-    mvwprintw(yourteam,17,44,"%s",player->poke5.name);
+    mvwprintw(box5,3,4,"%s",player->poke5.name);
     if (player->poke5.type!=0)
     {
-        mvwprintw(yourteam,16,59,"lvl %d",player->poke5.lvl);
-        mvwprintw(yourteam,18,59,"HP : %.1f/%.1f",player->poke5.pv,player->poke5.pv_save);
-        mvwprintw(yourteam,19,59,"ATK : %.1f",player->poke5.atk);
-        mvwprintw(yourteam,20,59,"DEF : %.1f",player->poke5.def);
-        mvwprintw(yourteam,21,59,"DODGE : %.1f",player->poke5.dodge);
-        mvwprintw(yourteam,23,59,"UTILITARY : %s",player->poke5.CTutil->name);
-        mvwprintw(yourteam,24,59,"STAT : %s",player->poke5.CTstat->name);
+        mvwprintw(box5,3,40,"lvl %d",player->poke5.lvl);
+        mvwprintw(box5,7,30,"HP : %.1f/%.1f",player->poke5.pv,player->poke5.pv_save);
+        mvwprintw(box5,8,30,"ATK : %.1f",player->poke5.atk);
+        mvwprintw(box5,9,30,"DEF : %.1f",player->poke5.def);
+        mvwprintw(box5,10,30,"DODGE : %.1f",player->poke5.dodge);
+        mvwprintw(box5,12,30,"UTILITARY : %s",player->poke5.CTutil->name);
+        mvwprintw(box5,13,30,"STAT : %s",player->poke5.CTstat->name);
     }
 
-    //poke6
-    mvwprintw(yourteam,18,83,"   ______   ");
-    mvwprintw(yourteam,18+1,83," *        * ");                              
-    mvwprintw(yourteam,18+2,83,"*          *");            
-    mvwprintw(yourteam,18+3,83,"*----()----*"); 
-    mvwprintw(yourteam,18+4,83,"*          *");            
-    mvwprintw(yourteam,18+5,83," *________* ");
+    //box6
+    print_art_box(box6,*player,6);
 
-    mvwprintw(yourteam,17,84,"%s",player->poke6.name);
+    mvwprintw(box6,3,4,"%s",player->poke6.name);
     if (player->poke6.type!=0)
     {
-        mvwprintw(yourteam,16,99,"lvl %d",player->poke6.lvl);
-        mvwprintw(yourteam,18,99,"HP : %.1f/%.1f",player->poke6.pv,player->poke6.pv_save);
-        mvwprintw(yourteam,19,99,"ATK : %.1f",player->poke6.atk);
-        mvwprintw(yourteam,20,99,"DEF : %.1f",player->poke6.def);
-        mvwprintw(yourteam,21,99,"DODGE : %.1f",player->poke6.dodge);
-        mvwprintw(yourteam,23,99,"UTILITARY : %s",player->poke6.CTutil->name);
-        mvwprintw(yourteam,24,99,"STAT : %s",player->poke6.CTstat->name);
+        mvwprintw(box6,3,40,"lvl %d",player->poke6.lvl);
+        mvwprintw(box6,7,30,"HP : %.1f/%.1f",player->poke6.pv,player->poke6.pv_save);
+        mvwprintw(box6,8,30,"ATK : %.1f",player->poke6.atk);
+        mvwprintw(box6,9,30,"DEF : %.1f",player->poke6.def);
+        mvwprintw(box6,10,30,"DODGE : %.1f",player->poke6.dodge);
+        mvwprintw(box6,12,30,"UTILITARY : %s",player->poke6.CTutil->name);
+        mvwprintw(box6,13,30,"STAT : %s",player->poke6.CTstat->name);
     }
-
-
-    mvwprintw(yourteam,x,y,"  ,");      
-    mvwprintw(yourteam,x+1,y,".:::.");   
 }
 
 void print_main_menu(WINDOW* win,int x,int y){

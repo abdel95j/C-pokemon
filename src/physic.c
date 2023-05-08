@@ -237,7 +237,7 @@ void physic_league(int ch, int* x, int* y){
                 *x+=1;
             }
 
-            if (*x==13 && *y>=61 && *y<=69) // Master of the league
+            if (*x==13 && *y>=61 && *y<=69) // Champion of the league
             {
                 *x+=1;
             }
@@ -284,7 +284,7 @@ void physic_league(int ch, int* x, int* y){
                 *x+=1;
             }
 
-            if (*x==9 && *y>=61 && *y<=69) // Master of the league
+            if (*x==9 && *y>=61 && *y<=69) // Champion of the league
             {
                 *x-=1;
             }
@@ -337,7 +337,7 @@ void physic_league(int ch, int* x, int* y){
                 *y+=2;
             }
 
-            if (*y==69 && *x>=9 && *x<=13) // Master of the league
+            if (*y==69 && *x>=9 && *x<=13) // Champion of the league
             {
                 *y+=2;
             }
@@ -390,7 +390,7 @@ void physic_league(int ch, int* x, int* y){
                 *y-=2;
             }
 
-            if (*y==61 && *x>=9 && *x<=13) // Master of the league
+            if (*y==61 && *x>=9 && *x<=13) // Champion of the league
             {
                 *y-=2;
             }
@@ -1045,39 +1045,39 @@ void physic_inventory(int ch, int* x, int* y){
         }
 }
 
-void physic_yourteam(int ch, int* x, int* y){
+void physic_yourteam(int ch,int* x,int* y){
 
     switch (ch)
         {
         case 'q' :
         case KEY_LEFT :
-            if (*y!=17)
+            if (*y!=1)
             {
-                *y-=40;
+                *y-=1;
             }
             break;
 
         case 'd' :
         case KEY_RIGHT :
-            if (*y!=97)
+            if (*y!=3)
             {
-                *y+=40;
+                *y+=1;
             }
             break;
 
         case 'z' :
         case KEY_UP :
-            if (*x==26)
+            if (*x==2)
             {
-                *x=12;
+                *x=1;
             }
             break;
 
         case 's' :
         case KEY_DOWN :
-            if (*x==12)
+            if (*x==1)
             {
-                *x=26;
+                *x=2;
             }
             break;
         

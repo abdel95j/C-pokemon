@@ -11,7 +11,7 @@ void physic_get_firstpoke(int ch, int* y);
 void physic_shop(int ch, int* x, int* y);
 void physic_roadto_league(int ch, int* l, int* c);
 void physic_lab(int ch, int* x, int* y);
-void physic_yourteam(int ch, int* x, int* y);
+void physic_yourteam(int ch,int*x,int*y);
 void physic_league(int ch, int* x, int* y);
 
 

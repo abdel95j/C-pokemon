@@ -9,6 +9,33 @@
 #include "../headers/talk.h"
 #include "../headers/talkbis.h"
 
+void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
+
+    pokemon charmander,pokenull,bulbasaur,squirtle;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+
+    sprintf(blue->name,"Blue");
+    blue->lvl=1;
+    blue->poke1=charmander;
+    blue->poke1=bulbasaur;
+    blue->poke1=squirtle;
+    blue->art=CHAMPIONBLUE;
+
+    sprintf(blue->name,"Red");
+    blue->lvl=1;
+    blue->poke1=charmander;
+    blue->poke1=bulbasaur;
+    blue->poke1=squirtle;
+    blue->art=CHAMPIONBLUE;
+
+    sprintf(blue->name,"Yellow");
+    blue->lvl=1;
+    blue->poke1=charmander;
+    blue->poke1=bulbasaur;
+    blue->poke1=squirtle;
+    blue->art=CHAMPIONBLUE;
+}
+
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
     
     //pokenull
@@ -19,7 +46,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pokenull->pv_save=0;
     pokenull->lvl=0;
     pokenull->catchrate=0;
-    pokenull->art=0;
+    pokenull->art_box=NOPOKEMON;
     pokenull->type=NOPOKEMON;
     pokenull->CTstat->type=0; 
     pokenull->CTutil->type=0; 
@@ -39,7 +66,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->pv_save=35.0;
     charmander->lvl=1;
     charmander->catchrate=50;
-    charmander->art=4;
+    charmander->art_box=CHARMANDER;
     charmander->type=FIRE;
     charmander->CTstat->type=0;     
     charmander->CTutil->type=0; 
@@ -49,7 +76,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(charmander->speatk,"flamethrower");
     sprintf(charmander->CTutil->name,"none");
     sprintf(charmander->CTstat->name,"none");
-    sprintf(charmander->name,"charmander");
+    sprintf(charmander->name,"Charmander");
     
     //bulbasaur -
     bulbasaur->atk=8.0;
@@ -59,7 +86,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->pv_save=40.0;
     bulbasaur->lvl=1;
     bulbasaur->catchrate=50;
-    bulbasaur->art=1;
+    bulbasaur->art_box=BULBASAUR;
     bulbasaur->type=GRASS;
     bulbasaur->CTstat->type=0; 
     bulbasaur->CTutil->type=0; 
@@ -69,7 +96,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(bulbasaur->speatk,"solar-beam");
     sprintf(bulbasaur->CTutil->name,"none");
     sprintf(bulbasaur->CTstat->name,"none");
-    sprintf(bulbasaur->name,"bulbasaur");
+    sprintf(bulbasaur->name,"Bulbasaur");
 
     //squirtle -
     squirtle->atk=9.0;
@@ -79,7 +106,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->pv_save=33.0;
     squirtle->lvl=1;
     squirtle->catchrate=50;
-    squirtle->art=7;
+    squirtle->art_box=SQUIRTLE;
     squirtle->type=WATER;
     squirtle->CTstat->type=0; 
     squirtle->CTutil->type=0; 
@@ -89,7 +116,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(squirtle->speatk,"hydropump");
     sprintf(squirtle->CTutil->name,"none");
     sprintf(squirtle->CTstat->name,"none");
-    sprintf(squirtle->name,"squirtle");  
+    sprintf(squirtle->name,"Squirtle");  
 }
 
 void create_newplayer(trainer* newplayer){
@@ -118,29 +145,29 @@ void create_newplayer(trainer* newplayer){
     newplayer->xp=0;
     newplayer->is_on_water=0;
 
-    newplayer->inventory[0].quant=10;
-    newplayer->inventory[0].type=OTHER;
-    sprintf(newplayer->inventory[0].name,"pokeballs"); 
+    newplayer->inventory[POKEBALLS].quant=10;
+    newplayer->inventory[POKEBALLS].type=OTHER;
+    sprintf(newplayer->inventory[POKEBALLS].name,"pokeballs"); 
 
-    newplayer->inventory[1].quant=5;
-    newplayer->inventory[1].type=OTHER;
-    sprintf(newplayer->inventory[1].name,"potions"); 
+    newplayer->inventory[POTIONS].quant=5;
+    newplayer->inventory[POTIONS].type=OTHER;
+    sprintf(newplayer->inventory[POTIONS].name,"potions"); 
 
-    newplayer->inventory[2].quant=2;
-    newplayer->inventory[2].type=OTHER;
-    sprintf(newplayer->inventory[2].name,"candys"); 
+    newplayer->inventory[CANDYS].quant=2;
+    newplayer->inventory[CANDYS].type=OTHER;
+    sprintf(newplayer->inventory[CANDYS].name,"candys"); 
 
-    newplayer->inventory[3].quant=0;
-    newplayer->inventory[3].type=EMPTY;
-    sprintf(newplayer->inventory[3].name,"empty"); 
+    newplayer->inventory[SLOT4].quant=0;
+    newplayer->inventory[SLOT4].type=EMPTY;
+    sprintf(newplayer->inventory[SLOT4].name,"empty"); 
 
-    newplayer->inventory[4].quant=0;
-    newplayer->inventory[4].type=EMPTY;
-    sprintf(newplayer->inventory[4].name,"empty"); 
+    newplayer->inventory[SLOT5].quant=0;
+    newplayer->inventory[SLOT5].type=EMPTY;
+    sprintf(newplayer->inventory[SLOT5].name,"empty"); 
 
-    newplayer->inventory[5].quant=EMPTY;
-    newplayer->inventory[5].type=0;
-    sprintf(newplayer->inventory[5].name,"empty"); 
+    newplayer->inventory[SLOT6].quant=EMPTY;
+    newplayer->inventory[SLOT6].type=0;
+    sprintf(newplayer->inventory[SLOT6].name,"empty"); 
 
 
 
@@ -284,7 +311,7 @@ void house(trainer* player){
 }
 
 void league(trainer* player){
-    int finish=0,ch=ERR;
+    int finish=0,ch=ERR,quit=0;
     int x=34,y=71;
 
     while (finish==0)
@@ -311,13 +338,20 @@ void league(trainer* player){
                 finish=1;   
             }
 
-            if (x==14 && y>61 && y<69) // master of the ligue area
+            if (x==14 && y>61 && y<69) // champion of the ligue area
             {
                 chargement(); 
                 //talkto_master();
             }
             break;
-        
+
+        case 'm':
+            menu(&quit,player);
+            break;
+
+        case 'i':
+            inventory(player);
+            break;
         default:
             break;
         }
@@ -464,21 +498,33 @@ void shop(trainer* player){
 void your_team(trainer* player){
     WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     int finish=0,ch=ERR;
-    int x=12,y=17;
+    int x=1,y=1;
     
      while (finish==0)
     {
-        WINDOW* yourteam = newwin(29,118,20,60);
-        WINDOW* yourteam_array=newwin(5,100,15,60);
+        WINDOW* yourteam = newwin(40,155,14,40);
+        WINDOW* yourteam_array=newwin(4,50,11,50);
+        WINDOW* box1=subwin(yourteam,20,50,14,41);
+        WINDOW* box2=subwin(yourteam,20,51,14,92);
+        WINDOW* box3=subwin(yourteam,20,50,14,144);
+        WINDOW* box4=subwin(yourteam,20,50,34,41);
+        WINDOW* box5=subwin(yourteam,20,51,34,92);
+        WINDOW* box6=subwin(yourteam,20,50,34,144);
         box(yourteam,0,0);
+        box(box1,0,0);
+        box(box2,0,0);
+        box(box3,0,0);
+        box(box4,0,0);
+        box(box5,0,0);
+        box(box6,0,0);
 
-        mvwprintw(yourteam_array,1,10,"__  ______  __  _____    _____________   __  ___");
-        mvwprintw(yourteam_array,1+1,10,"\\ \\/ / __ \\/ / / / _ \\  /_  __/ __/ _ | /  |/  /");
-        mvwprintw(yourteam_array,1+2,10," \\  / /_/ / /_/ / , _/   / / / _// __ |/ /|_/ / ");
-        mvwprintw(yourteam_array,1+3,10," /_/\\____/\\____/_/|_|   /_/ /___/_/ |_/_/  /_/  ");
+        mvwprintw(yourteam_array,0,0,"__  ______  __  _____    _____________   __  ___");
+        mvwprintw(yourteam_array,0+1,0,"\\ \\/ / __ \\/ / / / _ \\  /_  __/ __/ _ | /  |/  /");
+        mvwprintw(yourteam_array,0+2,0," \\  / /_/ / /_/ / , _/   / / / _// __ |/ /|_/ / ");
+        mvwprintw(yourteam_array,0+3,0," /_/\\____/\\____/_/|_|   /_/ /___/_/ |_/_/  /_/  ");
                                   
         ch=getch();
-        print_yourteam(yourteam,player,x,y);        
+        print_yourteam(box1,box2,box3,box4,box5,box6,player,x,y);        
         wrefresh(yourteam);
         wrefresh(yourteam_array);
 
@@ -500,6 +546,30 @@ void your_team(trainer* player){
         }
 
         usleep(16667);
+        if(delwin(box1)==ERR)
+        {
+            exit(36);
+        }
+        if(delwin(box2)==ERR)
+        {
+            exit(37);
+        }
+        if(delwin(box3)==ERR)
+        {
+            exit(38);
+        }
+        if(delwin(box4)==ERR)
+        {
+            exit(39);
+        }
+        if(delwin(box5)==ERR)
+        {
+            exit(40);
+        }
+        if(delwin(box6)==ERR)
+        {
+            exit(41);
+        }
         if(delwin(yourteam)==ERR)
         {
             exit(34);

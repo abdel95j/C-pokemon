@@ -299,9 +299,9 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     mvwprintw(buy_stuff,1,16,"PokeShop");
                     mvwprintw(buy_stuff,1,2,"%d$",player->money);
 
-                    mvwprintw(buy_stuff,4,4,"Surf [200$]");
-                    mvwprintw(buy_stuff,6,4,"Leer [100$]");
-                    mvwprintw(buy_stuff,8,4,"Roar [100$]");
+                    mvwprintw(buy_stuff,4,4,"Surf (util) [200$]");
+                    mvwprintw(buy_stuff,6,4,"Leer (stat) [100$]");
+                    mvwprintw(buy_stuff,8,4,"Roar (stat) [100$]");
                     mvwprintw(buy_stuff,10,4,"EXIT");
                     mvwprintw(buy_stuff,x,2,">");
 

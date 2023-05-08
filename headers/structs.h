@@ -1,28 +1,45 @@
 #ifndef STRUCTS_H
 #define STRUCTS_H
 
+//inventoryplaces
+#define POKEBALLS 0
+#define POTIONS 1
+#define CANDYS 2
+#define SLOT4 3
+#define SLOT5 4
+#define SLOT6 5
+
+//poketypes
 #define NOPOKEMON 0
 #define WATER 1
 #define FIRE 2
 #define GRASS 3
 #define ELECTRIC 4
 
-#define POKEBALLS 0
-#define POTIONS 1
-#define CANDYS 2
-#define CT 3
-
+//init_pairs
 #define RED 1
 #define MAGENTA 2
 #define YELLOW 3
 #define BLUE 4
 #define GREEN 5
 
+//object types
 #define OTHER -1
 #define EMPTY 0
 #define SURF 1
 #define LEER 2
 #define ROAR 3
+
+//champions_art
+#define CHAMPIONBLUE 1
+#define CHAMPIONRED 2
+#define CHAMPIONYELLOW 3
+
+//pokearts
+#define NOPOKEMON 0
+#define CHARMANDER 1
+#define SQUIRTLE 2 
+#define BULBASAUR 3
 
 typedef struct
 {
@@ -41,7 +58,7 @@ typedef struct
     float spetaux;
     int lvl;
     int type;
-    int art;
+    int art_box;
     int catchrate;
     char basicatk[30];
     char speatk[30];
