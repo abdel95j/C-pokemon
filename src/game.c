@@ -109,6 +109,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pokenull->lvl=0;
     pokenull->catchrate=0;
     pokenull->art_box=NOPOKEMON;
+    pokenull->art_front=NOPOKEMON;
+    pokenull->art_behind=NOPOKEMON;
     pokenull->type=NOPOKEMON;
     pokenull->CTstat->type=0; 
     pokenull->CTutil->type=0; 
@@ -129,6 +131,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->lvl=1;
     charmander->catchrate=50;
     charmander->art_box=CHARMANDER;
+    charmander->art_front=CHARMANDER;
+    charmander->art_behind=CHARMANDER;
     charmander->type=FIRE;
     charmander->CTstat->type=0;     
     charmander->CTutil->type=0; 
@@ -149,6 +153,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->lvl=1;
     bulbasaur->catchrate=50;
     bulbasaur->art_box=BULBASAUR;
+    bulbasaur->art_behind=BULBASAUR;
+    bulbasaur->art_front=BULBASAUR;
     bulbasaur->type=GRASS;
     bulbasaur->CTstat->type=0; 
     bulbasaur->CTutil->type=0; 
@@ -169,6 +175,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->lvl=1;
     squirtle->catchrate=50;
     squirtle->art_box=SQUIRTLE;
+    squirtle->art_behind=SQUIRTLE;
+    squirtle->art_front=SQUIRTLE;
     squirtle->type=WATER;
     squirtle->CTstat->type=0; 
     squirtle->CTutil->type=0; 
@@ -311,6 +319,35 @@ void get_firstpoke(trainer* player){
             exit(3);
         }
     } 
+}
+
+void duel(trainer* player, trainer champion){
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    int finish=0, ch=ERR;   
+
+    system("killall -9 vlc"); // stop main theme
+    system("cvlc ressources/Battle-Theme.mp3 &"); // start battle theme
+
+    wrefresh(blackscreen);
+    while(finish==0)
+    {
+        WINDOW* match=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+        box(match,0,0);
+
+        wrefresh(match);
+
+        usleep(16667);
+        if (delwin(match)==ERR)
+            {
+                exit(42);
+            }  
+    }
+    system("killall -9 vlc"); // stop battle theme
+    system("cvlc ressources/Main-Theme.mp3 &"); // restart main theme
+    if (delwin(blackscreen)==ERR)
+    {
+        exit(47);
+    }
 }
 
 void house(trainer* player){
@@ -582,7 +619,7 @@ void your_team(trainer* player){
      while (finish==0)
     {
         WINDOW* yourteam = newwin(40,155,14,40);
-        WINDOW* yourteam_array=newwin(4,50,11,50);
+        WINDOW* yourteam_array=newwin(4,50,10,50);
         WINDOW* box1=subwin(yourteam,20,50,14,41);
         WINDOW* box2=subwin(yourteam,20,51,14,92);
         WINDOW* box3=subwin(yourteam,20,50,14,144);
@@ -618,7 +655,472 @@ void your_team(trainer* player){
         case 'e':
         case '\n':
         case '\r':
-            // à faire
+            int finishact=0;
+            int xact=5;
+            pokemon tmp;
+
+            while(finishact==0)
+            {
+                WINDOW* actions=newwin(10,20,20,10);
+                box(actions,0,0);
+
+                mvwprintw(actions,1,2,"What do you want");
+                mvwprintw(actions,2,2,"to do ?");
+                mvwprintw(actions,5,6,"Move");
+                mvwprintw(actions,7,6,"Nothing");
+                mvwprintw(actions,xact,4,">");
+                wrefresh(actions);
+
+                ch=getch();
+
+                switch (ch)
+                {
+                case 'z':
+                case KEY_UP:
+                    if (xact!=5)
+                    {
+                        mvwprintw(actions,xact,4," ");
+                        xact-=2;
+                    }
+                    break;
+
+                case 's':
+                case KEY_DOWN:
+                    if (xact!=7)
+                    {
+                        mvwprintw(actions,xact,4," ");
+                        xact+=2;
+                    }
+                    break;
+
+                case ' ':
+                    wclear(actions);
+                    wrefresh(actions);
+                    finishact=1;
+                    break;
+                
+                case 'e':
+                case '\r':
+                case '\n':
+                    if (xact==7)
+                    {
+                        wclear(actions);
+                        wrefresh(actions);
+                        finishact=1;
+                    }
+                    
+                    else if (xact==5)
+                    {
+                        int whatpoke=0;
+                        if (x==1)
+                        {
+                            switch (y)
+                            {
+                            case 1:
+                                tmp=player->poke1; 
+                                whatpoke=1;
+                                break;
+
+                            case 2:
+                                tmp=player->poke2; 
+                                whatpoke=2;
+                                break;
+
+                            case 3:
+                                tmp=player->poke3; 
+                                whatpoke=3;
+                                break;
+
+                            default:
+                                break;
+                            }
+                        }
+
+                        if (x==2)
+                        {
+                            switch (y)
+                            {
+                            case 1:
+                                tmp=player->poke4; 
+                                whatpoke=4;
+                                break;
+
+                            case 2:
+                                tmp=player->poke5; 
+                                whatpoke=5;
+                                break;
+
+                            case 3:
+                                tmp=player->poke6; 
+                                whatpoke=6;
+                                break;
+
+                            default:
+                                break;
+                            }
+                        }
+                        
+                        int xmove=1,ymove=1,moved=0;
+                        while (moved==0)
+                        {
+                            box(yourteam,0,0);
+                            box(box1,0,0);
+                            box(box2,0,0);
+                            box(box3,0,0);
+                            box(box4,0,0);
+                            box(box5,0,0);
+                            box(box6,0,0);
+                            print_yourteam(box1,box2,box3,box4,box5,box6,player,xmove,ymove);
+                            physic_yourteam(ch,&xmove,&ymove);
+                            wrefresh(yourteam);
+
+                            ch=getch();
+                            switch (ch)
+                            {
+                            
+                            case ' ':
+                                moved=1;
+                                finishact=1;
+                                wclear(actions);
+                                wrefresh(actions);
+                                break;
+                            
+                            case 'e':
+                            case '\n':
+                            case '\r':
+
+                                if (whatpoke==1)
+                                {
+                                    if (xmove==1)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke1=player->poke1;
+                                            player->poke1=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke1=player->poke2;
+                                            player->poke2=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke1=player->poke3;
+                                            player->poke3=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+
+                                    if (xmove==2)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke1=player->poke4;
+                                            player->poke4=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke1=player->poke5;
+                                            player->poke5=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke1=player->poke6;
+                                            player->poke6=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                else if (whatpoke==2)
+                                {
+                                    if (xmove==1)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke2=player->poke1;
+                                            player->poke1=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke2=player->poke2;
+                                            player->poke2=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke2=player->poke3;
+                                            player->poke3=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+
+                                    if (xmove==2)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke2=player->poke4;
+                                            player->poke4=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke2=player->poke5;
+                                            player->poke5=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke2=player->poke6;
+                                            player->poke6=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                else if (whatpoke==3)
+                                {
+                                    if (xmove==1)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke3=player->poke1;
+                                            player->poke1=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke3=player->poke2;
+                                            player->poke2=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke3=player->poke3;
+                                            player->poke3=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+
+                                    if (xmove==2)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke3=player->poke4;
+                                            player->poke4=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke3=player->poke5;
+                                            player->poke5=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke3=player->poke6;
+                                            player->poke6=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                else if (whatpoke==4)
+                                {
+                                    if (xmove==1)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke4=player->poke1;
+                                            player->poke1=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke4=player->poke2;
+                                            player->poke2=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke4=player->poke3;
+                                            player->poke3=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+
+                                    if (xmove==2)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke4=player->poke4;
+                                            player->poke4=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke4=player->poke5;
+                                            player->poke5=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke4=player->poke6;
+                                            player->poke6=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                else if (whatpoke==5)
+                                {
+                                    if (xmove==1)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke5=player->poke1;
+                                            player->poke1=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke5=player->poke2;
+                                            player->poke2=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke5=player->poke3;
+                                            player->poke3=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+
+                                    if (xmove==2)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke5=player->poke4;
+                                            player->poke4=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke5=player->poke5;
+                                            player->poke5=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke5=player->poke6;
+                                            player->poke6=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                else if (whatpoke==6)
+                                {
+                                    if (xmove==1)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke6=player->poke1;
+                                            player->poke1=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke6=player->poke2;
+                                            player->poke2=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke6=player->poke3;
+                                            player->poke3=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+
+                                    if (xmove==2)
+                                    {
+                                        switch (ymove)
+                                        {
+                                        case 1:
+                                            player->poke6=player->poke4;
+                                            player->poke4=tmp;
+                                            break;
+
+                                        case 2:
+                                            player->poke6=player->poke5;
+                                            player->poke5=tmp;
+                                            break;
+
+                                        case 3:
+                                            player->poke6=player->poke6;
+                                            player->poke6=tmp;
+                                            break;
+
+                                        default:
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                moved=1;
+                                finishact=1;
+                                wclear(actions);
+                                wrefresh(actions);
+                                break;
+
+                            default:
+                                break;
+                            }
+
+                            usleep(16667);
+                            wclear(yourteam);
+                        }
+                    }
+                    
+                    break;
+                default:
+                    break;
+                }
+
+                usleep(16667);
+                if(delwin(actions)==ERR)
+                {
+                    exit(45);
+                } 
+            }
             break;
         default:
             break;

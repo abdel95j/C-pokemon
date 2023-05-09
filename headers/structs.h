@@ -59,6 +59,8 @@ typedef struct
     int lvl;
     int type;
     int art_box;
+    int art_front;
+    int art_behind;
     int catchrate;
     char basicatk[30];
     char speatk[30];

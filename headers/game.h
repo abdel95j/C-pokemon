@@ -15,6 +15,7 @@ void roadto_league(trainer* player);
 void lab(trainer* player);
 void inventory(trainer* player);
 void league(trainer* player);
+void duel(trainer* player, trainer champion);
 void your_team(trainer* player);
 
 #endif

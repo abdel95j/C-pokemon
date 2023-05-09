@@ -142,6 +142,102 @@ void chargement(int time){
     }
 }
 
+void print_poke(WINDOW* win,pokemon poke,int x, int y,int side){
+    // FOR FRONT (SIDE = 0)
+    // FOR BEHIND (SIDE = 1)
+    
+    if (side==0) // FRONT
+    {
+        switch (poke.art_front)
+        {
+        case CHARMANDER:
+            mvwprintw(win,x,y," $$$              ");
+            mvwprintw(win,x+1,y," $$$$$##          ");
+            mvwprintw(win,x+2,y,"*$$$$$,*          ");
+            mvwprintw(win,x+3,y,"#,$$$. (        # ");
+            mvwprintw(win,x+4,y,"   ###(#$      ###");
+            mvwprintw(win,x+5,y,"$$#@@@@$$$$(   &&(");
+            mvwprintw(win,x+6,y,"   @@@&@$$      $ ");
+            mvwprintw(win,x+7,y," &$&&&&&&$$#(((#  ");
+            mvwprintw(win,x+8,y," ###     ###      ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(win,x,y,"    .&$$$$#            ");
+            mvwprintw(win,x+1,y,"   *$$$$ ,#((        ");
+            mvwprintw(win,x+2,y,"   ( (((.*((*        ");
+            mvwprintw(win,x+3,y,"    $$((((,((        ");
+            mvwprintw(win,x+4,y,",$$#&&$..$$#((#      ");
+            mvwprintw(win,x+5,y,"   &&&.&*((#$((      ");
+            mvwprintw(win,x+6,y,"   $&&&&&#$$$/ ###(((");
+            mvwprintw(win,x+7,y,"  $#((###$$$$((((((( ");
+            mvwprintw(win,x+8,y,"          ((((      ");    
+            break;
+
+        case BULBASAUR:
+             mvwprintw(win,x,y,"          $$########(     ");
+            mvwprintw(win,x+1,y,"   $#   .(## $######(/  ");
+            mvwprintw(win,x+2,y,"  $$$(//$#$##$(((((((/( ");
+            mvwprintw(win,x+3,y,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(win,x+4,y,"@/#$$$$#$@,@/((((//.((((");
+            mvwprintw(win,x+5,y,"(.#$$$$######(((((((((/ ");
+            mvwprintw(win,x+6,y,"   #/((((((,($#$$##//(( ");
+            mvwprintw(win,x+7,y,"   (((#( ((((.$$#(((((( ");
+            mvwprintw(win,x+8,y,"    & #    #$##   $&((  ");  
+            break;
+        
+        default:
+            break;
+        }
+    }
+
+    if (side==1) // BEHIND
+    {
+        switch (poke.art_front)
+        {
+        case CHARMANDER:
+            mvwprintw(win,x,y,"      ../.*           ,,,,      ");
+            mvwprintw(win,x+1,y,"  ./**/*         **,,,,***(   ");
+            mvwprintw(win,x+2,y,"(//**(*         ,*********#@  ");
+            mvwprintw(win,x+3,y,".(/(/**(        (*********(/, ");
+            mvwprintw(win,x+4,y,"./**/(**       ./********(##& ");
+            mvwprintw(win,x+5,y,"   #(@       .(,,*****(#@.    ");
+            mvwprintw(win,x+6,y,"  ***#    ,/*********,*/.    ");
+            mvwprintw(win,x+7,y,"  (**/    *(/***//((/*#(/(@   ");
+            mvwprintw(win,x+8,y,"  *.*/(#* ##(((((((,,.@ .,(   ");
+            break;
+
+        case SQUIRTLE:
+            mvwprintw(win,x,y,"              .*...,//../."); 
+            mvwprintw(win,x+1,y,"            ,/../////////#");
+            mvwprintw(win,x+2,y,"            &///////////##/");
+            mvwprintw(win,x+3,y,"          ,   ,,@///////*,*");
+            mvwprintw(win,x+4,y,"       ,/*(/((((((,*(////@.");
+            mvwprintw(win,x+5,y,"     *##/((#/(((((@@,(//(@#/*");
+            mvwprintw(win,x+6,y,"     ##(((((((#(((@,(//////*/");
+            mvwprintw(win,x+7,y,"     @#((((((@((((#,@&@&*");
+            mvwprintw(win,x+8,y,"  /((##(&##(((#((((/(/*");
+            mvwprintw(win,x+9,y,"(**/(@#/@#(((((((&,&@(");
+            mvwprintw(win,x+10,y,"#//////@//@*((,,@////#/");
+            break;
+
+        case BULBASAUR:
+             mvwprintw(win,x,y,"         (//#(...,/,*/(......,/*,,( ");
+            mvwprintw(win,x+1,y,"     ,*/(((#/*///*///(/***/#(*****/(");
+            mvwprintw(win,x+2,y,"    ,/*//***//************(/*****/(,@,");
+            mvwprintw(win,x+3,y,"   (****/***********//******(*****/,/#");
+            mvwprintw(win,x+4,y," /*****/****,.,,,,****//**//@@******//@");
+            mvwprintw(win,x+5,y,"*/****//**,,,,*********/(/(##/***//#/. ");
+            mvwprintw(win,x+6,y,"*/***//************////(@#@@**/#@**(*");
+            mvwprintw(win,x+7,y,"  *@(//(/////*/*////((#&#(***//#@((/@*");
+            mvwprintw(win,x+8,y,"      /###@@@@@@##(//////(##(////(&#(,");  
+            break;
+        
+        default:
+            break;
+        }
+    }
+}
 
 void print_house(WINDOW* house_map, int x, int y){
         
@@ -1031,7 +1127,7 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
         switch (player.poke1.art_box)
         {
         case CHARMANDER:
-            mvwprintw(box,6,4,"   $$$          ");
+            mvwprintw(box,6,4,"   $$$               ");
             mvwprintw(box,6+1,4," $$$$$##          ");
             mvwprintw(box,6+2,4,"*$$$$$,*          ");
             mvwprintw(box,6+3,4,"#,$$$. (        # ");
@@ -1043,7 +1139,7 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             break;
 
         case SQUIRTLE:
-            mvwprintw(box,6,3,"    .&$$$$#          ");
+            mvwprintw(box,6,3,"    .&$$$$#              ");
             mvwprintw(box,6+1,3,"   *$$$$ ,#((        ");
             mvwprintw(box,6+2,3,"   ( (((.*((*        ");
             mvwprintw(box,6+3,3,"    $$((((,((        ");
@@ -1055,10 +1151,10 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             break;
 
         case BULBASAUR:               
-            mvwprintw(box,6,2,"           $$########(  ");
+            mvwprintw(box,6,2,"           $$########(    ");
             mvwprintw(box,6+1,2,"   $#   .(## $######(/  ");
             mvwprintw(box,6+2,2,"  $$$(//$#$##$(((((((/( ");
-            mvwprintw(box,6+3   ,2,"$,$##$$$$$&/$#(#((((((((");
+            mvwprintw(box,6+3,2,"$,$##$$$$$&/$#(#((((((((");
             mvwprintw(box,6+4,2,"@/#$$$$#$@,@/((((//.((((");
             mvwprintw(box,6+5,2,"(.#$$$$######(((((((((/ ");
             mvwprintw(box,6+6,2,"   #/((((((,($#$$##//(( ");
@@ -1360,6 +1456,8 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box1,10,30,"DODGE : %.1f",player->poke1.dodge);
         mvwprintw(box1,12,30,"UTILITARY : %s",player->poke1.CTutil->name);
         mvwprintw(box1,13,30,"STAT : %s",player->poke1.CTstat->name);
+        mvwprintw(box1,18,31,"In your duel team");
+
     }
 
     //box2
@@ -1375,6 +1473,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box2,10,30,"DODGE : %.1f",player->poke2.dodge);
         mvwprintw(box2,12,30,"UTILITARY : %s",player->poke2.CTutil->name);
         mvwprintw(box2,13,30,"STAT : %s",player->poke2.CTstat->name);
+        mvwprintw(box2,18,31,"In your duel team");
     }
 
     //box3
@@ -1390,6 +1489,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box3,10,30,"DODGE : %.1f",player->poke3.dodge);
         mvwprintw(box3,12,30,"UTILITARY : %s",player->poke3.CTutil->name);
         mvwprintw(box3,13,30,"STAT : %s",player->poke3.CTstat->name);
+        mvwprintw(box3,18,31,"In your duel team");
     }
 
     //box4

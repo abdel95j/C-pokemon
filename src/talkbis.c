@@ -1745,6 +1745,11 @@ void change_poke(WINDOW* in,trainer* player,int* xin,int* yin,int whatpoke){
         ch=getch();
         switch (ch)
         {
+        case ' ':
+            mvwprintw(in,*xin,*yin," ");
+            finish=1;
+            break;
+        
         case 'z':
         case KEY_UP:
             if (*xin!=6)
