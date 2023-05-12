@@ -259,10 +259,12 @@ void create_newplayer(trainer* newplayer){
     noecho();
     if(delwin(write)==ERR)
     {
+        system("killall -9 vlc");
         exit(1);
     }
     if(delwin(chatwin)==ERR)
     {
+        system("killall -9 vlc");
         exit(2);
     }
 }
@@ -316,38 +318,61 @@ void get_firstpoke(trainer* player){
         usleep(16667);
         if(delwin(pokewin)==ERR)
         {
+            system("killall -9 vlc");
             exit(3);
         }
     } 
 }
 
 void duel(trainer* player, trainer champion){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     int finish=0, ch=ERR;   
 
     system("killall -9 vlc"); // stop main theme
-    system("cvlc ressources/Battle-Theme.mp3 &"); // start battle theme
-
-    wrefresh(blackscreen);
+    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
     while(finish==0)
     {
         WINDOW* match=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+        WINDOW* text=subwin(match,13,80,40,39);
+        WINDOW* actions=subwin(match,13,77,40,119);
         box(match,0,0);
+        box(text,0,0);
+        box(actions,0,0);
+        
+        print_duel(match,player->poke1,champion.poke1);
 
         wrefresh(match);
+        ch=getch();
+        switch (ch)
+        {
+        case ' ':
+            wclear(match);
+            wrefresh(match);
+            finish=1;
+            break;
+        
+        default:
+            break;
+        }
 
         usleep(16667);
+        if (delwin(actions)==ERR)
+            {
+                system("killall -9 vlc");
+                exit(44);
+            } 
+        if (delwin(text)==ERR)
+            {
+                system("killall -9 vlc");
+                exit(43);
+            }  
         if (delwin(match)==ERR)
             {
+                system("killall -9 vlc");
                 exit(42);
             }  
     }
     system("killall -9 vlc"); // stop battle theme
-    system("cvlc ressources/Main-Theme.mp3 &"); // restart main theme
-    if (delwin(blackscreen)==ERR)
-    {
-        exit(47);
-    }
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
 }
 
 void house(trainer* player){
@@ -400,10 +425,12 @@ void house(trainer* player){
         usleep(16667);
         if (delwin(line_wall)==ERR)
         {
+            system("killall -9 vlc");
             exit(12);
         }
         if (delwin(house_map)==ERR)
         {
+            system("killall -9 vlc");
             exit(11);
         }
     }
@@ -457,7 +484,7 @@ void league(trainer* player){
 
             if (x==14 && y>61 && y<69) // champion of the ligue area
             {
-                talkto_champion(league_map,player,champion);                
+                talkto_champion(league_map,player,champion);   
             }
             break;
 
@@ -475,14 +502,17 @@ void league(trainer* player){
         usleep(16667);
         if (delwin(line_wall_league)==ERR)
         {
+            system("killall -9 vlc");
             exit(37);
         }
         if (delwin(arena_zone)==ERR)
         {
+            system("killall -9 vlc");
             exit(38);
         }
         if (delwin(league_map)==ERR)
         {
+            system("killall -9 vlc");
             exit(36);
         }
     }
@@ -543,10 +573,12 @@ void lab(trainer* player){
         usleep(16667);
         if(delwin(line_wall_lab)==ERR)
         {
+            system("killall -9 vlc");
             exit(19);
         }
         if(delwin(lab_map)==ERR)
         {
+            system("killall -9 vlc");
             exit(20);
         }
     }
@@ -602,10 +634,12 @@ void shop(trainer* player){
         usleep(16667);
         if (delwin(line_wall)==ERR)
         {
+            system("killall -9 vlc");
             exit(12);
         }
         if (delwin(shop_map)==ERR)
         {
+            system("killall -9 vlc");
             exit(11);
         }
     }
@@ -1118,6 +1152,7 @@ void your_team(trainer* player){
                 usleep(16667);
                 if(delwin(actions)==ERR)
                 {
+                    system("killall -9 vlc");
                     exit(45);
                 } 
             }
@@ -1129,40 +1164,49 @@ void your_team(trainer* player){
         usleep(16667);
         if(delwin(box1)==ERR)
         {
+            system("killall -9 vlc");
             exit(36);
         }
         if(delwin(box2)==ERR)
         {
+            system("killall -9 vlc");
             exit(37);
         }
         if(delwin(box3)==ERR)
         {
+            system("killall -9 vlc");
             exit(38);
         }
         if(delwin(box4)==ERR)
         {
+            system("killall -9 vlc");
             exit(39);
         }
         if(delwin(box5)==ERR)
         {
+            system("killall -9 vlc");
             exit(40);
         }
         if(delwin(box6)==ERR)
         {
+            system("killall -9 vlc");
             exit(41);
         }
         if(delwin(yourteam)==ERR)
         {
+            system("killall -9 vlc");
             exit(34);
         }
         if(delwin(yourteam_array)==ERR)
         {
+            system("killall -9 vlc");
             exit(33);
         }   
     }
     wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
+            system("killall -9 vlc");
             exit(32);
         }
 }
@@ -1224,6 +1268,7 @@ void menu(int* quit,trainer* player){
             usleep(16667);
             if(delwin(winmenu)==ERR)
             {
+                system("killall -9 vlc");
                 exit(4);
             }
         }
@@ -1231,6 +1276,7 @@ void menu(int* quit,trainer* player){
         wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
+            system("killall -9 vlc");
             exit(24);
         }      
 }
@@ -1276,16 +1322,19 @@ void inventory(trainer* player){
         usleep(16667);
         if(delwin(sac)==ERR)
         {
+            system("killall -9 vlc");
             exit(5);
         }
         if(delwin(bag_array)==ERR)
         {
+            system("killall -9 vlc");
             exit(6);
         }   
     }
     wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
+            system("killall -9 vlc");
             exit(25);
         } 
 }
@@ -1489,30 +1538,37 @@ void roadto_league(trainer* player){
         usleep(16667);
         if(delwin(cam)==ERR)
         {
+            system("killall -9 vlc");
             exit(15);
         }
         if(delwin(cadre)==ERR)
         {
+            system("killall -9 vlc");
             exit(16);
         }
         if(delwin(chute)==ERR)
         {
+            system("killall -9 vlc");
             exit(21);
         }
         if(delwin(limite_bas)==ERR)
         {
+            system("killall -9 vlc");
             exit(22);
         }
         if(delwin(limite_haut)==ERR)
         {
+            system("killall -9 vlc");
             exit(23);
         }
         if(delwin(road)==ERR)
         {
+            system("killall -9 vlc");
             exit(17);
         }
         if(delwin(blackscreen)==ERR)
         {
+            system("killall -9 vlc");
             exit(18);
         }
     }
@@ -1580,10 +1636,12 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     usleep(16667);
     if(delwin(win)==ERR)
     {
+        system("killall -9 vlc");
         exit(7);
     }
     if(delwin(blackscreen)==ERR)
     {
+        system("killall -9 vlc");
         exit(7);
     }
 }
@@ -1652,14 +1710,17 @@ void game(trainer* player, int* quit,int* l,int* c){
 
     if(delwin(cam)==ERR)
     {
+        system("killall -9 vlc");
         exit(8);
     }
     if(delwin(cadre)==ERR)
     {
+        system("killall -9 vlc");
         exit(9);
     }
     if(delwin(map)==ERR)
     {
+        system("killall -9 vlc");
         exit(10);
     }
 }

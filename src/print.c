@@ -134,10 +134,12 @@ void chargement(int time){
 
     if (delwin(pikachu_screen)==ERR)
     {
+        system("killall -9 vlc");
         exit(13);
     }
     if (delwin(blackscreen)==ERR)
     {
+        system("killall -9 vlc");
         exit(21);
     }
 }
@@ -974,6 +976,66 @@ void print_roadto_league(WINDOW* road){
         }
     }
     wattroff(road,COLOR_PAIR(4));
+}
+
+void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke){
+
+    WINDOW *jauge_player = subwin(match,3, 21, 34, 155);
+    WINDOW *jauge_champion = subwin(match,3, 21, 18, 66);
+
+    mvwprintw(match,20,100,"      ______________________________________");
+    mvwprintw(match,20+1,100,"     /                                     /");
+    mvwprintw(match,20+2,100,"    /                                     /");
+    mvwprintw(match,20+3,100,"   /                                     /");
+    mvwprintw(match,20+4,100,"  /                                     /");
+    mvwprintw(match,20+5,100," /                                     /");
+    mvwprintw(match,20+6,100,"<_____________________________________/");
+
+    mvwprintw(match,22,107,"%s",player_poke.name);
+    mvwprintw(match,22,132,"lvl %d",player_poke.lvl);
+
+    mvwprintw(match,4,10,"______________________________________"); 
+    mvwprintw(match,4+1,10,"\\                                     \\");                      
+    mvwprintw(match,4+2,10," \\                                     \\");                     
+    mvwprintw(match,4+3,10,"  \\                                     \\");                     
+    mvwprintw(match,4+4,10,"   \\                                     \\");                     
+    mvwprintw(match,4+5,10,"    \\                                     \\");                  
+    mvwprintw(match,4+6,10,"     \\_____________________________________>");
+
+    mvwprintw(match,6,14,"%s",champion_poke.name);
+    mvwprintw(match,6,40,"lvl %d",champion_poke.lvl);
+
+    print_poke(match,player_poke,17,10,1);
+    print_poke(match,champion_poke,6,110,0);
+
+    box(jauge_champion,0,0);
+    box(jauge_player,0,0);
+    mvwprintw(match,24,105,"HP");
+    mvwprintw(match,8,16,"HP");
+
+    mvwprintw(match,24,111,"%.0f/%.0f",player_poke.pv,player_poke.pv_save);
+    mvwprintw(match,8,22,"%.0f/%.0f",champion_poke.pv,champion_poke.pv_save);
+    int array_pv_player=(player_poke.pv/player_poke.pv_save)*20;
+    int array_pv_champion=(champion_poke.pv/champion_poke.pv_save)*20;
+    for (int i =1 ; i <array_pv_champion ; i++)
+    {
+        mvwprintw(jauge_champion,1,i,"#");
+    }
+    for (int i = 1; i <array_pv_player ; i++)
+    {
+        mvwprintw(jauge_player,1,i,"#");
+    }
+    
+    if (delwin(jauge_champion)==ERR)
+    {
+        system("killall -9 vlc");
+        exit(45);
+    }
+    if (delwin(jauge_player)==ERR)
+    {
+        system("killall -9 vlc");
+        exit(46);
+    }
 }
 
 void print_menu(WINDOW* win,int x,int y){

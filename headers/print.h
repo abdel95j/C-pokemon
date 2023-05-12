@@ -18,6 +18,7 @@ void print_roadto_league(WINDOW* road);
 void print_computer_connect(WINDOW* pc, trainer* player);
 void print_yourteam( WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* box5,WINDOW* box6,trainer* player, int x,int y);
 void print_league(WINDOW* league_map,int x,int y,trainer champion);
+void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke);
 void print_art_yourteam(WINDOW* yourteam,trainer player,int whatpoke);
 void chargement();
 

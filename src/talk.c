@@ -3,16 +3,25 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdarg.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
 #include "../headers/physic.h"
 #include "../headers/talkbis.h"
 
-void write_flush(WINDOW* win, int x, int y,char* phrase){
+void write_flush(WINDOW* win, int x, int y,char* phrase,...){
+    char localstringString[256];
+    //arg declaration
+    va_list arguments;
+    //copy formated string into array
+    va_start(arguments,phrase);
+    vsprintf(localstringString,phrase,arguments);
+    va_end(arguments);
+    //display
     for (int i = 0; phrase[i]!='\0'; i++)
         {
-            mvwprintw(win,x,y+i,"%c",phrase[i]);
+            mvwprintw(win,x,y+i,"%c",localstringString[i]);
             fflush(stdout);
             wrefresh(win);
             usleep(50000);
@@ -737,6 +746,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     usleep(16667);
                     if (delwin(blank)==ERR)
                     {
+                        system("killall -9 vlc");
                         exit(33);
                     }
                 }
@@ -763,6 +773,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
         wclear(buy_stuff);
         if (delwin(buy_stuff)==ERR)
         {
+            system("killall -9 vlc");
             exit(23);
         }   
     }
@@ -854,6 +865,7 @@ void talkto_mom(WINDOW* house_map, trainer* player){
         usleep(16667);
         if (delwin(chat)==ERR)
         {
+            system("killall -9 vlc");
             exit(26);
         }
     }
@@ -876,7 +888,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
             mvwprintw(chat,x,1,">");
             mvwprintw(chat,1,3,"Yes");
             mvwprintw(chat,3,3,"No");
-            wrefresh(chat);
+            wrefresh(league_map);
 
             ch=getch();
             switch (ch)
@@ -950,6 +962,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
             usleep(16667);
             if (delwin(chat)==ERR)
             {
+                system("killall -9 vlc");
                 exit(41);
             }
         }
@@ -977,7 +990,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
             mvwprintw(chat,x,1,">");
             mvwprintw(chat,1,3,"Yes");
             mvwprintw(chat,3,3,"No");
-            wrefresh(chat);
+            wrefresh(league_map);
 
             ch=getch();
             switch (ch)
@@ -1062,6 +1075,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
             usleep(16667);
             if (delwin(chat)==ERR)
             {
+                system("killall -9 vlc");
                 exit(41);
             }
         }
@@ -1080,7 +1094,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
             mvwprintw(chat,x,1,">");
             mvwprintw(chat,1,3,"Ok");
             mvwprintw(chat,3,3,"No");
-            wrefresh(chat);
+            wrefresh(league_map);
 
             ch=getch();
             switch (ch)
@@ -1154,6 +1168,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
             usleep(16667);
             if (delwin(chat)==ERR)
             {
+                system("killall -9 vlc");
                 exit(41);
             }
         }

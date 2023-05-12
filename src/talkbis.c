@@ -172,8 +172,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,118,"%s learned Surf successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -617,6 +616,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                     usleep(16667);
                     if (delwin(blank)==ERR)
                     {
+                        system("killall -9 vlc");
                         exit(35);
                     }
                 }
@@ -697,9 +697,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke1.CTutil->quant=1;
-                                player->poke1.CTutil->type=LEER;
-                                sprintf(player->poke1.CTutil->name,"Leer");
+                                player->poke1.CTstat->quant=1;
+                                player->poke1.CTstat->type=LEER;
+                                sprintf(player->poke1.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke1.name);
@@ -717,9 +717,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke1.CTutil->quant=1;
-                                player->poke1.CTutil->type=LEER;
-                                sprintf(player->poke1.CTutil->name,"Leer");
+                                player->poke1.CTstat->quant=1;
+                                player->poke1.CTstat->type=LEER;
+                                sprintf(player->poke1.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke1.name);
@@ -737,9 +737,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke1.CTutil->quant=1;
-                                player->poke1.CTutil->type=LEER;
-                                sprintf(player->poke1.CTutil->name,"Leer");
+                                player->poke1.CTstat->quant=1;
+                                player->poke1.CTstat->type=LEER;
+                                sprintf(player->poke1.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke1.name);
@@ -776,9 +776,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke2.CTutil->quant=1;
-                                player->poke2.CTutil->type=LEER;
-                                sprintf(player->poke2.CTutil->name,"Leer");
+                                player->poke2.CTstat->quant=1;
+                                player->poke2.CTstat->type=LEER;
+                                sprintf(player->poke2.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke2.name);
@@ -796,9 +796,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke2.CTutil->quant=1;
-                                player->poke2.CTutil->type=LEER;
-                                sprintf(player->poke2.CTutil->name,"Leer");
+                                player->poke2.CTstat->quant=1;
+                                player->poke2.CTstat->type=LEER;
+                                sprintf(player->poke2.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke2.name);
@@ -816,9 +816,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke2.CTutil->quant=1;
-                                player->poke2.CTutil->type=LEER;
-                                sprintf(player->poke2.CTutil->name,"Leer");
+                                player->poke2.CTstat->quant=1;
+                                player->poke2.CTstat->type=LEER;
+                                sprintf(player->poke2.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke2.name);
@@ -855,9 +855,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke3.CTutil->quant=1;
-                                player->poke3.CTutil->type=LEER;
-                                sprintf(player->poke3.CTutil->name,"Leer");
+                                player->poke3.CTstat->quant=1;
+                                player->poke3.CTstat->type=LEER;
+                                sprintf(player->poke3.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke3.name);
@@ -875,9 +875,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke3.CTutil->quant=1;
-                                player->poke3.CTutil->type=LEER;
-                                sprintf(player->poke3.CTutil->name,"Leer");
+                                player->poke3.CTstat->quant=1;
+                                player->poke3.CTstat->type=LEER;
+                                sprintf(player->poke3.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke3.name);
@@ -895,9 +895,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke3.CTutil->quant=1;
-                                player->poke3.CTutil->type=LEER;
-                                sprintf(player->poke3.CTutil->name,"Leer");
+                                player->poke3.CTstat->quant=1;
+                                player->poke3.CTstat->type=LEER;
+                                sprintf(player->poke3.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke3.name);
@@ -934,9 +934,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke4.CTutil->quant=1;
-                                player->poke4.CTutil->type=LEER;
-                                sprintf(player->poke4.CTutil->name,"Leer");
+                                player->poke4.CTstat->quant=1;
+                                player->poke4.CTstat->type=LEER;
+                                sprintf(player->poke4.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke4.name);
@@ -954,9 +954,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke4.CTutil->quant=1;
-                                player->poke4.CTutil->type=LEER;
-                                sprintf(player->poke4.CTutil->name,"Leer");
+                                player->poke4.CTstat->quant=1;
+                                player->poke4.CTstat->type=LEER;
+                                sprintf(player->poke4.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke4.name);
@@ -974,9 +974,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke4.CTutil->quant=1;
-                                player->poke4.CTutil->type=LEER;
-                                sprintf(player->poke4.CTutil->name,"Leer");
+                                player->poke4.CTstat->quant=1;
+                                player->poke4.CTstat->type=LEER;
+                                sprintf(player->poke4.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke4.name);
@@ -1013,9 +1013,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke5.CTutil->quant=1;
-                                player->poke5.CTutil->type=LEER;
-                                sprintf(player->poke5.CTutil->name,"Leer");
+                                player->poke5.CTstat->quant=1;
+                                player->poke5.CTstat->type=LEER;
+                                sprintf(player->poke5.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke5.name);
@@ -1033,9 +1033,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke5.CTutil->quant=1;
-                                player->poke5.CTutil->type=LEER;
-                                sprintf(player->poke5.CTutil->name,"Leer");
+                                player->poke5.CTstat->quant=1;
+                                player->poke5.CTstat->type=LEER;
+                                sprintf(player->poke5.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke5.name);
@@ -1053,9 +1053,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke5.CTutil->quant=1;
-                                player->poke5.CTutil->type=LEER;
-                                sprintf(player->poke5.CTutil->name,"Leer");
+                                player->poke5.CTstat->quant=1;
+                                player->poke5.CTstat->type=LEER;
+                                sprintf(player->poke5.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke5.name);
@@ -1092,9 +1092,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke6.CTutil->quant=1;
-                                player->poke6.CTutil->type=LEER;
-                                sprintf(player->poke6.CTutil->name,"Leer");
+                                player->poke6.CTstat->quant=1;
+                                player->poke6.CTstat->type=LEER;
+                                sprintf(player->poke6.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke6.name);
@@ -1112,9 +1112,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke6.CTutil->quant=1;
-                                player->poke6.CTutil->type=LEER;
-                                sprintf(player->poke6.CTutil->name,"Leer");
+                                player->poke6.CTstat->quant=1;
+                                player->poke6.CTstat->type=LEER;
+                                sprintf(player->poke6.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke6.name);
@@ -1132,9 +1132,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke6.CTutil->quant=1;
-                                player->poke6.CTutil->type=LEER;
-                                sprintf(player->poke6.CTutil->name,"Leer");
+                                player->poke6.CTstat->quant=1;
+                                player->poke6.CTstat->type=LEER;
+                                sprintf(player->poke6.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke6.name);
@@ -1167,6 +1167,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                     usleep(16667);
                     if (delwin(blank)==ERR)
                     {
+                        system("killall -9 vlc");
                         exit(35);
                     }
                 }
@@ -1247,9 +1248,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke1.CTutil->quant=1;
-                                player->poke1.CTutil->type=ROAR;
-                                sprintf(player->poke1.CTutil->name,"Roar");
+                                player->poke1.CTstat->quant=1;
+                                player->poke1.CTstat->type=ROAR;
+                                sprintf(player->poke1.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke1.name);
@@ -1267,9 +1268,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke1.CTutil->quant=1;
-                                player->poke1.CTutil->type=ROAR;
-                                sprintf(player->poke1.CTutil->name,"Roar");
+                                player->poke1.CTstat->quant=1;
+                                player->poke1.CTstat->type=ROAR;
+                                sprintf(player->poke1.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke1.name);
@@ -1287,9 +1288,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke1.CTutil->quant=1;
-                                player->poke1.CTutil->type=ROAR;
-                                sprintf(player->poke1.CTutil->name,"Roar");
+                                player->poke1.CTstat->quant=1;
+                                player->poke1.CTstat->type=ROAR;
+                                sprintf(player->poke1.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke1.name);
@@ -1326,9 +1327,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke2.CTutil->quant=1;
-                                player->poke2.CTutil->type=ROAR;
-                                sprintf(player->poke2.CTutil->name,"Roar");
+                                player->poke2.CTstat->quant=1;
+                                player->poke2.CTstat->type=ROAR;
+                                sprintf(player->poke2.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke2.name);
@@ -1346,9 +1347,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke2.CTutil->quant=1;
-                                player->poke2.CTutil->type=ROAR;
-                                sprintf(player->poke2.CTutil->name,"Roar");
+                                player->poke2.CTstat->quant=1;
+                                player->poke2.CTstat->type=ROAR;
+                                sprintf(player->poke2.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke2.name);
@@ -1366,9 +1367,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke2.CTutil->quant=1;
-                                player->poke2.CTutil->type=ROAR;
-                                sprintf(player->poke2.CTutil->name,"Roar");
+                                player->poke2.CTstat->quant=1;
+                                player->poke2.CTstat->type=ROAR;
+                                sprintf(player->poke2.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke2.name);
@@ -1405,9 +1406,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke3.CTutil->quant=1;
-                                player->poke3.CTutil->type=ROAR;
-                                sprintf(player->poke3.CTutil->name,"Roar");
+                                player->poke3.CTstat->quant=1;
+                                player->poke3.CTstat->type=ROAR;
+                                sprintf(player->poke3.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke3.name);
@@ -1425,9 +1426,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke3.CTutil->quant=1;
-                                player->poke3.CTutil->type=ROAR;
-                                sprintf(player->poke3.CTutil->name,"Roar");
+                                player->poke3.CTstat->quant=1;
+                                player->poke3.CTstat->type=ROAR;
+                                sprintf(player->poke3.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke3.name);
@@ -1445,9 +1446,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke3.CTutil->quant=1;
-                                player->poke3.CTutil->type=ROAR;
-                                sprintf(player->poke3.CTutil->name,"Roar");
+                                player->poke3.CTstat->quant=1;
+                                player->poke3.CTstat->type=ROAR;
+                                sprintf(player->poke3.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke3.name);
@@ -1484,9 +1485,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke4.CTutil->quant=1;
-                                player->poke4.CTutil->type=ROAR;
-                                sprintf(player->poke4.CTutil->name,"Roar");
+                                player->poke4.CTstat->quant=1;
+                                player->poke4.CTstat->type=ROAR;
+                                sprintf(player->poke4.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke4.name);
@@ -1504,9 +1505,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke4.CTutil->quant=1;
-                                player->poke4.CTutil->type=ROAR;
-                                sprintf(player->poke4.CTutil->name,"Roar");
+                                player->poke4.CTstat->quant=1;
+                                player->poke4.CTstat->type=ROAR;
+                                sprintf(player->poke4.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke4.name);
@@ -1524,9 +1525,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke4.CTutil->quant=1;
-                                player->poke4.CTutil->type=ROAR;
-                                sprintf(player->poke4.CTutil->name,"Roar");
+                                player->poke4.CTstat->quant=1;
+                                player->poke4.CTstat->type=ROAR;
+                                sprintf(player->poke4.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke4.name);
@@ -1563,9 +1564,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke5.CTutil->quant=1;
-                                player->poke5.CTutil->type=ROAR;
-                                sprintf(player->poke5.CTutil->name,"Roar");
+                                player->poke5.CTstat->quant=1;
+                                player->poke5.CTstat->type=ROAR;
+                                sprintf(player->poke5.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke5.name);
@@ -1583,9 +1584,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke5.CTutil->quant=1;
-                                player->poke5.CTutil->type=ROAR;
-                                sprintf(player->poke5.CTutil->name,"Roar");
+                                player->poke5.CTstat->quant=1;
+                                player->poke5.CTstat->type=ROAR;
+                                sprintf(player->poke5.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke5.name);
@@ -1603,9 +1604,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke5.CTutil->quant=1;
-                                player->poke5.CTutil->type=ROAR;
-                                sprintf(player->poke5.CTutil->name,"Roar");
+                                player->poke5.CTstat->quant=1;
+                                player->poke5.CTstat->type=ROAR;
+                                sprintf(player->poke5.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke5.name);
@@ -1642,9 +1643,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[3].name,"empty");
                                 }
 
-                                player->poke6.CTutil->quant=1;
-                                player->poke6.CTutil->type=ROAR;
-                                sprintf(player->poke6.CTutil->name,"Roar");
+                                player->poke6.CTstat->quant=1;
+                                player->poke6.CTstat->type=ROAR;
+                                sprintf(player->poke6.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke6.name);
@@ -1662,9 +1663,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[4].name,"empty");
                                 }
 
-                                player->poke6.CTutil->quant=1;
-                                player->poke6.CTutil->type=ROAR;
-                                sprintf(player->poke6.CTutil->name,"Roar");
+                                player->poke6.CTstat->quant=1;
+                                player->poke6.CTstat->type=ROAR;
+                                sprintf(player->poke6.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke6.name);
@@ -1682,9 +1683,9 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                     sprintf(player->inventory[5].name,"empty");
                                 }
 
-                                player->poke6.CTutil->quant=1;
-                                player->poke6.CTutil->type=ROAR;
-                                sprintf(player->poke6.CTutil->name,"Roar");
+                                player->poke6.CTstat->quant=1;
+                                player->poke6.CTstat->type=ROAR;
+                                sprintf(player->poke6.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 mvwprintw(lab_map,3,108,"%s",player->poke6.name);
@@ -1715,6 +1716,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                     usleep(16667);
                     if (delwin(blank)==ERR)
                     {
+                        system("killall -9 vlc");
                         exit(35);
                     }
                 }
@@ -1728,6 +1730,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
         usleep(16667);
         if (delwin(chat)==ERR)
         {
+            system("killall -9 vlc");
             exit(34);
         }  
     }
@@ -2688,14 +2691,17 @@ void computer(trainer* player){
     
     if (delwin(ID)==ERR)
     {
+        system("killall -9 vlc");
         exit(26);
     }
     if (delwin(MDP)==ERR)
     {
+        system("killall -9 vlc");
         exit(27);
     }
     if (delwin(pc)==ERR)
     {
+        system("killall -9 vlc");
         exit(25);
     }
 
@@ -2860,14 +2866,17 @@ void computer(trainer* player){
         usleep(16667);
         if (delwin(out)==ERR)
         {
+            system("killall -9 vlc");
             exit(29);
         }
         if (delwin(in)==ERR)
         {
+            system("killall -9 vlc");
             exit(30);
         }
         if (delwin(pc)==ERR)
         {
+            system("killall -9 vlc");
             exit(28);
         }
     }

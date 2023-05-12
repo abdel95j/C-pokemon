@@ -37,7 +37,7 @@ int main(){
     }  
 
     //launch music
-    system("cvlc ressources/Main-Theme.mp3 &");  // sudo apt_get install vlc
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &");  // sudo apt_get install vlc
 
     // INIT COLOR PAIR FOR WATTR
     init_pair(1,COLOR_RED,COLOR_BLACK);     // red = 1
