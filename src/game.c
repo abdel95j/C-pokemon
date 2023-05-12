@@ -324,11 +324,11 @@ void get_firstpoke(trainer* player){
     } 
 }
 
-void duel(trainer* player, trainer champion){
+void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
     int finish=0, ch=ERR;   
+    int x=32,y=88;
+    player_poke->pv=player_poke->pv/2;
 
-    system("killall -9 vlc"); // stop main theme
-    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
     while(finish==0)
     {
         WINDOW* match=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
@@ -338,17 +338,167 @@ void duel(trainer* player, trainer champion){
         box(text,0,0);
         box(actions,0,0);
         
-        print_duel(match,player->poke1,champion.poke1);
+        print_duel(match,*player_poke,champion_poke,x,y);
+        mvwprintw(text,5,25,"What do you want to do %s",player->name);
 
         wrefresh(match);
         ch=getch();
         switch (ch)
         {
+        case 'z':
+        case KEY_UP:
+            if (x!=32)
+            {
+                x=32;
+                y=88;
+            }
+            break;
+        
+        case 's':
+        case KEY_DOWN:
+            if (x!=38)
+            {
+                x=38;
+                y=111;
+            }
+            break;
+        
+        case 'd':
+        case KEY_RIGHT:
+            if (x!=38 && y!=128)
+            {
+                y=128;
+            }
+            break;
+        
+        case 'q':
+        case KEY_LEFT:
+            if (x!=38 && y!=88)
+            {
+                y=88;
+            }
+            break;
+
         case ' ':
             wclear(match);
             wrefresh(match);
             finish=1;
             break;
+
+        case 'e':
+        case '\r':
+        case '\n':
+            switch (x)
+            {
+            case 38: // RUN
+                wclear(match);
+                wrefresh(match);
+                finish=1;
+                break;
+
+            case 32:
+                if (y==88) // FIGHT
+                {
+                    /* code */
+                }
+
+                else if (y==128) // BAG
+                {
+                    wclear(actions);
+                    wclear(text);
+                    wrefresh(actions);
+                    int finish_bag=0;
+                    int x_bag=3;
+                    while (finish_bag==0)
+                    {
+                        WINDOW* bag=subwin(match,13,77,40,119);
+                        box(bag,0,0);
+                        box(text,0,0);
+
+                        mvwprintw(text,5,25,"What object do you want to use");
+                        wrefresh(text);
+                        mvwprintw(match,30,82," ___   _   ___ ");
+                        mvwprintw(match,30+1,82,"| _ ) /_\\ / __|");
+                        mvwprintw(match,30+2,82,"| _ \\/ _ \\ (_ |");
+                        mvwprintw(match,30+3,82,"|___/_/ \\_\\___|");
+
+                        mvwprintw(bag,3,38,"%s",player->inventory[POTIONS].name);
+                        mvwprintw(bag,3,46,"x%d",player->inventory[POTIONS].quant);
+                        mvwprintw(bag,x_bag,36,">");
+
+                        ch=getch();
+                        switch (ch)
+                        {
+                        case ' ':
+                            wclear(bag);
+                            wrefresh(bag);
+                            finish_bag=1;
+                            break;
+
+                        case 'e':
+                        case '\n':
+                        case '\r':
+                            if (x_bag==3)
+                            {   
+                                if (player->inventory[POTIONS].quant>0)
+                                {
+                                    if (player_poke->pv>0 && player_poke->pv<player_poke->pv_save)
+                                    {
+                                        player->inventory[POTIONS].quant-=1;
+                                        player_poke->pv=player_poke->pv*1.5;
+                                        if (player_poke->pv>player_poke->pv_save)
+                                        {
+                                            player_poke->pv=player_poke->pv_save;
+                                        }
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"%s healed successfully",player_poke->name);
+                                        wrefresh(match);
+                                    }
+                                    else if(player_poke->pv<=0)
+                                    {
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"%s needs to be revived",player_poke->name);
+                                    }
+                                    else if (player_poke->pv==player_poke->pv_save)
+                                    {
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"%s already has maximum HP",player_poke->name);
+                                    }
+                                }
+                                else
+                                {
+                                    mvwprintw(text,5,25,"                                     ");
+                                    mvwprintw(text,5,25,"You need more potions to do this");
+                                }
+                                wrefresh(text);
+                                sleep(1);
+                                mvwprintw(text,5,25,"                                     ");
+                                mvwprintw(text,5,25,"What object do you want to use");
+                                wrefresh(text);
+                            }
+                            break;
+                        
+                        default:
+                            break;
+                        }
+
+                        wrefresh(bag);
+                        usleep(16667);
+                        if (delwin(bag)==ERR)
+                        {
+                            system("killall -9 vlc");
+                            exit(47);
+                        } 
+                    }  
+                }
+                
+                
+                break;            
+            default:
+                break;
+            }
+            break;
+        
         
         default:
             break;
@@ -371,6 +521,15 @@ void duel(trainer* player, trainer champion){
                 exit(42);
             }  
     }
+
+}
+
+void duel(trainer* player, trainer champion){
+    
+
+    system("killall -9 vlc"); // stop main theme
+    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
+    match(player,&player->poke1,champion.poke1);
     system("killall -9 vlc"); // stop battle theme
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
 }

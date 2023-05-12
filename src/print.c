@@ -978,10 +978,27 @@ void print_roadto_league(WINDOW* road){
     wattroff(road,COLOR_PAIR(4));
 }
 
-void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke){
+void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke,int x, int y){
 
     WINDOW *jauge_player = subwin(match,3, 21, 34, 155);
     WINDOW *jauge_champion = subwin(match,3, 21, 18, 66);
+
+    mvwprintw(match,30,90," ___ ___ ___ _  _ _____"); 
+    mvwprintw(match,30+1,90,"| __|_ _/ __| || |_   _|");
+    mvwprintw(match,30+2,90,"| _| | | (_ | __ | | |  ");
+    mvwprintw(match,30+3,90,"|_| |___\\___|_||_| |_|  ");
+                          
+    mvwprintw(match,30,130," ___   _   ___ ");
+    mvwprintw(match,30+1,130,"| _ ) /_\\ / __|");
+    mvwprintw(match,30+2,130,"| _ \\/ _ \\ (_ |");
+    mvwprintw(match,30+3,130,"|___/_/ \\_\\___|");
+
+    mvwprintw(match,36,113," ___ _   _ _  _ ");
+    mvwprintw(match,36+1,113,"| _ \\ | | | \\| |");
+    mvwprintw(match,36+2,113,"|   / |_| | .` |");
+    mvwprintw(match,36+3,113,"|_|_\\\\___/|_|\\_|");
+
+    mvwprintw(match,x,y,">");
 
     mvwprintw(match,20,100,"      ______________________________________");
     mvwprintw(match,20+1,100,"     /                                     /");
@@ -1017,14 +1034,21 @@ void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke){
     mvwprintw(match,8,22,"%.0f/%.0f",champion_poke.pv,champion_poke.pv_save);
     int array_pv_player=(player_poke.pv/player_poke.pv_save)*20;
     int array_pv_champion=(champion_poke.pv/champion_poke.pv_save)*20;
-    for (int i =1 ; i <array_pv_champion ; i++)
+    if (array_pv_champion>0)
     {
-        mvwprintw(jauge_champion,1,i,"#");
+        for (int i =1 ; i <array_pv_champion ; i++)
+        {
+            mvwprintw(jauge_champion,1,i,"#");
+        }
     }
-    for (int i = 1; i <array_pv_player ; i++)
+    if (array_pv_player>0)
     {
-        mvwprintw(jauge_player,1,i,"#");
+        for (int i = 1; i <array_pv_player ; i++)
+        {
+            mvwprintw(jauge_player,1,i,"#");
+        }
     }
+    
     
     if (delwin(jauge_champion)==ERR)
     {

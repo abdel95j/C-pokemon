@@ -16,6 +16,7 @@ void lab(trainer* player);
 void inventory(trainer* player);
 void league(trainer* player);
 void duel(trainer* player, trainer champion);
+void match(trainer* player,pokemon* player_poke, pokemon champion_poke);
 void your_team(trainer* player);
 
 #endif
