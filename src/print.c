@@ -978,10 +978,7 @@ void print_roadto_league(WINDOW* road){
     wattroff(road,COLOR_PAIR(4));
 }
 
-void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke,int x, int y){
-
-    WINDOW *jauge_player = subwin(match,3, 21, 34, 155);
-    WINDOW *jauge_champion = subwin(match,3, 21, 18, 66);
+void print_duel(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, pokemon player_poke, pokemon champion_poke,int x, int y){
 
     mvwprintw(match,30,90," ___ ___ ___ _  _ _____"); 
     mvwprintw(match,30+1,90,"| __|_ _/ __| || |_   _|");
@@ -1025,8 +1022,6 @@ void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke,int x,
     print_poke(match,player_poke,17,10,1);
     print_poke(match,champion_poke,6,110,0);
 
-    box(jauge_champion,0,0);
-    box(jauge_player,0,0);
     mvwprintw(match,24,105,"HP");
     mvwprintw(match,8,16,"HP");
 
@@ -1048,18 +1043,35 @@ void print_duel(WINDOW* match, pokemon player_poke, pokemon champion_poke,int x,
             mvwprintw(jauge_player,1,i,"#");
         }
     }
-    
-    
-    if (delwin(jauge_champion)==ERR)
+}
+
+void jauges_refresh(WINDOW* match,WINDOW* jauge_player,WINDOW* jauge_champion,pokemon player_poke,pokemon champion_poke){
+
+    mvwprintw(match,24,111,"%.0f/%.0f",player_poke.pv,player_poke.pv_save);
+    mvwprintw(match,8,22,"%.0f/%.0f",champion_poke.pv,champion_poke.pv_save);
+    int array_pv_player=(player_poke.pv/player_poke.pv_save)*20;
+    int array_pv_champion=(champion_poke.pv/champion_poke.pv_save)*20;
+    if (array_pv_champion>0)
     {
-        system("killall -9 vlc");
-        exit(45);
+        mvwprintw(jauge_champion,1,1,"                   ");
+        for (int i =1 ; i <array_pv_champion ; i++)
+        {
+            mvwprintw(jauge_champion,1,i,"#");
+        }
     }
-    if (delwin(jauge_player)==ERR)
+    if (array_pv_player>0)
     {
-        system("killall -9 vlc");
-        exit(46);
+        mvwprintw(jauge_player,1,1,"                   ");
+        for (int i = 1; i <array_pv_player ; i++)
+        {
+            mvwprintw(jauge_player,1,i,"#");
+        }
     }
+    wrefresh(match);
+    box(jauge_champion,0,0);
+    box(jauge_player,0,0);
+    wrefresh(jauge_champion);
+    wrefresh(jauge_player);
 }
 
 void print_menu(WINDOW* win,int x,int y){

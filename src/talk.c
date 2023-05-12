@@ -951,7 +951,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
                     mvwprintw(league_map,13,72,"                         ");
                     mvwprintw(league_map,14,72,"                         ");
                     mvwprintw(league_map,15,72,"                         ");
-                    duel(player,champion);
+                    duel(league_map,player,champion);
                 }
                 break;
 
@@ -1064,7 +1064,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
                     sleep(1);
                     mvwprintw(league_map,13,72,"                        ");
                     mvwprintw(league_map,14,72,"                        ");
-                    duel(player,champion);
+                    duel(league_map,player,champion);
                 }
                 break;
 
@@ -1157,7 +1157,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
                     mvwprintw(league_map,13,72,"                          ");
                     mvwprintw(league_map,14,72,"                     ");
                     mvwprintw(league_map,15,72,"                    ");
-                    duel(player,champion);
+                    duel(league_map,player,champion);
                 }
                 break;
 

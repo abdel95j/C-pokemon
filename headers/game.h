@@ -15,8 +15,8 @@ void roadto_league(trainer* player);
 void lab(trainer* player);
 void inventory(trainer* player);
 void league(trainer* player);
-void duel(trainer* player, trainer champion);
-void match(trainer* player,pokemon* player_poke, pokemon champion_poke);
+void duel(WINDOW* league_map,trainer* player, trainer champion);
+int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int League0_Catch1 );
 void your_team(trainer* player);
 
 #endif

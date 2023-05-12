@@ -324,7 +324,8 @@ void get_firstpoke(trainer* player){
     } 
 }
 
-void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
+// match returns 1 in case of victory and 0 in case of defeat
+int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int League0_Catch1 ){
     int finish=0, ch=ERR;   
     int x=32,y=88;
     player_poke->pv=player_poke->pv/2;
@@ -334,14 +335,20 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
         WINDOW* match=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
         WINDOW* text=subwin(match,13,80,40,39);
         WINDOW* actions=subwin(match,13,77,40,119);
+        WINDOW *jauge_player = newwin(3, 21, 34, 155);
+        WINDOW *jauge_champion = newwin(3, 21, 18, 66);
         box(match,0,0);
         box(text,0,0);
         box(actions,0,0);
+        box(jauge_champion,0,0);
+        box(jauge_player,0,0);
         
-        print_duel(match,*player_poke,champion_poke,x,y);
-        mvwprintw(text,5,25,"What do you want to do %s",player->name);
+        print_duel(match,jauge_champion,jauge_player,*player_poke,champion_poke,x,y);
+        mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
 
         wrefresh(match);
+        wrefresh(jauge_champion);
+        wrefresh(jauge_player);
         ch=getch();
         switch (ch)
         {
@@ -391,10 +398,20 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
             switch (x)
             {
             case 38: // RUN
-                wclear(match);
-                wrefresh(match);
-                finish=1;
-                break;
+                if (League0_Catch1==0) // trainer match
+                {
+                    mvwprintw(text,5,25,"                                     ");
+                    mvwprintw(text,5,25,"You can't run from a trainer challenge !");
+                    wrefresh(text);
+                    sleep(1);
+                }
+                else // pokecatch
+                {
+                    wclear(match);
+                    wrefresh(match);
+                    finish=1;
+                    break;
+                }
 
             case 32:
                 if (y==88) // FIGHT
@@ -415,7 +432,7 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
                         box(bag,0,0);
                         box(text,0,0);
 
-                        mvwprintw(text,5,25,"What object do you want to use");
+                        mvwprintw(text,5,25,"What object do you want to use ?");
                         wrefresh(text);
                         mvwprintw(match,30,82," ___   _   ___ ");
                         mvwprintw(match,30+1,82,"| _ ) /_\\ / __|");
@@ -424,11 +441,31 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
 
                         mvwprintw(bag,3,38,"%s",player->inventory[POTIONS].name);
                         mvwprintw(bag,3,46,"x%d",player->inventory[POTIONS].quant);
+                        mvwprintw(bag,5,38,"%s",player->inventory[POKEBALLS].name);
+                        mvwprintw(bag,5,48,"x%d",player->inventory[POKEBALLS].quant);
                         mvwprintw(bag,x_bag,36,">");
 
                         ch=getch();
                         switch (ch)
                         {
+                        case 'z':
+                        case KEY_UP:
+                            if (x_bag!=3)
+                            {
+                                mvwprintw(bag,x_bag,36," ");
+                                x_bag-=2;
+                            }
+                            break;
+
+                        case 's':
+                        case KEY_DOWN:
+                            if (x_bag!=5)
+                            {
+                                mvwprintw(bag,x_bag,36," ");
+                                x_bag+=2;
+                            }
+                            break;
+
                         case ' ':
                             wclear(bag);
                             wrefresh(bag);
@@ -452,7 +489,7 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
                                         }
                                         mvwprintw(text,5,25,"                                     ");
                                         mvwprintw(text,5,25,"%s healed successfully",player_poke->name);
-                                        wrefresh(match);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,champion_poke);
                                     }
                                     else if(player_poke->pv<=0)
                                     {
@@ -473,8 +510,24 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
                                 wrefresh(text);
                                 sleep(1);
                                 mvwprintw(text,5,25,"                                     ");
-                                mvwprintw(text,5,25,"What object do you want to use");
+                                mvwprintw(text,5,25,"What object do you want to use ?");
                                 wrefresh(text);
+                            }
+                            else if (x_bag==5)
+                            {
+                                if (League0_Catch1==0) // trainer match
+                                {
+                                    mvwprintw(text,5,25,"                                     ");
+                                    mvwprintw(text,5,25,"You can't use that on the champion !");
+                                    wrefresh(text);
+                                    sleep(1);
+                                    mvwprintw(text,5,25,"                                     ");
+                                    wrefresh(text);
+                                }
+                                else // catch
+                                {
+                                    // to do
+                                }
                             }
                             break;
                         
@@ -505,31 +558,109 @@ void match(trainer* player,pokemon* player_poke, pokemon champion_poke){
         }
 
         usleep(16667);
+        if (delwin(jauge_champion)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(45);
+        }
+        if (delwin(jauge_player)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(46);
+        }
         if (delwin(actions)==ERR)
-            {
-                system("killall -9 vlc");
-                exit(44);
-            } 
+        {
+            system("killall -9 vlc");
+            exit(44);
+        } 
         if (delwin(text)==ERR)
-            {
-                system("killall -9 vlc");
-                exit(43);
-            }  
+        {
+            system("killall -9 vlc");
+            exit(43);
+        }  
         if (delwin(match)==ERR)
-            {
-                system("killall -9 vlc");
-                exit(42);
-            }  
+        {
+            system("killall -9 vlc");
+            exit(42);
+        }  
     }
 
 }
 
-void duel(trainer* player, trainer champion){
+void duel(WINDOW* league_map,trainer* player, trainer champion){
     
 
     system("killall -9 vlc"); // stop main theme
     system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
-    match(player,&player->poke1,champion.poke1);
+
+    if (player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0)
+    {
+        if(match(player,&player->poke1,champion.poke1,0)==1)
+        {
+            if (match(player,&player->poke1,champion.poke2,0)==1)
+            {
+                if (match(player,&player->poke1,champion.poke3,0)==1)
+                {
+                    //perfect victory
+                }
+                else if (match(player,&player->poke2,champion.poke3,0)==1)
+                {
+                    //second victory
+                }
+                else if (match(player,&player->poke3,champion.poke3,0)==1)
+                {
+                    //third victory
+                }
+                else 
+                {
+                    //third defeat
+                }
+            }
+            else if (match(player,&player->poke2,champion.poke2,0)==1)
+            {
+                if (match(player,&player->poke2,champion.poke3,0)==1)
+                {
+                    //victory
+                }
+                else if (match(player,&player->poke3,champion.poke3,0)==1)
+                {
+                    //victory  
+                }
+                else 
+                {
+                    //third defeat
+                }
+            }
+            else if (match(player,&player->poke3,champion.poke2,0)==1)
+            {
+                if (match(player,&player->poke3,champion.poke3,0)==1)
+                {
+                    //victory
+                }
+                else
+                {
+                    //defeat     
+                }
+            }
+            else
+            {
+                //defeat
+            }   
+        }
+        
+    }
+    else
+    {
+        mvwprintw(league_map,13,72,"                 ");
+        mvwprintw(league_map,14,72,"                 ");
+        write_flush(league_map,13,72,"You have a 0 HP pokemon");
+        write_flush(league_map,14,72,"in your duel team");
+        sleep(1);
+        mvwprintw(league_map,13,72,"                          ");
+        mvwprintw(league_map,14,72,"                     ");
+        mvwprintw(league_map,15,72,"                    ");
+    }
+
     system("killall -9 vlc"); // stop battle theme
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
 }
