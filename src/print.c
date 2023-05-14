@@ -1035,7 +1035,7 @@ void jauges_refresh(WINDOW* match,WINDOW* jauge_player,WINDOW* jauge_champion,po
     wrefresh(jauge_player);
 }
 
-void print_duel(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, pokemon player_poke, pokemon champion_poke,int x, int y){
+void print_match(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, pokemon player_poke, pokemon champion_poke,int x, int y){
 
     mvwprintw(match,30,90," ___ ___ ___ _  _ _____"); 
     mvwprintw(match,30+1,90,"| __|_ _/ __| || |_   _|");

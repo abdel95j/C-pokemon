@@ -345,7 +345,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
         pokemon charmander,pokenull,bulbasaur,squirtle;
         init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
 
-        print_duel(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
+        print_match(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
         mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
 
         wrefresh(match);
