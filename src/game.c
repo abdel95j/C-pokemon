@@ -293,8 +293,6 @@ void get_firstpoke(trainer* player){
             {
             case 50:
                 player->poke1=bulbasaur;
-                player->poke2=charmander;
-                player->poke3=squirtle;
                 finish=1;
                 break;
 
@@ -421,8 +419,6 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
             case 32:
                 if (y==88) // FIGHT
                 {
-                    player_poke->CTstat->type=LEER;
-                    sprintf(player_poke->CTstat->name,"LEER");
                     wclear(actions);
                     wclear(text);
                     wrefresh(actions);
