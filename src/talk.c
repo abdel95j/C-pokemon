@@ -135,8 +135,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     player->inventory[POKEBALLS].quant+=howmany;
                     mvwprintw(shop_map,15,37,"                       ");
                     mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"You bought");
-                    mvwprintw(shop_map,15,48,"%d",howmany);
+                    write_flush(shop_map,15,37,"You bought %d",howmany);
                     write_flush(shop_map,16,37,"pokeballs !");   
                     sleep(2);
                     mvwprintw(shop_map,15,37,"                       ");
@@ -201,8 +200,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     player->inventory[POTIONS].quant+=howmany;
                     mvwprintw(shop_map,15,37,"                       ");
                     mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"You bought");
-                    mvwprintw(shop_map,15,48,"%d",howmany);
+                    write_flush(shop_map,15,37,"You bought %d",howmany);
                     write_flush(shop_map,16,37,"candys !");   
                     sleep(2);
                     mvwprintw(shop_map,15,37,"                       ");
@@ -267,8 +265,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     player->inventory[CANDYS].quant+=howmany;
                     mvwprintw(shop_map,15,37,"                       ");
                     mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"You bought");
-                    mvwprintw(shop_map,15,48,"%d",howmany);
+                    write_flush(shop_map,15,37,"You bought %d",howmany);
                     write_flush(shop_map,16,37,"candys !");   
                     sleep(2);
                     mvwprintw(shop_map,15,37,"                       ");
@@ -871,7 +868,7 @@ void talkto_mom(WINDOW* house_map, trainer* player){
     }
 }
 
-void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
+void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* has_fought){
     int finish=0,ch=ERR;
     int x=1;
 
@@ -951,7 +948,40 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
                     mvwprintw(league_map,13,72,"                         ");
                     mvwprintw(league_map,14,72,"                         ");
                     mvwprintw(league_map,15,72,"                         ");
-                    duel(league_map,player,champion);
+
+                    if(duel(league_map,player,champion)==1)
+                    {
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"Humpf, you just got some");
+                        write_flush(league_map,14,72,"beginner luck.");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        mvwprintw(league_map,15,72,"                    ");
+                        *has_fought=1;
+                    }
+                    else
+                    {
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"I told you,");
+                        write_flush(league_map,14,72,"be better next time");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        mvwprintw(league_map,15,72,"                    ");
+                        *has_fought=1;
+                    }
+                    finish=1;
                 }
                 break;
 
@@ -1064,7 +1094,40 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
                     sleep(1);
                     mvwprintw(league_map,13,72,"                        ");
                     mvwprintw(league_map,14,72,"                        ");
-                    duel(league_map,player,champion);
+
+                    if(duel(league_map,player,champion)==1)
+                    {
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"AAAAAAH MY POKEMONS");
+                        write_flush(league_map,14,72,"NOOOOOOOO");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        mvwprintw(league_map,15,72,"                    ");
+                        *has_fought=1;
+                    }
+                    else
+                    {
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"Oh, I thought you were");
+                        write_flush(league_map,14,72,"stronger ...");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        mvwprintw(league_map,15,72,"                    ");
+                        *has_fought=1;
+                    }
+                    finish=1;
                 }
                 break;
 
@@ -1157,7 +1220,40 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion){
                     mvwprintw(league_map,13,72,"                          ");
                     mvwprintw(league_map,14,72,"                     ");
                     mvwprintw(league_map,15,72,"                    ");
-                    duel(league_map,player,champion);
+
+                    if(duel(league_map,player,champion)==1)
+                    {
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"THAT WAS A NICE MATCH !");
+                        write_flush(league_map,14,72,"even tho i lose ...");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        mvwprintw(league_map,15,72,"                    ");
+                        *has_fought=1;
+                    }
+                    else
+                    {
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"THAT WAS A NNICE MATCH !");
+                        write_flush(league_map,14,72,"I WON HAHAHAHAHAHAHA");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        mvwprintw(league_map,15,72,"                    ");
+                        *has_fought=1;
+                    }
+                    finish=1;
                 }
                 break;
 

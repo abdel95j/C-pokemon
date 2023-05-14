@@ -13,8 +13,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
     int finish=0,ch=ERR;
     int x=2;
 
-    write_flush(lab_map,3,108,"Hey");
-    mvwprintw(lab_map,3,112,"%s !",player->name);
+    write_flush(lab_map,3,108,"Hey %s",player->name);
     wrefresh(lab_map);
     sleep(2);
     mvwprintw(lab_map,3,108,"                                         ");
@@ -152,8 +151,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -170,9 +168,8 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 player->poke1.CTutil->quant=1;
                                 player->poke1.CTutil->type=SURF;
                                 sprintf(player->poke1.CTutil->name,"Surf");
-
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                write_flush(lab_map,3,118,"%s learned Surf successfully !",player->poke1.name);
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -191,8 +188,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -230,8 +226,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -250,8 +245,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -270,8 +264,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -309,8 +302,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -329,8 +321,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -349,8 +340,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -388,8 +378,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -408,8 +397,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -428,8 +416,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -467,8 +454,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -487,8 +473,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -507,8 +492,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -546,8 +530,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -566,8 +549,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -586,8 +568,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTutil->name,"Surf");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Surf successfully !");
+                                write_flush(lab_map,3,108,"%s learned Surf successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Surf ?");
@@ -702,8 +683,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -722,8 +702,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -742,8 +721,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -781,8 +759,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -801,8 +778,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -821,8 +797,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -860,8 +835,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -880,8 +854,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -900,8 +873,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -939,8 +911,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -959,8 +930,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -979,8 +949,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1018,8 +987,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1038,8 +1006,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1058,8 +1025,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1097,8 +1063,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1117,8 +1082,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1137,8 +1101,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTstat->name,"Leer");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Leer successfully !");
+                                write_flush(lab_map,3,108,"%s learned Leer successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Leer ?");
@@ -1253,8 +1216,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1273,8 +1235,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1293,8 +1254,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke1.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke1.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke1.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1332,8 +1292,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1352,8 +1311,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1372,8 +1330,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke2.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke2.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke2.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1411,8 +1368,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1431,8 +1387,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1451,8 +1406,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke3.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke3.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke3.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1490,8 +1444,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1510,8 +1463,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1530,8 +1482,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke4.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke4.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke4.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1569,8 +1520,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1589,8 +1539,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1609,8 +1558,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke5.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke5.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke5.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1648,8 +1596,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1668,8 +1615,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");
@@ -1688,8 +1634,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                                 sprintf(player->poke6.CTstat->name,"Roar");
 
                                 mvwprintw(lab_map,3,108,"                                         ");
-                                mvwprintw(lab_map,3,108,"%s",player->poke6.name);
-                                write_flush(lab_map,3,118,"learned Roar successfully !");
+                                write_flush(lab_map,3,108,"%s learned Roar successfully !",player->poke6.name);
                                 sleep(1);
                                 mvwprintw(lab_map,3,108,"                                         ");
                                 write_flush(lab_map,3,108,"What pokemon you want to teach Roar ?");

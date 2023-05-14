@@ -177,7 +177,7 @@ void print_poke(WINDOW* win,pokemon poke,int x, int y,int side){
             break;
 
         case BULBASAUR:
-             mvwprintw(win,x,y,"          $$########(     ");
+            mvwprintw(win,x,y,"          $$########(     ");
             mvwprintw(win,x+1,y,"   $#   .(## $######(/  ");
             mvwprintw(win,x+2,y,"  $$$(//$#$##$(((((((/( ");
             mvwprintw(win,x+3,y,"$,$##$$$$$&/$#(#((((((((");
@@ -186,6 +186,18 @@ void print_poke(WINDOW* win,pokemon poke,int x, int y,int side){
             mvwprintw(win,x+6,y,"   #/((((((,($#$$##//(( ");
             mvwprintw(win,x+7,y,"   (((#( ((((.$$#(((((( ");
             mvwprintw(win,x+8,y,"    & #    #$##   $&((  ");  
+            break;
+        
+        case NOPOKEMON:
+            mvwprintw(win,x,y,"                          ");
+            mvwprintw(win,x+1,y,"                        ");
+            mvwprintw(win,x+2,y,"                        ");
+            mvwprintw(win,x+3,y,"                        ");
+            mvwprintw(win,x+4,y,"                        ");
+            mvwprintw(win,x+5,y,"                        ");
+            mvwprintw(win,x+6,y,"                        ");
+            mvwprintw(win,x+7,y,"                        ");
+            mvwprintw(win,x+8,y,"                        ");  
             break;
         
         default:
@@ -224,7 +236,7 @@ void print_poke(WINDOW* win,pokemon poke,int x, int y,int side){
             break;
 
         case BULBASAUR:
-             mvwprintw(win,x,y,"         (//#(...,/,*/(......,/*,,( ");
+            mvwprintw(win,x,y,"         (//#(...,/,*/(......,/*,,( ");
             mvwprintw(win,x+1,y,"     ,*/(((#/*///*///(/***/#(*****/(");
             mvwprintw(win,x+2,y,"    ,/*//***//************(/*****/(,@,");
             mvwprintw(win,x+3,y,"   (****/***********//******(*****/,/#");
@@ -233,6 +245,20 @@ void print_poke(WINDOW* win,pokemon poke,int x, int y,int side){
             mvwprintw(win,x+6,y,"*/***//************////(@#@@**/#@**(*");
             mvwprintw(win,x+7,y,"  *@(//(/////*/*////((#&#(***//#@((/@*");
             mvwprintw(win,x+8,y,"      /###@@@@@@##(//////(##(////(&#(,");  
+            break;
+
+        case NOPOKEMON:
+            mvwprintw(win,x,y,"                                          ");
+            mvwprintw(win,x+1,y,"                                        ");
+            mvwprintw(win,x+2,y,"                                        ");
+            mvwprintw(win,x+3,y,"                                        ");
+            mvwprintw(win,x+4,y,"                                        ");
+            mvwprintw(win,x+5,y,"                                        ");
+            mvwprintw(win,x+6,y,"                                        ");
+            mvwprintw(win,x+7,y,"                                        ");
+            mvwprintw(win,x+8,y,"                                        ");  
+            mvwprintw(win,x+9,y,"                                        ");  
+            mvwprintw(win,x+10,y,"                                        ");  
             break;
         
         default:
@@ -978,6 +1004,37 @@ void print_roadto_league(WINDOW* road){
     wattroff(road,COLOR_PAIR(4));
 }
 
+void jauges_refresh(WINDOW* match,WINDOW* jauge_player,WINDOW* jauge_champion,pokemon player_poke,pokemon champion_poke){
+
+    mvwprintw(match,24,110,"     ");
+    mvwprintw(match,8,21,"     ");
+    mvwprintw(match,24,110,"%.0f/%.0f",player_poke.pv,player_poke.pv_save);
+    mvwprintw(match,8,21,"%.0f/%.0f",champion_poke.pv,champion_poke.pv_save);
+    int array_pv_player=(player_poke.pv/player_poke.pv_save)*20;
+    int array_pv_champion=(champion_poke.pv/champion_poke.pv_save)*20;
+    if (array_pv_champion>0)
+    {
+        mvwprintw(jauge_champion,1,1,"                   ");
+        for (int i =1 ; i <array_pv_champion ; i++)
+        {
+            mvwprintw(jauge_champion,1,i,"#");
+        }
+    }
+    if (array_pv_player>0)
+    {
+        mvwprintw(jauge_player,1,1,"                   ");
+        for (int i = 1; i <array_pv_player ; i++)
+        {
+            mvwprintw(jauge_player,1,i,"#");
+        }
+    }
+    wrefresh(match);
+    box(jauge_champion,0,0);
+    box(jauge_player,0,0);
+    wrefresh(jauge_champion);
+    wrefresh(jauge_player);
+}
+
 void print_duel(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, pokemon player_poke, pokemon champion_poke,int x, int y){
 
     mvwprintw(match,30,90," ___ ___ ___ _  _ _____"); 
@@ -1025,53 +1082,7 @@ void print_duel(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, pokem
     mvwprintw(match,24,105,"HP");
     mvwprintw(match,8,16,"HP");
 
-    mvwprintw(match,24,111,"%.0f/%.0f",player_poke.pv,player_poke.pv_save);
-    mvwprintw(match,8,22,"%.0f/%.0f",champion_poke.pv,champion_poke.pv_save);
-    int array_pv_player=(player_poke.pv/player_poke.pv_save)*20;
-    int array_pv_champion=(champion_poke.pv/champion_poke.pv_save)*20;
-    if (array_pv_champion>0)
-    {
-        for (int i =1 ; i <array_pv_champion ; i++)
-        {
-            mvwprintw(jauge_champion,1,i,"#");
-        }
-    }
-    if (array_pv_player>0)
-    {
-        for (int i = 1; i <array_pv_player ; i++)
-        {
-            mvwprintw(jauge_player,1,i,"#");
-        }
-    }
-}
-
-void jauges_refresh(WINDOW* match,WINDOW* jauge_player,WINDOW* jauge_champion,pokemon player_poke,pokemon champion_poke){
-
-    mvwprintw(match,24,111,"%.0f/%.0f",player_poke.pv,player_poke.pv_save);
-    mvwprintw(match,8,22,"%.0f/%.0f",champion_poke.pv,champion_poke.pv_save);
-    int array_pv_player=(player_poke.pv/player_poke.pv_save)*20;
-    int array_pv_champion=(champion_poke.pv/champion_poke.pv_save)*20;
-    if (array_pv_champion>0)
-    {
-        mvwprintw(jauge_champion,1,1,"                   ");
-        for (int i =1 ; i <array_pv_champion ; i++)
-        {
-            mvwprintw(jauge_champion,1,i,"#");
-        }
-    }
-    if (array_pv_player>0)
-    {
-        mvwprintw(jauge_player,1,1,"                   ");
-        for (int i = 1; i <array_pv_player ; i++)
-        {
-            mvwprintw(jauge_player,1,i,"#");
-        }
-    }
-    wrefresh(match);
-    box(jauge_champion,0,0);
-    box(jauge_player,0,0);
-    wrefresh(jauge_champion);
-    wrefresh(jauge_player);
+    jauges_refresh(match,jauge_player,jauge_champion,player_poke,champion_poke);
 }
 
 void print_menu(WINDOW* win,int x,int y){
@@ -1550,7 +1561,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box1,3,40,"lvl %d",player->poke1.lvl);
         mvwprintw(box1,7,30,"HP : %.1f/%.1f",player->poke1.pv,player->poke1.pv_save);
         mvwprintw(box1,8,30,"ATK : %.1f",player->poke1.atk);
-        mvwprintw(box1,9,30,"DEF : %.1f",player->poke1.def);
+        mvwprintw(box1,9,30,"DEF : %.1f",player->poke1.def*100);
         mvwprintw(box1,10,30,"DODGE : %.1f",player->poke1.dodge);
         mvwprintw(box1,12,30,"UTILITARY : %s",player->poke1.CTutil->name);
         mvwprintw(box1,13,30,"STAT : %s",player->poke1.CTstat->name);
@@ -1567,7 +1578,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box2,3,40,"lvl %d",player->poke2.lvl);
         mvwprintw(box2,7,30,"HP : %.1f/%.1f",player->poke2.pv,player->poke2.pv_save);
         mvwprintw(box2,8,30,"ATK : %.1f",player->poke2.atk);
-        mvwprintw(box2,9,30,"DEF : %.1f",player->poke2.def);
+        mvwprintw(box2,9,30,"DEF : %.1f",player->poke2.def*100);
         mvwprintw(box2,10,30,"DODGE : %.1f",player->poke2.dodge);
         mvwprintw(box2,12,30,"UTILITARY : %s",player->poke2.CTutil->name);
         mvwprintw(box2,13,30,"STAT : %s",player->poke2.CTstat->name);
@@ -1583,7 +1594,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box3,3,40,"lvl %d",player->poke3.lvl);
         mvwprintw(box3,7,30,"HP : %.1f/%.1f",player->poke3.pv,player->poke3.pv_save);
         mvwprintw(box3,8,30,"ATK : %.1f",player->poke3.atk);
-        mvwprintw(box3,9,30,"DEF : %.1f",player->poke3.def);
+        mvwprintw(box3,9,30,"DEF : %.1f",player->poke3.def*100);
         mvwprintw(box3,10,30,"DODGE : %.1f",player->poke3.dodge);
         mvwprintw(box3,12,30,"UTILITARY : %s",player->poke3.CTutil->name);
         mvwprintw(box3,13,30,"STAT : %s",player->poke3.CTstat->name);
@@ -1599,7 +1610,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box4,3,40,"lvl %d",player->poke4.lvl);
         mvwprintw(box4,7,30,"HP : %.1f/%.1f",player->poke4.pv,player->poke4.pv_save);
         mvwprintw(box4,8,30,"ATK : %.1f",player->poke4.atk);
-        mvwprintw(box4,9,30,"DEF : %.1f",player->poke4.def);
+        mvwprintw(box4,9,30,"DEF : %.1f",player->poke4.def*100);
         mvwprintw(box4,10,30,"DODGE : %.1f",player->poke4.dodge);
         mvwprintw(box4,12,30,"UTILITARY : %s",player->poke4.CTutil->name);
         mvwprintw(box4,13,30,"STAT : %s",player->poke4.CTstat->name);
@@ -1614,7 +1625,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box5,3,40,"lvl %d",player->poke5.lvl);
         mvwprintw(box5,7,30,"HP : %.1f/%.1f",player->poke5.pv,player->poke5.pv_save);
         mvwprintw(box5,8,30,"ATK : %.1f",player->poke5.atk);
-        mvwprintw(box5,9,30,"DEF : %.1f",player->poke5.def);
+        mvwprintw(box5,9,30,"DEF : %.1f",player->poke5.def*100);
         mvwprintw(box5,10,30,"DODGE : %.1f",player->poke5.dodge);
         mvwprintw(box5,12,30,"UTILITARY : %s",player->poke5.CTutil->name);
         mvwprintw(box5,13,30,"STAT : %s",player->poke5.CTstat->name);
@@ -1629,7 +1640,7 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box6,3,40,"lvl %d",player->poke6.lvl);
         mvwprintw(box6,7,30,"HP : %.1f/%.1f",player->poke6.pv,player->poke6.pv_save);
         mvwprintw(box6,8,30,"ATK : %.1f",player->poke6.atk);
-        mvwprintw(box6,9,30,"DEF : %.1f",player->poke6.def);
+        mvwprintw(box6,9,30,"DEF : %.1f",player->poke6.def*100);
         mvwprintw(box6,10,30,"DODGE : %.1f",player->poke6.dodge);
         mvwprintw(box6,12,30,"UTILITARY : %s",player->poke6.CTutil->name);
         mvwprintw(box6,13,30,"STAT : %s",player->poke6.CTstat->name);

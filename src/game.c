@@ -17,21 +17,21 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
 
     sprintf(blue->name,"Blue");
-    blue->poke1=charmander;
-    blue->poke1=bulbasaur;
+    blue->poke3=charmander;
+    blue->poke2=bulbasaur;
     blue->poke1=squirtle;
     blue->art=CHAMPIONBLUE;
 
     sprintf(red->name,"Red");
     red->poke1=charmander;
-    red->poke1=bulbasaur;
-    red->poke1=squirtle;
+    red->poke2=bulbasaur;
+    red->poke3=squirtle;
     red->art=CHAMPIONRED;
 
     sprintf(yellow->name,"Yellow");
-    yellow->poke1=charmander;
+    yellow->poke2=charmander;
     yellow->poke1=bulbasaur;
-    yellow->poke1=squirtle;
+    yellow->poke3=squirtle;
     yellow->art=CHAMPIONYELLOW;
 
     switch (sort2)
@@ -293,6 +293,8 @@ void get_firstpoke(trainer* player){
             {
             case 50:
                 player->poke1=bulbasaur;
+                player->poke2=charmander;
+                player->poke3=squirtle;
                 finish=1;
                 break;
 
@@ -325,10 +327,9 @@ void get_firstpoke(trainer* player){
 }
 
 // match returns 1 in case of victory and 0 in case of defeat
-int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int League0_Catch1 ){
+int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int League0_Catch1, int* count_atk){
     int finish=0, ch=ERR;   
     int x=32,y=88;
-    player_poke->pv=player_poke->pv/2;
 
     while(finish==0)
     {
@@ -342,11 +343,15 @@ int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int Leagu
         box(actions,0,0);
         box(jauge_champion,0,0);
         box(jauge_player,0,0);
-        
-        print_duel(match,jauge_champion,jauge_player,*player_poke,champion_poke,x,y);
+
+        pokemon charmander,pokenull,bulbasaur,squirtle;
+        init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+
+        print_duel(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
         mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
 
         wrefresh(match);
+        wrefresh(text);
         wrefresh(jauge_champion);
         wrefresh(jauge_player);
         ch=getch();
@@ -416,7 +421,404 @@ int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int Leagu
             case 32:
                 if (y==88) // FIGHT
                 {
-                    /* code */
+                    player_poke->CTstat->type=LEER;
+                    sprintf(player_poke->CTstat->name,"LEER");
+                    wclear(actions);
+                    wclear(text);
+                    wrefresh(actions);
+                    int finish_fight=0;
+                    int x_fight=3;
+                    int whatatk=0;
+                    while (finish_fight==0)
+                    {
+                        WINDOW* fight=subwin(match,13,77,40,119);
+                        box(fight,0,0);
+                        box(text,0,0);
+
+                        mvwprintw(text,5,15,"                                                         ");
+                        mvwprintw(text,5,22,"What attack do you want %s to use ?",player_poke->name);
+                        wrefresh(text);
+                        mvwprintw(match,30,82," ___ ___ ___ _  _ _____");
+                        mvwprintw(match,30+1,82,"| __|_ _/ __| || |_   _|");
+                        mvwprintw(match,30+2,82,"| _| | | (_ | __ | | |");
+                        mvwprintw(match,30+3,82,"|_| |___\\___|_||_| |_|");
+
+                        if (*count_atk>=5)
+                        {
+                            *count_atk=4;
+                        }
+
+                        int dmg = player_poke->atk-(player_poke->atk * champion_poke->def);
+                        int dmg_opponent = champion_poke->atk-(champion_poke->atk * player_poke->def);
+                        if (dmg<=0)
+                        {
+                            dmg=1;
+                        }   
+                                             
+                        mvwprintw(fight,3,38,"%s",player_poke->basicatk);
+                        mvwprintw(fight,5,38,"%s",player_poke->speatk);
+                        if (*count_atk!=4)
+                        {
+                            mvwprintw(fight,5,52,"%d turn left",4-(*count_atk));
+                        }
+                        else
+                        {
+                            mvwprintw(fight,5,52,"             ");
+                            mvwprintw(fight,5,52,"USABLE");
+                        }
+                        
+                        mvwprintw(fight,7,38,"%s",player_poke->CTstat->name);
+                        mvwprintw(fight,x_fight,36,">");
+
+                        int has_atk=0;
+
+                        ch=getch();
+                        switch (ch)
+                        {
+                        case ' ':
+                            wclear(fight);
+                            wrefresh(fight);
+                            finish_fight=1;
+                            break;
+
+                        case 'z':
+                        case KEY_UP:
+                            if (x_fight!=3)
+                            {
+                                mvwprintw(fight,x_fight,36," ");
+                                x_fight-=2;
+                            }
+                            break;
+
+                        case 's':
+                        case KEY_DOWN:
+                            if (x_fight!=7)
+                            {
+                                mvwprintw(fight,x_fight,36," ");
+                                x_fight+=2;
+                            }
+                            break;
+                        
+                        case 'e':
+                        case '\n':
+                        case '\r':
+                            switch (x_fight)
+                            {
+                            case 3: // basicatk
+                            //your turn
+                                mvwprintw(text,5,15,"                                                         ");
+                                mvwprintw(text,5,23,"%s uses %s !",player_poke->name,player_poke->basicatk);
+                                champion_poke->pv-=dmg;
+                                has_atk=1;
+                                if (champion_poke->pv<=0)
+                                {
+                                    champion_poke->pv=0;
+                                    finish=1;
+                                    finish_fight=1;
+                                    has_atk=0;
+                                    *count_atk+=1;
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",champion_poke->name);
+                                    print_poke(match,pokenull,6,110,0);
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(2);
+                                    return 1;
+                                }
+                                *count_atk+=1;
+                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                wrefresh(fight);
+                                sleep(2);
+                            
+                            //champ turn
+                                if (has_atk==1)
+                                {
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    sleep(1);
+                                    whatatk=rand()%101;
+                                    if (whatatk<=10)
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(1);
+                                        mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
+                                        player_poke->pv-=2*dmg;
+                                        if (player_poke->pv<=0)
+                                        {
+                                            player_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                            print_poke(match,pokenull,17,10,1);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 0;
+                                        }
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                    }
+                                    else
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(1);
+                                        mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
+                                        player_poke->pv-=dmg;
+                                        if (player_poke->pv<=0)
+                                        {
+                                            player_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                            print_poke(match,pokenull,17,10,1);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 0;
+                                        }
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                    }
+                                }
+                                break;
+
+                            case 5: // speatk
+                            //your turn
+                                if (*count_atk%4==0)
+                                {
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    mvwprintw(text,5,23,"%s uses his special move %s !",player_poke->name,player_poke->speatk);
+                                    champion_poke->pv=champion_poke->pv-(2*dmg);
+                                    has_atk=1;
+                                    if (champion_poke->pv<=0)
+                                    {
+                                        champion_poke->pv=0;
+                                        finish=1;
+                                        finish_fight=1;
+                                        has_atk=0;
+                                        *count_atk+=1;
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",champion_poke->name);
+                                        print_poke(match,pokenull,6,110,0);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                        return 1;
+                                    }
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(2);
+                                    *count_atk=1;
+                                }
+                                else
+                                {
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    mvwprintw(text,5,22,"%s can't use %s right now",player_poke->name,player_poke->speatk);
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(2);
+                                }
+
+                            //champ turn
+                                if (has_atk==1)
+                                {
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    sleep(1);
+                                    whatatk=rand()%101;
+                                    if (whatatk<=10)
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(1);
+                                        mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
+                                        player_poke->pv-=2*dmg;
+                                        if (player_poke->pv<=0)
+                                        {
+                                            player_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                            print_poke(match,pokenull,17,10,1);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 0;
+                                        }
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                    }
+                                    else
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(1);
+                                        mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
+                                        player_poke->pv-=dmg;
+                                        if (player_poke->pv<=0)
+                                        {
+                                            player_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                            print_poke(match,pokenull,17,10,1);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 0;
+                                        }
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                    }
+                                }
+                                break;
+
+                            case 7: // statatk
+                            //your turn
+                                switch (player_poke->CTstat->type)
+                                {
+                                case LEER:
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    mvwprintw(text,5,23,"%s uses %s !",player_poke->name,player_poke->CTstat->name);
+                                    champion_poke->def-=0.1;
+                                    has_atk=1;
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(2);
+                                    mvwprintw(text,5,23,"                                        ");
+                                    mvwprintw(text,5,23,"%s's defense has decreased",champion_poke->name);
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(1);
+                                    *count_atk+=1;
+                                    break;
+
+                                case ROAR:
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    mvwprintw(text,5,23,"%s uses %s !",player_poke->name,player_poke->CTstat->name);
+                                    champion_poke->atk-=1.5;
+                                    has_atk=1;
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(2);
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    mvwprintw(text,5,23,"%s's attack has decreased",champion_poke->name);
+                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    wrefresh(fight);
+                                    sleep(1);
+                                    *count_atk+=1;
+                                    break;
+                                
+                                default:
+                                    break;
+                                }
+                                
+                            //champ turn
+                                if (has_atk==1)
+                                {
+                                    mvwprintw(text,5,15,"                                                         ");
+                                    sleep(1);
+                                    whatatk=rand()%101;
+                                    if (whatatk<=10)
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(1);
+                                        player_poke->pv-=2*dmg;
+                                        if (player_poke->pv<=0)
+                                        {
+                                            player_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                            print_poke(match,pokenull,17,10,1);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 0;
+                                        }
+                                        mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                    }
+                                    else
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(1);
+                                        mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
+                                        player_poke->pv-=dmg;
+                                        if (player_poke->pv<=0)
+                                        {
+                                            player_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                            print_poke(match,pokenull,17,10,1);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 0;
+                                        }
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(text);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                    }
+                                }
+                                break;
+                            
+                            default:
+                                break;
+                            }
+                            break;
+
+                        default:
+                            break;
+                        }
+
+                        wrefresh(fight);
+                        usleep(16667);
+                        if (delwin(fight)==ERR)
+                        {
+                            system("killall -9 vlc");
+                            exit(47);
+                        } 
+                    }
                 }
 
                 else if (y==128) // BAG
@@ -489,7 +891,79 @@ int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int Leagu
                                         }
                                         mvwprintw(text,5,25,"                                     ");
                                         mvwprintw(text,5,25,"%s healed successfully",player_poke->name);
-                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,champion_poke);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        sleep(2);
+                                        *count_atk+=1;
+                                        int has_atk=1;
+                                        int dmg = player_poke->atk-(player_poke->atk * champion_poke->def);
+                                        int dmg_opponent = champion_poke->atk-(champion_poke->atk * player_poke->def);
+                                        if (dmg<=0)
+                                        {
+                                            dmg=1;
+                                        }  
+                                    //champ turn
+                                        if (has_atk==1)
+                                        {
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            sleep(1);
+                                            int whatatk=rand()%101;
+                                            if (whatatk<=10)
+                                            {
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                wrefresh(text);
+                                                wrefresh(bag);
+                                                sleep(1);
+                                                mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
+                                                player_poke->pv-=2*dmg;
+                                                if (player_poke->pv<=0)
+                                                {
+                                                    player_poke->pv=0;
+                                                    finish=1;
+                                                    finish_bag=1;
+                                                    has_atk=0;
+                                                    *count_atk=1;
+                                                    mvwprintw(text,5,15,"                                                         ");
+                                                    mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                    print_poke(match,pokenull,17,10,1);
+                                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                    wrefresh(bag);
+                                                    sleep(2);
+                                                    return 0;
+                                                }
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(text);
+                                                wrefresh(bag);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                wrefresh(text);
+                                                wrefresh(bag);
+                                                sleep(1);
+                                                mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
+                                                player_poke->pv-=dmg;
+                                                if (player_poke->pv<=0)
+                                                {
+                                                    player_poke->pv=0;
+                                                    finish=1;
+                                                    finish_bag=1;
+                                                    has_atk=0;
+                                                    *count_atk=1;
+                                                    mvwprintw(text,5,15,"                                                         ");
+                                                    mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                    print_poke(match,pokenull,17,10,1);
+                                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                    wrefresh(bag);
+                                                    sleep(2);
+                                                    return 0;
+                                                }
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(text);
+                                                wrefresh(bag);
+                                                sleep(2);
+                                            }
+                                        }
                                     }
                                     else if(player_poke->pv<=0)
                                     {
@@ -584,70 +1058,149 @@ int match(trainer* player,pokemon* player_poke, pokemon champion_poke, int Leagu
             exit(42);
         }  
     }
-
 }
 
-void duel(WINDOW* league_map,trainer* player, trainer champion){
-    
+//returns 1 if you won the 3 matches and 0 if you dont
+int duel(WINDOW* league_map,trainer* player, trainer champion){
+    WINDOW* blackscreen = newwin(LINES-1,COLS-1,0,0);
+    int count_atk=1;
 
     system("killall -9 vlc"); // stop main theme
     system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
 
     if (player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0)
     {
-        if(match(player,&player->poke1,champion.poke1,0)==1)
+        if(match(player,&player->poke1,&champion.poke1,0,&count_atk)==1)
         {
-            if (match(player,&player->poke1,champion.poke2,0)==1)
+            if (match(player,&player->poke1,&champion.poke2,0,&count_atk)==1)
             {
-                if (match(player,&player->poke1,champion.poke3,0)==1)
+                if (match(player,&player->poke1,&champion.poke3,0,&count_atk)==1)
                 {
-                    //perfect victory
+                    wrefresh(blackscreen);
+                    return 1; // victory
                 }
-                else if (match(player,&player->poke2,champion.poke3,0)==1)
+                else if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
-                    //second victory
+                    wrefresh(blackscreen);
+                    return 1; // victory
                 }
-                else if (match(player,&player->poke3,champion.poke3,0)==1)
+                else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
-                    //third victory
+                    wrefresh(blackscreen);
+                    return 1; // victory
                 }
                 else 
                 {
-                    //third defeat
+                    wrefresh(blackscreen);
+                    return 0; // defeat
                 }
             }
-            else if (match(player,&player->poke2,champion.poke2,0)==1)
+            else if (match(player,&player->poke2,&champion.poke2,0,&count_atk)==1)
             {
-                if (match(player,&player->poke2,champion.poke3,0)==1)
+                if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
-                    //victory
+                    wrefresh(blackscreen);
+                    return 1; // victory
                 }
-                else if (match(player,&player->poke3,champion.poke3,0)==1)
+                else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
-                    //victory  
+                    wrefresh(blackscreen);
+                    return 1; // victory
                 }
                 else 
                 {
-                    //third defeat
+                    wrefresh(blackscreen);
+                    return 0; // defeat
                 }
             }
-            else if (match(player,&player->poke3,champion.poke2,0)==1)
+            else if (match(player,&player->poke3,&champion.poke2,0,&count_atk)==1)
             {
-                if (match(player,&player->poke3,champion.poke3,0)==1)
+                if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
-                    //victory
+                    wrefresh(blackscreen);
+                    return 1; // victory
                 }
                 else
                 {
-                    //defeat     
+                    wrefresh(blackscreen);
+                    return 0; // defeat     
                 }
             }
             else
             {
-                //defeat
+                wrefresh(blackscreen);
+                return 0; // defeat
             }   
         }
-        
+
+        else if (match(player,&player->poke2,&champion.poke1,0,&count_atk)==1)
+        {
+            if (match(player,&player->poke2,&champion.poke2,0,&count_atk)==1)
+            {
+                if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
+                {
+                    wrefresh(blackscreen);
+                    return 1; // victory
+                }
+                else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
+                {
+                    wrefresh(blackscreen);
+                    return 1; // victory
+                }
+                else
+                {
+                    wrefresh(blackscreen);
+                    return 0; // defeat
+                }
+            }
+            else if (match(player,&player->poke3,&champion.poke2,0,&count_atk)==1)
+            {
+                if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
+                {
+                    wrefresh(blackscreen);
+                    return 1; // victory
+                }
+                else
+                {
+                    wrefresh(blackscreen);
+                    return 0; // defeat
+                }
+            }
+            else
+            {
+                wrefresh(blackscreen);
+                return 0; // defeat
+            }
+        }
+
+        else if (match(player,&player->poke3,&champion.poke1,0,&count_atk)==1)
+        {
+            if (match(player,&player->poke3,&champion.poke2,0,&count_atk)==1)
+            {
+                if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
+                {
+                    wrefresh(blackscreen);
+                    return 1; // victory
+                }
+                else
+                {
+                    wrefresh(blackscreen);
+                    return 0; // defeat
+                }
+            }
+            else
+            {
+                wrefresh(blackscreen);
+                return 0; // defeat
+            }
+        }
+
+        else 
+        {
+            wrefresh(blackscreen);
+            return 0; // defeat
+        }
+
     }
     else
     {
@@ -661,6 +1214,11 @@ void duel(WINDOW* league_map,trainer* player, trainer champion){
         mvwprintw(league_map,15,72,"                    ");
     }
 
+    if (delwin(blackscreen)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(47);
+        }  
     system("killall -9 vlc"); // stop battle theme
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
 }
@@ -727,7 +1285,7 @@ void house(trainer* player){
 }
 
 void league(trainer* player){
-    int finish=0,ch=ERR,quit=0;
+    int finish=0,ch=ERR,quit=0,has_fought=0;
     int x=34,y=71;
 
     trainer red,blue,yellow,champion;
@@ -774,7 +1332,18 @@ void league(trainer* player){
 
             if (x==14 && y>61 && y<69) // champion of the ligue area
             {
-                talkto_champion(league_map,player,champion);   
+                if (has_fought==0)
+                {
+                    talkto_champion(league_map,player,champion,&has_fought);
+                }  
+                else
+                {
+                    write_flush(league_map,13,72,"You already had a match with me");
+                    write_flush(league_map,14,72,"I need to heal my pokemons");
+                    sleep(1);
+                    mvwprintw(league_map,13,72,"                          ");
+                    mvwprintw(league_map,14,72,"                     ");
+                }
             }
             break;
 
@@ -1732,7 +2301,7 @@ void roadto_league(trainer* player){
 
                 else
                 {
-                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon does have surf !");
+                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon have surf !");
                     sleep(1);
                 }
             }
