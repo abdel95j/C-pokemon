@@ -962,8 +962,15 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         sleep(1);
                         mvwprintw(league_map,13,72,"                          ");
                         mvwprintw(league_map,14,72,"                     ");
-                        mvwprintw(league_map,15,72,"                    ");
+                        write_flush(league_map,13,72,"*You earned 70$*");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        write_flush(league_map,13,72,"*You gained %d xp*",player->lvl*10);
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
                         *has_fought=1;
+                        player->money+=70;
+                        player->xp+=player->lvl*10;
                     }
                     else
                     {
@@ -978,8 +985,15 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         sleep(1);
                         mvwprintw(league_map,13,72,"                          ");
                         mvwprintw(league_map,14,72,"                     ");
-                        mvwprintw(league_map,15,72,"                    ");
+                        write_flush(league_map,13,72,"*You earned 30$*");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        write_flush(league_map,13,72,"*You gained %d xp*",player->lvl*5);
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
                         *has_fought=1;
+                        player->money+=30;
+                        player->xp+=player->lvl*5;
                     }
                     finish=1;
                 }
@@ -1108,8 +1122,15 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         sleep(1);
                         mvwprintw(league_map,13,72,"                          ");
                         mvwprintw(league_map,14,72,"                     ");
-                        mvwprintw(league_map,15,72,"                    ");
+                        write_flush(league_map,13,72,"*You earned 70$*");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        write_flush(league_map,13,72,"*You gained %d xp*",player->lvl*10);
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
                         *has_fought=1;
+                        player->money+=70;
+                        player->xp+=player->lvl*10;
                     }
                     else
                     {
@@ -1124,8 +1145,15 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         sleep(1);
                         mvwprintw(league_map,13,72,"                          ");
                         mvwprintw(league_map,14,72,"                     ");
-                        mvwprintw(league_map,15,72,"                    ");
+                        write_flush(league_map,13,72,"*You earned 30$*");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        write_flush(league_map,13,72,"*You gained %d xp*",player->lvl*5);
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
                         *has_fought=1;
+                        player->money+=30;
+                        player->xp+=player->lvl*5;
                     }
                     finish=1;
                 }
@@ -1234,8 +1262,15 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         sleep(1);
                         mvwprintw(league_map,13,72,"                          ");
                         mvwprintw(league_map,14,72,"                     ");
-                        mvwprintw(league_map,15,72,"                    ");
+                        write_flush(league_map,13,72,"*You earned 70$*");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        write_flush(league_map,13,72,"*You gained %d xp*",player->lvl*10);
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
                         *has_fought=1;
+                        player->money+=70;
+                        player->xp+=player->lvl*10;
                     }
                     else
                     {
@@ -1250,8 +1285,15 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         sleep(1);
                         mvwprintw(league_map,13,72,"                          ");
                         mvwprintw(league_map,14,72,"                     ");
-                        mvwprintw(league_map,15,72,"                    ");
+                        write_flush(league_map,13,72,"*You earned 30$*");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        write_flush(league_map,13,72,"*You gained %d xp*",player->lvl*5);
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
                         *has_fought=1;
+                        player->money+=30;
+                        player->xp+=player->lvl*5;
                     }
                     finish=1;
                 }
