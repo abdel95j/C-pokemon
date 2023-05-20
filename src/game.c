@@ -10,29 +10,204 @@
 #include "../headers/talk.h"
 #include "../headers/talkbis.h"
 
+void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle, pokemon* pikachu, pokemon* charizard){
+
+    // PROCÉDURE D'AJOUT D'UN NOUVEAU POKEMON :
+    //
+    //      1 : l'ajouter dans init poke (ici) et faire ses stats SOYEZ COHÉRENTS AVEC CE QUI EXISTE DÉJÀ
+    //
+    //          si le pokemon est un pokemon évolué ex : dracaufeu mettez son lvl à 25 (lvl d'évolution)
+    //          et soyez logique sur les stats (aidez vous de la fonction pokelvlup et faites 25 fois ce qui
+    //          augmente pour 1 lvl) + rajoutez sa sous évolution dans la fonction evolvepoke 
+    //          exemple : si j'ajoute dracaufeu alors je vais créer le système d'evolution de salamèche dans evolvepoke 
+    //
+    //          lvlup 1 fois :
+    //          player_poke->lvl+=1;
+    //          player_poke->atk+=1;
+    //          player_poke->def=player_poke->def+0.002;
+    //          player_poke->pv+=2;
+    //          player_poke->pv_save+=2;
+    //
+    //      2 : créer un define dans structs.h catégorie pokearts avec le nom du pokemon en maj + le int suivant 
+    //          exemple :   #define NOUVEAU-POKEMON 5
+    //
+    //      3 : créer son type dans la catégorie poketypes si il n'existe pas déjà (tjrs dans strcuts.h)
+    //          exemple :   #define NOUVEAU-TYPE 7
+    //
+    //      4 : l'ajouter dans toutes les declarations de pokemons + init poke (suivez les erreurs sur vscode ça aide)
+    //          exemple :    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu, nouveau-pokemon;
+    //                      init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu, &nouveau-pokemon);   
+    //
+    //      5 : créer ses sprites (images d'affichage) dans les fonctions print_poke et print_art_box 
+    //          pour les sprites taper "<nom du pokemon> sprite front/back" sur google et chercher des images jolies et cohérentes puis
+    //          crop et aller sur https://manytools.org/hacker-tools/convert-images-to-ascii-art/go/  :
+    //          - Si l'art obtenu est tout noir inversez les couleurs pour les images sans fond ça arrive souvent
+    //          - RESPECTEZ LES MESURES DEJA EXISTANTES en changeant le "width of output" jusqu'à obtenir 
+    //            un sprite de 9 LIGNES (tentez entre 20 et 40 jusqu'à trouver le sprite parfait)
+    //
+    //      6 : POUR L'ÉTAPE 1 ET 4, vérifier que vous avez bien aussi changé dans les variables de fonctions et 
+    //          fichiers .h    exemple:
+    //          void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle, pokemon* pikachu, pokemon* nouveau-pokemon);
+    //
+    //      7 : découvrez votre nouveau pokémon et testez tout pour etre sur que tout marche bien ^^
+
+
+    //pokenull
+    pokenull->atk=0;
+    pokenull->def=0;
+    pokenull->dodge=0;
+    pokenull->pv=0;
+    pokenull->pv_save=0;
+    pokenull->lvl=0;
+    pokenull->catchrate=0;
+    pokenull->art_box=NOPOKEMON;
+    pokenull->art_front=NOPOKEMON;
+    pokenull->art_behind=NOPOKEMON;
+    pokenull->type=NOPOKEMON;
+    pokenull->CTstat->type=0; 
+    pokenull->CTutil->type=0; 
+    pokenull->CTstat->quant=0;
+    pokenull->CTutil->quant=0;
+    sprintf(pokenull->basicatk,"none");
+    sprintf(pokenull->speatk,"none");
+    sprintf(pokenull->CTutil->name,"none");
+    sprintf(pokenull->CTstat->name,"none");
+    sprintf(pokenull->name,"no-pokemon");
+
+    //charmander -
+    charmander->atk=10.0;
+    charmander->def=30.0/100;
+    charmander->dodge=15;
+    charmander->pv=35.0;
+    charmander->pv_save=35.0;
+    charmander->lvl=1;
+    charmander->catchrate=50;
+    charmander->art_box=CHARMANDER;
+    charmander->art_front=CHARMANDER;
+    charmander->art_behind=CHARMANDER;
+    charmander->type=FIRE;
+    charmander->CTstat->type=0;     
+    charmander->CTutil->type=0; 
+    charmander->CTstat->quant=0;
+    charmander->CTutil->quant=0;    
+    sprintf(charmander->basicatk,"fire-punch");
+    sprintf(charmander->speatk,"flamethrower");
+    sprintf(charmander->CTutil->name,"none");
+    sprintf(charmander->CTstat->name,"none");
+    sprintf(charmander->name,"Charmander");
+    
+    //bulbasaur -
+    bulbasaur->atk=8.0;
+    bulbasaur->def=45.0/100;
+    bulbasaur->dodge=12;
+    bulbasaur->pv=40.0;
+    bulbasaur->pv_save=40.0;
+    bulbasaur->lvl=1;
+    bulbasaur->catchrate=50;
+    bulbasaur->art_box=BULBASAUR;
+    bulbasaur->art_behind=BULBASAUR;
+    bulbasaur->art_front=BULBASAUR;
+    bulbasaur->type=GRASS;
+    bulbasaur->CTstat->type=0; 
+    bulbasaur->CTutil->type=0; 
+    bulbasaur->CTstat->quant=0;
+    bulbasaur->CTutil->quant=0;    
+    sprintf(bulbasaur->basicatk,"bullet-seed");
+    sprintf(bulbasaur->speatk,"solar-beam");
+    sprintf(bulbasaur->CTutil->name,"none");
+    sprintf(bulbasaur->CTstat->name,"none");
+    sprintf(bulbasaur->name,"Bulbasaur");
+
+    //squirtle -
+    squirtle->atk=9.0;
+    squirtle->def=35.0/100;
+    squirtle->dodge=18;
+    squirtle->pv=33.0;
+    squirtle->pv_save=33.0;
+    squirtle->lvl=1;
+    squirtle->catchrate=50;
+    squirtle->art_box=SQUIRTLE;
+    squirtle->art_behind=SQUIRTLE;
+    squirtle->art_front=SQUIRTLE;
+    squirtle->type=WATER;
+    squirtle->CTstat->type=0; 
+    squirtle->CTutil->type=0; 
+    squirtle->CTstat->quant=0;
+    squirtle->CTutil->quant=0;    
+    sprintf(squirtle->basicatk,"water-gun");
+    sprintf(squirtle->speatk,"hydropump");
+    sprintf(squirtle->CTutil->name,"none");
+    sprintf(squirtle->CTstat->name,"none");
+    sprintf(squirtle->name,"Squirtle");
+
+    //pikachu -
+    pikachu->atk=10.0;
+    pikachu->def=35.0/100;
+    pikachu->dodge=17;
+    pikachu->pv=33.0;
+    pikachu->pv_save=33.0;
+    pikachu->lvl=1;
+    pikachu->catchrate=25;
+    pikachu->art_box=PIKACHU;
+    pikachu->art_front=PIKACHU;
+    pikachu->art_behind=PIKACHU;
+    pikachu->type=ELECTRIC;
+    pikachu->CTstat->type=0;     
+    pikachu->CTutil->type=0; 
+    pikachu->CTstat->quant=0;
+    pikachu->CTutil->quant=0;    
+    sprintf(pikachu->basicatk,"quick-attack");
+    sprintf(pikachu->speatk,"thunderbolt");
+    sprintf(pikachu->CTutil->name,"none");
+    sprintf(pikachu->CTstat->name,"none");
+    sprintf(pikachu->name,"Pikachu");  
+
+    //charizard -
+    charizard->atk=35.0;
+    charizard->def=35.0/100;
+    charizard->dodge=8;
+    charizard->pv=83.0;
+    charizard->pv_save=83.0;
+    charizard->lvl=25;
+    charizard->catchrate=0;
+    charizard->art_box=CHARIZARD;
+    charizard->art_front=CHARIZARD;
+    charizard->art_behind=CHARIZARD;
+    charizard->type=FIRE;
+    charizard->CTstat->type=0;     
+    charizard->CTutil->type=0; 
+    charizard->CTstat->quant=0;
+    charizard->CTutil->quant=0;    
+    sprintf(charizard->basicatk,"slash");
+    sprintf(charizard->speatk,"flare-blitz");
+    sprintf(charizard->CTutil->name,"none");
+    sprintf(charizard->CTstat->name,"none");
+    sprintf(charizard->name,"Charizard");  
+}
+
 void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
     int sort1=rand()%3;    int lvlsort1=rand()%3;
     int sort2=rand()%2;    int lvlsort2=rand()%2;
     int moy_lvl=(player->poke1.lvl+player->poke2.lvl+player->poke3.lvl)/3;
 
-    pokemon charmander,pokenull,bulbasaur,squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
     sprintf(blue->name,"Blue");
-    blue->poke3=charmander;
-    blue->poke2=bulbasaur;
     blue->poke1=squirtle;
+    blue->poke2=bulbasaur;
+    blue->poke3=pikachu;
     blue->art=CHAMPIONBLUE;
 
     sprintf(red->name,"Red");
     red->poke1=charmander;
     red->poke2=bulbasaur;
-    red->poke3=squirtle;
+    red->poke3=pikachu;
     red->art=CHAMPIONRED;
 
     sprintf(yellow->name,"Yellow");
+    yellow->poke1=pikachu;
     yellow->poke2=charmander;
-    yellow->poke1=bulbasaur;
     yellow->poke3=squirtle;
     yellow->art=CHAMPIONYELLOW;
 
@@ -724,97 +899,6 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
     }
 }
 
-void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle){
-    
-    //pokenull
-    pokenull->atk=0;
-    pokenull->def=0;
-    pokenull->dodge=0;
-    pokenull->pv=0;
-    pokenull->pv_save=0;
-    pokenull->lvl=0;
-    pokenull->catchrate=0;
-    pokenull->art_box=NOPOKEMON;
-    pokenull->art_front=NOPOKEMON;
-    pokenull->art_behind=NOPOKEMON;
-    pokenull->type=NOPOKEMON;
-    pokenull->CTstat->type=0; 
-    pokenull->CTutil->type=0; 
-    pokenull->CTstat->quant=0;
-    pokenull->CTutil->quant=0;
-    sprintf(pokenull->basicatk,"none");
-    sprintf(pokenull->speatk,"none");
-    sprintf(pokenull->CTutil->name,"none");
-    sprintf(pokenull->CTstat->name,"none");
-    sprintf(pokenull->name,"no-pokemon");
-
-    //charmander -
-    charmander->atk=10.0;
-    charmander->def=30.0/100;
-    charmander->dodge=15;
-    charmander->pv=35.0;
-    charmander->pv_save=35.0;
-    charmander->lvl=1;
-    charmander->catchrate=50;
-    charmander->art_box=CHARMANDER;
-    charmander->art_front=CHARMANDER;
-    charmander->art_behind=CHARMANDER;
-    charmander->type=FIRE;
-    charmander->CTstat->type=0;     
-    charmander->CTutil->type=0; 
-    charmander->CTstat->quant=0;
-    charmander->CTutil->quant=0;    
-    sprintf(charmander->basicatk,"fire-punch");
-    sprintf(charmander->speatk,"flamethrower");
-    sprintf(charmander->CTutil->name,"none");
-    sprintf(charmander->CTstat->name,"none");
-    sprintf(charmander->name,"Charmander");
-    
-    //bulbasaur -
-    bulbasaur->atk=8.0;
-    bulbasaur->def=45.0/100;
-    bulbasaur->dodge=10;
-    bulbasaur->pv=40.0;
-    bulbasaur->pv_save=40.0;
-    bulbasaur->lvl=1;
-    bulbasaur->catchrate=50;
-    bulbasaur->art_box=BULBASAUR;
-    bulbasaur->art_behind=BULBASAUR;
-    bulbasaur->art_front=BULBASAUR;
-    bulbasaur->type=GRASS;
-    bulbasaur->CTstat->type=0; 
-    bulbasaur->CTutil->type=0; 
-    bulbasaur->CTstat->quant=0;
-    bulbasaur->CTutil->quant=0;    
-    sprintf(bulbasaur->basicatk,"bullet-seed");
-    sprintf(bulbasaur->speatk,"solar-beam");
-    sprintf(bulbasaur->CTutil->name,"none");
-    sprintf(bulbasaur->CTstat->name,"none");
-    sprintf(bulbasaur->name,"Bulbasaur");
-
-    //squirtle -
-    squirtle->atk=9.0;
-    squirtle->def=35.0/100;
-    squirtle->dodge=18;
-    squirtle->pv=33.0;
-    squirtle->pv_save=33.0;
-    squirtle->lvl=1;
-    squirtle->catchrate=50;
-    squirtle->art_box=SQUIRTLE;
-    squirtle->art_behind=SQUIRTLE;
-    squirtle->art_front=SQUIRTLE;
-    squirtle->type=WATER;
-    squirtle->CTstat->type=0; 
-    squirtle->CTutil->type=0; 
-    squirtle->CTstat->quant=0;
-    squirtle->CTutil->quant=0;    
-    sprintf(squirtle->basicatk,"water-gun");
-    sprintf(squirtle->speatk,"hydropump");
-    sprintf(squirtle->CTutil->name,"none");
-    sprintf(squirtle->CTstat->name,"none");
-    sprintf(squirtle->name,"Squirtle");  
-}
-
 void create_newplayer(trainer* newplayer){
     WINDOW* chatwin=newwin(LINES-1,COLS-1,0,0);
     WINDOW* write=subwin(chatwin,5,50,30,55);
@@ -822,8 +906,8 @@ void create_newplayer(trainer* newplayer){
     echo();
     curs_set(1);
 
-    pokemon pokenull,charmander,bulbasaur,squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
     box(write,0,0);
     print_newtrainer(chatwin);
@@ -883,12 +967,12 @@ void create_newplayer(trainer* newplayer){
     noecho();
     if(delwin(write)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(1);
     }
     if(delwin(chatwin)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(2);
     }
 }
@@ -897,8 +981,8 @@ void get_firstpoke(trainer* player){
     int finish=0,ch=ERR;
     int x=50,y=50;
 
-    pokemon pokenull, charmander, bulbasaur, squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
     while (finish==0)
     {
@@ -942,15 +1026,117 @@ void get_firstpoke(trainer* player){
         usleep(16667);
         if(delwin(pokewin)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(3);
         }
     } 
 }
 
+void evolvepoke(pokemon* poke){
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+
+    WINDOW* evolve_win=newwin(LINES-1,COLS-1,0,0);
+
+    pokemon temp;
+    if (poke->type!=NOPOKEMON)
+    {
+        usleep(1000);
+        system("cvlc ressources/evolve-theme.mp3 >/dev/null 2>&1 &"); // start evolve theme
+
+        switch (poke->art_box)
+        {
+        case CHARMANDER:
+            if (poke->lvl>=25)
+            {
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                *poke=charizard;
+                
+                sprintf(poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf(poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+
+                print_evolution(evolve_win,charmander,charizard);
+            }
+            break;
+
+        case BULBASAUR:
+            if (poke->lvl>=25)
+            {
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                //*poke=venusaur;
+                
+                sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+
+                //print_evolution(evolve_win,bulbasaur,venasaur;
+            }
+            break;
+
+        case SQUIRTLE:
+            if (poke->lvl>=25)
+            {
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                //*poke=blastoise;
+                
+                sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+            
+                //print_evolution(evolve_win,squirtle,blastoise);
+            }
+            break;
+
+        case PIKACHU:
+            if (poke->lvl>=25)
+            {
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                //*poke=raichu;
+                
+                sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+            
+                //print_evolution(evolve_win,pikachu,raichu);
+            }
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    if (delwin(evolve_win)==ERR)
+    {
+        exit(48);
+    }  
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop evolve theme
+}
+
 void silent_pokelvlup(int times, pokemon* player_poke){
-    pokemon pokenull,charmander,bulbasaur,squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
     if (player_poke->type!=0)
     {
@@ -966,15 +1152,16 @@ void silent_pokelvlup(int times, pokemon* player_poke){
 }
 
 void pokelvlup(WINDOW* win,int x,int y,int times, pokemon* player_poke){
-    pokemon pokenull,charmander,bulbasaur,squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
-    if (player_poke->type!=0)
+    if (player_poke->type!=NOPOKEMON)
     {
         for (int i = 0; i < times; i++)
         {
-            system("killall -9 vlc"); // stop main theme
-            system("cvlc ressources/poke_lvl_up_sound.mp3 >/dev/null 2>&1 &"); // start evolve theme
+            system("killall -9 vlc >/dev/null 2>&1 &"); // stop main theme
+            usleep(1000); // pour pas kill la prochaine commande
+            system("cvlc ressources/lvlup-theme.mp3 >/dev/null 2>&1 &"); // start lvlup theme
 
             player_poke->lvl+=1;
             player_poke->atk+=1;
@@ -996,8 +1183,20 @@ void pokelvlup(WINDOW* win,int x,int y,int times, pokemon* player_poke){
 
     mvwprintw(win,x,y,"                                       ");
     wrefresh(win);
-    system("killall -9 vlc"); // stop evolve theme
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop lvlup theme
+    usleep(1000); // pour pas kill la prochaine commande
+
+    evolvepoke(player_poke);
+    usleep(1000); // pour pas kill la prochaine commande
+    
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
+}
+
+void playerlvlup(trainer* player){
+    if (player->xp>=player->lvl*100)
+    {
+        player->lvl+=1;
+    }
 }
 
 // match returns 1 in case of victory and 0 in case of defeat
@@ -1018,8 +1217,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
         box(jauge_champion,0,0);
         box(jauge_player,0,0);
 
-        pokemon charmander,pokenull,bulbasaur,squirtle;
-        init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+        pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+        init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
         print_match(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
         mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
@@ -1611,7 +1810,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         usleep(16667);
                         if (delwin(fight)==ERR)
                         {
-                            system("killall -9 vlc");
+                            system("killall -9 vlc >/dev/null 2>&1 &");
                             exit(47);
                         } 
                     }
@@ -1809,7 +2008,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         usleep(16667);
                         if (delwin(bag)==ERR)
                         {
-                            system("killall -9 vlc");
+                            system("killall -9 vlc >/dev/null 2>&1 &");
                             exit(47);
                         } 
                     }  
@@ -1830,27 +2029,27 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
         usleep(16667);
         if (delwin(jauge_champion)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(45);
         }
         if (delwin(jauge_player)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(46);
         }
         if (delwin(actions)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(44);
         } 
         if (delwin(text)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(43);
         }  
         if (delwin(match)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(42);
         }  
     }
@@ -1863,7 +2062,8 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
 
     if (player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0)
     {
-        system("killall -9 vlc"); // stop main theme
+        system("killall -9 vlc >/dev/null 2>&1 &"); // stop main theme
+        usleep(1000);
         system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
         if(match(player,&player->poke1,&champion.poke1,0,&count_atk)==1)
         {
@@ -1871,6 +2071,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             {
                 if (match(player,&player->poke1,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1883,6 +2084,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1895,6 +2097,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1907,6 +2110,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else 
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     return 0; // defeat
                 }
@@ -1915,6 +2119,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             {
                 if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1927,6 +2132,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1939,6 +2145,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else 
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     return 0; // defeat
                 }
@@ -1947,6 +2154,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             {
                 if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1959,12 +2167,14 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     return 0; // defeat     
                 }
             }
             else
             {
+                wclear(blackscreen);
                 wrefresh(blackscreen);
                 return 0; // defeat
             }   
@@ -1976,6 +2186,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             {
                 if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -1988,6 +2199,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -2000,6 +2212,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     return 0; // defeat
                 }
@@ -2008,6 +2221,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             {
                 if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -2020,12 +2234,14 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     return 0; // defeat
                 }
             }
             else
             {
+                wclear(blackscreen);
                 wrefresh(blackscreen);
                 return 0; // defeat
             }
@@ -2037,6 +2253,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             {
                 if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     box(league_map,0,0);
                     print_league(league_map,14,65,champion);
@@ -2049,12 +2266,14 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 }
                 else
                 {
+                    wclear(blackscreen);
                     wrefresh(blackscreen);
                     return 0; // defeat
                 }
             }
             else
             {
+                wclear(blackscreen);
                 wrefresh(blackscreen);
                 return 0; // defeat
             }
@@ -2062,15 +2281,17 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
 
         else 
         {
+            wclear(blackscreen);
             wrefresh(blackscreen);
             return 0; // defeat
         }
             if (delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(47);
         }  
-        system("killall -9 vlc"); // stop battle theme
+        system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
+        usleep(1000);
         system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
     }
     else
@@ -2085,20 +2306,22 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
         mvwprintw(league_map,15,72,"                    ");
         if (delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(47);
         }  
-        system("killall -9 vlc"); // stop battle theme
+        system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
+        usleep(1000);
         system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
         return 2;
     }
 
     if (delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(47);
         }  
-    system("killall -9 vlc"); // stop battle theme
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
+        usleep(1000);
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
 }
 
@@ -2152,12 +2375,12 @@ void house(trainer* player){
         usleep(16667);
         if (delwin(line_wall)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(12);
         }
         if (delwin(house_map)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(11);
         }
     }
@@ -2240,17 +2463,17 @@ void league(trainer* player){
         usleep(16667);
         if (delwin(line_wall_league)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(37);
         }
         if (delwin(arena_zone)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(38);
         }
         if (delwin(league_map)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(36);
         }
     }
@@ -2311,12 +2534,12 @@ void lab(trainer* player){
         usleep(16667);
         if(delwin(line_wall_lab)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(19);
         }
         if(delwin(lab_map)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(20);
         }
     }
@@ -2372,12 +2595,12 @@ void shop(trainer* player){
         usleep(16667);
         if (delwin(line_wall)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(12);
         }
         if (delwin(shop_map)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(11);
         }
     }
@@ -2421,6 +2644,7 @@ void your_team(trainer* player){
         switch (ch) // actions
         {
         case ' ':
+            wclear(blackscreen);
             wrefresh(blackscreen);
             finish=1;
             break;
@@ -2890,7 +3114,7 @@ void your_team(trainer* player){
                 usleep(16667);
                 if(delwin(actions)==ERR)
                 {
-                    system("killall -9 vlc");
+                    system("killall -9 vlc >/dev/null 2>&1 &");
                     exit(45);
                 } 
             }
@@ -2902,49 +3126,50 @@ void your_team(trainer* player){
         usleep(16667);
         if(delwin(box1)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(36);
         }
         if(delwin(box2)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(37);
         }
         if(delwin(box3)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(38);
         }
         if(delwin(box4)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(39);
         }
         if(delwin(box5)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(40);
         }
         if(delwin(box6)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(41);
         }
         if(delwin(yourteam)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(34);
         }
         if(delwin(yourteam_array)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(33);
         }   
     }
+    wclear(blackscreen);
     wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(32);
         }
 }
@@ -2957,11 +3182,25 @@ void menu(int* quit,trainer* player){
     while(chmenu!='m' && menuexit==0)
         {            
             WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+            WINDOW* jaugelvl=newwin(3,51,16,135);
+
+            box(jaugelvl,0,0);
+            int array_lvl=(player->xp/player->lvl)*0.5;
+            if (array_lvl>0)
+            {
+                for (int i =1 ; i < array_lvl ; i++)
+                {
+                    mvwprintw(jaugelvl,1,i,"#");
+                }
+            }
+            mvwprintw(winmenu,3,96,"You have %d $                       You are lvl %d",player->money,player->lvl);
+            mvwprintw(winmenu,8,97,"%d/%d xp",player->xp,player->lvl*100);
             
             print_menu(winmenu,x,y);
 
             box(winmenu,0,0);
             wrefresh(winmenu);  
+            wrefresh(jaugelvl);  
             
             chmenu=getch();        
 
@@ -2978,7 +3217,7 @@ void menu(int* quit,trainer* player){
                         menuexit=1;
                         *quit=1;
                         //end music
-                        system("killall -9 vlc");
+                        system("killall -9 vlc >/dev/null 2>&1 &");
                         endwin();
                         exit(0);
                         break;
@@ -2988,6 +3227,7 @@ void menu(int* quit,trainer* player){
                         break;
 
                     case 13:
+                        wclear(blackscreen);
                         wrefresh(blackscreen);
                         your_team(player);
                         break;
@@ -3006,15 +3246,20 @@ void menu(int* quit,trainer* player){
             usleep(16667);
             if(delwin(winmenu)==ERR)
             {
-                system("killall -9 vlc");
+                system("killall -9 vlc >/dev/null 2>&1 &");
                 exit(4);
+            }
+            if(delwin(jaugelvl)==ERR)
+            {
+                system("killall -9 vlc >/dev/null 2>&1 &");
+                exit(47);
             }
         }
         wclear(blackscreen);
         wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(24);
         }      
 }
@@ -3034,7 +3279,7 @@ void inventory(trainer* player){
         mvwprintw(bag_array,1+1,12,"| _ ) /_\\ / __|");
         mvwprintw(bag_array,1+2,12,"| _ \\/ _ \\ (_ |");
         mvwprintw(bag_array,1+3,12,"|___/_/ \\_\\___|");
-                                  
+
         ch=getch();
         print_inventory(sac,player,x,y);        
         wrefresh(sac);
@@ -3060,19 +3305,20 @@ void inventory(trainer* player){
         usleep(16667);
         if(delwin(sac)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(5);
         }
         if(delwin(bag_array)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(6);
         }   
     }
+    wclear(blackscreen);
     wrefresh(blackscreen);
         if (delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(25);
         } 
 }
@@ -3276,37 +3522,37 @@ void roadto_league(trainer* player){
         usleep(16667);
         if(delwin(cam)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(15);
         }
         if(delwin(cadre)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(16);
         }
         if(delwin(chute)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(21);
         }
         if(delwin(limite_bas)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(22);
         }
         if(delwin(limite_haut)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(23);
         }
         if(delwin(road)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(17);
         }
         if(delwin(blackscreen)==ERR)
         {
-            system("killall -9 vlc");
+            system("killall -9 vlc >/dev/null 2>&1 &");
             exit(18);
         }
     }
@@ -3320,6 +3566,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     ch=getch();
     print_main_menu(win,*x,*y);
 
+    wclear(blackscreen);
     wrefresh(blackscreen);
     wrefresh(win);
     switch (ch)
@@ -3358,9 +3605,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             create_newplayer(player);
             get_firstpoke(player);
-            league(player);
             *quit=1;
-            chargement();
             break;
         
         default:
@@ -3374,12 +3619,12 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     usleep(16667);
     if(delwin(win)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(7);
     }
     if(delwin(blackscreen)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(7);
     }
 }
@@ -3448,17 +3693,17 @@ void game(trainer* player, int* quit,int* l,int* c){
 
     if(delwin(cam)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(8);
     }
     if(delwin(cadre)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(9);
     }
     if(delwin(map)==ERR)
     {
-        system("killall -9 vlc");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(10);
     }
 }

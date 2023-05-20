@@ -40,6 +40,8 @@
 #define CHARMANDER 1
 #define SQUIRTLE 2 
 #define BULBASAUR 3
+#define PIKACHU 4
+#define CHARIZARD 5
 
 typedef struct
 {
