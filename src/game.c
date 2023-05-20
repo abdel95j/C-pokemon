@@ -11,8 +11,10 @@
 #include "../headers/talkbis.h"
 
 void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
-    int sort1=rand()%3;
-    int sort2=rand()%2;
+    int sort1=rand()%3;    int lvlsort1=rand()%3;
+    int sort2=rand()%2;    int lvlsort2=rand()%2;
+    int moy_lvl=(player->poke1.lvl+player->poke2.lvl+player->poke3.lvl)/3;
+
     pokemon charmander,pokenull,bulbasaur,squirtle;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
 
@@ -43,21 +45,333 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
             red->lvl=player->lvl;
             blue->lvl=player->lvl;
             yellow->lvl=player->lvl;
-            //lvl poke adjustment
+            switch (lvlsort2)
+            {
+            case 0: // MINUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl-1,&red->poke1);
+                    silent_pokelvlup(moy_lvl-1,&red->poke2);
+                    silent_pokelvlup(moy_lvl-1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl-2,&red->poke1);
+                    silent_pokelvlup(moy_lvl-2,&red->poke2);
+                    silent_pokelvlup(moy_lvl-2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+
+            case 1: // PLUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl+1,&red->poke1);
+                    silent_pokelvlup(moy_lvl+1,&red->poke2);
+                    silent_pokelvlup(moy_lvl+1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl+2,&red->poke1);
+                    silent_pokelvlup(moy_lvl+2,&red->poke2);
+                    silent_pokelvlup(moy_lvl+2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             break;
         
         case 1:
             red->lvl=player->lvl-1;
             blue->lvl=player->lvl-1;
             yellow->lvl=player->lvl-1;
-            //lvl poke adjustment
+            switch (lvlsort2)
+            {
+            case 0: // MINUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl-1,&red->poke1);
+                    silent_pokelvlup(moy_lvl-1,&red->poke2);
+                    silent_pokelvlup(moy_lvl-1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl-2,&red->poke1);
+                    silent_pokelvlup(moy_lvl-2,&red->poke2);
+                    silent_pokelvlup(moy_lvl-2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+
+            case 1: // PLUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl+1,&red->poke1);
+                    silent_pokelvlup(moy_lvl+1,&red->poke2);
+                    silent_pokelvlup(moy_lvl+1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl+2,&red->poke1);
+                    silent_pokelvlup(moy_lvl+2,&red->poke2);
+                    silent_pokelvlup(moy_lvl+2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             break;
         
         case 2:
             red->lvl=player->lvl-2;
             blue->lvl=player->lvl-2;
             yellow->lvl=player->lvl-2;
-            //lvl poke adjustment
+            switch (lvlsort2)
+            {
+            case 0: // MINUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl-1,&red->poke1);
+                    silent_pokelvlup(moy_lvl-1,&red->poke2);
+                    silent_pokelvlup(moy_lvl-1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl-2,&red->poke1);
+                    silent_pokelvlup(moy_lvl-2,&red->poke2);
+                    silent_pokelvlup(moy_lvl-2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+
+            case 1: // PLUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl+1,&red->poke1);
+                    silent_pokelvlup(moy_lvl+1,&red->poke2);
+                    silent_pokelvlup(moy_lvl+1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl+2,&red->poke1);
+                    silent_pokelvlup(moy_lvl+2,&red->poke2);
+                    silent_pokelvlup(moy_lvl+2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             break;
         
         default:
@@ -65,28 +379,340 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
         }
         break;
 
-    case 1: // ADD
+    case 1: // PLUS
         switch (sort1)
         {
         case 0:
             red->lvl=player->lvl;
             blue->lvl=player->lvl;
             yellow->lvl=player->lvl;
-            //lvl poke adjustment
+            switch (lvlsort2)
+            {
+            case 0: // MINUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl-1,&red->poke1);
+                    silent_pokelvlup(moy_lvl-1,&red->poke2);
+                    silent_pokelvlup(moy_lvl-1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl-2,&red->poke1);
+                    silent_pokelvlup(moy_lvl-2,&red->poke2);
+                    silent_pokelvlup(moy_lvl-2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+
+            case 1: // PLUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl+1,&red->poke1);
+                    silent_pokelvlup(moy_lvl+1,&red->poke2);
+                    silent_pokelvlup(moy_lvl+1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl+2,&red->poke1);
+                    silent_pokelvlup(moy_lvl+2,&red->poke2);
+                    silent_pokelvlup(moy_lvl+2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             break;
         
         case 1:
             red->lvl=player->lvl+1;
             blue->lvl=player->lvl+1;
             yellow->lvl=player->lvl+1;
-            //lvl poke adjustment
+            switch (lvlsort2)
+            {
+            case 0: // MINUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl-1,&red->poke1);
+                    silent_pokelvlup(moy_lvl-1,&red->poke2);
+                    silent_pokelvlup(moy_lvl-1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl-2,&red->poke1);
+                    silent_pokelvlup(moy_lvl-2,&red->poke2);
+                    silent_pokelvlup(moy_lvl-2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+
+            case 1: // PLUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl+1,&red->poke1);
+                    silent_pokelvlup(moy_lvl+1,&red->poke2);
+                    silent_pokelvlup(moy_lvl+1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl+2,&red->poke1);
+                    silent_pokelvlup(moy_lvl+2,&red->poke2);
+                    silent_pokelvlup(moy_lvl+2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             break;
         
         case 2:
             red->lvl=player->lvl+2;
             blue->lvl=player->lvl+2;
             yellow->lvl=player->lvl+2;
-            //lvl poke adjustment
+            switch (lvlsort2)
+            {
+            case 0: // MINUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl-1,&red->poke1);
+                    silent_pokelvlup(moy_lvl-1,&red->poke2);
+                    silent_pokelvlup(moy_lvl-1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl-2,&red->poke1);
+                    silent_pokelvlup(moy_lvl-2,&red->poke2);
+                    silent_pokelvlup(moy_lvl-2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl-2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl-2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+
+            case 1: // PLUS
+                switch (lvlsort1)
+                {
+                case 0:
+                    silent_pokelvlup(moy_lvl,&red->poke1);
+                    silent_pokelvlup(moy_lvl,&red->poke2);
+                    silent_pokelvlup(moy_lvl,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl,&blue->poke1);
+                    silent_pokelvlup(moy_lvl,&blue->poke2);
+                    silent_pokelvlup(moy_lvl,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl,&yellow->poke3);
+                    break;
+                
+                case 1:
+                    silent_pokelvlup(moy_lvl+1,&red->poke1);
+                    silent_pokelvlup(moy_lvl+1,&red->poke2);
+                    silent_pokelvlup(moy_lvl+1,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+1,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+1,&yellow->poke3);
+                    break;
+                
+                case 2:
+                    silent_pokelvlup(moy_lvl+2,&red->poke1);
+                    silent_pokelvlup(moy_lvl+2,&red->poke2);
+                    silent_pokelvlup(moy_lvl+2,&red->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&blue->poke1);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke2);
+                    silent_pokelvlup(moy_lvl+2,&blue->poke3);
+
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke1);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke2);
+                    silent_pokelvlup(moy_lvl+2,&yellow->poke3);
+                    break;
+                
+                default:
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
             break;
         
         default:
@@ -239,8 +865,6 @@ void create_newplayer(trainer* newplayer){
     newplayer->inventory[SLOT6].type=0;
     sprintf(newplayer->inventory[SLOT6].name,"empty"); 
 
-
-
     for (int i = 0; i < 20; i++)
     {
         newplayer->pc[i]=pokenull;
@@ -324,6 +948,58 @@ void get_firstpoke(trainer* player){
     } 
 }
 
+void silent_pokelvlup(int times, pokemon* player_poke){
+    pokemon pokenull,charmander,bulbasaur,squirtle;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+
+    if (player_poke->type!=0)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            player_poke->lvl+=1;
+            player_poke->atk+=1;
+            player_poke->def=player_poke->def+0.002;
+            player_poke->pv+=2;
+            player_poke->pv_save+=2;
+        }
+    }
+}
+
+void pokelvlup(WINDOW* win,int x,int y,int times, pokemon* player_poke){
+    pokemon pokenull,charmander,bulbasaur,squirtle;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+
+    if (player_poke->type!=0)
+    {
+        for (int i = 0; i < times; i++)
+        {
+            system("killall -9 vlc"); // stop main theme
+            system("cvlc ressources/poke_lvl_up_sound.mp3 >/dev/null 2>&1 &"); // start evolve theme
+
+            player_poke->lvl+=1;
+            player_poke->atk+=1;
+            player_poke->def=player_poke->def+0.002;
+            player_poke->pv+=2;
+            player_poke->pv_save+=2;
+
+            mvwprintw(win,x,y,"%s has reached the lvl %d !",player_poke->name,player_poke->lvl);
+            wrefresh(win);
+            sleep(2);
+        }
+    }
+    else
+    {
+        mvwprintw(win,x,y,"There is no pokemon in this emplacement");
+        wrefresh(win);
+        sleep(2);
+    }
+
+    mvwprintw(win,x,y,"                                       ");
+    wrefresh(win);
+    system("killall -9 vlc"); // stop evolve theme
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
+}
+
 // match returns 1 in case of victory and 0 in case of defeat
 int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int League0_Catch1, int* count_atk){
     int finish=0, ch=ERR;   
@@ -389,12 +1065,6 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
             }
             break;
 
-        case ' ':
-            wclear(match);
-            wrefresh(match);
-            finish=1;
-            break;
-
         case 'e':
         case '\r':
         case '\n':
@@ -425,6 +1095,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                     int finish_fight=0;
                     int x_fight=3;
                     int whatatk=0;
+                    int dodgevar=0;
                     while (finish_fight==0)
                     {
                         WINDOW* fight=subwin(match,13,77,40,119);
@@ -504,22 +1175,35 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                             //your turn
                                 mvwprintw(text,5,15,"                                                         ");
                                 mvwprintw(text,5,23,"%s uses %s !",player_poke->name,player_poke->basicatk);
-                                champion_poke->pv-=dmg;
                                 has_atk=1;
-                                if (champion_poke->pv<=0)
+                                dodgevar=rand()%101;
+                                wrefresh(text);
+                                wrefresh(fight);
+                                sleep(2);
+                                if (champion_poke->dodge>=dodgevar)
                                 {
-                                    champion_poke->pv=0;
-                                    finish=1;
-                                    finish_fight=1;
-                                    has_atk=0;
-                                    *count_atk+=1;
                                     mvwprintw(text,5,15,"                                                         ");
-                                    mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",champion_poke->name);
-                                    print_poke(match,pokenull,6,110,0);
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    mvwprintw(text,5,23,"%s dodges the attack !",champion_poke->name);
                                     wrefresh(fight);
-                                    sleep(2);
-                                    return 1;
+                                }
+                                else
+                                {
+                                    champion_poke->pv-=dmg;
+                                    if (champion_poke->pv<=0)
+                                    {
+                                        champion_poke->pv=0;
+                                        finish=1;
+                                        finish_fight=1;
+                                        has_atk=0;
+                                        *count_atk+=1;
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",champion_poke->name);
+                                        print_poke(match,pokenull,6,110,0);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                        return 1;
+                                    }
                                 }
                                 *count_atk+=1;
                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
@@ -539,21 +1223,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         wrefresh(fight);
                                         sleep(1);
                                         mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
-                                        player_poke->pv-=2*dmg;
-                                        if (player_poke->pv<=0)
+                                        dodgevar=rand()%101;
+                                        wrefresh(fight);
+                                        wrefresh(text);
+                                        sleep(2);
+                                        if (player_poke->dodge>=dodgevar)
                                         {
-                                            player_poke->pv=0;
-                                            finish=1;
-                                            finish_fight=1;
-                                            has_atk=0;
-                                            *count_atk=1;
                                             mvwprintw(text,5,15,"                                                         ");
-                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
-                                            print_poke(match,pokenull,17,10,1);
-                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            mvwprintw(text,5,23,"Your %s dodges the attack !",player_poke->name);
                                             wrefresh(fight);
-                                            sleep(2);
-                                            return 0;
+                                        }
+                                        else 
+                                        {
+                                            player_poke->pv-=2*dmg;
+                                            if (player_poke->pv<=0)
+                                            {
+                                                player_poke->pv=0;
+                                                finish=1;
+                                                finish_fight=1;
+                                                has_atk=0;
+                                                *count_atk=1;
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                print_poke(match,pokenull,17,10,1);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(fight);
+                                                sleep(2);
+                                                return 0;
+                                            }
                                         }
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(text);
@@ -567,21 +1264,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         wrefresh(fight);
                                         sleep(1);
                                         mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
-                                        player_poke->pv-=dmg;
-                                        if (player_poke->pv<=0)
+                                        dodgevar=rand()%101;
+                                        wrefresh(fight);
+                                        wrefresh(text);
+                                        sleep(2);
+                                        if (player_poke->dodge>=dodgevar)
                                         {
-                                            player_poke->pv=0;
-                                            finish=1;
-                                            finish_fight=1;
-                                            has_atk=0;
-                                            *count_atk=1;
                                             mvwprintw(text,5,15,"                                                         ");
-                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
-                                            print_poke(match,pokenull,17,10,1);
-                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            mvwprintw(text,5,23,"Your %s dodges the attack !",player_poke->name);
                                             wrefresh(fight);
-                                            sleep(2);
-                                            return 0;
+                                        }
+                                        else 
+                                        {
+                                            player_poke->pv-=dmg;
+                                            if (player_poke->pv<=0)
+                                            {
+                                                player_poke->pv=0;
+                                                finish=1;
+                                                finish_fight=1;
+                                                has_atk=0;
+                                                *count_atk=1;
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                print_poke(match,pokenull,17,10,1);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(fight);
+                                                sleep(2);
+                                                return 0;
+                                            }
                                         }
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(text);
@@ -597,22 +1307,35 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                 {
                                     mvwprintw(text,5,15,"                                                         ");
                                     mvwprintw(text,5,23,"%s uses his special move %s !",player_poke->name,player_poke->speatk);
-                                    champion_poke->pv=champion_poke->pv-(2*dmg);
                                     has_atk=1;
-                                    if (champion_poke->pv<=0)
-                                    {
-                                        champion_poke->pv=0;
-                                        finish=1;
-                                        finish_fight=1;
-                                        has_atk=0;
-                                        *count_atk+=1;
-                                        mvwprintw(text,5,15,"                                                         ");
-                                        mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",champion_poke->name);
-                                        print_poke(match,pokenull,6,110,0);
-                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                    dodgevar=rand()%101;
+                                    wrefresh(text);
                                         wrefresh(fight);
-                                        sleep(2);
-                                        return 1;
+                                sleep(2);
+                                    if (champion_poke->dodge>=dodgevar)
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        mvwprintw(text,5,23,"%s dodges the attack !",champion_poke->name);
+                                        wrefresh(fight);
+                                    }
+                                    else
+                                    {
+                                        champion_poke->pv=champion_poke->pv-(2*dmg);
+                                        if (champion_poke->pv<=0)
+                                        {
+                                            champion_poke->pv=0;
+                                            finish=1;
+                                            finish_fight=1;
+                                            has_atk=0;
+                                            *count_atk+=1;
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",champion_poke->name);
+                                            print_poke(match,pokenull,6,110,0);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(fight);
+                                            sleep(2);
+                                            return 1;
+                                        }
                                     }
                                     jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                     wrefresh(fight);
@@ -641,21 +1364,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         wrefresh(fight);
                                         sleep(1);
                                         mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
-                                        player_poke->pv-=2*dmg;
-                                        if (player_poke->pv<=0)
+                                        dodgevar=rand()%101;
+                                        wrefresh(fight);
+                                        wrefresh(text);
+                                        sleep(2);
+                                        if (player_poke->dodge>=dodgevar)
                                         {
-                                            player_poke->pv=0;
-                                            finish=1;
-                                            finish_fight=1;
-                                            has_atk=0;
-                                            *count_atk=1;
                                             mvwprintw(text,5,15,"                                                         ");
-                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
-                                            print_poke(match,pokenull,17,10,1);
-                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            mvwprintw(text,5,23,"Your %s dodges the attack !",player_poke->name);
                                             wrefresh(fight);
-                                            sleep(2);
-                                            return 0;
+                                        }
+                                        else 
+                                        {
+                                            player_poke->pv-=2*dmg;
+                                            if (player_poke->pv<=0)
+                                            {
+                                                player_poke->pv=0;
+                                                finish=1;
+                                                finish_fight=1;
+                                                has_atk=0;
+                                                *count_atk=1;
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                print_poke(match,pokenull,17,10,1);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(fight);
+                                                sleep(2);
+                                                return 0;
+                                            }
                                         }
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(text);
@@ -669,21 +1405,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         wrefresh(fight);
                                         sleep(1);
                                         mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
-                                        player_poke->pv-=dmg;
-                                        if (player_poke->pv<=0)
+                                        dodgevar=rand()%101;
+                                        wrefresh(fight);
+                                        wrefresh(text);
+                                        sleep(2);
+                                        if (player_poke->dodge>=dodgevar)
                                         {
-                                            player_poke->pv=0;
-                                            finish=1;
-                                            finish_fight=1;
-                                            has_atk=0;
-                                            *count_atk=1;
                                             mvwprintw(text,5,15,"                                                         ");
-                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
-                                            print_poke(match,pokenull,17,10,1);
-                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            mvwprintw(text,5,23,"Your %s dodges the attack !",player_poke->name);
                                             wrefresh(fight);
-                                            sleep(2);
-                                            return 0;
+                                        }
+                                        else 
+                                        {
+                                            player_poke->pv-=dmg;
+                                            if (player_poke->pv<=0)
+                                            {
+                                                player_poke->pv=0;
+                                                finish=1;
+                                                finish_fight=1;
+                                                has_atk=0;
+                                                *count_atk=1;
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                print_poke(match,pokenull,17,10,1);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(fight);
+                                                sleep(2);
+                                                return 0;
+                                            }
                                         }
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(text);
@@ -700,15 +1449,28 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                 case LEER:
                                     mvwprintw(text,5,15,"                                                         ");
                                     mvwprintw(text,5,23,"%s uses %s !",player_poke->name,player_poke->CTstat->name);
-                                    champion_poke->def-=0.1;
+                                    dodgevar=rand()%101;
                                     has_atk=1;
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(fight);
-                                    sleep(2);
-                                    mvwprintw(text,5,23,"                                        ");
-                                    mvwprintw(text,5,23,"%s's defense has decreased",champion_poke->name);
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(fight);
+                                    wrefresh(text);
+                                        wrefresh(fight);
+                                sleep(2);
+                                    if (champion_poke->dodge>=dodgevar)
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        mvwprintw(text,5,23,"%s dodges the attack !",champion_poke->name);
+                                        wrefresh(fight);
+                                    }
+                                    else
+                                    {
+                                        champion_poke->def-=0.1;
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                        mvwprintw(text,5,23,"                                        ");
+                                        mvwprintw(text,5,23,"%s's defense has decreased",champion_poke->name);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(fight);
+                                    }
                                     sleep(1);
                                     *count_atk+=1;
                                     break;
@@ -716,15 +1478,27 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                 case ROAR:
                                     mvwprintw(text,5,15,"                                                         ");
                                     mvwprintw(text,5,23,"%s uses %s !",player_poke->name,player_poke->CTstat->name);
-                                    champion_poke->atk-=1.5;
                                     has_atk=1;
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(fight);
-                                    sleep(2);
-                                    mvwprintw(text,5,15,"                                                         ");
-                                    mvwprintw(text,5,23,"%s's attack has decreased",champion_poke->name);
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(fight);
+                                    wrefresh(text);
+                                        wrefresh(fight);
+                                sleep(2);
+                                    if (champion_poke->dodge>=dodgevar)
+                                    {
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        mvwprintw(text,5,23,"%s dodges the attack !",champion_poke->name);
+                                        wrefresh(fight);
+                                    }
+                                    else
+                                    { 
+                                        champion_poke->atk-=1.5;
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(fight);
+                                        sleep(2);
+                                        mvwprintw(text,5,15,"                                                         ");
+                                        mvwprintw(text,5,23,"%s's attack has decreased",champion_poke->name);
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(fight);
+                                    }
                                     sleep(1);
                                     *count_atk+=1;
                                     break;
@@ -745,23 +1519,36 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         wrefresh(text);
                                         wrefresh(fight);
                                         sleep(1);
-                                        player_poke->pv-=2*dmg;
-                                        if (player_poke->pv<=0)
-                                        {
-                                            player_poke->pv=0;
-                                            finish=1;
-                                            finish_fight=1;
-                                            has_atk=0;
-                                            *count_atk=1;
-                                            mvwprintw(text,5,15,"                                                         ");
-                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
-                                            print_poke(match,pokenull,17,10,1);
-                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                            wrefresh(fight);
-                                            sleep(2);
-                                            return 0;
-                                        }
                                         mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
+                                        dodgevar=rand()%101;
+                                        wrefresh(fight);
+                                        wrefresh(text);
+                                        sleep(2);
+                                        if (player_poke->dodge>=dodgevar)
+                                        {
+                                            mvwprintw(text,5,15,"                                                         ");
+                                            mvwprintw(text,5,23,"Your %s dodges the attack !",player_poke->name);
+                                            wrefresh(fight);
+                                        }
+                                        else 
+                                        {
+                                            player_poke->pv-=2*dmg;
+                                            if (player_poke->pv<=0)
+                                            {
+                                                player_poke->pv=0;
+                                                finish=1;
+                                                finish_fight=1;
+                                                has_atk=0;
+                                                *count_atk=1;
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                print_poke(match,pokenull,17,10,1);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(fight);
+                                                sleep(2);
+                                                return 0;
+                                            }
+                                        }
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(text);
                                         wrefresh(fight);
@@ -774,21 +1561,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         wrefresh(fight);
                                         sleep(1);
                                         mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
-                                        player_poke->pv-=dmg;
-                                        if (player_poke->pv<=0)
+                                        dodgevar=rand()%101;
+                                        wrefresh(fight);
+                                        wrefresh(text);
+                                        sleep(2);
+                                        if (player_poke->dodge>=dodgevar)
                                         {
-                                            player_poke->pv=0;
-                                            finish=1;
-                                            finish_fight=1;
-                                            has_atk=0;
-                                            *count_atk=1;
                                             mvwprintw(text,5,15,"                                                         ");
-                                            mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
-                                            print_poke(match,pokenull,17,10,1);
-                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            mvwprintw(text,5,23,"Your %s dodges the attack !",player_poke->name);
                                             wrefresh(fight);
-                                            sleep(2);
-                                            return 0;
+                                        }
+                                        else 
+                                        {
+                                            player_poke->pv-=dmg;
+                                            if (player_poke->pv<=0)
+                                            {
+                                                player_poke->pv=0;
+                                                finish=1;
+                                                finish_fight=1;
+                                                has_atk=0;
+                                                *count_atk=1;
+                                                mvwprintw(text,5,15,"                                                         ");
+                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                print_poke(match,pokenull,17,10,1);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(fight);
+                                                sleep(2);
+                                                return 0;
+                                            }
                                         }
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(text);
@@ -1061,11 +1861,10 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
     WINDOW* blackscreen = newwin(LINES-1,COLS-1,0,0);
     int count_atk=1;
 
-    system("killall -9 vlc"); // stop main theme
-    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
-
     if (player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0)
     {
+        system("killall -9 vlc"); // stop main theme
+        system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
         if(match(player,&player->poke1,&champion.poke1,0,&count_atk)==1)
         {
             if (match(player,&player->poke1,&champion.poke2,0,&count_atk)==1)
@@ -1073,16 +1872,37 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 if (match(player,&player->poke1,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke1);
                     return 1; // victory
                 }
                 else if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke2);
                     return 1; // victory
                 }
                 else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke3);
                     return 1; // victory
                 }
                 else 
@@ -1096,11 +1916,25 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke2);
                     return 1; // victory
                 }
                 else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke3);
                     return 1; // victory
                 }
                 else 
@@ -1114,6 +1948,13 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke3);
                     return 1; // victory
                 }
                 else
@@ -1136,11 +1977,25 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 if (match(player,&player->poke2,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke2);
                     return 1; // victory
                 }
                 else if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke3);
                     return 1; // victory
                 }
                 else
@@ -1154,6 +2009,13 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke3);
                     return 1; // victory
                 }
                 else
@@ -1176,6 +2038,13 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
                 if (match(player,&player->poke3,&champion.poke3,0,&count_atk)==1)
                 {
                     wrefresh(blackscreen);
+                    box(league_map,0,0);
+                    print_league(league_map,14,65,champion);
+                    wrefresh(league_map);
+                    mvwprintw(league_map,13,72,"                 ");
+                    mvwprintw(league_map,14,72,"                 ");
+                    wrefresh(league_map);
+                    pokelvlup(league_map,13,72,1,&player->poke3);
                     return 1; // victory
                 }
                 else
@@ -1196,7 +2065,13 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             wrefresh(blackscreen);
             return 0; // defeat
         }
-
+            if (delwin(blackscreen)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(47);
+        }  
+        system("killall -9 vlc"); // stop battle theme
+        system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
     }
     else
     {
@@ -1208,6 +2083,14 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
         mvwprintw(league_map,13,72,"                          ");
         mvwprintw(league_map,14,72,"                     ");
         mvwprintw(league_map,15,72,"                    ");
+        if (delwin(blackscreen)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(47);
+        }  
+        system("killall -9 vlc"); // stop battle theme
+        system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
+        return 2;
     }
 
     if (delwin(blackscreen)==ERR)

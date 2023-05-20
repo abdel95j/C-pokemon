@@ -949,8 +949,9 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                     mvwprintw(league_map,14,72,"                         ");
                     mvwprintw(league_map,15,72,"                         ");
 
-                    if(duel(league_map,player,champion)==1)
+                    switch (duel(league_map,player,champion))
                     {
+                    case 1:
                         box(league_map,0,0);
                         print_league(league_map,14,65,champion);
                         wrefresh(league_map);
@@ -971,9 +972,9 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         *has_fought=1;
                         player->money+=70;
                         player->xp+=player->lvl*10;
-                    }
-                    else
-                    {
+                        break;
+
+                    case 0:
                         box(league_map,0,0);
                         print_league(league_map,14,65,champion);
                         wrefresh(league_map);
@@ -994,6 +995,25 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         *has_fought=1;
                         player->money+=30;
                         player->xp+=player->lvl*5;
+                        break;
+
+                    case 2:
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"Maybe you should have your full");
+                        write_flush(league_map,14,72,"team to challenge me idiot");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        *has_fought=1;
+                        break;
+                    
+                    default:
+                        break;
                     }
                     finish=1;
                 }
@@ -1109,8 +1129,9 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                     mvwprintw(league_map,13,72,"                        ");
                     mvwprintw(league_map,14,72,"                        ");
 
-                    if(duel(league_map,player,champion)==1)
+                    switch (duel(league_map,player,champion))
                     {
+                    case 1:
                         box(league_map,0,0);
                         print_league(league_map,14,65,champion);
                         wrefresh(league_map);
@@ -1131,9 +1152,9 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         *has_fought=1;
                         player->money+=70;
                         player->xp+=player->lvl*10;
-                    }
-                    else
-                    {
+                        break;
+
+                    case 0:
                         box(league_map,0,0);
                         print_league(league_map,14,65,champion);
                         wrefresh(league_map);
@@ -1154,6 +1175,25 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         *has_fought=1;
                         player->money+=30;
                         player->xp+=player->lvl*5;
+                        break;
+
+                    case 2:
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"NO YOUR POKEMON IS DEAD ????");
+                        write_flush(league_map,14,72,"YOU CANT JUST... Zzzzz");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        *has_fought=1;
+                        break;
+                    
+                    default:
+                        break;
                     }
                     finish=1;
                 }
@@ -1249,8 +1289,9 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                     mvwprintw(league_map,14,72,"                     ");
                     mvwprintw(league_map,15,72,"                    ");
 
-                    if(duel(league_map,player,champion)==1)
+                    switch (duel(league_map,player,champion))
                     {
+                    case 1:
                         box(league_map,0,0);
                         print_league(league_map,14,65,champion);
                         wrefresh(league_map);
@@ -1271,9 +1312,9 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         *has_fought=1;
                         player->money+=70;
                         player->xp+=player->lvl*10;
-                    }
-                    else
-                    {
+                        break;
+
+                    case 0:
                         box(league_map,0,0);
                         print_league(league_map,14,65,champion);
                         wrefresh(league_map);
@@ -1294,6 +1335,25 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         *has_fought=1;
                         player->money+=30;
                         player->xp+=player->lvl*5;
+                        break;
+
+                    case 2:
+                        box(league_map,0,0);
+                        print_league(league_map,14,65,champion);
+                        wrefresh(league_map);
+                        mvwprintw(league_map,13,72,"                 ");
+                        mvwprintw(league_map,14,72,"                 ");
+                        wrefresh(league_map);
+                        write_flush(league_map,13,72,"Take care of your pokemons but");
+                        write_flush(league_map,14,72,"COME BACK I WANT TO FIGHT YOU");
+                        sleep(1);
+                        mvwprintw(league_map,13,72,"                          ");
+                        mvwprintw(league_map,14,72,"                     ");
+                        *has_fought=1;
+                        break;
+                    
+                    default:
+                        break;
                     }
                     finish=1;
                 }
