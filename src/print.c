@@ -1709,6 +1709,20 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
 
 void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* box5,WINDOW* box6,trainer* player, int x,int y){
     int i;
+
+    wclear(box1);
+    wclear(box2);
+    wclear(box3);
+    wclear(box4);
+    wclear(box5);
+    wclear(box6);
+
+    box(box1,0,0);
+    box(box2,0,0);
+    box(box3,0,0);
+    box(box4,0,0);
+    box(box5,0,0);
+    box(box6,0,0);
     
     if (x==1)
     {
@@ -1851,6 +1865,13 @@ void print_yourteam(WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* 
         mvwprintw(box6,12,30,"UTILITARY : %s",player->poke6.CTutil->name);
         mvwprintw(box6,13,30,"STAT : %s",player->poke6.CTstat->name);
     }
+
+    wrefresh(box1);
+    wrefresh(box2);
+    wrefresh(box3);
+    wrefresh(box4);
+    wrefresh(box5);
+    wrefresh(box6);
 }
 
 void print_main_menu(WINDOW* win,int x,int y){
