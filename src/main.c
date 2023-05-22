@@ -64,7 +64,7 @@ int main(){
     }
     
     //end music
-    system("killall -9 vlc");
+    system("killall -9 vlc >/dev/null 2>&1 &");
     endwin();
     return 0;
 }
