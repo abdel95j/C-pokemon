@@ -11,6 +11,7 @@ void get_firstpoke(trainer* player);
 void house(trainer* player);
 void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle,pokemon* pikachu, pokemon* charizard);
 void shop(trainer* player);
+void forest(trainer* player);
 void roadto_league(trainer* player);
 void lab(trainer* player);
 void inventory(trainer* player);
@@ -20,6 +21,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 void pokelvlup(WINDOW* win,int x,int y,int times, pokemon* player_poke);
 void silent_pokelvlup(int times, pokemon* player_poke);
 void your_team(trainer* player);
+void clignotement(WINDOW* fenetre);
+void duel_forest(trainer * player,pokemon wild_poke);
 void playerlvlup(trainer* player);
 void evolvepoke(pokemon* poke);
 

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/print.h"
@@ -615,7 +616,135 @@ void physic_lab(int ch, int* x, int* y){
             break;
     }
 }
+void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
+    int count_atk=1;
+    
+    int rand_encounter;// random number to determine if the palyer encounters a pokemon
+    int rand_wildpoke;// random number to determine the wild pokemon
+    rand_wildpoke=rand()%100 +1;// rand from 1 to 100
+    rand_encounter=rand()%100 +1;// same
+    
+    pokemon charmander,pokenull,bulbasaur,squirtle;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
 
+    if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
+        rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon
+    }
+
+    switch (ch)
+    {
+        case 'z':
+        case KEY_UP:
+            if (*x!=1)
+            {
+                *x-=1;
+            }
+            if(*x==31 && *y==125){
+        if(rand_encounter<=20){
+            clignotement(forest_map);
+
+        // case of charmander (33 %)
+            if(rand_wildpoke<=33){
+                duel_forest(player,charmander);
+            }
+
+            // case of squirtle (33 %)
+            else if(rand_wildpoke<=66){
+                duel_forest(player,squirtle);
+            }
+
+            // case of bulbasaur (34 %)
+            else if(rand_wildpoke<=100){
+             duel_forest(player,bulbasaur);   
+            }
+        }
+            }
+            break;
+        case 's':
+        case KEY_DOWN:
+            if (*x!=56)
+            {
+                *x+=1;
+            }
+          if(*x==31 && *y==125){
+        if(rand_encounter<=20){
+            clignotement(forest_map);
+
+        // case of charmander (33 %)
+            if(rand_wildpoke<=33){
+                duel_forest(player,charmander);    
+            }
+
+            // case of squirtle (33 %)
+            else if(rand_wildpoke<=66){
+                duel_forest(player,squirtle);
+            }
+
+            // case of bulbasaur (34 %)
+            else if(rand_wildpoke<=100){
+                duel_forest(player,bulbasaur);
+            }
+        }
+          }
+            break;
+        case 'q':
+        case KEY_LEFT:
+            if (*y!=1)
+            {
+                *y-=2;
+            }  
+        if(*x==31 && *y==125){
+        if(rand_encounter<=20){
+            clignotement(forest_map);
+
+        // case of charmander (33 %)
+            if(rand_wildpoke<=33){
+                duel_forest(player,charmander);
+            }
+
+            // case of squirtle (33 %)
+            else if(rand_wildpoke<=66){
+                duel_forest(player,squirtle);
+            }
+
+            // case of bulbasaur (34 %)
+            else if(rand_wildpoke<=100){
+                duel_forest(player,bulbasaur);
+            }
+        }
+        }
+            break;
+        case 'd':
+        case KEY_RIGHT:
+            if (*y!=245)
+            {
+                *y+=2;
+            }
+            if(*x==31 && *y==125){
+        if(rand_encounter<=20){
+            clignotement(forest_map);
+
+        // case of charmander (33 %)
+            if(rand_wildpoke<=33){
+                duel_forest(player,charmander);
+            }
+
+            // case of squirtle (33 %)
+            else if(rand_wildpoke<=66){
+                duel_forest(player,squirtle);
+            }
+
+            // case of bulbasaur (34 %)
+            else if(rand_wildpoke<=100){
+                duel_forest(player,bulbasaur);
+            }
+        }
+            }
+            break;
+        default:
+            break;
+    }
+        }
 
 void physic_shop(int ch, int* x, int* y){
     switch (ch)

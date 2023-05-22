@@ -7,6 +7,11 @@
 void unbox(WINDOW* win){
     wborder(win, ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ');
 }
+void cadremap(WINDOW* map){
+  WINDOW* cadre = subwin(map,100-(LINES-2),400 -(COLS-2),(LINES-2)/2,(COLS-2)/2); // (F, lignes de F -(x(@) dans fa)*2, colonnes de F -(y(@) dans fa)*2, x(@) dans fa, y(@) dans fa)
+  box(cadre,0,0);
+  delwin(cadre);
+}
 void reset(){
     WINDOW* ecrannoir=newwin(LINES,COLS,0,0);
     wrefresh(ecrannoir);
@@ -60,7 +65,6 @@ void sac(WINDOW* cam_state){
       nanosleep(&trq,&trm);
     }
     reset();
-    cadre_cam();
     wrefresh(cam_state);
 }
 void menu(int* pquit,WINDOW* cam_state){
@@ -118,10 +122,4 @@ void menu(int* pquit,WINDOW* cam_state){
       nanosleep(&trq,&trm);
     }
     reset();
-}
-void cadre_cam(){
-    WINDOW* cadre= newwin(23,83,LINES/4-1,COLS/4-1);
-    box(cadre,0,0);
-    wrefresh(cadre);
-    delwin(cadre);
 }
