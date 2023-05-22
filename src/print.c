@@ -667,7 +667,15 @@ void print_league(WINDOW* league_map,int x,int y,trainer champion){
     mvwprintw(league_map,x+4,y+1,"- -");       
     wattroff(league_map,COLOR_PAIR(1));
 }
-
+void print_forest(WINDOW*forest_map,int x, int y){
+    wattron(forest_map,COLOR_PAIR(1));
+    mvwprintw(forest_map,x,y+2,"_");  
+    mvwprintw(forest_map,x+1,y+1,"'_'");
+    mvwprintw(forest_map,x+2,y,"/| |\\");
+    mvwprintw(forest_map,x+3,y+1,"|-|");
+    mvwprintw(forest_map,x+4,y+1,"- -");       
+    wattroff(forest_map,COLOR_PAIR(1));
+}
 void print_shop(WINDOW*shop_map,int x, int y){
    
     mvwprintw(shop_map,2,13,"   ___       __         ______           ");

@@ -13,6 +13,7 @@ void physic_roadto_league(int ch, int* l, int* c);
 void physic_lab(int ch, int* x, int* y);
 void physic_yourteam(int ch,int*x,int*y);
 void physic_league(int ch, int* x, int* y);
+void physic_forest(WINDOW* forest_map,int ch,trainer* player,int* x, int* y);
 
 
 #endif

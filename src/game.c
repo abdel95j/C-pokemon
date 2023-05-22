@@ -10,7 +10,7 @@
 #include "../headers/talk.h"
 #include "../headers/talkbis.h"
 
-void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
+    void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
     int sort1=rand()%3;
     int sort2=rand()%2;
     pokemon charmander,pokenull,bulbasaur,squirtle;
@@ -811,7 +811,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         usleep(16667);
                         if (delwin(fight)==ERR)
                         {
-                            system("killall -9 vlc");
+                             system("killall -9 vlc");
                             exit(47);
                         } 
                     }
@@ -1438,7 +1438,50 @@ void lab(trainer* player){
         }
     }
 }
+void forest(trainer* player){
+    int finish=0,ch=ERR,quit=0;
+    int x=32,y=125;
+    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    wrefresh(blackscreen);
+    while(finish==0){
+    WINDOW* forest_map=newwin(62,252,0,0);
+    box(forest_map,0,0);
+    print_forest(forest_map,x,y);
+    wrefresh(forest_map);
 
+    ch=getch();
+    physic_forest(forest_map,ch,player,&x,&y);
+
+    if (delwin(forest_map)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(100);
+        }
+    usleep(16667);
+    switch (ch) // actions
+        {
+            case 'e':
+            case '\r':
+            case '\n':
+                break;
+            case 'm':
+                menu(&quit,player);
+                break;
+
+            case 'i':
+                inventory(player);
+                break;
+
+            default:
+                break;
+        }
+    }
+    if (delwin(blackscreen)==ERR)
+        {
+            system("killall -9 vlc");
+            exit(101);
+        }
+}
 void shop(trainer* player){
     int quit=0,finish=0,ch=ERR;
     int x=34,y=125;
@@ -1449,7 +1492,6 @@ void shop(trainer* player){
         WINDOW* line_wall=subwin(shop_map,1,148,22,44);
         box(shop_map,0,0);
         box(line_wall,0,0);
-
         print_shop(shop_map,x,y);
         wrefresh(shop_map);
 
@@ -2475,9 +2517,9 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             create_newplayer(player);
             get_firstpoke(player);
-            league(player);
-            *quit=1;
+            forest(player);
             chargement();
+            *quit=1;
             break;
         
         default:
@@ -2539,7 +2581,7 @@ void game(trainer* player, int* quit,int* l,int* c){
                 lab(player);
             }
 
-            if (*c==0 && *l>=70 && *l<=76) // lab area
+            if (*c==0 && *l>=70 && *l<=76) // road to league 
             {
                 chargement();
                 roadto_league(player);
@@ -2579,3 +2621,58 @@ void game(trainer* player, int* quit,int* l,int* c){
         exit(10);
     }
 }
+void clignotement(WINDOW* fenetre){
+    int count=0;
+
+    WINDOW* fenetre_backup = newwin(62,252,0,0);
+    for(count=0;count<3;count++){
+        copywin(fenetre,fenetre_backup,0,0,0,0,61,251,FALSE);
+        wrefresh(fenetre_backup);
+        usleep(300000);
+        wclear(fenetre_backup);
+        wrefresh(fenetre_backup);
+        usleep(300000);
+    }
+     if(delwin(fenetre_backup)==ERR)
+    {
+        exit(103);
+    }
+}
+void duel_forest(trainer * player,pokemon wild_poke){
+    
+    int count_atk=1;
+
+    if(player->poke1.pv>0){
+                    if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+                        //victory
+                    }
+                    else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+                        //victory
+                    }
+                    else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+                        //victory
+                    }
+                    else{
+                        //defeat
+                    }
+                }
+                else if(player->poke2.pv>0){
+                    if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+                        //victory
+                    }
+                    else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+                        //victory
+                    }
+                    else{
+                        //defeat
+                    }
+                }
+                else{
+                    if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+                        //victory
+                    }
+                    else{
+                        //defeat
+                    }
+                }
+            }
