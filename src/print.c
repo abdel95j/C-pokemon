@@ -720,13 +720,611 @@ void print_league(WINDOW* league_map,int x,int y,trainer champion){
     wattroff(league_map,COLOR_PAIR(1));
 }
 void print_forest(WINDOW*forest_map,int x, int y){
+
+    mvwprintw(forest_map,1,1,  "     __-__");
+    mvwprintw(forest_map,1+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,1+5,1,"    \\\\  //");
+    mvwprintw(forest_map,1+6,1,"     |  |");
+    mvwprintw(forest_map,1+7,1,"    //__\\\\");
+
+    mvwprintw(forest_map,1,16,  "     __-__");
+    mvwprintw(forest_map,1+1,16,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2,16," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3,16,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4,16," \\ _-     -_/");
+    mvwprintw(forest_map,1+5,16,"    \\\\  //");
+    mvwprintw(forest_map,1+6,16,"     |  |");
+    mvwprintw(forest_map,1+7,16,"    //__\\\\");
+    
+    mvwprintw(forest_map,1, 31,  "     __-__");
+    mvwprintw(forest_map,1+1, 31,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 31," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 31,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 31," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 31,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 31,"     |  |");
+    mvwprintw(forest_map,1+7, 31,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 46,  "     __-__");
+    mvwprintw(forest_map,1+1, 46,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 46," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 46,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 46," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 46,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 46,"     |  |");
+    mvwprintw(forest_map,1+7, 46,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 61,  "     __-__");
+    mvwprintw(forest_map,1+1, 61,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 61," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 61,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 61," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 61,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 61,"     |  |");
+    mvwprintw(forest_map,1+7, 61,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 76,  "     __-__");
+    mvwprintw(forest_map,1+1, 76,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 76," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 76,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 76," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 76,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 76,"     |  |");
+    mvwprintw(forest_map,1+7, 76,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 91,  "     __-__");
+    mvwprintw(forest_map,1+1, 91,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 91," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 91,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 91," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 91,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 91,"     |  |");
+    mvwprintw(forest_map,1+7, 91,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 106,  "     __-__");
+    mvwprintw(forest_map,1+1, 106,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 106," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 106,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 106," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 106,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 106,"     |  |");
+    mvwprintw(forest_map,1+7, 106,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 121,  "     __-__");
+    mvwprintw(forest_map,1+1, 121,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 121," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 121,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 121," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 121,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 121,"     |  |");
+    mvwprintw(forest_map,1+7, 121,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 136,  "     __-__");
+    mvwprintw(forest_map,1+1, 136,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 136," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 136,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 136," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 136,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 136,"     |  |");
+    mvwprintw(forest_map,1+7, 136,"    //__\\\\");
+    
+    mvwprintw(forest_map,1, 151,  "     __-__");
+    mvwprintw(forest_map,1+1, 151,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 151," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 151,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 151," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 151,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 151,"     |  |");
+    mvwprintw(forest_map,1+7, 151,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 166,  "     __-__");
+    mvwprintw(forest_map,1+1, 166,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 166," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 166,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 166," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 166,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 166,"     |  |");
+    mvwprintw(forest_map,1+7, 166,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 181,  "     __-__");
+    mvwprintw(forest_map,1+1, 181,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 181," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 181,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 181," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 181,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 181,"     |  |");
+    mvwprintw(forest_map,1+7, 181,"    //__\\\\");
+
+    mvwprintw(forest_map,1, 196,  "     __-__");
+    mvwprintw(forest_map,1+1, 196,"   /~~ o~~\\");
+    mvwprintw(forest_map,1+2, 196," /~~o     ~~\\");
+    mvwprintw(forest_map,1+3, 196,"{ ~~      o~~}");
+    mvwprintw(forest_map,1+4, 196," \\ _-     -_/");
+    mvwprintw(forest_map,1+5, 196,"    \\\\  //");
+    mvwprintw(forest_map,1+6, 196,"     |  |");
+    mvwprintw(forest_map,1+7, 196,"    //__\\\\");
+
+
+
+    // ARBRE DE GAUCHE
+
+    mvwprintw(forest_map,24,1,  "     __-__");
+    mvwprintw(forest_map,24+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,24+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,24+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,24+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,24+5,1,"    \\\\  //");
+    mvwprintw(forest_map,24+6,1,"     |  |");
+    mvwprintw(forest_map,24+7,1,"    //__\\\\");
+
+    mvwprintw(forest_map,30,1,  "     __-__");
+    mvwprintw(forest_map,30+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,30+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,30+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,30+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,30+5,1,"    \\\\  //");
+    mvwprintw(forest_map,30+6,1,"     |  |");
+    mvwprintw(forest_map,30+7,1,"    //__\\\\");
+
+    mvwprintw(forest_map,36,1,  "     __-__");
+    mvwprintw(forest_map,36+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,36+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,36+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,36+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,36+5,1,"    \\\\  //");
+    mvwprintw(forest_map,36+6,1,"     |  |");
+    mvwprintw(forest_map,36+7,1,"    //__\\\\");
+
+    mvwprintw(forest_map,42,1,  "     __-__");
+    mvwprintw(forest_map,42+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,42+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,42+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,42+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,42+5,1,"    \\\\  //");
+    mvwprintw(forest_map,42+6,1,"     |  |");
+    mvwprintw(forest_map,42+7,1,"    //__\\\\");
+
+    mvwprintw(forest_map,48,1,  "     __-__");
+    mvwprintw(forest_map,48+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,48+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,48+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,48+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,48+5,1,"    \\\\  //");
+    mvwprintw(forest_map,48+6,1,"     |  |");
+    mvwprintw(forest_map,48+7,1,"    //__\\\\");
+
+    mvwprintw(forest_map,54,1,  "     __-__");
+    mvwprintw(forest_map,54+1,1,"   /~~ o~~\\");
+    mvwprintw(forest_map,54+2,1," /~~o     ~~\\");
+    mvwprintw(forest_map,54+3,1,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,1," \\ _-     -_/");
+    mvwprintw(forest_map,54+5,1,"    \\\\  //");
+    mvwprintw(forest_map,54+6,1,"     |  |");
+    mvwprintw(forest_map,54+7,1,"    //__\\\\");
+
+    // ARBRE DE DROITE
+
+    mvwprintw(forest_map,6,196,  "     __-__");
+    mvwprintw(forest_map,6+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,6+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,6+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,6+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,6+5,196,"    \\\\  //");
+    mvwprintw(forest_map,6+6,196,"     |  |");
+    mvwprintw(forest_map,6+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,12,196,  "     __-__");
+    mvwprintw(forest_map,12+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,12+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,12+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,12+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,12+5,196,"    \\\\  //");
+    mvwprintw(forest_map,12+6,196,"     |  |");
+    mvwprintw(forest_map,12+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,18,196,  "     __-__");
+    mvwprintw(forest_map,18+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,18+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,18+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,18+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,18+5,196,"    \\\\  //");
+    mvwprintw(forest_map,18+6,196,"     |  |");
+    mvwprintw(forest_map,18+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,24,196,  "     __-__");
+    mvwprintw(forest_map,24+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,24+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,24+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,24+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,24+5,196,"    \\\\  //");
+    mvwprintw(forest_map,24+6,196,"     |  |");
+    mvwprintw(forest_map,24+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,30,196,  "     __-__");
+    mvwprintw(forest_map,30+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,30+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,30+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,30+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,30+5,196,"    \\\\  //");
+    mvwprintw(forest_map,30+6,196,"     |  |");
+    mvwprintw(forest_map,30+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,36,196,  "     __-__");
+    mvwprintw(forest_map,36+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,36+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,36+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,36+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,36+5,196,"    \\\\  //");
+    mvwprintw(forest_map,36+6,196,"     |  |");
+    mvwprintw(forest_map,36+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,42,196,  "     __-__");
+    mvwprintw(forest_map,42+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,42+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,42+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,42+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,42+5,196,"    \\\\  //");
+    mvwprintw(forest_map,42+6,196,"     |  |");
+    mvwprintw(forest_map,42+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,48,196,  "     __-__");
+    mvwprintw(forest_map,48+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,48+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,48+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,48+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,48+5,196,"    \\\\  //");
+    mvwprintw(forest_map,48+6,196,"     |  |");
+    mvwprintw(forest_map,48+7,196,"    //__\\\\");
+
+    mvwprintw(forest_map,54,196,  "     __-__");
+    mvwprintw(forest_map,54+1,196,"   /~~ o~~\\");
+    mvwprintw(forest_map,54+2,196," /~~o     ~~\\");
+    mvwprintw(forest_map,54+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,196," \\ _-     -_/");
+    mvwprintw(forest_map,54+5,196,"    \\\\  //");
+    mvwprintw(forest_map,54+6,196,"     |  |");
+    mvwprintw(forest_map,54+7,196,"    //__\\\\");
+
+    
+    // Intérieur foret
+    // TRONC HAUT GAUCHE
+
+    mvwprintw(forest_map,6, 46,  "     __-__");
+    mvwprintw(forest_map,6+1, 46,"   /~~ o~~\\");
+    mvwprintw(forest_map,6+2, 46," /~~o     ~~\\");
+    mvwprintw(forest_map,6+3, 46,"{ ~~      o~~}");
+    mvwprintw(forest_map,6+4, 46," \\ _-     -_/");
+    mvwprintw(forest_map,6+5, 46,"    \\\\  //");
+    mvwprintw(forest_map,6+6, 46,"     |  |");
+    mvwprintw(forest_map,6+7, 46,"    //__\\\\");
+
+    mvwprintw(forest_map,12, 46,  "     __-__");
+    mvwprintw(forest_map,12+1, 46,"   /~~ o~~\\");
+    mvwprintw(forest_map,12+2, 46," /~~o     ~~\\");
+    mvwprintw(forest_map,12+3, 46,"{ ~~      o~~}");
+    mvwprintw(forest_map,12+4, 46," \\ _-     -_/");
+    mvwprintw(forest_map,12+5, 46,"    \\\\  //");
+    mvwprintw(forest_map,12+6, 46,"     |  |");
+    mvwprintw(forest_map,12+7, 46,"    //__\\\\");
+
+    mvwprintw(forest_map,18, 46,  "     __-__");
+    mvwprintw(forest_map,18+1, 46,"   /~~ o~~\\");
+    mvwprintw(forest_map,18+2, 46," /~~o     ~~\\");
+    mvwprintw(forest_map,18+3, 46,"{ ~~      o~~}");
+    mvwprintw(forest_map,18+4, 46," \\ _-     -_/");
+    mvwprintw(forest_map,18+5, 46,"    \\\\  //");
+    mvwprintw(forest_map,18+6, 46,"     |  |");
+    mvwprintw(forest_map,18+7, 46,"    //__\\\\");
+
+    mvwprintw(forest_map,24, 46,  "     __-__");
+    mvwprintw(forest_map,24+1, 46,"   /~~ o~~\\");
+    mvwprintw(forest_map,24+2, 46," /~~o     ~~\\");
+    mvwprintw(forest_map,24+3, 46,"{ ~~      o~~}");
+    mvwprintw(forest_map,24+4, 46," \\ _-     -_/");
+    mvwprintw(forest_map,24+5, 46,"    \\\\  //");
+    mvwprintw(forest_map,24+6, 46,"     |  |");
+    mvwprintw(forest_map,24+7, 46,"    //__\\\\");
+
+
+    //TRONC BAS GAUCHE
+
+    mvwprintw(forest_map,36,91,  "     __-__");
+    mvwprintw(forest_map,36+1,91,"   /~~ o~~\\");
+    mvwprintw(forest_map,36+2,91," /~~o     ~~\\");
+    mvwprintw(forest_map,36+3,91,"{ ~~      o~~}");
+    mvwprintw(forest_map,36+4,91," \\ _-     -_/");
+    mvwprintw(forest_map,36+5,91,"    \\\\  //");
+    mvwprintw(forest_map,36+6,91,"     |  |");
+    mvwprintw(forest_map,36+7,91,"    //__\\\\");
+
+    mvwprintw(forest_map,42,91,  "     __-__");
+    mvwprintw(forest_map,42+1,91,"   /~~ o~~\\");
+    mvwprintw(forest_map,42+2,91," /~~o     ~~\\");
+    mvwprintw(forest_map,42+3,91,"{ ~~      o~~}");
+    mvwprintw(forest_map,42+4,91," \\ _-     -_/");
+    mvwprintw(forest_map,42+5,91,"    \\\\  //");
+    mvwprintw(forest_map,42+6,91,"     |  |");
+    mvwprintw(forest_map,42+7,91,"    //__\\\\");
+
+    mvwprintw(forest_map,48,91,  "     __-__");
+    mvwprintw(forest_map,48+1,91,"   /~~ o~~\\");
+    mvwprintw(forest_map,48+2,91," /~~o     ~~\\");
+    mvwprintw(forest_map,48+3,91,"{ ~~      o~~}");
+    mvwprintw(forest_map,48+4,91," \\ _-     -_/");
+    mvwprintw(forest_map,48+5,91,"    \\\\  //");
+    mvwprintw(forest_map,48+6,91,"     |  |");
+    mvwprintw(forest_map,48+7,91,"    //__\\\\");
+
+    mvwprintw(forest_map,54,91,  "     __-__");
+    mvwprintw(forest_map,54+1,91,"   /~~ o~~\\");
+    mvwprintw(forest_map,54+2,91," /~~o     ~~\\");
+    mvwprintw(forest_map,54+3,91,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,91," \\ _-     -_/");
+    mvwprintw(forest_map,54+5,91,"    \\\\  //");
+    mvwprintw(forest_map,54+6,91,"     |  |");
+    mvwprintw(forest_map,54+7,91,"    //__\\\\");
+
+
+    // TRONC HAUT DROIT 
+
+    mvwprintw(forest_map,6, 136,  "     __-__");
+    mvwprintw(forest_map,6+1, 136,"   /~~ o~~\\");
+    mvwprintw(forest_map,6+2, 136," /~~o     ~~\\");
+    mvwprintw(forest_map,6+3, 136,"{ ~~      o~~}");
+    mvwprintw(forest_map,6+4, 136," \\ _-     -_/");
+    mvwprintw(forest_map,6+5, 136,"    \\\\  //");
+    mvwprintw(forest_map,6+6, 136,"     |  |");
+    mvwprintw(forest_map,6+7, 136,"    //__\\\\");
+
+    mvwprintw(forest_map,12, 136,  "     __-__");
+    mvwprintw(forest_map,12+1, 136,"   /~~ o~~\\");
+    mvwprintw(forest_map,12+2, 136," /~~o     ~~\\");
+    mvwprintw(forest_map,12+3, 136,"{ ~~      o~~}");
+    mvwprintw(forest_map,12+4, 136," \\ _-     -_/");
+    mvwprintw(forest_map,12+5, 136,"    \\\\  //");
+    mvwprintw(forest_map,12+6, 136,"     |  |");
+    mvwprintw(forest_map,12+7, 136,"    //__\\\\");
+
+    mvwprintw(forest_map,18, 136,  "     __-__");
+    mvwprintw(forest_map,18+1, 136,"   /~~ o~~\\");
+    mvwprintw(forest_map,18+2, 136," /~~o     ~~\\");
+    mvwprintw(forest_map,18+3, 136,"{ ~~      o~~}");
+    mvwprintw(forest_map,18+4, 136," \\ _-     -_/");
+    mvwprintw(forest_map,18+5, 136,"    \\\\  //");
+    mvwprintw(forest_map,18+6, 136,"     |  |");
+    mvwprintw(forest_map,18+7, 136,"    //__\\\\");
+
+    mvwprintw(forest_map,24, 136,  "     __-__");
+    mvwprintw(forest_map,24+1, 136,"   /~~ o~~\\");
+    mvwprintw(forest_map,24+2, 136," /~~o     ~~\\");
+    mvwprintw(forest_map,24+3, 136,"{ ~~      o~~}");
+    mvwprintw(forest_map,24+4, 136," \\ _-     -_/");
+    mvwprintw(forest_map,24+5, 136,"    \\\\  //");
+    mvwprintw(forest_map,24+6, 136,"     |  |");
+    mvwprintw(forest_map,24+7, 136,"    //__\\\\");
+
+    
+    // HERBE 
+
+    mvwprintw(forest_map,12, 21,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+1, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+2, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+3, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+4, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+5, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+6, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+7, 21,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,45, 21,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+1, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+2, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+3, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+4, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+5, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+6, 21,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+7, 21,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,45, 67,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+1, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+2, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+3, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+4, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+5, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+6, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+7, 67,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,12, 67,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+1, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+2, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+3, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+4, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+5, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+6, 67,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+7, 67,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,12,   87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+1, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+2, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+3, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+4, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+5, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+6, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+7, 87,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,12, 109,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+1, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+2, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+3, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+4, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+5, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+6, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+7, 109,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,45, 109,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+1, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+2, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+3, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+4, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+5, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+6, 109,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+7, 109,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,45,   129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+1, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+2, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+3, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+4, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+5, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+6, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+7, 129,"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,12, 165,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+1, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+2, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+3, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+4, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+5, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+6, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,12+7, 165,"@@@@@@@@@@@@@@@@@@@@");
+
+    mvwprintw(forest_map,45, 165,  "@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+1, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+2, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+3, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+4, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+5, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+6, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+7, 165,"@@@@@@@@@@@@@@@@@@@@");
+
     wattron(forest_map,COLOR_PAIR(1));
-    mvwprintw(forest_map,x,y+2,"_");  
-    mvwprintw(forest_map,x+1,y+1,"'_'");
-    mvwprintw(forest_map,x+2,y,"/| |\\");
-    mvwprintw(forest_map,x+3,y+1,"|-|");
-    mvwprintw(forest_map,x+4,y+1,"- -");       
+    mvwprintw(forest_map,x-4,y+2,"_");  
+    mvwprintw(forest_map,x-3,y+1,"'_'");
+    mvwprintw(forest_map,x-2,y,"/| |\\");
+    mvwprintw(forest_map,x-1,y+1,"|-|");
+    mvwprintw(forest_map,x,y+1,"- -");       
     wattroff(forest_map,COLOR_PAIR(1));
+
+     // ARBRE DU BAS
+
+    mvwprintw(forest_map,54,16+5,"__-__");
+    mvwprintw(forest_map,54+1,16+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,16+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,16,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,16+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,16+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,16+5,"|  |");
+    mvwprintw(forest_map,54+7,16+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,31+5,  "__-__");
+    mvwprintw(forest_map,54+1,31+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,31+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,31,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,31+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,31+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,31+5,"|  |");
+    mvwprintw(forest_map,54+7,31+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,46+5,  "__-__");
+    mvwprintw(forest_map,54+1,46+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,46+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,46,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,46+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,46+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,46+5,"|  |");
+    mvwprintw(forest_map,54+7,46+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,61+5,  "__-__");
+    mvwprintw(forest_map,54+1,61+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,61+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,61,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,61+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,61+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,61+5,"|  |");
+    mvwprintw(forest_map,54+7,61+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,76+5,  "__-__");
+    mvwprintw(forest_map,54+1,76+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,76+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,76,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,76+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,76+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,76+5,"|  |");
+    mvwprintw(forest_map,54+7,76+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,91+5,  "__-__");
+    mvwprintw(forest_map,54+1,91+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,91+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,91,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,91+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,91+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,91+5,"|  |");
+    mvwprintw(forest_map,54+7,91+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,106+5,  "__-__");
+    mvwprintw(forest_map,54+1,106+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,106+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,106,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,106+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,106+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,106+5,"|  |");
+    mvwprintw(forest_map,54+7,106+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,121+5,  "__-__");
+    mvwprintw(forest_map,54+1,121+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,121+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,121,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,121+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,121+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,121+5,"|  |");
+    mvwprintw(forest_map,54+7,121+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,136+5,  "__-__");
+    mvwprintw(forest_map,54+1,136+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,136+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,136,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,136+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,136+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,136+5,"|  |");
+    mvwprintw(forest_map,54+7,136+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,151+5,  "__-__");
+    mvwprintw(forest_map,54+1,151+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,151+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,151,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,151+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,151+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,151+5,"|  |");
+    mvwprintw(forest_map,54+7,151+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,166+5,  "__-__");
+    mvwprintw(forest_map,54+1,166+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,166+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,166,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,166+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,166+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,166+5,"|  |");
+    mvwprintw(forest_map,54+7,166+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,181+5,  "__-__");
+    mvwprintw(forest_map,54+1,181+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,181+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,181,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,181+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,181+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,181+5,"|  |");
+    mvwprintw(forest_map,54+7,181+4,"//__\\\\");
+
+    mvwprintw(forest_map,54,196+5,  "__-__");
+    mvwprintw(forest_map,54+1,196+3,"/~~ o~~\\");
+    mvwprintw(forest_map,54+2,196+1,"/~~o     ~~\\");
+    mvwprintw(forest_map,54+3,196,"{ ~~      o~~}");
+    mvwprintw(forest_map,54+4,196+1,"\\ _-     -_/");
+    mvwprintw(forest_map,54+5,196+4,"\\\\  //");
+    mvwprintw(forest_map,54+6,196+5,"|  |");
+    mvwprintw(forest_map,54+7,196+4,"//__\\\\");
 }
 void print_shop(WINDOW*shop_map,int x, int y){
    
@@ -2169,8 +2767,8 @@ void print_load(WINDOW* win,FILE* save1r,FILE* save2r,FILE* save3r,FILE* save4r,
     mvwprintw(win,17+3,40," \\___|_||_\\___/\\___/__/\\___| \\__,_| | .__/_| \\___/\\__, |_| \\___/__/__/_\\___/_||_|");
     mvwprintw(win,17+4,40,"                                    |_|           |___/                         ");
 
-    mvwprintw(win,52,20,"Press enter/e to save");
-    mvwprintw(win,54,20,"Press x to remove a save");
+    mvwprintw(win,52,20,"Press enter/e to load a save");
+    mvwprintw(win,54,20,"Press x to remove a progression");
 
     mvwprintw(win,x,68,">");
 

@@ -924,8 +924,7 @@ void create_newplayer(trainer* newplayer){
     newplayer->money=200;
     newplayer->xp=0;
     newplayer->is_on_water=0; // false
-    //newplayer->is_rock_there=1; // true
-    newplayer->is_rock_there=0; // TEST
+    newplayer->is_rock_there=1; // true
 
     newplayer->inventory[POKEBALLS].quant=10;
     newplayer->inventory[POKEBALLS].type=OTHER;
@@ -1289,6 +1288,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                     wclear(match);
                     wrefresh(match);
                     finish=1;
+                    return 1;
                     break;
                 }
 
@@ -2002,130 +2002,22 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                 }
                                 else // catch
                                 {
-                                    int sort;
-                                    mvwprintw(text,5,25,"                                     ");
-                                    mvwprintw(text,5,25,"You launch a pokeball on %s !",champion_poke->name);
-                                    wrefresh(text);
-                                    sleep(2);
+                                    if (player->inventory[POKEBALLS].quant!=0)
+                                    {    
+                                        int sort;
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"You launch a pokeball on %s !",champion_poke->name);
+                                        wrefresh(text);
+                                        sleep(2);
 
-                                    mvwprintw(text,5,25,"                                     ");
-                                    mvwprintw(text,5,25,"It shakes one time ...");
-
-                                    print_poke(match,pokenull,6,110,0);
-                                    mvwprintw(match,13,112,"(-o-)");
-                                    
-                                    usleep(600000);
-                                    mvwprintw(match,13,112,"     ");
-                                    mvwprintw(match,13,112,"(o-)");
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(match);
-                                    usleep(600000);
-                                    mvwprintw(match,13,112,"     ");
-                                    mvwprintw(match,13,112,"(-o-)");
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(match);
-                                    usleep(600000);
-                                    mvwprintw(match,13,112,"     ");
-                                    mvwprintw(match,13,112,"(-o)");
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(match);
-                                    usleep(600000);
-                                    mvwprintw(match,13,112,"     ");
-                                    mvwprintw(match,13,112,"(-o-)");
-                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                    wrefresh(match);
-                                    sleep(2);
-
-                                    sort=rand()%101;
-
-                                    if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
-                                    {
-                                        mvwprintw(match,13,112,"*(-o-)*");
-                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                        wrefresh(match);
+                                        player->inventory[POKEBALLS].quant-=1;
 
                                         mvwprintw(text,5,25,"                                     ");
-                                        mvwprintw(text,5,25,"You got %s !",champion_poke->name);
-                                        wrefresh(text);
-                                        sleep(1);
+                                        mvwprintw(text,5,25,"It shakes one time ...");
 
-                                        if (player->poke1.type==NOPOKEMON)
-                                        {
-                                            player->poke1=*champion_poke;
-                                        }
-                                        else if (player->poke2.type==NOPOKEMON)
-                                        {
-                                            player->poke2=*champion_poke;
-                                        }
-                                        else if (player->poke3.type==NOPOKEMON)
-                                        {
-                                            player->poke3=*champion_poke;
-                                        }
-                                        else if (player->poke4.type==NOPOKEMON)
-                                        {
-                                            player->poke4=*champion_poke;
-                                        }
-                                        else if (player->poke5.type==NOPOKEMON)
-                                        {
-                                            player->poke5=*champion_poke;
-                                        }
-                                        else if (player->poke6.type==NOPOKEMON)
-                                        {
-                                            player->poke6=*champion_poke;
-                                        }
-                                        else
-                                        {
-                                            mvwprintw(text,5,25,"                                       ");
-                                            mvwprintw(text,5,25,"Your pocket is full of pokemons !");
-                                            wrefresh(text);
-                                            sleep(1);
-                                            mvwprintw(text,5,25,"                                       ");
-                                            mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
-                                            wrefresh(text);
-                                            sleep(1);
-                                        }
-                                        
-                                        mvwprintw(text,5,25,"                                       ");
-                                        mvwprintw(text,5,25,"*You earned 50$*");
-                                        wrefresh(text);
-                                        sleep(1);
-                                        mvwprintw(text,5,25,"                                     ");
-                                        mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
-                                        wrefresh(text);
-                                        sleep(1);
-                                        mvwprintw(text,5,25,"                                     ");
-                                        mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
-                                        wrefresh(text);
-                                        sleep(3);
-
-                                        pokelvlup(text,5,25,1,player_poke);
-
-                                        player->money+=70;
-                                        player->xp+=player->lvl*10;
-
-                                        wclear(bag);
-                                        wrefresh(bag);
-                                        finish_bag=1;
-                                        mvwprintw(text,5,25,"                                     ");
-                                        wrefresh(text);
-                                        wclear(match);
-                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                        wrefresh(match);
-                                        finish=1;
-                                        return 1;
-                                    }
-
-                                    else
-                                    {
-                                        mvwprintw(text,5,25,"                                     ");
-                                        mvwprintw(text,5,25,"It shakes two times ...");
-                                        wrefresh(text);
-                                        sleep(1);
-
-                                        mvwprintw(match,13,112,"     ");
+                                        print_poke(match,pokenull,6,110,0);
                                         mvwprintw(match,13,112,"(-o-)");
-                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
-                                        wrefresh(match);
+
                                         usleep(600000);
                                         mvwprintw(match,13,112,"     ");
                                         mvwprintw(match,13,112,"(o-)");
@@ -2230,7 +2122,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         else
                                         {
                                             mvwprintw(text,5,25,"                                     ");
-                                            mvwprintw(text,5,25,"It shakes three times ...");
+                                            mvwprintw(text,5,25,"It shakes two times ...");
                                             wrefresh(text);
                                             sleep(1);
 
@@ -2341,13 +2233,134 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                             else
                                             {
-                                                print_poke(match,*champion_poke,6,110,0);
                                                 mvwprintw(text,5,25,"                                     ");
-                                                mvwprintw(text,5,25,"No ! He escaped !");
+                                                mvwprintw(text,5,25,"It shakes three times ...");
                                                 wrefresh(text);
                                                 sleep(1);
+
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                sleep(2);
+
+                                                sort=rand()%101;
+
+                                                if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
+                                                {
+                                                    mvwprintw(match,13,112,"*(-o-)*");
+                                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                    wrefresh(match);
+
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"You got %s !",champion_poke->name);
+                                                    wrefresh(text);
+                                                    sleep(1);
+
+                                                    if (player->poke1.type==NOPOKEMON)
+                                                    {
+                                                        player->poke1=*champion_poke;
+                                                    }
+                                                    else if (player->poke2.type==NOPOKEMON)
+                                                    {
+                                                        player->poke2=*champion_poke;
+                                                    }
+                                                    else if (player->poke3.type==NOPOKEMON)
+                                                    {
+                                                        player->poke3=*champion_poke;
+                                                    }
+                                                    else if (player->poke4.type==NOPOKEMON)
+                                                    {
+                                                        player->poke4=*champion_poke;
+                                                    }
+                                                    else if (player->poke5.type==NOPOKEMON)
+                                                    {
+                                                        player->poke5=*champion_poke;
+                                                    }
+                                                    else if (player->poke6.type==NOPOKEMON)
+                                                    {
+                                                        player->poke6=*champion_poke;
+                                                    }
+                                                    else
+                                                    {
+                                                        mvwprintw(text,5,25,"                                       ");
+                                                        mvwprintw(text,5,25,"Your pocket is full of pokemons !");
+                                                        wrefresh(text);
+                                                        sleep(1);
+                                                        mvwprintw(text,5,25,"                                       ");
+                                                        mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
+                                                        wrefresh(text);
+                                                        sleep(1);
+                                                    }
+
+                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,25,"*You earned 50$*");
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                    wrefresh(text);
+                                                    sleep(3);
+
+                                                    pokelvlup(text,5,25,1,player_poke);
+
+                                                    player->money+=70;
+                                                    player->xp+=player->lvl*10;
+
+                                                    wclear(bag);
+                                                    wrefresh(bag);
+                                                    finish_bag=1;
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    wrefresh(text);
+                                                    wclear(match);
+                                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                    wrefresh(match);
+                                                    finish=1;
+                                                    return 1;
+                                                }
+
+                                                else
+                                                {
+                                                    print_poke(match,*champion_poke,6,110,0);
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"No ! He escaped !");
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                }
                                             }
                                         }
+                                    }
+                                    else
+                                    {
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"You don't have enough pokeballs");
+                                        wrefresh(text);
+                                        sleep(2);
+                                        mvwprintw(text,5,25,"                                     ");
                                     }
                                 }
                             }
@@ -2897,43 +2910,81 @@ void lab(trainer* player){
         }
     }
 }
+
+void encouter_poke(WINDOW* forest_map, trainer* player){
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+
+    int rand_encounter;// random number to determine if the player encounters a pokemon
+    int rand_wildpoke;// random number to determine the wild pokemon
+    rand_wildpoke=rand()%100 +1;// rand from 1 to 100
+    rand_encounter=rand()%100 +1;// same
+
+    if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
+        rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon
+    }
+
+    if(rand_encounter<=3){
+        clignotement(forest_map);
+
+        // case of charmander (33 %)
+        if(rand_wildpoke<=33){
+            duel_forest(player,charmander);
+        }
+
+        // case of squirtle (33 %)
+        else if(rand_wildpoke<=66){
+            duel_forest(player,squirtle);
+        }
+
+        // case of bulbasaur (34 %)
+        else if(rand_wildpoke<=100){
+         duel_forest(player,bulbasaur); 
+        }
+    }
+}
+
 void forest(trainer* player){
     int finish=0,ch=ERR,quit=0;
-    int x=32,y=125;
+    int x=17,y=3;
     WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     wrefresh(blackscreen);
     while(finish==0){
-    WINDOW* forest_map=newwin(63,236,0,0);
-    box(forest_map,0,0);
-    print_forest(forest_map,x,y);
-    wrefresh(forest_map);
+        WINDOW* forest_map=newwin(63,211,0,12);
+        print_forest(forest_map,x,y);
+        wrefresh(forest_map);
 
-    ch=getch();
-    physic_forest(forest_map,ch,player,&x,&y);
+        ch=getch();
+        physic_forest(forest_map,ch,player,&x,&y);
 
-    if (delwin(forest_map)==ERR)
-        {
-            system("killall -9 vlc");
-            exit(100);
-        }
-    usleep(16667);
-    switch (ch) // actions
-        {
-            case 'e':
-            case '\r':
-            case '\n':
-                break;
-            case 'm':
-                menu(&quit,player);
-                break;
+        if (delwin(forest_map)==ERR)
+            {
+                system("killall -9 vlc");
+                exit(100);
+            }
+        usleep(16667);
+        switch (ch) // actions
+            {
+                case 'e':
+                case '\r':
+                case '\n':
+                    if (y==3)
+                    {
+                        finish=1;
+                    }
 
-            case 'i':
-                inventory(player);
-                break;
+                    break;
+                case 'm':
+                    menu(&quit,player);
+                    break;
 
-            default:
-                break;
-        }
+                case 'i':
+                    inventory(player);
+                    break;
+
+                default:
+                    break;
+            }
     }
     if (delwin(blackscreen)==ERR)
         {
@@ -4293,8 +4344,9 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             if (load(player)==1)
             {
-                chargement();
-                *quit=1;
+                //chargement();
+                //*quit=1;
+                forest(player);
             }
             break;
         
@@ -4417,9 +4469,9 @@ void game(trainer* player, int* quit,int* l,int* c){
 void clignotement(WINDOW* fenetre){
     int count=0;
 
-    WINDOW* fenetre_backup = newwin(63,236,0,0);
+    WINDOW* fenetre_backup = newwin(63,211,0,0);
     for(count=0;count<3;count++){
-        copywin(fenetre,fenetre_backup,0,0,0,0,61,251,FALSE);
+        copywin(fenetre,fenetre_backup,0,0,0,12,62,210,FALSE);
         wrefresh(fenetre_backup);
         usleep(300000);
         wclear(fenetre_backup);
@@ -4848,12 +4900,6 @@ void save(trainer* player){
 
 // V1.0
 int load(trainer* player){
-    
-    FILE* save1 = NULL;
-    FILE* save2 = NULL;
-    FILE* save3 = NULL;
-    FILE* save4 = NULL;
-    FILE* save5 = NULL;
 
     FILE* save1r = NULL;
     FILE* save2r = NULL;
@@ -4929,13 +4975,8 @@ int load(trainer* player){
             switch (x)
             {
             case 29: // save 1
-                fclose(save1r);
-                save1=fopen("saves/save1","rb"); // read content 
-                if (save1 == NULL)
-                {
-                    exit(105);
-                }
-                if(fread(player,sizeof(trainer),1,save1)!=1)
+                fseek(save1r,0,SEEK_END);
+                if(ftell(save1r)==0)
                 {
                     mvwprintw(load_win,29,100,"No save data found in this file");
                     wrefresh(load_win);
@@ -4943,15 +4984,17 @@ int load(trainer* player){
                 }
                 else
                 {
+                    rewind(save1r);
+                    fread(player,sizeof(trainer),1,save1r);
                     mvwprintw(load_win,29,100,"Loaded successfully !");
                     wrefresh(load_win);
                     sleep(2);
                     wclear(load_win);
                     wrefresh(load_win);
                     finish=1;
-                    fclose(save3);
                     fclose(save1r);
                     fclose(save2r);
+                    fclose(save3r);
                     fclose(save4r);
                     fclose(save5r);
                     return 1;
@@ -4959,29 +5002,26 @@ int load(trainer* player){
                 break;
             
             case 31: // save 2
-                fclose(save2r);
-                save2=fopen("saves/save2","rb");  // read content 
-                if (save2 == NULL)
+                fseek(save2r,0,SEEK_END);
+                if(ftell(save2r)==0)
                 {
-                    exit(106);
-                }
-                if(fread(player,sizeof(trainer),1,save2)!=1)
-                {
-                    mvwprintw(load_win,31,100,"No save data found in this file");
+                    mvwprintw(load_win,29,100,"No save data found in this file");
                     wrefresh(load_win);
                     sleep(2);
                 }
                 else
                 {
-                    mvwprintw(load_win,31,100,"Loaded successfully !");
+                    rewind(save2r);
+                    fread(player,sizeof(trainer),1,save2r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
                     wrefresh(load_win);
                     sleep(2);
                     wclear(load_win);
                     wrefresh(load_win);
                     finish=1;
-                    fclose(save3);
                     fclose(save1r);
                     fclose(save2r);
+                    fclose(save3r);
                     fclose(save4r);
                     fclose(save5r);
                     return 1;
@@ -4989,29 +5029,26 @@ int load(trainer* player){
                 break;
             
             case 33: // save 3
-                fclose(save3r);
-                save3=fopen("saves/save3","rb");  // read content 
-                if (save3 == NULL)
+                fseek(save3r,0,SEEK_END);
+                if(ftell(save3r)==0)
                 {
-                    exit(107);
-                }
-                if(fread(player,sizeof(trainer),1,save3)!=1)
-                {
-                    mvwprintw(load_win,33,100,"No save data found in this file");
+                    mvwprintw(load_win,29,100,"No save data found in this file");
                     wrefresh(load_win);
                     sleep(2);
                 }
                 else
                 {
-                    mvwprintw(load_win,33,100,"Loaded successfully !");
+                    rewind(save3r);
+                    fread(player,sizeof(trainer),1,save3r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
                     wrefresh(load_win);
                     sleep(2);
                     wclear(load_win);
                     wrefresh(load_win);
                     finish=1;
-                    fclose(save3);
                     fclose(save1r);
                     fclose(save2r);
+                    fclose(save3r);
                     fclose(save4r);
                     fclose(save5r);
                     return 1;
@@ -5019,29 +5056,26 @@ int load(trainer* player){
                 break;
             
             case 35: // save 4
-                fclose(save4r);
-                save4=fopen("saves/save4","rb");  // read content 
-                if (save4 == NULL)
+                fseek(save4r,0,SEEK_END);
+                if(ftell(save4r)==0)
                 {
-                    exit(108);
-                }
-                if(fread(player,sizeof(trainer),1,save4)!=1)
-                {
-                    mvwprintw(load_win,35,100,"No save data found in this file");
+                    mvwprintw(load_win,29,100,"No save data found in this file");
                     wrefresh(load_win);
                     sleep(2);
                 }
                 else
                 {
-                    mvwprintw(load_win,35,100,"Loaded successfully !");
+                    rewind(save4r);
+                    fread(player,sizeof(trainer),1,save4r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
                     wrefresh(load_win);
                     sleep(2);
                     wclear(load_win);
                     wrefresh(load_win);
                     finish=1;
-                    fclose(save3);
                     fclose(save1r);
                     fclose(save2r);
+                    fclose(save3r);
                     fclose(save4r);
                     fclose(save5r);
                     return 1;
@@ -5049,29 +5083,26 @@ int load(trainer* player){
                 break;
             
             case 37: // save 5
-                fclose(save5r);
-                save5=fopen("saves/save5","rb");  // read content 
-                if (save5 == NULL)
+                fseek(save5r,0,SEEK_END);
+                if(ftell(save5r)==0)
                 {
-                    exit(109);
-                }
-                if(fread(player,sizeof(trainer),1,save5)!=1)
-                {
-                    mvwprintw(load_win,37,100,"No save data found in this file");
+                    mvwprintw(load_win,29,100,"No save data found in this file");
                     wrefresh(load_win);
                     sleep(2);
                 }
                 else
                 {
-                    mvwprintw(load_win,37,100,"Loaded successfully !");
+                    rewind(save5r);
+                    fread(player,sizeof(trainer),1,save5r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
                     wrefresh(load_win);
                     sleep(2);
                     wclear(load_win);
                     wrefresh(load_win);
                     finish=1;
-                    fclose(save3);
                     fclose(save1r);
                     fclose(save2r);
+                    fclose(save3r);
                     fclose(save4r);
                     fclose(save5r);
                     return 1;
@@ -5087,67 +5118,67 @@ int load(trainer* player){
             switch (x)
             {
             case 29: // save 1
-                fclose(save1r);
-                save1=fopen("saves/save1","wb+"); // delete content 
-                if (save1 == NULL)
+                save1r=fopen("saves/save1","wb+"); // delete content 
+                if (save1r == NULL)
                 {
                     exit(105);
                 }
                 mvwprintw(load_win,29,100,"Removed successfully !");
                 wrefresh(load_win);
                 sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
                 wrefresh(load_win);
                 break;
             
             case 31: // save 2
-                fclose(save2r);
-                save2=fopen("saves/save2","wb+");  // delete content 
-                if (save2 == NULL)
+                save2r=fopen("saves/save2","wb+");  // delete content 
+                if (save2r == NULL)
                 {
                     exit(106);
                 }
                 mvwprintw(load_win,31,100,"Removed successfully !");
                 wrefresh(load_win);
                 sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
                 wrefresh(load_win);
                 break;
             
             case 33: // save 3
-                fclose(save3r);
-                save3=fopen("saves/save3","wb+");  // delete content 
-                if (save3 == NULL)
+                save3r=fopen("saves/save3","wb+");  // delete content 
+                if (save3r == NULL)
                 {
                     exit(107);
                 }
                 mvwprintw(load_win,33,100,"Removed successfully !");
                 wrefresh(load_win);
                 sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
                 wrefresh(load_win);
                 break;
             
             case 35: // save 4
-                fclose(save4r);
-                save4=fopen("saves/save4","wb+");  // delete content 
-                if (save4 == NULL)
+                save4r=fopen("saves/save4","wb+");  // delete content 
+                if (save4r == NULL)
                 {
                     exit(108);
                 }
                 mvwprintw(load_win,35,100,"Removed successfully !");
                 wrefresh(load_win);
                 sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
                 wrefresh(load_win);
                 break;
             
             case 37: // save 5
-                fclose(save5r);
-                save5=fopen("saves/save5","wb+");  // delete content 
-                if (save5 == NULL)
+                save5r=fopen("saves/save5","wb+");  // delete content 
+                if (save5r == NULL)
                 {
                     exit(109);
                 }
                 mvwprintw(load_win,37,100,"Removed successfully !");
                 wrefresh(load_win);
                 sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
                 wrefresh(load_win);
                 break;
             
