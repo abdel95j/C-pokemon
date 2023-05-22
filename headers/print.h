@@ -6,7 +6,7 @@
 
 void print_player(WINDOW* win,trainer* player);
 void print_menu(WINDOW* win,int x,int y);
-void create_map(WINDOW* map);
+void create_map(WINDOW* map,trainer* player);
 void print_inventory(WINDOW* sac,trainer* player,int x, int y);
 void print_main_menu(WINDOW* win,int x,int y);
 void print_newtrainer(WINDOW* chat);
@@ -24,6 +24,8 @@ void print_match(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, poke
 void print_art_yourteam(WINDOW* yourteam,trainer player,int whatpoke);
 void jauges_refresh(WINDOW* match,WINDOW* jauge_player,WINDOW* jauge_champion,pokemon player_poke,pokemon champion_poke);
 void print_evolution(WINDOW* evolve_win, pokemon poke, pokemon evolution);
+void cinematique_rock(WINDOW* map, WINDOW* cam, trainer* player);
+void breaktherock(WINDOW*map,WINDOW*cam,trainer* player);
 void chargement();
 
 #endif

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "../headers/game.h"
 #include "../headers/structs.h"
 #include "../headers/physic.h"
@@ -44,6 +45,7 @@ void chargement(int time){
     f=fopen("ressources/pikachu_frames","r");
     if(f==NULL){
         printw("ouverture du fichier ratée");
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(1);
     }
 
@@ -1946,7 +1948,7 @@ mvwprintw(win,x+4,y,"        .");
 
 }
 
-void create_map(WINDOW* map){
+void create_map(WINDOW* map,trainer* player){
 
     //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
 
@@ -1988,31 +1990,36 @@ void create_map(WINDOW* map){
     mvwprintw(map,74+9,121,"  |________|_|____|_|_________|");                   
     mvwprintw(map,74+10,121," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");   
 
-    mvwprintw(map,54-3,365," ______________");
-    mvwprintw(map,54-2,365,"|__THE_FOREST__|");
-    mvwprintw(map,54-1,365,"        |  ");
-    mvwprintw(map,54,380,"===");
-    mvwprintw(map,54+1,381," ");
-    mvwprintw(map,54+2,381," ");
-    mvwprintw(map,54+3,381," ");
-    mvwprintw(map,54+4,381," ");     //line = 25, col = 256 (+- 1)
-    mvwprintw(map,54+5,381," ");
-    mvwprintw(map,54+6,381," ");
-    mvwprintw(map,54+7,381," ");
-    mvwprintw(map,54+8,380,"===");
-
-    mvwprintw(map,104-3,118," ____________");
-    mvwprintw(map,104-2,118,"|_THE_LEAGUE_|");
-    mvwprintw(map,104-1,118,"       |  ");
-    mvwprintw(map,104,115,"===");
-    mvwprintw(map,104+1,116," ");
-    mvwprintw(map,104+2,116," ");
-    mvwprintw(map,104+3,116," ");
-    mvwprintw(map,104+4,116," ");     
-    mvwprintw(map,104+5,116," ");
-    mvwprintw(map,104+6,116," ");
-    mvwprintw(map,104+7,116," ");
-    mvwprintw(map,104+8,115,"===");
+    if (player->is_rock_there==0)
+    {
+        mvwprintw(map,54-3,365," ______________");
+        mvwprintw(map,54-2,365,"|__THE_FOREST__|");
+        mvwprintw(map,54-1,365,"        |  ");
+        mvwprintw(map,54,380,"===");
+        mvwprintw(map,54+1,381," ");
+        mvwprintw(map,54+2,381," ");
+        mvwprintw(map,54+3,381," ");
+        mvwprintw(map,54+4,381," ");     //line = 25, col = 256 (+- 1)
+        mvwprintw(map,54+5,381," ");
+        mvwprintw(map,54+6,381," ");
+        mvwprintw(map,54+7,381," ");
+        mvwprintw(map,54+8,380,"===");
+    }
+    else
+    {
+        mvwprintw(map,54-3,365," ______________");
+        mvwprintw(map,54-2,365,"|__THE_FOREST__|");
+        mvwprintw(map,54-1,365,"        |  ");
+        mvwprintw(map,54,380,"===");
+        mvwprintw(map,54+1,372,"   (#$#####$$##/(  ");
+        mvwprintw(map,54+2,372,"  ###($(((#$(((((( ");
+        mvwprintw(map,54+3,372,"  /#$$$#(#($##((#(#");
+        mvwprintw(map,54+4,372," #####(#(#$##((((#(");     //line = 25, col = 256 (+- 1)
+        mvwprintw(map,54+5,372," ($#((#(//(##,,.#  ");
+        mvwprintw(map,54+6,372,"/(###$(###/(####(  ");
+        mvwprintw(map,54+7,372,"#((###((((#(((($( ");
+        mvwprintw(map,54+8,380,"===");
+    }
 
     mvwprintw(map,122,120,"        ________| |________"); 
     mvwprintw(map,122+1,120,"       /                  /\\");  
@@ -2070,6 +2077,36 @@ void create_map(WINDOW* map){
     mvwprintw(map,97+10,343,"  I   |- | |_4_| |__|__|     I");
     mvwprintw(map,97+11,343,"  I   |__|   |    XXXXX      I");
     mvwprintw(map,97+12,343," ~~~"   "~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
+}
+
+void breaktherock(WINDOW*map,WINDOW*cam,trainer* player){ 
+    for (int i = 0; i < 4; i++)
+    {
+        mvwprintw(map,54,380,"===");
+        mvwprintw(map,54+1,372,"   (#$#####$$##/(  ");
+        mvwprintw(map,54+2,372,"  ###($(((#$(((((( ");
+        mvwprintw(map,54+3,372,"  /#$$$#(#($##((#(#");
+        mvwprintw(map,54+4,372," #####(#(#$##((((#(");
+        mvwprintw(map,54+5,372," ($#((#(//(##,,.#  ");
+        mvwprintw(map,54+6,372,"/(###$(###/(####(  ");
+        mvwprintw(map,54+7,372,"#((###((((#(((($( ");
+        mvwprintw(map,54+8,380,"===");
+        wrefresh(cam);
+        usleep(500000);
+
+        mvwprintw(map,54,380,"===");
+        mvwprintw(map,54+1,372,"                   ");
+        mvwprintw(map,54+2,372,"                   ");
+        mvwprintw(map,54+3,372,"                   ");
+        mvwprintw(map,54+4,372,"                   ");
+        mvwprintw(map,54+5,372,"                   ");
+        mvwprintw(map,54+6,372,"                   ");
+        mvwprintw(map,54+7,372,"                  ");
+        mvwprintw(map,54+8,380,"===");
+        wrefresh(cam);
+        usleep(500000);
+    }
+    player->is_rock_there=0; //FALSE 
 }
 
 void print_newtrainer(WINDOW* chat){
@@ -2314,6 +2351,188 @@ void print_evolution(WINDOW* evolve_win, pokemon poke, pokemon evolution){
 
     if(delwin(text)==ERR)
     {
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(40);
+    }
+}
+
+void cinematique_rock(WINDOW* map,WINDOW* cam, trainer* player){
+
+    wattron(map,COLOR_PAIR(BLUE));
+    mvwprintw(map,40,358-2,"Professor");  
+    mvwprintw(map,40+1,358+2,"-");  
+    mvwprintw(map,40+2,358+1,"'~'");
+    mvwprintw(map,40+3,358,"/|+|\\");
+    mvwprintw(map,40+4,358+1,"|-|");
+    mvwprintw(map,40+5,358+1,"- -"); 
+    wattroff(map,COLOR_PAIR(BLUE));
+    wrefresh(cam);
+    usleep(750000);
+
+    for (int i = 40; i <= 45; i++)  // positionnement du prof
+    {
+        mvwprintw(map,i+1,358+2," ");  
+        mvwprintw(map,i+2,358+1,"   ");
+        mvwprintw(map,i+3,358,"     ");
+        mvwprintw(map,i+4,358+1,"   ");
+        mvwprintw(map,i+5,358+1,"   "); 
+        create_map(map,player);
+        wattron(map,COLOR_PAIR(BLUE));
+        mvwprintw(map,i+1+1,358+2,"-");  
+        mvwprintw(map,i+1+2,358+1,"'~'");
+        mvwprintw(map,i+1+3,358,"/|+|\\");
+        mvwprintw(map,i+1+4,358+1,"|-|");
+        mvwprintw(map,i+1+5,358+1,"- -"); 
+        wattroff(map,COLOR_PAIR(BLUE));
+        wrefresh(cam);
+        usleep(750000);
+    }
+
+    char talk1[100]="Hey ";
+    strcat(talk1,player->name);
+
+    for (int i = 0; i<strlen(talk1); i++) // write flush modifié pour fonctionner avec la cam
+    {
+        mvwprintw(map,47,364+i,"%c",talk1[i]);
+        fflush(stdout);
+        wrefresh(cam);
+        usleep(50000);
+    }
+    sleep(2);
+    for (int i = 0; i < strlen(talk1); i++) // delete
+    {
+        mvwprintw(map,47,364+i," ");
+    }
+
+    // pause
+
+    for (int i = 0; i<strlen("I see you're struggling with this rock"); i++) // write flush modifié pour fonctionner avec la cam
+    {
+        mvwprintw(map,47,364+i,"%c","I see you're struggling with this rock"[i]);
+        fflush(stdout);
+        wrefresh(cam);
+        usleep(50000);
+    }
+    sleep(2);
+    for (int i = 0; i < strlen("I see you're struggling with this rock"); i++) // delete
+    {
+        mvwprintw(map,47,364+i," ");
+    }
+
+    // pause
+
+    for (int i = 0; i<strlen("Your pokemons are here to help you"); i++) // write flush modifié pour fonctionner avec la cam
+    {
+        mvwprintw(map,47,364+i,"%c","Your pokemons are here to help you"[i]);
+        fflush(stdout);
+        wrefresh(cam);
+        usleep(50000);
+    }
+    sleep(2);
+    for (int i = 0; i < strlen("Your pokemons are here to help you"); i++) // delete
+    {
+        mvwprintw(map,47,364+i," ");
+    }
+
+    // pause
+
+    char talk2[100]="Try and ask for help to your ";
+    if (player->poke1.type!=NOPOKEMON)
+    {
+        strcat(talk2,player->poke1.name);
+    }
+    else if (player->poke2.type!=NOPOKEMON)
+    {
+        strcat(talk2,player->poke2.name);
+    }
+    else if (player->poke3.type!=NOPOKEMON)
+    {
+        strcat(talk2,player->poke3.name);
+    }
+    else if (player->poke4.type!=NOPOKEMON)
+    {
+        strcat(talk2,player->poke4.name);
+    }
+    else if (player->poke5.type!=NOPOKEMON)
+    {
+        strcat(talk2,player->poke5.name);
+    }
+    else if (player->poke6.type!=NOPOKEMON)
+    {
+        strcat(talk2,player->poke6.name);
+    }
+    else
+    {
+        exit(47); // no pokemon in the pocket -> error not possible
+    }
+    
+    for (int i = 0; i<strlen(talk2); i++) // write flush modifié pour fonctionner avec la cam
+    {
+        mvwprintw(map,47,364+i,"%c",talk2[i]);
+        fflush(stdout);
+        wrefresh(cam);
+        usleep(50000);
+    }
+    sleep(2);
+    for (int i = 0; i < strlen(talk2); i++) // delete
+    {
+        mvwprintw(map,47,364+i," ");
+    }
+
+    // pause
+
+    for (int i = 0; i<strlen("Press any key to break the rock"); i++) // write flush modifié pour fonctionner avec la cam
+    {
+        mvwprintw(map,47,364+i,"%c","Press any key to break the rock"[i]);
+        fflush(stdout);
+        wrefresh(cam);
+        usleep(50000);
+    }
+    sleep(2);
+    for (int i = 0; i < strlen("Press any key to break the rock"); i++) // delete
+    {
+        mvwprintw(map,47,364+i," ");
+    }
+
+    int ch=ERR;
+
+    nodelay(stdscr,FALSE);
+    ch=getch();
+    breaktherock(map,cam,player);   
+    nodelay(stdscr,TRUE);
+
+    // pause
+
+    for (int i = 0; i<strlen("Well done ! See ya !"); i++) // write flush modifié pour fonctionner avec la cam
+    {
+        mvwprintw(map,47,364+i,"%c","Well done ! See ya !"[i]);
+        fflush(stdout);
+        wrefresh(cam);
+        usleep(50000);
+    }
+    sleep(2);
+    for (int i = 0; i < strlen("Well done ! See ya !"); i++) // delete
+    {
+        mvwprintw(map,47,364+i," ");
+    }
+
+    //pause
+
+    for (int i = 45; i >= 40; i--)  // il part mtn
+    {
+        mvwprintw(map,i+1+1,358+2," ");  
+        mvwprintw(map,i+1+2,358+1,"   ");
+        mvwprintw(map,i+1+3,358,"     ");
+        mvwprintw(map,i+1+4,358+1,"   ");
+        mvwprintw(map,i+1+5,358+1,"   "); 
+        wattron(map,COLOR_PAIR(BLUE));
+        mvwprintw(map,i+1,358+2,"-");  
+        mvwprintw(map,i+2,358+1,"'~'");
+        mvwprintw(map,i+3,358,"/|+|\\");
+        mvwprintw(map,i+4,358+1,"|-|");
+        mvwprintw(map,i+5,358+1,"- -"); 
+        wattroff(map,COLOR_PAIR(BLUE));
+        wrefresh(cam);
+        usleep(750000);
     }
 }

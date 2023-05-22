@@ -4,7 +4,7 @@
 #include <curses.h>
 
 void physic_house(int ch, int* x, int* y);
-void physic_map(int ch, int* l, int* c);
+void physic_map(int ch, int* l, int* c,trainer* player);
 void physic_inventory(int ch, int* x, int* y);
 void physic_menu(int chmenu, int* x);
 void physic_get_firstpoke(int ch, int* y);

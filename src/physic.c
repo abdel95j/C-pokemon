@@ -624,8 +624,8 @@ void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
     rand_wildpoke=rand()%100 +1;// rand from 1 to 100
     rand_encounter=rand()%100 +1;// same
     
-    pokemon charmander,pokenull,bulbasaur,squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
     if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
         rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon
@@ -909,7 +909,7 @@ void physic_shop(int ch, int* x, int* y){
     }
 }
 
-void physic_map(int ch, int* l, int* c){
+void physic_map(int ch, int* l, int* c,trainer* player){
 
     switch (ch)
     {
@@ -960,6 +960,14 @@ void physic_map(int ch, int* l, int* c){
                 *l=*l+1;
             }
 
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*l==26 && *c>=250)  // physic rock
+                {
+                    *l=*l+1;
+                }
+            }
+            
             if (*c<=14 && *l==68)   //physic "THE LEAGUE"
             {
                 *l=*l+1;
@@ -1004,6 +1012,14 @@ void physic_map(int ch, int* l, int* c){
                 *l=*l-1;
             }
 
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*l==20 && *c>=250)  // physic rock
+                {
+                    *l=*l-1;
+                }
+            }
+
             if (*c<=14 && *l==66)   //physic "THE LEAGUE"
             {
                 *l=*l-1;
@@ -1043,7 +1059,14 @@ void physic_map(int ch, int* l, int* c){
                 *c=*c-2;
             }
             
-            
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*l>=20 && *l<=26 && *c==250)  // physic rock
+                {
+                    *c=*c-2;
+                }
+            }
+
             break;
         case KEY_LEFT:
         case 'q':

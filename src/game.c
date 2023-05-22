@@ -923,7 +923,8 @@ void create_newplayer(trainer* newplayer){
     newplayer->lvl=1;
     newplayer->money=200;
     newplayer->xp=0;
-    newplayer->is_on_water=0;
+    newplayer->is_on_water=0; // false
+    newplayer->is_rock_there=1; // true
 
     newplayer->inventory[POKEBALLS].quant=10;
     newplayer->inventory[POKEBALLS].type=OTHER;
@@ -1129,6 +1130,7 @@ void evolvepoke(pokemon* poke){
 
     if (delwin(evolve_win)==ERR)
     {
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(48);
     }  
     system("killall -9 vlc >/dev/null 2>&1 &"); // stop evolve theme
@@ -1814,7 +1816,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         usleep(16667);
                         if (delwin(fight)==ERR)
                         {
-                            system("killall -9 vlc");
+                            system("killall -9 vlc >/dev/null 2>&1 &");
                             exit(47);
                         } 
                     }
@@ -2900,7 +2902,7 @@ void forest(trainer* player){
     WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
     wrefresh(blackscreen);
     while(finish==0){
-    WINDOW* forest_map=newwin(62,252,0,0);
+    WINDOW* forest_map=newwin(63,236,0,0);
     box(forest_map,0,0);
     print_forest(forest_map,x,y);
     wrefresh(forest_map);
@@ -4290,9 +4292,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             create_newplayer(player);
             get_firstpoke(player);
-            league(player);
             *quit=1;
-            chargement();
             break;
         
         default:
@@ -4324,13 +4324,13 @@ void game(trainer* player, int* quit,int* l,int* c){
     box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
 
     mvwin(cam,0,0);
-    create_map(map);
+    create_map(map,player);
     print_player(cam,player); 
     wrefresh(cam); 
 
     ch=getch();
 
-    physic_map(ch,l,c); // colisions
+    physic_map(ch,l,c,player); // colisions
     switch (ch) // actions
     {
         case 'e':
@@ -4354,11 +4354,28 @@ void game(trainer* player, int* quit,int* l,int* c){
                 lab(player);
             }
 
-            if (*c==0 && *l>=70 && *l<=76) // road to league 
+            if (*c==0 && *l>=70 && *l<=76) // road to league area
             {
                 chargement();
                 roadto_league(player);
             }
+
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*c>=248 && *l>=23 && *l<=26) // rock area
+                {
+                    cinematique_rock(map,cam,player);
+                }
+            }
+            else
+            {
+                if (*c==256 && *l>=20 && *l<=26) // forest area
+                {
+                    chargement();
+                    forest(player); 
+                }
+            }
+
             break;
 
         case 'm':
@@ -4397,7 +4414,7 @@ void game(trainer* player, int* quit,int* l,int* c){
 void clignotement(WINDOW* fenetre){
     int count=0;
 
-    WINDOW* fenetre_backup = newwin(62,252,0,0);
+    WINDOW* fenetre_backup = newwin(63,236,0,0);
     for(count=0;count<3;count++){
         copywin(fenetre,fenetre_backup,0,0,0,0,61,251,FALSE);
         wrefresh(fenetre_backup);
@@ -4408,6 +4425,7 @@ void clignotement(WINDOW* fenetre){
     }
      if(delwin(fenetre_backup)==ERR)
     {
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(103);
     }
 }
