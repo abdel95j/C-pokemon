@@ -2109,6 +2109,291 @@ void breaktherock(WINDOW*map,WINDOW*cam,trainer* player){
     player->is_rock_there=0; //FALSE 
 }
 
+void print_load(WINDOW* win,FILE* save1r,FILE* save2r,FILE* save3r,FILE* save4r,FILE* save5r,int x){
+
+    mvwprintw(win,8,150,"                        //*///***/,                  ");                
+    mvwprintw(win,8+1,150,"                     *///(//*////////                ");                
+    mvwprintw(win,8+2,150,"                    *(*//(*(/ .///(**.               ");                
+    mvwprintw(win,8+3,150,"                    *//*(//*... ////*(               ");                
+    mvwprintw(win,8+4,150,"                    /((/.$......#*((*/               ");                
+    mvwprintw(win,8+5,150,"                    ,**,.#......(..//.               ");                
+    mvwprintw(win,8+6,150,"                     /# ... ,..... #(                ");                
+    mvwprintw(win,8+7,150,"                     *#(......,...(#,                ");                
+    mvwprintw(win,8+8,150,"                    ,($#(#/. . *#((#/                ");                
+    mvwprintw(win,8+9,150,"                    ,*($(#,*,,*,(#(,#                ");                
+    mvwprintw(win,8+10,150,"                   .*,,....... ....* ,*              ");                
+    mvwprintw(win,8+11,150,"                 /((#  /,/(##(#((/,* .(((/.          ");                
+    mvwprintw(win,8+12,150,"               .//#((  ///((((//(((. .((((#          ");                
+    mvwprintw(win,8+13,150,"              ,(/((#(,,,,,*******,,,*,##(//          ");                
+    mvwprintw(win,8+14,150,"              $//((#                  .#(/((         ");                
+    mvwprintw(win,8+15,150,"            ////((#( .,,,,,,,,,,,,,,,, $((//.        ");                
+    mvwprintw(win,8+16,150,"           /((/(#( ,,,,,,,,,,,,,,,,,,,##(///(        ");                
+    mvwprintw(win,8+17,150,"          #(/(((#   ...,.,,,,,,,,,,.,  (#///(/       ");                
+    mvwprintw(win,8+18,150,"         ((//(((    ,                ,  #(///(,      ");                
+    mvwprintw(win,8+19,150,"       ,(/(/(/,     ,                .  *(///((      ");                
+    mvwprintw(win,8+20,150,"      //////(      ...,,   .,*/,   /...  ((//(//     ");                
+    mvwprintw(win,8+21,150,"     (/(/(((      /*                . ,.  (((/(/,    ");                
+    mvwprintw(win,8+22,150,"   ,*,(((//      /#                   .(.  ((//((    ");                
+    mvwprintw(win,8+23,150,"   ..((//       * ,                   . ,  ./((/,$   ");                
+    mvwprintw(win,8+24,150,"  ,. ,         .. ,                   ,. .  *(((/.   ");                
+    mvwprintw(win,8+25,150," . ..,         .. ,                   *..*     , .,  ");                
+    mvwprintw(win,8+26,150,"**. ,.        , ( .                   *,  .    ...., ");                
+    mvwprintw(win,8+27,150,"**           ,., ...                  ., .,     /,/, ");                
+    mvwprintw(win,8+28,150,"            , ,,..,,                 *.,...*         ");                
+    mvwprintw(win,8+29,150,"           .../ ..*,                 *.., ,.         ");                
+    mvwprintw(win,8+30,150,"           ../. .* . .,,*,      .,,** ..*.*./        ");                
+    mvwprintw(win,8+31,150,"           .,, .,,...   ..*, ......*..  *..*..       ");                
+    mvwprintw(win,8+32,150,"         ..,* ../ ..... .*,,......., ....,./.,       ");                
+    mvwprintw(win,8+33,150,"        ,.,/.  ,,. .. .  *,*......,*. .. *. *.,      ");                
+    mvwprintw(win,8+34,150,"       ,..,...,/ ........,,.. .....,,... *../.,      ");                
+    mvwprintw(win,8+35,150,"      ,..,*.  ,... .. ../,*.. .....*, ... * ., ,     ");                
+    mvwprintw(win,8+36,150,"     ,  ./. ../.........*,* .......,, ..../../.,     ");                
+    mvwprintw(win,8+37,150,"         ....,,...... ..,,*....... /,........*, ,    ");                
+    mvwprintw(win,8+38,150,"          *,**..........,,,. ....../,,... ., .       ");                
+    mvwprintw(win,8+39,150,"              ,. ... . ,,,,. ..  ../,,....           ");                
+    mvwprintw(win,8+40,150,"                     . , ..*. ...*/                  ");                
+    mvwprintw(win,8+41,150,"                     ....,  ***,,/                   ");                
+    mvwprintw(win,8+42,150,"                      ....  ***,,.                   ");                
+    mvwprintw(win,8+43,150,"                      * .., ....*                    ");                
+    mvwprintw(win,8+44,150,"                      *...*,. ..                     ");                
+    mvwprintw(win,8+45,150,"                      /....,...*                     ");                
+    mvwprintw(win,8+46,150,"                      *. .*.. .*                     ");                
+    mvwprintw(win,8+47,150,"                     *..  * ....                     ");                
+    mvwprintw(win,8+48,150,"                      .(*,/.. ,.*                    ");                
+    mvwprintw(win,8+49,150,"                         .. .    ,                   ");                
+    mvwprintw(win,8+50,150,"                          .(/**//                    ");             
+
+    mvwprintw(win,17,40,  "  ___ _                                                               _          ");
+    mvwprintw(win,17+1,40," / __| |_  ___  ___ ___ ___   __ _   _ __ _ _ ___  __ _ _ _ ___ _____(_)___ _ _  ");
+    mvwprintw(win,17+2,40,"| (__| ' \\/ _ \\/ _ (_-</ -_) / _` | | '_ \\ '_/ _ \\/ _` | '_/ -_|_-<_-< / _ \\ ' \\ ");
+    mvwprintw(win,17+3,40," \\___|_||_\\___/\\___/__/\\___| \\__,_| | .__/_| \\___/\\__, |_| \\___/__/__/_\\___/_||_|");
+    mvwprintw(win,17+4,40,"                                    |_|           |___/                         ");
+
+    mvwprintw(win,52,20,"Press enter/e to save");
+    mvwprintw(win,54,20,"Press x to remove a save");
+
+    mvwprintw(win,x,68,">");
+
+    trainer temp1;
+    trainer temp2;
+    trainer temp3;
+    trainer temp4;
+    trainer temp5;
+
+    fseek(save1r,0,SEEK_END);
+    fseek(save2r,0,SEEK_END);
+    fseek(save3r,0,SEEK_END);
+    fseek(save4r,0,SEEK_END);
+    fseek(save5r,0,SEEK_END);
+
+    int test1=ftell(save1r);
+    int test2=ftell(save2r);
+    int test3=ftell(save3r);
+    int test4=ftell(save4r);
+    int test5=ftell(save5r);
+
+    if (test1==0)
+    {
+        mvwprintw(win,29,70,"Emplacement 1");
+    }
+    else
+    {
+        rewind(save1r);
+        fread(&temp1,sizeof(trainer),1,save1r);
+        mvwprintw(win,29,70,"%s lvl %d",temp1.name,temp1.lvl);
+    }
+
+    if (test2==0)
+    {
+        mvwprintw(win,31,70,"Emplacement 2");
+    }
+    else
+    {
+        rewind(save2r);
+        fread(&temp2,sizeof(trainer),1,save2r);
+        mvwprintw(win,31,70,"%s lvl %d",temp2.name,temp2.lvl);
+    }
+
+    if (test3==0)
+    {
+        mvwprintw(win,33,70,"Emplacement 3");
+    }
+    else
+    {
+        rewind(save3r);
+        fread(&temp3,sizeof(trainer),1,save3r);
+        mvwprintw(win,33,70,"%s lvl %d",temp3.name,temp3.lvl);
+    }
+
+    if (test4==0)
+    {
+        mvwprintw(win,35,70,"Emplacement 4");
+    }
+    else
+    {
+        rewind(save4r);
+        fread(&temp4,sizeof(trainer),1,save4r);
+        mvwprintw(win,35,70,"%s lvl %d",temp4.name,temp4.lvl);
+    }
+
+    if (test5==0)
+    {
+        mvwprintw(win,37,70,"Emplacement 5");
+    }
+    else
+    {
+        rewind(save5r);
+        fread(&temp5,sizeof(trainer),1,save5r);
+        mvwprintw(win,37,70,"%s lvl %d",temp5.name,temp5.lvl);
+    }
+}
+
+void print_save(WINDOW* win,FILE* save1r,FILE* save2r,FILE* save3r,FILE* save4r,FILE* save5r,int x){
+
+    mvwprintw(win,2,140,"                                      /&#                                      "); 
+    mvwprintw(win,2+1,140,"                                .(,.        .,(*                               "); 
+    mvwprintw(win,2+2,140,"                            $&        *$##(((##(  .(                           "); 
+    mvwprintw(win,2+3,140,"                         #((&       *$#$/$###((##,   ..                        "); 
+    mvwprintw(win,2+4,140,"                         $(((       ,$((#(//*(#(#,    /                        "); 
+    mvwprintw(win,2+5,140,"                         $#((          *#######,      .                        "); 
+    mvwprintw(win,2+6,140,"                         $#((    .,/((###(((((#$#(*  .                         "); 
+    mvwprintw(win,2+7,140,"                        ,&&&$$$(((((((((((((((((((((((#,                       "); 
+    mvwprintw(win,2+8,140,"                    ./#&$$$$$&#/#$&&&$((@&&&&&((&@&#$$$#(#                     "); 
+    mvwprintw(win,2+9,140,"                    *&$$$$$$$@,,,* #( *&/$&&(#(&/ $*#$$$$$                     "); 
+    mvwprintw(win,2+10,140,"                  ,&&&&&&&/(#,,,,  $@ .,*$,,,,.&$ *,@#&&&&                     "); 
+    mvwprintw(win,2+11,140,"                      ,@&&//$//*,,,(#.,,,,,,,,,@#.,,//&&@*                     "); 
+    mvwprintw(win,2+12,140,"                      ,@&&&&(///*(,##*,,,,,,(,/,$$*,@&@/                       "); 
+    mvwprintw(win,2+13,140,"                ,.  .$#.,/((&&&&(/,,,,,,*/(((/,,,,/.                           "); 
+    mvwprintw(win,2+14,140,"           **,,,*(,,,,,*$   .&$$&&$&(*,,,,,,,,,$                               "); 
+    mvwprintw(win,2+15,140,"           *,,,$$*,*$#*$&  &&&$$$$$$$##$&##&$$$##$                             "); 
+    mvwprintw(win,2+16,140,"          ,$$$$$$$$$$* ..$$$$#($@##&$$$$$(/#(#$$$$$                            "); 
+    mvwprintw(win,2+17,140,"        /*$$$$$$#((#$$$#$$$#*,#(#&&#(((#$$$##$$(($@($(                         "); 
+    mvwprintw(win,2+18,140,"        $/$$((/$(//##////(&/,,$(((#&@$(((((.,$((#@&(((#(*                      "); 
+    mvwprintw(win,2+19,140,"         (#,     ,.    .**$#(#$@#((((#&@@@/../$@&#(((($((*                     "); 
+    mvwprintw(win,2+20,140,"           ,/***,********&((((( $@$(((((((#$/#((((((($$((((                    "); 
+    mvwprintw(win,2+21,140,"              ,$(////((//($$$&,   ,&@$#((((#.*#(((($@$##(((/                   "); 
+    mvwprintw(win,2+22,140,"                /$$&$&$$&$$$#,.      .#@@&$#.,$$&@&, ($$(((($.                 "); 
+    mvwprintw(win,2+23,140,"                    /&$ (&@,,,             ,,,/      ,$#(((((($.               "); 
+    mvwprintw(win,2+24,140,"                        (,/,.              ,,,/      .$((((((##                "); 
+    mvwprintw(win,2+25,140,"                        *  ,       .       ,*,(       $$((#$////*   /####&     "); 
+    mvwprintw(win,2+26,140,"                        .  ,      #(#,     ,*,(...,&(,&#(/////,*#,#,,,#$####(  "); 
+    mvwprintw(win,2+27,140,"                        ,       /#($.      ,*,(     ###   (*,(,/(,,,,///$####$ "); 
+    mvwprintw(win,2+28,140,"                        /  ,  .$(#/        ,,.(      ##.   ,**,(,/*,#,,,*&####."); 
+    mvwprintw(win,2+29,140,"                        / ,  $((#.         ,,.(       #(,    **,,#*##,/(,,/&##("); 
+    mvwprintw(win,2+30,140,"                       *  #,#($.           *,.(        #(          ../(/#*,(*  "); 
+    mvwprintw(win,2+31,140,"                       . (                .(..(          (                     "); 
+    mvwprintw(win,2+32,140,"                       (  .,*//***//***,./.,##./         ,                     "); 
+    mvwprintw(win,2+33,140,"                       *..             ./.*#((#./       /                      "); 
+    mvwprintw(win,2+34,140,"                       .####$#######$$$$$$$##$##$$$$$$$#,                      "); 
+    mvwprintw(win,2+35,140,"                       $#$$###############$##$#########&$                      "); 
+    mvwprintw(win,2+36,140,"                      *$#################$$$&&$#########$/                     "); 
+    mvwprintw(win,2+37,140,"                     .##################&$$$$$$##########$                     "); 
+    mvwprintw(win,2+38,140,"                     @$################$$$$$$$$###########*                    "); 
+    mvwprintw(win,2+39,140,"                    *##########$$&&$$## /$$$$$$##$$&&$####$                    "); 
+    mvwprintw(win,2+40,140,"                   .$#&##############$   #$$$$&############*                   "); 
+    mvwprintw(win,2+41,140,"                   (#$###############,    &$$$$$############                   "); 
+    mvwprintw(win,2+42,140,"                  .$#$##############(     ,$$$#$###########$,                  "); 
+    mvwprintw(win,2+43,140,"                  (#$##############$       ($$##$###########/                  "); 
+    mvwprintw(win,2+44,140,"                 .$$&$#############,        &$##$###########$                  "); 
+    mvwprintw(win,2+45,140,"                 /#########$&$$$$$(         *####$$$$$$$$####,                 "); 
+    mvwprintw(win,2+46,140,"               ,$&#########$#####$           &########$#######                 "); 
+    mvwprintw(win,2+47,140,"              *#$$#######$#######*           ,#########&######*                "); 
+    mvwprintw(win,2+48,140,"              ###########&#####,               /###############             "); 
+    mvwprintw(win,2+49,140,"             ###########$#####$                .################              "); 
+    mvwprintw(win,2+50,140,"            &$$###############.                .#################              "); 
+    mvwprintw(win,2+51,140,"           $((((((#$&$$$$$&,                     ,$$$$$$$$$$$$$$$$,            "); 
+    mvwprintw(win,2+52,140,"         (&(((((((((((&$$$$*                     .$$$$$$$$$$((((((/            "); 
+    mvwprintw(win,2+53,140,"        (#$$$$##(((((#####$                        &&$$&&$&#((((((##           "); 
+    mvwprintw(win,2+54,140,"      *$##$$$$$####$$(###/                        .#####(((##(($$$#$$*         "); 
+    mvwprintw(win,2+55,140,"   /#((((((((((((($$(###&                           $####(($#$$$$##$#(((((($,  "); 
+    mvwprintw(win,2+56,140,"  #$#########$$((((#(###,                           $###$#(((((((($(((($######("); 
+    mvwprintw(win,2+57,140,",(((#$$#####$$$#($#&($#*                            $#####((((((((##($$$$$$$$$$");
+    mvwprintw(win,2+58,140,"/ (#(((((((((((((#$..,*                             /,,,,, *($##((($((((((((((#");
+
+    mvwprintw(win,17,45,  "  ___ _                                                  __ _ _     ");
+    mvwprintw(win,17+1,45," / __| |_  ___  ___ ___ ___   __ _   ___ __ ___ _____   / _(_) |___ ");
+    mvwprintw(win,17+2,45,"| (__| ' \\/ _ \\/ _ (_-</ -_) / _` | (_-</ _` \\ V / -_) |  _| | / -_)");
+    mvwprintw(win,17+3,45," \\___|_||_\\___/\\___/__/\\___| \\__,_| /__/\\__,_|\\_/\\___| |_| |_|_\\___|");
+
+    mvwprintw(win,52,20,"Press enter/e to save");
+    mvwprintw(win,54,20,"Press x to remove a save");
+
+    mvwprintw(win,x,68,">");
+
+    trainer temp1;
+    trainer temp2;
+    trainer temp3;
+    trainer temp4;
+    trainer temp5;
+
+    fseek(save1r,0,SEEK_END);
+    fseek(save2r,0,SEEK_END);
+    fseek(save3r,0,SEEK_END);
+    fseek(save4r,0,SEEK_END);
+    fseek(save5r,0,SEEK_END);
+
+    int test1=ftell(save1r);
+    int test2=ftell(save2r);
+    int test3=ftell(save3r);
+    int test4=ftell(save4r);
+    int test5=ftell(save5r);
+
+    if (test1==0)
+    {
+        mvwprintw(win,29,70,"Emplacement 1");
+    }
+    else
+    {
+        rewind(save1r);
+        fread(&temp1,sizeof(trainer),1,save1r);
+        mvwprintw(win,29,70,"%s lvl %d",temp1.name,temp1.lvl);
+    }
+
+    if (test2==0)
+    {
+        mvwprintw(win,31,70,"Emplacement 2");
+    }
+    else
+    {
+        rewind(save2r);
+        fread(&temp2,sizeof(trainer),1,save2r);
+        mvwprintw(win,31,70,"%s lvl %d",temp2.name,temp2.lvl);
+    }
+
+    if (test3==0)
+    {
+        mvwprintw(win,33,70,"Emplacement 3");
+    }
+    else
+    {
+        rewind(save3r);
+        fread(&temp3,sizeof(trainer),1,save3r);
+        mvwprintw(win,33,70,"%s lvl %d",temp3.name,temp3.lvl);
+    }
+
+    if (test4==0)
+    {
+        mvwprintw(win,35,70,"Emplacement 4");
+    }
+    else
+    {
+        rewind(save4r);
+        fread(&temp4,sizeof(trainer),1,save4r);
+        mvwprintw(win,35,70,"%s lvl %d",temp4.name,temp4.lvl);
+    }
+
+    if (test5==0)
+    {
+        mvwprintw(win,37,70,"Emplacement 5");
+    }
+    else
+    {
+        rewind(save5r);
+        fread(&temp5,sizeof(trainer),1,save5r);
+        mvwprintw(win,37,70,"%s lvl %d",temp5.name,temp5.lvl);
+    }
+}
+
 void print_newtrainer(WINDOW* chat){
 
     mvwprintw(chat,2+1,150,"                     .@@&@ #.&@#/,,,*,./@&                        ");         

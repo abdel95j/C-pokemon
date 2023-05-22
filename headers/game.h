@@ -25,5 +25,7 @@ void clignotement(WINDOW* fenetre);
 void duel_forest(trainer * player,pokemon wild_poke);
 void playerlvlup(trainer* player);
 void evolvepoke(pokemon* poke);
+void save(trainer* player);
+int load(trainer* player);
 
 #endif

@@ -26,6 +26,8 @@ void jauges_refresh(WINDOW* match,WINDOW* jauge_player,WINDOW* jauge_champion,po
 void print_evolution(WINDOW* evolve_win, pokemon poke, pokemon evolution);
 void cinematique_rock(WINDOW* map, WINDOW* cam, trainer* player);
 void breaktherock(WINDOW*map,WINDOW*cam,trainer* player);
+void print_save(WINDOW* win,FILE* save1,FILE* save2,FILE* save3,FILE* save4,FILE* save5,int x);
+void print_load(WINDOW* win,FILE* save1r,FILE* save2r,FILE* save3r,FILE* save4r,FILE* save5r,int x);
 void chargement();
 
 #endif

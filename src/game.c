@@ -924,7 +924,8 @@ void create_newplayer(trainer* newplayer){
     newplayer->money=200;
     newplayer->xp=0;
     newplayer->is_on_water=0; // false
-    newplayer->is_rock_there=1; // true
+    //newplayer->is_rock_there=1; // true
+    newplayer->is_rock_there=0; // TEST
 
     newplayer->inventory[POKEBALLS].quant=10;
     newplayer->inventory[POKEBALLS].type=OTHER;
@@ -3907,7 +3908,7 @@ void menu(int* quit,trainer* player){
                         break;
 
                     case 22:
-                        chargement();
+                        save(player);
                         break;
 
                     case 13:
@@ -4290,9 +4291,11 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
-            create_newplayer(player);
-            get_firstpoke(player);
-            *quit=1;
+            if (load(player)==1)
+            {
+                chargement();
+                *quit=1;
+            }
             break;
         
         default:
@@ -4433,37 +4436,735 @@ void duel_forest(trainer * player,pokemon wild_poke){
     
     int count_atk=1;
 
-    if(player->poke1.pv>0){
-                    if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else{
-                        //defeat
-                    }
-                }
-                else if(player->poke2.pv>0){
-                    if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else{
-                        //defeat
-                    }
-                }
-                else{
-                    if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else{
-                        //defeat
-                    }
-                }
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop main theme
+    usleep(1000);
+    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
+
+    if(player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0){
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv==0 && player->poke2.pv>0 && player->poke3.pv>0){
+        if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv>0 && player->poke2.pv==0 && player->poke3.pv>0){
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv==0){
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv>0)
+    {
+        if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv>0 && player->poke2.pv==0 && player->poke3.pv==0)
+    {
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv==0 && player->poke2.pv>0 && player->poke3.pv==0)
+    {
+        if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
+    usleep(1000);
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
+}
+
+// V1.0
+void save(trainer* player){
+
+    FILE* save1 = NULL;
+    FILE* save2 = NULL;
+    FILE* save3 = NULL;
+    FILE* save4 = NULL;
+    FILE* save5 = NULL;
+
+    FILE* save1r = NULL;
+    FILE* save2r = NULL;
+    FILE* save3r = NULL;
+    FILE* save4r = NULL;
+    FILE* save5r = NULL;
+
+    save1r=fopen("saves/save1","rb");
+    save2r=fopen("saves/save2","rb");
+    save3r=fopen("saves/save3","rb");
+    save4r=fopen("saves/save4","rb");
+    save5r=fopen("saves/save5","rb");
+
+    if (save1r == NULL)
+    {
+        exit(100);
+    }
+    if (save2r == NULL)
+    {
+        exit(101);
+    }
+    if (save3r == NULL)
+    {
+        exit(102);
+    }
+    if (save4r == NULL)
+    {
+        exit(103);
+    }
+    if (save5r == NULL)
+    {
+        exit(104);
+    }
+
+    int ch=ERR,finish=0;
+    int x=29;
+
+    while (finish==0)
+    {
+        WINDOW* save_win=newwin(LINES-1,COLS-1,0,0);
+        print_save(save_win,save1r,save2r,save3r,save4r,save5r,x);
+        wrefresh(save_win);
+
+        ch=getch();
+        switch (ch)
+        {
+        case ' ':
+            wclear(save_win);
+            wrefresh(save_win);
+            finish=1;
+            break;
+
+        case 'z':
+        case KEY_UP:
+            if (x!=29)
+            {
+                x-=2;
             }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (x!=37)
+            {
+                x+=2;
+            }  
+            break;
+
+        case 'e': // save
+        case '\r':
+        case '\n':
+            switch (x)
+            {
+            case 29: // save 1
+                fclose(save1r);
+                save1=fopen("saves/save1","wb+"); // delete content 
+                if (save1 == NULL)
+                {
+                    exit(105);
+                }
+                if(fwrite(player,sizeof(trainer),1,save1)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,29,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save1);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 31: // save 2
+                fclose(save2r);
+                save2=fopen("saves/save2","wb+");  // delete content 
+                if (save2 == NULL)
+                {
+                    exit(106);
+                }
+                if(fwrite(player,sizeof(trainer),1,save2)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,31,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save2);
+                fclose(save1r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 33: // save 3
+                fclose(save3r);
+                save3=fopen("saves/save3","wb+");  // delete content 
+                if (save3 == NULL)
+                {
+                    exit(107);
+                }
+                if(fwrite(player,sizeof(trainer),1,save3)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,33,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save3);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 35: // save 4
+                fclose(save4r);
+                save4=fopen("saves/save4","wb+");  // delete content 
+                if (save4 == NULL)
+                {
+                    exit(108);
+                }
+                if(fwrite(player,sizeof(trainer),1,save4)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,35,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save4);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save5r);
+                break;
+            
+            case 37: // save 5
+                fclose(save5r);
+                save5=fopen("saves/save5","wb+");  // delete content 
+                if (save5 == NULL)
+                {
+                    exit(109);
+                }
+                if(fwrite(player,sizeof(trainer),1,save5)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,37,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                fclose(save5);
+                finish=1;
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                break;
+            
+            default:
+                break;
+            }
+            break;
+
+        case 'x': // delete a save
+            switch (x)
+            {
+            case 29: // save 1
+                fclose(save1r);
+                save1=fopen("saves/save1","wb+"); // delete content 
+                if (save1 == NULL)
+                {
+                    exit(105);
+                }
+                mvwprintw(save_win,29,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save1);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 31: // save 2
+                fclose(save2r);
+                save2=fopen("saves/save2","wb+");  // delete content 
+                if (save2 == NULL)
+                {
+                    exit(106);
+                }
+                mvwprintw(save_win,31,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save2);
+                fclose(save1r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 33: // save 3
+                fclose(save3r);
+                save3=fopen("saves/save3","wb+");  // delete content 
+                if (save3 == NULL)
+                {
+                    exit(107);
+                }
+                mvwprintw(save_win,33,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save3);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 35: // save 4
+                fclose(save4r);
+                save4=fopen("saves/save4","wb+");  // delete content 
+                if (save4 == NULL)
+                {
+                    exit(108);
+                }
+                mvwprintw(save_win,35,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save4);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save5r);
+                break;
+            
+            case 37: // save 5
+                fclose(save5r);
+                save5=fopen("saves/save5","wb+");  // delete content 
+                if (save5 == NULL)
+                {
+                    exit(109);
+                }
+                mvwprintw(save_win,37,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                fclose(save5);
+                finish=1;
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                break;
+            
+            default:
+                break;
+            }
+        
+        default:
+            break;
+        }
+
+        usleep(16667);
+        if (delwin(save_win)==ERR)
+        {
+            system("killall -9 vlc >/dev/null 2>&1 &");
+            exit(50);
+        }
+    }
+}
+
+// V1.0
+int load(trainer* player){
+    
+    FILE* save1 = NULL;
+    FILE* save2 = NULL;
+    FILE* save3 = NULL;
+    FILE* save4 = NULL;
+    FILE* save5 = NULL;
+
+    FILE* save1r = NULL;
+    FILE* save2r = NULL;
+    FILE* save3r = NULL;
+    FILE* save4r = NULL;
+    FILE* save5r = NULL;
+
+    save1r=fopen("saves/save1","rb");
+    save2r=fopen("saves/save2","rb");
+    save3r=fopen("saves/save3","rb");
+    save4r=fopen("saves/save4","rb");
+    save5r=fopen("saves/save5","rb");
+
+    if (save1r == NULL)
+    {
+        exit(100);
+    }
+    if (save2r == NULL)
+    {
+        exit(101);
+    }
+    if (save3r == NULL)
+    {
+        exit(102);
+    }
+    if (save4r == NULL)
+    {
+        exit(103);
+    }
+    if (save5r == NULL)
+    {
+        exit(104);
+    }
+
+    int ch=ERR,finish=0;
+    int x=29;
+
+    while (finish==0)
+    {
+        WINDOW* load_win=newwin(LINES-1,COLS-1,0,0);
+        print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+        wrefresh(load_win);
+
+        ch=getch();
+        switch (ch)
+        {
+        case ' ':
+            wclear(load_win);
+            wrefresh(load_win);
+            finish=1; 
+            return 0;  
+            break;
+
+        case 'z':
+        case KEY_UP:
+            if (x!=29)
+            {
+                x-=2;
+            }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (x!=37)
+            {
+                x+=2;
+            }  
+            break;
+
+        case 'e': // save
+        case '\r':
+        case '\n':
+            switch (x)
+            {
+            case 29: // save 1
+                fclose(save1r);
+                save1=fopen("saves/save1","rb"); // read content 
+                if (save1 == NULL)
+                {
+                    exit(105);
+                }
+                if(fread(player,sizeof(trainer),1,save1)!=1)
+                {
+                    mvwprintw(load_win,29,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save3);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 31: // save 2
+                fclose(save2r);
+                save2=fopen("saves/save2","rb");  // read content 
+                if (save2 == NULL)
+                {
+                    exit(106);
+                }
+                if(fread(player,sizeof(trainer),1,save2)!=1)
+                {
+                    mvwprintw(load_win,31,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    mvwprintw(load_win,31,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save3);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 33: // save 3
+                fclose(save3r);
+                save3=fopen("saves/save3","rb");  // read content 
+                if (save3 == NULL)
+                {
+                    exit(107);
+                }
+                if(fread(player,sizeof(trainer),1,save3)!=1)
+                {
+                    mvwprintw(load_win,33,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    mvwprintw(load_win,33,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save3);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 35: // save 4
+                fclose(save4r);
+                save4=fopen("saves/save4","rb");  // read content 
+                if (save4 == NULL)
+                {
+                    exit(108);
+                }
+                if(fread(player,sizeof(trainer),1,save4)!=1)
+                {
+                    mvwprintw(load_win,35,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    mvwprintw(load_win,35,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save3);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 37: // save 5
+                fclose(save5r);
+                save5=fopen("saves/save5","rb");  // read content 
+                if (save5 == NULL)
+                {
+                    exit(109);
+                }
+                if(fread(player,sizeof(trainer),1,save5)!=1)
+                {
+                    mvwprintw(load_win,37,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    mvwprintw(load_win,37,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save3);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            default:
+                break;
+            }
+            break;
+
+        case 'x': // delete a save
+            switch (x)
+            {
+            case 29: // save 1
+                fclose(save1r);
+                save1=fopen("saves/save1","wb+"); // delete content 
+                if (save1 == NULL)
+                {
+                    exit(105);
+                }
+                mvwprintw(load_win,29,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                wrefresh(load_win);
+                break;
+            
+            case 31: // save 2
+                fclose(save2r);
+                save2=fopen("saves/save2","wb+");  // delete content 
+                if (save2 == NULL)
+                {
+                    exit(106);
+                }
+                mvwprintw(load_win,31,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                wrefresh(load_win);
+                break;
+            
+            case 33: // save 3
+                fclose(save3r);
+                save3=fopen("saves/save3","wb+");  // delete content 
+                if (save3 == NULL)
+                {
+                    exit(107);
+                }
+                mvwprintw(load_win,33,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                wrefresh(load_win);
+                break;
+            
+            case 35: // save 4
+                fclose(save4r);
+                save4=fopen("saves/save4","wb+");  // delete content 
+                if (save4 == NULL)
+                {
+                    exit(108);
+                }
+                mvwprintw(load_win,35,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                wrefresh(load_win);
+                break;
+            
+            case 37: // save 5
+                fclose(save5r);
+                save5=fopen("saves/save5","wb+");  // delete content 
+                if (save5 == NULL)
+                {
+                    exit(109);
+                }
+                mvwprintw(load_win,37,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                wrefresh(load_win);
+                break;
+            
+            default:
+                break;
+            }
+        
+        default:
+            break;
+        }
+
+        usleep(16667);
+        if (delwin(load_win)==ERR)
+        {
+            system("killall -9 vlc >/dev/null 2>&1 &");
+            exit(50);
+        }
+    }    
+
+}
