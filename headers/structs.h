@@ -29,6 +29,7 @@
 #define SURF 1
 #define LEER 2
 #define ROAR 3
+#define FLOWER 4
 
 //champions_art
 #define CHAMPIONBLUE 1

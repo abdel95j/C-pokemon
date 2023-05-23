@@ -55,7 +55,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
 
         mvwprintw(buy_stuff,10,4,"CT");
 
-        mvwprintw(buy_stuff,12,4,"EXIT");
+        mvwprintw(buy_stuff,12,4,"- Sell -");
 
         mvwprintw(buy_stuff,x,2,">");
         wrefresh(shop_map);  
@@ -103,22 +103,26 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 wmove(shop_map,18,37);
                 echo();
                 nodelay(stdscr,FALSE);
+                howmany=-1;
                 
-                while (howmany<=0)
+                while (howmany<0)
                 {
-                    wscanw(shop_map,"%d",&howmany);
-                    if (howmany<=0)
+                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                        wmove(shop_map,18,37);
+                    }
+                    if (howmany==0)
                     {
                         curs_set(0);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
-                        write_flush(shop_map,15,37,"Sir, that's");
-                        write_flush(shop_map,16,37,"not possible !");
+                        write_flush(shop_map,15,37,"No pokeballs ?");
+                        write_flush(shop_map,16,37,"no problem sir");
                         sleep(1);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
-                        write_flush(shop_map,15,37,"How many pokeballs");
-                        write_flush(shop_map,16,37,"do you need ?");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                         wmove(shop_map,18,37);
                         curs_set(1);
@@ -129,33 +133,36 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 nodelay(stdscr,TRUE);
                 curs_set(0);
 
-                if (player->money>=20*howmany)
+                if (howmany>0)
                 {
-                    player->money-=20*howmany;
-                    player->inventory[POKEBALLS].quant+=howmany;
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"You bought %d",howmany);
-                    write_flush(shop_map,16,37,"pokeballs !");   
-                    sleep(2);
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"What do you want");
-                    write_flush(shop_map,16,37,"to buy today ?");
-                }     
+                    if (player->money>=20*howmany)
+                    {
+                        player->money-=20*howmany;
+                        player->inventory[POKEBALLS].quant+=howmany;
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"You bought %d",howmany);
+                        write_flush(shop_map,16,37,"pokeballs !");   
+                        sleep(2);
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
+                    }     
 
-                else
-                {
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"Sorry, you don't have");
-                    write_flush(shop_map,16,37,"enough money for this");
-                    sleep(2);
-                    mvwprintw(shop_map,15,37,"                     ");
-                    mvwprintw(shop_map,16,37,"                     ");
-                    write_flush(shop_map,15,37,"What do you want");
-                    write_flush(shop_map,16,37,"to buy today ?");
-                }   
+                    else
+                    {
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"Sorry, you don't have");
+                        write_flush(shop_map,16,37,"enough money for this");
+                        sleep(2);
+                        mvwprintw(shop_map,15,37,"                     ");
+                        mvwprintw(shop_map,16,37,"                     ");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
+                    }   
+                }
                 break;
             
             case 6:  //  potion
@@ -168,22 +175,26 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 wmove(shop_map,18,37);
                 echo();
                 nodelay(stdscr,FALSE);
+                howmany=-1;
                 
-                while (howmany<=0)
+                while (howmany<0)
                 {
-                    wscanw(shop_map,"%d",&howmany);
-                    if (howmany<=0)
+                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                        wmove(shop_map,18,37);
+                    }
+                    if (howmany==0)
                     {
                         curs_set(0);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
-                        write_flush(shop_map,15,37,"Sir, that's");
-                        write_flush(shop_map,16,37,"not possible !");
+                        write_flush(shop_map,15,37,"No potions ?");
+                        write_flush(shop_map,16,37,"no problem sir");
                         sleep(1);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
-                        write_flush(shop_map,15,37,"How many candys");
-                        write_flush(shop_map,16,37,"do you need ?");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                         wmove(shop_map,18,37);
                         curs_set(1);
@@ -194,32 +205,35 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 nodelay(stdscr,TRUE);
                 curs_set(0);
 
-                if (player->money>=15*howmany)
+                if (howmany>0)
                 {
-                    player->money-=15*howmany;
-                    player->inventory[POTIONS].quant+=howmany;
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"You bought %d",howmany);
-                    write_flush(shop_map,16,37,"candys !");   
-                    sleep(2);
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"What do you want");
-                    write_flush(shop_map,16,37,"to buy today ?");
-                }     
+                    if (player->money>=15*howmany)
+                    {
+                        player->money-=15*howmany;
+                        player->inventory[POTIONS].quant+=howmany;
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"You bought %d",howmany);
+                        write_flush(shop_map,16,37,"candys !");   
+                        sleep(2);
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
+                    }     
 
-                else
-                {
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"Sorry, you don't have");
-                    write_flush(shop_map,16,37,"enough money for this");
-                    sleep(2);
-                    mvwprintw(shop_map,15,37,"                     ");
-                    mvwprintw(shop_map,16,37,"                     ");
-                    write_flush(shop_map,15,37,"What do you want");
-                    write_flush(shop_map,16,37,"to buy today ?");
+                    else
+                    {
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"Sorry, you don't have");
+                        write_flush(shop_map,16,37,"enough money for this");
+                        sleep(2);
+                        mvwprintw(shop_map,15,37,"                     ");
+                        mvwprintw(shop_map,16,37,"                     ");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
+                    }
                 }
                 break;
 
@@ -233,22 +247,26 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 wmove(shop_map,18,37);
                 echo();
                 nodelay(stdscr,FALSE);
+                howmany=-1;
                 
-                while (howmany<=0)
+                while (howmany=0)
                 {
-                    wscanw(shop_map,"%d",&howmany);
-                    if (howmany<=0)
+                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                        wmove(shop_map,18,37);
+                    }
+                    if (howmany==0)
                     {
                         curs_set(0);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
-                        write_flush(shop_map,15,37,"Sir, that's");
-                        write_flush(shop_map,16,37,"not possible !");
+                        write_flush(shop_map,15,37,"No candys ?");
+                        write_flush(shop_map,16,37,"no problem sir");
                         sleep(1);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
-                        write_flush(shop_map,15,37,"How many candys");
-                        write_flush(shop_map,16,37,"do you need ?");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                         wmove(shop_map,18,37);
                         curs_set(1);
@@ -259,32 +277,35 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 nodelay(stdscr,TRUE);
                 curs_set(0);
 
-                if (player->money>=40*howmany)
+                if (howmany>0)
                 {
-                    player->money-=40*howmany;
-                    player->inventory[CANDYS].quant+=howmany;
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"You bought %d",howmany);
-                    write_flush(shop_map,16,37,"candys !");   
-                    sleep(2);
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"What do you want");
-                    write_flush(shop_map,16,37,"to buy today ?");
-                }     
+                    if (player->money>=40*howmany)
+                    {
+                        player->money-=40*howmany;
+                        player->inventory[CANDYS].quant+=howmany;
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"You bought %d",howmany);
+                        write_flush(shop_map,16,37,"candys !");   
+                        sleep(2);
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
+                    }     
 
-                else
-                {
-                    mvwprintw(shop_map,15,37,"                       ");
-                    mvwprintw(shop_map,16,37,"              ");
-                    write_flush(shop_map,15,37,"Sorry, you don't have");
-                    write_flush(shop_map,16,37,"enough money for this");
-                    sleep(2);
-                    mvwprintw(shop_map,15,37,"                     ");
-                    mvwprintw(shop_map,16,37,"                     ");
-                    write_flush(shop_map,15,37,"What do you want");
-                    write_flush(shop_map,16,37,"to buy today ?");
+                    else
+                    {
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"              ");
+                        write_flush(shop_map,15,37,"Sorry, you don't have");
+                        write_flush(shop_map,16,37,"enough money for this");
+                        sleep(2);
+                        mvwprintw(shop_map,15,37,"                     ");
+                        mvwprintw(shop_map,16,37,"                     ");
+                        write_flush(shop_map,15,37,"What do you want");
+                        write_flush(shop_map,16,37,"to buy today ?");
+                    }
                 }
                 break;
 
@@ -749,12 +770,392 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 }
                 break;
 
-            case 12:  //  EXIT
+            case 12:  //  Sell
+                int finishSell=0;
+                int xsell=4;
+
                 mvwprintw(shop_map,15,37,"                       ");
-                mvwprintw(shop_map,16,37,"              ");
-                write_flush(shop_map,15,37,"Have a nice day sir !");
-                sleep(2);
-                finish=1;
+                mvwprintw(shop_map,16,37,"                     ");
+                write_flush(shop_map,15,37,"What do you want to");
+                write_flush(shop_map,16,37,"sell me ?");
+                while (finishSell==0)
+                {
+                    wclear(buy_stuff);
+                    WINDOW* blank=subwin(shop_map,16,40,36,45);
+                    wrefresh(blank);
+                    box(buy_stuff,0,0);
+                    mvwprintw(buy_stuff,1,16,"PokeShop");
+                    mvwprintw(buy_stuff,1,2,"%d$",player->money);
+
+                    mvwprintw(buy_stuff,4,4,"Flowers [20$]");
+                    mvwprintw(buy_stuff,6,4,"EXIT");
+                    mvwprintw(buy_stuff,xsell,2,">");
+
+                    wrefresh(buy_stuff);
+                    ch=getch();
+                    switch (ch)
+                    {
+                    case 'z':
+                    case KEY_UP:
+                        if (xsell!=4)
+                        {
+                            xsell-=2;
+                        }   
+                        break;
+
+                    case 's':
+                    case KEY_DOWN:
+                        if (xsell!=6)
+                        {
+                            xsell+=2;
+                        }   
+                        break;
+
+                    case ' ':
+                        finishSell=1;
+                        mvwprintw(shop_map,15,37,"                       ");
+                        mvwprintw(shop_map,16,37,"                     ");
+                        write_flush(shop_map,15,37,"What do you want to");
+                        write_flush(shop_map,16,37,"buy today ?");
+                        break;
+
+                    case 'e':
+                    case '\r':
+                    case '\n':
+                        switch (xsell)
+                        {
+                        case 6:
+                            finishSell=1;
+                            mvwprintw(shop_map,15,37,"                       ");
+                            mvwprintw(shop_map,16,37,"                     ");
+                            write_flush(shop_map,15,37,"What do you want to");
+                            write_flush(shop_map,16,37,"buy today ?");
+                            break;
+
+                        case 4:
+                            if (player->inventory[SLOT4].type==FLOWER)
+                            {
+                                mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                     ");
+                                write_flush(shop_map,15,37,"You have %d flowers",player->inventory[SLOT4].quant);
+                                sleep(1);
+                                mvwprintw(shop_map,15,37,"                       ");
+                                write_flush(shop_map,15,37,"How many do you want");
+                                write_flush(shop_map,16,37,"to sell ?");
+
+                                curs_set(1);
+                                wmove(shop_map,18,37);
+                                echo();
+                                nodelay(stdscr,FALSE);
+                                howmany=-1;
+
+                                while (howmany<0)
+                                {
+                                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        wmove(shop_map,18,37);
+                                    }
+                                    if (howmany==0)
+                                    {
+                                        curs_set(0);
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"No flowers ?");
+                                        write_flush(shop_map,16,37,"no problem sir");
+                                        sleep(1);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                        wmove(shop_map,18,37);
+                                        curs_set(1);
+                                    }  
+                                }
+
+                                noecho();
+                                nodelay(stdscr,TRUE);
+                                curs_set(0);
+
+                                if (howmany>0)
+                                {
+                                    if (player->inventory[SLOT4].quant>howmany)
+                                    {
+                                        player->money+=20*howmany;
+                                        player->inventory[SLOT4].quant-=howmany;
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"You sold %d",howmany);
+                                        write_flush(shop_map,16,37,"flowers !");   
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }   
+
+                                    else if (player->inventory[SLOT4].quant==howmany)
+                                    {
+                                        player->money+=20*howmany;
+                                        player->inventory[SLOT4].quant=0;
+                                        player->inventory[SLOT4].type=EMPTY;
+                                        sprintf(player->inventory[SLOT4].name,"empty");
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"You sold %d",howmany);
+                                        write_flush(shop_map,16,37,"flowers !");   
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }    
+
+                                    else
+                                    {
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"Sorry, you don't have");
+                                        write_flush(shop_map,16,37,"enough flowers");
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                     ");
+                                        mvwprintw(shop_map,16,37,"                     ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }
+                                }
+                            }
+
+                            else if (player->inventory[SLOT5].type==FLOWER)
+                            {
+                                mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                     ");
+                                write_flush(shop_map,15,37,"What do you want to");
+                                write_flush(shop_map,16,37,"buy today ?");
+                                write_flush(shop_map,15,37,"You have %d flowers",player->inventory[SLOT5].quant);
+                                sleep(1);
+                                mvwprintw(shop_map,15,37,"                       ");
+                                write_flush(shop_map,15,37,"How many do you want");
+                                write_flush(shop_map,16,37,"to sell ?");
+
+                                curs_set(1);
+                                wmove(shop_map,18,37);
+                                echo();
+                                nodelay(stdscr,FALSE);
+                                howmany=-1;
+
+                                while (howmany<0)
+                                {
+                                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        wmove(shop_map,18,37);
+                                    }
+                                    if (howmany==0)
+                                    {
+                                        curs_set(0);
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"No flowers ?");
+                                        write_flush(shop_map,16,37,"no problem sir");
+                                        sleep(1);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                        wmove(shop_map,18,37);
+                                        curs_set(1);
+                                    }  
+                                }
+
+                                noecho();
+                                nodelay(stdscr,TRUE);
+                                curs_set(0);
+
+                                if (howmany>0)
+                                {
+                                    if (player->inventory[SLOT5].quant>howmany)
+                                    {
+                                        player->money+=20*howmany;
+                                        player->inventory[SLOT5].quant-=howmany;
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"You sold %d",howmany);
+                                        write_flush(shop_map,16,37,"flowers !");   
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }   
+
+                                    else if (player->inventory[SLOT5].quant==howmany)
+                                    {
+                                        player->money+=20*howmany;
+                                        player->inventory[SLOT5].quant=0;
+                                        player->inventory[SLOT5].type=EMPTY;
+                                        sprintf(player->inventory[SLOT5].name,"empty");
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"You sold %d",howmany);
+                                        write_flush(shop_map,16,37,"flowers !");   
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }    
+
+                                    else
+                                    {
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"Sorry, you don't have");
+                                        write_flush(shop_map,16,37,"enough flowers");
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                     ");
+                                        mvwprintw(shop_map,16,37,"                     ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }
+                                }
+                            }
+
+                            else if (player->inventory[SLOT6].type==FLOWER)
+                            {
+                                mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                     ");
+                                write_flush(shop_map,15,37,"What do you want to");
+                                write_flush(shop_map,16,37,"buy today ?");
+                                write_flush(shop_map,15,37,"You have %d flowers",player->inventory[SLOT6].quant);
+                                sleep(1);
+                                mvwprintw(shop_map,15,37,"                       ");
+                                write_flush(shop_map,15,37,"How many do you want");
+                                write_flush(shop_map,16,37,"to sell ?");
+
+                                curs_set(1);
+                                wmove(shop_map,18,37);
+                                echo();
+                                nodelay(stdscr,FALSE);
+                                howmany=-1;
+
+                                while (howmany<0)
+                                {
+                                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        wmove(shop_map,18,37);
+                                    }
+                                    if (howmany==0)
+                                    {
+                                        curs_set(0);
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"No flowers ?");
+                                        write_flush(shop_map,16,37,"no problem sir");
+                                        sleep(1);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                        wmove(shop_map,18,37);
+                                        curs_set(1);
+                                    }  
+                                }
+
+                                noecho();
+                                nodelay(stdscr,TRUE);
+                                curs_set(0);
+
+                                if (howmany>0)
+                                {
+                                    if (player->inventory[SLOT6].quant>howmany)
+                                    {
+                                        player->money+=20*howmany;
+                                        player->inventory[SLOT6].quant-=howmany;
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"You sold %d",howmany);
+                                        write_flush(shop_map,16,37,"flowers !");   
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }   
+
+                                    else if (player->inventory[SLOT6].quant==howmany)
+                                    {
+                                        player->money+=20*howmany;
+                                        player->inventory[SLOT6].quant=0;
+                                        player->inventory[SLOT6].type=EMPTY;
+                                        sprintf(player->inventory[SLOT6].name,"empty");
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"You sold %d",howmany);
+                                        write_flush(shop_map,16,37,"flowers !");   
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }    
+
+                                    else
+                                    {
+                                        mvwprintw(shop_map,15,37,"                       ");
+                                        mvwprintw(shop_map,16,37,"              ");
+                                        write_flush(shop_map,15,37,"Sorry, you don't have");
+                                        write_flush(shop_map,16,37,"enough flowers");
+                                        sleep(2);
+                                        mvwprintw(shop_map,18,37,"                             "); // clear scan zone
+                                        mvwprintw(shop_map,15,37,"                     ");
+                                        mvwprintw(shop_map,16,37,"                     ");
+                                        write_flush(shop_map,15,37,"What do you want to");
+                                        write_flush(shop_map,16,37,"sell me ?");
+                                    }
+                                }
+                            }
+
+                            else
+                            {
+                                mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                     ");
+                                write_flush(shop_map,15,37,"You don't have any");
+                                write_flush(shop_map,16,37,"flowers");
+                                sleep(1);
+                                mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                     ");
+                                write_flush(shop_map,15,37,"What do you want to");
+                                write_flush(shop_map,16,37,"sell me ?");
+                            }
+                            
+                            break;
+                        
+                        default:
+                            break;
+                        }
+                        break;
+                    
+                    default:
+                        break;
+                    }
+
+                    usleep(16667);
+                    if (delwin(blank)==ERR)
+                    {
+                        system("killall -9 vlc >/dev/null 2>&1 &");
+                        exit(52);
+                    } 
+                }
                 break;
             
             default:

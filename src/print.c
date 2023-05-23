@@ -19,7 +19,8 @@ void print_player(WINDOW* cam,trainer* player){
         mvwprintw(cam,((63-2)/2)+1,((236-2)/2)+2,"'_'");                
         mvwprintw(cam,((63-2)/2)+2,((236-2)/2)+1,"/| |\\");
         mvwprintw(cam,((63-2)/2)+3,(236-2)/2,"' |_| '");
-        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+2,"| |");
+        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+2,"|");
+        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+4,"|");
         mvwprintw(cam,((63-2)/2)+5,((236-2)/2)+1,"-----");
         wattroff(cam,COLOR_PAIR(1));
     }
@@ -29,9 +30,13 @@ void print_player(WINDOW* cam,trainer* player){
         mvwprintw(cam,((63-2)/2),((236-2)/2)+3,"_");                
         mvwprintw(cam,((63-2)/2)+1,((236-2)/2)+2,"'_'");                
         mvwprintw(cam,((63-2)/2)+2,((236-2)/2)+1,"/| |\\");
-        mvwprintw(cam,((63-2)/2)+3,(236-2)/2,"' |_| '");
-        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+2,"| |");
-        mvwprintw(cam,((63-2)/2)+5,((236-2)/2)+2,"- -");
+        mvwprintw(cam,((63-2)/2)+3,(236-2)/2,"'");
+        mvwprintw(cam,((63-2)/2)+3,((236-2)/2)+2,"|_|");
+        mvwprintw(cam,((63-2)/2)+3,((236-2)/2)+6,"'");
+        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+2,"|");
+        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+4,"|");
+        mvwprintw(cam,((63-2)/2)+5,((236-2)/2)+2,"-");
+        mvwprintw(cam,((63-2)/2)+5,((236-2)/2)+4,"-");
         wattroff(cam,COLOR_PAIR(1));
     }
 }
@@ -1446,8 +1451,140 @@ void print_shop(WINDOW*shop_map,int x, int y){
     wattroff(shop_map,COLOR_PAIR(1));
 }
 
+void print_flowers(WINDOW* road, int flowerx1, int flowerx2 ,int flowerx3, int flowerx4, int flowerx5, int flowerx6 ,int flowerx7, int flowerx8, int flowerx9, int flowerx10, int flowery1, int flowery2, int flowery3, int flowery4, int flowery5, int flowery6,int flowery7, int flowery8, int flowery9, int flowery10){
+    if(flowerx1==0)
+    {
+        mvwprintw(road,flowerx1-1,flowery1,"  ");
+        mvwprintw(road,flowerx1,flowery1,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx1-1,flowery1," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx1,flowery1,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx2==0)
+    {
+        mvwprintw(road,flowerx2-1,flowery2,"  ");
+        mvwprintw(road,flowerx2,flowery2,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx2-1,flowery2," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx2,flowery2,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx3==0)
+    {
+        mvwprintw(road,flowerx3-1,flowery3,"  ");
+        mvwprintw(road,flowerx3,flowery3,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx3-1,flowery3," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx3,flowery3,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx4==0)
+    {
+        mvwprintw(road,flowerx4-1,flowery4,"  ");
+        mvwprintw(road,flowerx4,flowery4,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx4-1,flowery4," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx4,flowery4,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx5==0)
+    {
+        mvwprintw(road,flowerx5-1,flowery5,"  ");
+        mvwprintw(road,flowerx5,flowery5,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx5-1,flowery5," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx5,flowery5,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx6==0)
+    {
+        mvwprintw(road,flowerx6-1,flowery6,"  ");
+        mvwprintw(road,flowerx6,flowery6,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx6-1,flowery6," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx6,flowery6,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx7==0)
+    {
+        mvwprintw(road,flowerx7-1,flowery7,"  ");
+        mvwprintw(road,flowerx7,flowery7,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx7-1,flowery7," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx7,flowery7,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx8==0)
+    {
+        mvwprintw(road,flowerx8-1,flowery8,"  ");
+        mvwprintw(road,flowerx8,flowery8,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx8-1,flowery8," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx8,flowery8,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx9==0)
+    {
+        mvwprintw(road,flowerx9-1,flowery9,"  ");
+        mvwprintw(road,flowerx9,flowery9,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx9-1,flowery9," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx9,flowery9,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+
+    if(flowerx10==0)
+    {
+        mvwprintw(road,flowerx10-1,flowery10,"  ");
+        mvwprintw(road,flowerx10,flowery10,"   ");
+    }
+    else
+    {
+        mvwprintw(road,flowerx10-1,flowery10," #");
+        wattron(road,COLOR_PAIR(GREEN));
+        mvwprintw(road,flowerx10,flowery10,"\\|/");
+        wattroff(road,COLOR_PAIR(GREEN));
+    }
+}
+
 void print_roadto_league(WINDOW* road){
-    
+
     mvwprintw(road,30,148,"      ________________________________________________________________________ ");
     mvwprintw(road,30+1,148,"     |                                                                        |");
     mvwprintw(road,30+2,148,"     |                                                                        |");
@@ -1562,7 +1699,6 @@ void print_roadto_league(WINDOW* road){
     mvwprintw(road,139,183+14,"|");
 
     mvwprintw(road,140,177,"EXIT");
-
 
     wattron(road,COLOR_PAIR(4));
     for (int j = 0; j <= 200; j++)  
@@ -1843,7 +1979,7 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     mvwprintw(sac,16,68,"%s",player->inventory[SLOT5].name);
     mvwprintw(sac,16,108,"%s",player->inventory[SLOT6].name);
 
-    if (player->inventory[3].type!=EMPTY || player->inventory[3].quant!=0)
+    if (player->inventory[3].type==SURF || player->inventory[3].type==ROAR || player->inventory[3].type==LEER)
     {
         mvwprintw(sac,16,5,"     (@@@@@&&@@(       ");
         mvwprintw(sac,16+1,5,"  &/(($$$$$&@@@@@&&    ");
@@ -1857,7 +1993,7 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,17,30,"x%d",player->inventory[SLOT4].quant);
     }
     
-    if (player->inventory[4].type!=EMPTY || player->inventory[4].quant!=0)
+    if (player->inventory[4].type==SURF || player->inventory[4].type==ROAR || player->inventory[4].type==LEER)
     {
         mvwprintw(sac,16,45,"     (@@@@@&&@@(       ");
         mvwprintw(sac,16+1,45,"  &/(($$$$$&@@@@@&&    ");
@@ -1871,7 +2007,7 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,17,70,"x%d",player->inventory[SLOT5].quant);
     }
 
-    if (player->inventory[5].type!=EMPTY || player->inventory[5].quant!=0)
+    if (player->inventory[5].type==SURF || player->inventory[5].type==ROAR || player->inventory[5].type==LEER)
     {
         mvwprintw(sac,16,84,"     (@@@@@&&@@(       ");
         mvwprintw(sac,16+1,84,"  &/(($$$$$&@@@@@&&    ");
@@ -1884,6 +2020,20 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,16+8,84,"        &&&&&          "); 
         mvwprintw(sac,17,110,"x%d",player->inventory[SLOT6].quant);
     }     
+
+    if (player->inventory[3].type==FLOWER)
+    {
+        mvwprintw(sac,16,13,  "   _ _");
+        mvwprintw(sac,16+1,13," _{ ' }_");
+        mvwprintw(sac,16+2,13,"{ `.!.` }");
+        mvwprintw(sac,16+3,13,"',_/Y\\_,'");
+        mvwprintw(sac,16+4,13,"  {_,_}");
+        mvwprintw(sac,16+5,13,"    |");
+        mvwprintw(sac,16+6,13,"  (\\|");
+        mvwprintw(sac,16+7,13,"   \\| /)");
+        mvwprintw(sac,16+8,13,"    |//");   
+        mvwprintw(sac,17,30,"x%d",player->inventory[SLOT4].quant);
+    }
 }
 
 void print_art_box(WINDOW* box,trainer player,int whatpoke){

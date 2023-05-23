@@ -17,6 +17,7 @@ void print_lab(WINDOW*lab_map,int x, int y);
 void print_forest(WINDOW*forest_map,int x, int y);
 void print_poke(WINDOW* win,pokemon poke,int x, int y,int FRONT0_BACK1);
 void print_roadto_league(WINDOW* road);
+void print_flowers(WINDOW* road, int flowerx1, int flowerx2 ,int flowerx3, int flowerx4, int flowerx5, int flowerx6 ,int flowerx7, int flowerx8, int flowerx9, int flowerx10, int flowery1, int flowery2, int flowery3, int flowery4, int flowery5, int flowery6,int flowery7, int flowery8, int flowery9, int flowery10);
 void print_computer_connect(WINDOW* pc, trainer* player);
 void print_yourteam( WINDOW* box1,WINDOW* box2,WINDOW* box3,WINDOW* box4,WINDOW* box5,WINDOW* box6,trainer* player, int x,int y);
 void print_league(WINDOW* league_map,int x,int y,trainer champion);

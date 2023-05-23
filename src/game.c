@@ -3046,8 +3046,8 @@ void forest(trainer* player){
                     if (y==3)
                     {
                         finish=1;
+                        chargement();
                     }
-
                     break;
                 case 'm':
                     menu(&quit,player);
@@ -4104,10 +4104,484 @@ void inventory(trainer* player){
         case ' ':
             finish=1;
             break;
+            
         case 'e':
         case '\n':
         case '\r':
-            // à faire
+            
+            if (x==12)
+            {
+                switch (y)
+                {
+                case 17: // pokeballs
+                    //inutile
+                    break;
+
+                case 57: // potions
+                    int finishpotion=0;
+                    int xpotion=4;
+
+                    while (finishpotion==0)
+                    {
+                        WINDOW* actions = newwin(10,20,20,10);
+                        box(actions,0,0);
+
+                        mvwprintw(actions,1,2,"What do you want");
+                        mvwprintw(actions,2,2,"to do ?");
+                        mvwprintw(actions,4,6,"Use");
+                        mvwprintw(actions,6,6,"Nothing");
+                        mvwprintw(actions,xpotion,4,">");
+                        wrefresh(actions);
+
+                        ch=getch();
+                        switch (ch)
+                        {
+                        case ' ':
+                            wclear(actions);
+                            wrefresh(actions);
+                            finishpotion=1;
+                            break;
+
+                        case 'z':
+                        case KEY_UP:
+                            if (xpotion!=4)
+                            {
+                                xpotion-=2;
+                            }
+                            break;
+
+                        case 's':
+                        case KEY_DOWN:
+                            if (xpotion!=6)
+                            {
+                                xpotion+=2;
+                            }
+                            break;
+
+                        case 'e':
+                        case '\r':
+                        case '\n':
+                            if (xpotion==6)
+                            {
+                                wclear(actions);
+                                wrefresh(actions);
+                                finishpotion=1;
+                            }
+                            else if (xpotion==4)
+                            {
+                                int finishchoice=0;
+                                int xchoice=3;
+                                while (finishchoice==0)
+                                {
+                                    wclear(actions);
+                                    box(actions,0,0);
+                                    mvwprintw(actions,1,2,"On which poke ?");
+                                    mvwprintw(actions,3,6,"%s",player->poke1.name);
+                                    mvwprintw(actions,4,6,"%s",player->poke2.name);
+                                    mvwprintw(actions,5,6,"%s",player->poke3.name);
+                                    mvwprintw(actions,6,6,"%s",player->poke4.name);
+                                    mvwprintw(actions,7,6,"%s",player->poke5.name);
+                                    mvwprintw(actions,8,6,"%s",player->poke6.name);
+                                    mvwprintw(actions,xchoice,4,">");
+                                    wrefresh(actions);
+
+                                    ch=getch();
+                                    switch (ch)
+                                    {
+                                    case ' ':
+                                        wclear(actions);
+                                        box(actions,0,0);
+                                        finishchoice=1;
+                                        break;
+
+                                    case 'z':
+                                    case KEY_UP:
+                                        if (xchoice!=3)
+                                        {
+                                            xchoice-=1;
+                                        }
+                                        break;
+
+                                    case 's':
+                                    case KEY_DOWN:
+                                        if (xchoice!=8)
+                                        {
+                                            xchoice+=1;
+                                        }
+                                        break;
+
+                                    case 'e':
+                                    case '\r':
+                                    case '\n':
+                                        switch (xchoice)
+                                        {
+                                        case 3: // poke1
+                                            if (player->poke1.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke1.pv<player->poke1.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke1.pv=player->poke1.pv*1.5;
+                                                if (player->poke1.pv>player->poke1.pv_save)
+                                                {
+                                                    player->poke1.pv=player->poke1.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke1.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        case 4: // poke2
+                                            if (player->poke2.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke2.pv<player->poke2.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke2.pv=player->poke2.pv*1.5;
+                                                if (player->poke2.pv>player->poke2.pv_save)
+                                                {
+                                                    player->poke2.pv=player->poke2.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke2.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 5: // poke3
+                                            if (player->poke3.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke3.pv<player->poke3.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke3.pv=player->poke3.pv*1.5;
+                                                if (player->poke3.pv>player->poke3.pv_save)
+                                                {
+                                                    player->poke3.pv=player->poke3.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke3.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 6: // poke4
+                                            if (player->poke4.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke4.pv<player->poke4.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke4.pv=player->poke4.pv*1.5;
+                                                if (player->poke4.pv>player->poke4.pv_save)
+                                                {
+                                                    player->poke4.pv=player->poke4.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke4.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 7: // poke5
+                                            if (player->poke5.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke5.pv<player->poke5.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke5.pv=player->poke5.pv*1.5;
+                                                if (player->poke5.pv>player->poke5.pv_save)
+                                                {
+                                                    player->poke5.pv=player->poke5.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke5.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 8: // poke6
+                                            if (player->poke6.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke6.pv<player->poke6.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke6.pv=player->poke6.pv*1.5;
+                                                if (player->poke6.pv>player->poke6.pv_save)
+                                                {
+                                                    player->poke6.pv=player->poke6.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke6.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        default:
+                                            break;
+                                        }
+
+                                        break;
+
+                                    default:
+                                        break;
+                                    }
+                                    usleep(16667);
+                                } 
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+
+                        usleep(16667);
+                        if (delwin(actions)==ERR)
+                        {
+                            system("killall -9 vlc >/dev/null 2>&1 &");
+                            exit(53);
+                        }
+                    }
+                    break;
+
+                case 97: // candys
+                    int finishcandy=0;
+                    int xcandy=4;
+
+                    while (finishcandy==0)
+                    {
+                        WINDOW* actions = newwin(10,20,20,10);
+                        box(actions,0,0);
+
+                        mvwprintw(actions,1,2,"What do you want");
+                        mvwprintw(actions,2,2,"to do ?");
+                        mvwprintw(actions,4,6,"Use");
+                        mvwprintw(actions,6,6,"Nothing");
+                        mvwprintw(actions,xcandy,4,">");
+                        wrefresh(actions);
+
+                        ch=getch();
+                        switch (ch)
+                        {
+                        case ' ':
+                            wclear(actions);
+                            wrefresh(actions);
+                            finishcandy=1;
+                            break;
+
+                        case 'z':
+                        case KEY_UP:
+                            if (xcandy!=4)
+                            {
+                                xcandy-=2;
+                            }
+                            break;
+
+                        case 's':
+                        case KEY_DOWN:
+                            if (xcandy!=6)
+                            {
+                                xcandy+=2;
+                            }
+                            break;
+
+                        case 'e':
+                        case '\r':
+                        case '\n':
+                            if (xcandy==6)
+                            {
+                                wclear(actions);
+                                wrefresh(actions);
+                                finishcandy=1;
+                            }
+                            else if (xcandy==4)
+                            {
+                                int finishchoice=0;
+                                int xchoice=3;
+                                while (finishchoice==0)
+                                {
+                                    wclear(actions);
+                                    box(actions,0,0);
+                                    mvwprintw(actions,1,2,"On which poke ?");
+                                    mvwprintw(actions,3,6,"%s",player->poke1.name);
+                                    mvwprintw(actions,4,6,"%s",player->poke2.name);
+                                    mvwprintw(actions,5,6,"%s",player->poke3.name);
+                                    mvwprintw(actions,6,6,"%s",player->poke4.name);
+                                    mvwprintw(actions,7,6,"%s",player->poke5.name);
+                                    mvwprintw(actions,8,6,"%s",player->poke6.name);
+                                    mvwprintw(actions,xchoice,4,">");
+                                    wrefresh(actions);
+
+                                    ch=getch();
+                                    switch (ch)
+                                    {
+                                    case ' ':
+                                        wclear(actions);
+                                        box(actions,0,0);
+                                        finishchoice=1;
+                                        break;
+
+                                    case 'z':
+                                    case KEY_UP:
+                                        if (xchoice!=3)
+                                        {
+                                            xchoice-=1;
+                                        }
+                                        break;
+
+                                    case 's':
+                                    case KEY_DOWN:
+                                        if (xchoice!=8)
+                                        {
+                                            xchoice+=1;
+                                        }
+                                        break;
+
+                                    case 'e':
+                                    case '\r':
+                                    case '\n':
+                                        switch (xchoice)
+                                        {
+                                        case 3: // poke1
+                                            if (player->poke1.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        case 4: // poke2
+                                            if (player->poke2.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke2);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 5: // poke3
+                                            if (player->poke3.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke3);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 6: // poke4
+                                            if (player->poke4.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke4);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 7: // poke5
+                                            if (player->poke5.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke5);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 8: // poke6
+                                            if (player->poke6.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke6);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        default:
+                                            break;
+                                        }
+
+                                        break;
+
+                                    default:
+                                        break;
+                                    }
+                                    usleep(16667);
+                                } 
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+
+                        usleep(16667);
+                        if (delwin(actions)==ERR)
+                        {
+                            system("killall -9 vlc >/dev/null 2>&1 &");
+                            exit(53);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            }
+
+            else if (x==26)
+            {
+                switch (x)
+                {
+                case 17: // SLOT4
+                    //inutile
+                    break;
+
+                case 57: // SLOT5
+                    //inutile
+                    break;
+
+                case 97: // SLOT6
+                    //inutile
+                    break;
+                default:
+                    break;
+                }
+                break;
+            }
+            
             break;
         default:
             break;
@@ -4135,8 +4609,30 @@ void inventory(trainer* player){
 }
 
 void roadto_league(trainer* player){
-    int l=97,c=70;
     int quit=0,finish=0, ch=ERR;
+    int l=103,c=70;
+
+    int flowerx1  = 50 + rand()%((50+31+1)-50);
+    int flowerx2  = 50 + rand()%((50+31+1)-50);
+    int flowerx3  = 50 + rand()%((50+31+1)-50);
+    int flowerx4  = 50 + rand()%((50+31+1)-50);
+    int flowerx5  = 50 + rand()%((50+31+1)-50);
+    int flowerx6  = 50 + rand()%((50+31+1)-50);
+    int flowerx7  = 50 + rand()%((50+31+1)-50);
+    int flowerx8  = 50 + rand()%((50+31+1)-50);
+    int flowerx9  = 50 + rand()%((50+31+1)-50);
+    int flowerx10 = 50 + rand()%((50+31+1)-50);
+
+    int flowery1  = 118 + rand()%((118+142+1)-118);
+    int flowery2  = 118 + rand()%((118+142+1)-118);
+    int flowery3  = 118 + rand()%((118+142+1)-118);
+    int flowery4  = 118 + rand()%((118+142+1)-118);
+    int flowery5  = 118 + rand()%((118+142+1)-118);
+    int flowery6  = 118 + rand()%((118+142+1)-118);
+    int flowery7  = 118 + rand()%((118+142+1)-118);
+    int flowery8  = 118 + rand()%((118+142+1)-118);
+    int flowery9  = 118 + rand()%((118+142+1)-118);
+    int flowery10 = 118 + rand()%((118+142+1)-118);
 
     while(finish==0)
     {
@@ -4154,10 +4650,11 @@ void roadto_league(trainer* player){
         box(limite_haut,0,0);
         mvwin(cam,0,0);
         print_roadto_league(road);
+        print_flowers(road,flowerx1,flowerx2,flowerx3,flowerx4,flowerx5,flowerx6,flowerx7,flowerx8,flowerx9,flowerx10,flowery1,flowery2,flowery3,flowery4,flowery5,flowery6,flowery7,flowery8,flowery9,flowery10);
         print_player(cam,player);
         physic_roadto_league(ch,&l,&c);
 
-        wrefresh(cam);
+        //mvwprintw(road,flowerx1-34,flowery1-119,"@"); // position exacte pour la fleur 1 pour la cam (joueur dessus)
 
         ch=getch();
 
@@ -4176,8 +4673,447 @@ void roadto_league(trainer* player){
             {
                 chargement();
                 league(player);
-            }
+                flowerx1  = 50 + rand()%((50+31+1)-50);
+                flowerx2  = 50 + rand()%((50+31+1)-50);
+                flowerx3  = 50 + rand()%((50+31+1)-50);
+                flowerx4  = 50 + rand()%((50+31+1)-50);
+                flowerx5  = 50 + rand()%((50+31+1)-50);
+                flowerx6  = 50 + rand()%((50+31+1)-50);
+                flowerx7  = 50 + rand()%((50+31+1)-50);
+                flowerx8  = 50 + rand()%((50+31+1)-50);
+                flowerx9  = 50 + rand()%((50+31+1)-50);
+                flowerx10 = 50 + rand()%((50+31+1)-50);
             
+                flowery1  = 118 + rand()%((118+142+1)-118);
+                flowery2  = 118 + rand()%((118+142+1)-118);
+                flowery3  = 118 + rand()%((118+142+1)-118);
+                flowery4  = 118 + rand()%((118+142+1)-118);
+                flowery5  = 118 + rand()%((118+142+1)-118);
+                flowery6  = 118 + rand()%((118+142+1)-118);
+                flowery7  = 118 + rand()%((118+142+1)-118);
+                flowery8  = 118 + rand()%((118+142+1)-118);
+                flowery9  = 118 + rand()%((118+142+1)-118);
+                flowery10 = 118 + rand()%((118+142+1)-118);
+            }
+
+            if (l==flowerx1-34 && c==flowery1-119 || c==flowery1-118 || c==flowery1-120) // grab flower1
+            {
+                flowerx1=0;
+                flowery1=0; // make it disapear
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx2-34 && c==flowery2-119 || c==flowery2-118 || c==flowery2-120) // grab flower2
+            {
+                flowerx2=0;
+                flowery2=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx3-34 && c==flowery3-119 || c==flowery3-118 || c==flowery3-120) // grab flower3
+            {
+                flowerx3=0;
+                flowery3=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx4-34 && c==flowery4-119 || c==flowery4-118 || c==flowery4-120) // grab flower4
+            {
+                flowerx4=0;
+                flowery4=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx5-34 && c==flowery5-119 || c==flowery5-118 || c==flowery5-120) // grab flower5
+            {
+                flowerx5=0;
+                flowery5=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx6-34 && c==flowery6-119 || c==flowery6-118 || c==flowery6-120) // grab flower6
+            {
+                flowerx6=0;
+                flowery6=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx7-34 && c==flowery7-119 || c==flowery7-118 || c==flowery7-120) // grab flower7
+            {
+                flowerx7=0;
+                flowery7=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx8-34 && c==flowery8-119 || c==flowery8-118 || c==flowery8-120) // grab flower8
+            {
+                flowerx8=0;
+                flowery8=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx9-34 && c==flowery9-119 || c==flowery9-118 || c==flowery9-120) // grab flower9
+            {
+                flowerx9=0;
+                flowery9=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx10-34 && c==flowery10-119 || c==flowery10-187 || c==flowery10-021) // grab flower10
+            {
+                flowerx10=0;
+                flowery10=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
 
             if (l==76)  // border water down 
             {
@@ -4330,6 +5266,8 @@ void roadto_league(trainer* player){
             break;
         }
 
+        wrefresh(cam);
+
         usleep(16667);
         if(delwin(cam)==ERR)
         {
@@ -4419,9 +5357,8 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             if (load(player)==1)
             {
-                //chargement();
-                //*quit=1;
-                forest(player);
+                *quit=1;
+                chargement();
             }
             break;
         
