@@ -81,7 +81,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->pv=35.0;
     charmander->pv_save=35.0;
     charmander->lvl=1;
-    charmander->catchrate=50;
+    charmander->catchrate=35;
     charmander->art_box=CHARMANDER;
     charmander->art_front=CHARMANDER;
     charmander->art_behind=CHARMANDER;
@@ -103,7 +103,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->pv=40.0;
     bulbasaur->pv_save=40.0;
     bulbasaur->lvl=1;
-    bulbasaur->catchrate=50;
+    bulbasaur->catchrate=35;
     bulbasaur->art_box=BULBASAUR;
     bulbasaur->art_behind=BULBASAUR;
     bulbasaur->art_front=BULBASAUR;
@@ -125,7 +125,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->pv=33.0;
     squirtle->pv_save=33.0;
     squirtle->lvl=1;
-    squirtle->catchrate=50;
+    squirtle->catchrate=35;
     squirtle->art_box=SQUIRTLE;
     squirtle->art_behind=SQUIRTLE;
     squirtle->art_front=SQUIRTLE;
@@ -147,7 +147,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pikachu->pv=33.0;
     pikachu->pv_save=33.0;
     pikachu->lvl=1;
-    pikachu->catchrate=25;
+    pikachu->catchrate=15;
     pikachu->art_box=PIKACHU;
     pikachu->art_front=PIKACHU;
     pikachu->art_behind=PIKACHU;
@@ -900,7 +900,7 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
 }
 
 void create_newplayer(trainer* newplayer){
-    WINDOW* chatwin=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* chatwin=newwin(62,235,0,0);
     WINDOW* write=subwin(chatwin,5,50,30,55);
     nodelay(stdscr,FALSE);
     echo();
@@ -987,7 +987,7 @@ void get_firstpoke(trainer* player){
 
     while (finish==0)
     {
-        WINDOW* pokewin=newwin(LINES-1,COLS-1,0,0);
+        WINDOW* pokewin=newwin(62,235,0,0);
         print_get_firstpoke(pokewin,x,y);   
         wrefresh(pokewin);
         ch=getch();
@@ -1037,7 +1037,7 @@ void evolvepoke(pokemon* poke){
     pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
-    WINDOW* evolve_win=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* evolve_win=newwin(62,235,0,0);
 
     pokemon temp;
     if (poke->type!=NOPOKEMON)
@@ -1208,7 +1208,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
     while(finish==0)
     {
-        WINDOW* match=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+        WINDOW* match=newwin(63/1.5,236/1.5,63/6+1,236/6);
         WINDOW* text=subwin(match,13,80,40,39);
         WINDOW* actions=subwin(match,13,77,40,119);
         WINDOW *jauge_player = newwin(3, 21, 34, 155);
@@ -2042,7 +2042,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                         sort=rand()%101;
 
-                                        if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
+                                        if ((champion_poke->catchrate/100,0)+((champion_poke->pv_save/champion_poke->pv)/20)*100>=sort) // catched
                                         {
                                             mvwprintw(match,13,112,"*(-o-)*");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
@@ -2423,7 +2423,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
 //returns 1 if you won the 3 matches and 0 if you dont
 int duel(WINDOW* league_map,trainer* player, trainer champion){
-    WINDOW* blackscreen = newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen = newwin(62,235,0,0);
     int count_atk=1;
 
     if (player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0)
@@ -2915,39 +2915,114 @@ void encouter_poke(WINDOW* forest_map, trainer* player){
     pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
+    WINDOW* blackscreen = newwin(62,235,0,0);
+
+    pokemon wildpoke;
+
     int rand_encounter;// random number to determine if the player encounters a pokemon
     int rand_wildpoke;// random number to determine the wild pokemon
-    rand_wildpoke=rand()%100 +1;// rand from 1 to 100
+    rand_wildpoke=rand()%110 +1;// rand from 1 to 100
     rand_encounter=rand()%100 +1;// same
+
+    int sortsign = rand()%1; // 0 = + et 1 = -
+    int sortlvl = rand()%2; // 0, 1 et 2
+
+    int moypoke = (player->poke1.lvl + player->poke2.lvl + player->poke3.lvl) / 3 ;
 
     if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
         rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon
     }
 
-    if(rand_encounter<=3){
+    if(rand_encounter<=10){
         clignotement(forest_map);
+        wclear(blackscreen);
+        wrefresh(blackscreen);
 
         // case of charmander (33 %)
         if(rand_wildpoke<=33){
-            duel_forest(player,charmander);
+            wildpoke=charmander;
         }
 
         // case of squirtle (33 %)
         else if(rand_wildpoke<=66){
-            duel_forest(player,squirtle);
+            wildpoke=squirtle;
         }
 
         // case of bulbasaur (34 %)
         else if(rand_wildpoke<=100){
-         duel_forest(player,bulbasaur); 
+            wildpoke=bulbasaur;
         }
+
+        // case of pikachu (10 %)
+        else if(rand_wildpoke<=110){
+            wildpoke=pikachu;
+        }
+
+        switch (sortsign)
+        {
+        case 0: // +
+            switch (sortlvl)
+            {
+            case 0:
+                wildpoke.lvl=moypoke;
+                break;
+            
+            case 1:
+                wildpoke.lvl=moypoke+1;
+                break;
+            
+            case 2:
+                wildpoke.lvl=moypoke+2;
+                break;
+
+            default:
+                break;
+            }
+            break;
+
+        case 1: // -
+            switch (sortlvl)
+            {
+            case 0:
+                wildpoke.lvl=moypoke;
+                break;
+            
+            case 1:
+                wildpoke.lvl=moypoke-1;
+                break;
+            
+            case 2:
+                wildpoke.lvl=moypoke-2;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        
+        default:
+            break;
+        }
+
+        if (wildpoke.lvl<=0)
+        {
+            wildpoke.lvl=1;
+        }
+        
+        duel_forest(player,wildpoke);
+    }
+
+    if (delwin(blackscreen)==ERR)
+    {
+        system("killall -9 vlc");
+        exit(51);
     }
 }
 
 void forest(trainer* player){
     int finish=0,ch=ERR,quit=0;
     int x=17,y=3;
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     wrefresh(blackscreen);
     while(finish==0){
         WINDOW* forest_map=newwin(63,211,0,12);
@@ -3053,7 +3128,7 @@ void shop(trainer* player){
 }
 
 void your_team(trainer* player){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
     int x=1,y=1;
 
@@ -3911,13 +3986,13 @@ void your_team(trainer* player){
 }
 
 void menu(int* quit,trainer* player){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int chmenu=ERR,menuexit=0;
     int x=13,y=95;
     
     while(chmenu!='m' && menuexit==0)
         {            
-            WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+            WINDOW* winmenu=newwin(63/1.5,236/1.5,63/6+1,236/6);
             WINDOW* jaugelvl=newwin(3,51,16,135);
 
             box(jaugelvl,0,0);
@@ -4001,7 +4076,7 @@ void menu(int* quit,trainer* player){
 }
 
 void inventory(trainer* player){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
     int x=12,y=17;
 
@@ -4066,12 +4141,12 @@ void roadto_league(trainer* player){
     while(finish==0)
     {
         WINDOW* road = newwin(200,400, 0, 0);
-        WINDOW* cam= subwin(road,LINES-1,COLS-1,l,c);
+        WINDOW* cam= subwin(road,62,235,l,c);
         WINDOW* cadre= subwin(road,111,150,29,116);
         WINDOW* chute= subwin(road,10,150,139,116);
         WINDOW* limite_bas= subwin(road,1,150,110,116);
         WINDOW* limite_haut= subwin(road,1,150,84,116);
-        WINDOW* blackscreen= newwin(LINES-1,COLS-1,0,0);
+        WINDOW* blackscreen= newwin(62,235,0,0);
 
         box(cadre,0,0);
         box(chute,0,0);
@@ -4108,7 +4183,7 @@ void roadto_league(trainer* player){
             {
                 if (player->poke1.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke1.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -4117,7 +4192,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke2.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke2.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -4126,7 +4201,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke3.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke3.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -4135,7 +4210,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke4.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke4.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -4144,7 +4219,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke5.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke5.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -4153,7 +4228,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke6.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke6.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -4162,7 +4237,7 @@ void roadto_league(trainer* player){
 
                 else
                 {
-                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon have surf !");
+                    write_flush(cam,((63-2)/2)-1,((236-2)/2)+5,"None of your pokemon have surf !");
                     sleep(1);
                 }
             }
@@ -4183,7 +4258,7 @@ void roadto_league(trainer* player){
             {
                 if (player->poke1.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke1.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -4192,7 +4267,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke2.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke2.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -4201,7 +4276,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke3.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke3.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -4210,7 +4285,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke4.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke4.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -4219,7 +4294,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke5.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke5.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -4228,7 +4303,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke6.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke6.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -4237,7 +4312,7 @@ void roadto_league(trainer* player){
 
                 else
                 {
-                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon have surf !");
+                    write_flush(cam,((63-2)/2)-1,((236-2)/2)+5,"None of your pokemon have surf !");
                     sleep(1);
                 }
             }
@@ -4295,8 +4370,8 @@ void roadto_league(trainer* player){
 }
 
 void main_menu(trainer* player,int* quit,int* x, int* y){
-    WINDOW* win=newwin(LINES-1,COLS-1,0,0);
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* win=newwin(62,235,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int ch=ERR;
 
     pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard;
@@ -4375,7 +4450,7 @@ void game(trainer* player, int* quit,int* l,int* c){
     int ch=ERR;int i;int j;
     WINDOW* map = newwin(170,500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
-    WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
+    WINDOW* cam=subwin(map,62,235,*l,*c);
     box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
 
     mvwin(cam,0,0);
@@ -4469,9 +4544,9 @@ void game(trainer* player, int* quit,int* l,int* c){
 void clignotement(WINDOW* fenetre){
     int count=0;
 
-    WINDOW* fenetre_backup = newwin(63,211,0,0);
+    WINDOW* fenetre_backup = newwin(63,211,0,12);
     for(count=0;count<3;count++){
-        copywin(fenetre,fenetre_backup,0,0,0,12,62,210,FALSE);
+        copywin(fenetre,fenetre_backup,0,0,0,0,62,210,FALSE);
         wrefresh(fenetre_backup);
         usleep(300000);
         wclear(fenetre_backup);
@@ -4619,7 +4694,7 @@ void save(trainer* player){
 
     while (finish==0)
     {
-        WINDOW* save_win=newwin(LINES-1,COLS-1,0,0);
+        WINDOW* save_win=newwin(62,235,0,0);
         print_save(save_win,save1r,save2r,save3r,save4r,save5r,x);
         wrefresh(save_win);
 
@@ -4939,7 +5014,7 @@ int load(trainer* player){
 
     while (finish==0)
     {
-        WINDOW* load_win=newwin(LINES-1,COLS-1,0,0);
+        WINDOW* load_win=newwin(62,235,0,0);
         print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
         wrefresh(load_win);
 

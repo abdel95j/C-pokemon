@@ -15,30 +15,30 @@ void print_player(WINDOW* cam,trainer* player){
     if (player->is_on_water==1)
     {
         wattron(cam,COLOR_PAIR(1));
-        mvwprintw(cam,((LINES-2)/2),((COLS-2)/2)+3,"_");                
-        mvwprintw(cam,((LINES-2)/2)+1,((COLS-2)/2)+2,"'_'");                
-        mvwprintw(cam,((LINES-2)/2)+2,((COLS-2)/2)+1,"/| |\\");
-        mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"' |_| '");
-        mvwprintw(cam,((LINES-2)/2)+4,((COLS-2)/2)+2,"| |");
-        mvwprintw(cam,((LINES-2)/2)+5,((COLS-2)/2)+1,"-----");
+        mvwprintw(cam,((63-2)/2),((236-2)/2)+3,"_");                
+        mvwprintw(cam,((63-2)/2)+1,((236-2)/2)+2,"'_'");                
+        mvwprintw(cam,((63-2)/2)+2,((236-2)/2)+1,"/| |\\");
+        mvwprintw(cam,((63-2)/2)+3,(236-2)/2,"' |_| '");
+        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+2,"| |");
+        mvwprintw(cam,((63-2)/2)+5,((236-2)/2)+1,"-----");
         wattroff(cam,COLOR_PAIR(1));
     }
     else
     {
         wattron(cam,COLOR_PAIR(1));
-        mvwprintw(cam,((LINES-2)/2),((COLS-2)/2)+3,"_");                
-        mvwprintw(cam,((LINES-2)/2)+1,((COLS-2)/2)+2,"'_'");                
-        mvwprintw(cam,((LINES-2)/2)+2,((COLS-2)/2)+1,"/| |\\");
-        mvwprintw(cam,((LINES-2)/2)+3,(COLS-2)/2,"' |_| '");
-        mvwprintw(cam,((LINES-2)/2)+4,((COLS-2)/2)+2,"| |");
-        mvwprintw(cam,((LINES-2)/2)+5,((COLS-2)/2)+2,"- -");
+        mvwprintw(cam,((63-2)/2),((236-2)/2)+3,"_");                
+        mvwprintw(cam,((63-2)/2)+1,((236-2)/2)+2,"'_'");                
+        mvwprintw(cam,((63-2)/2)+2,((236-2)/2)+1,"/| |\\");
+        mvwprintw(cam,((63-2)/2)+3,(236-2)/2,"' |_| '");
+        mvwprintw(cam,((63-2)/2)+4,((236-2)/2)+2,"| |");
+        mvwprintw(cam,((63-2)/2)+5,((236-2)/2)+2,"- -");
         wattroff(cam,COLOR_PAIR(1));
     }
 }
 
 void chargement(int time){
-    WINDOW* pikachu_screen=newwin(LINES-1,COLS-1,0,0);
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* pikachu_screen=newwin(62,235,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     FILE* f = NULL;
     int sec=0,count_points=0, frame_number;
 
@@ -1197,7 +1197,7 @@ void print_forest(WINDOW*forest_map,int x, int y){
     mvwprintw(forest_map,45+4, 165,"@@@@@@@@@@@@@@@@@@@@");
     mvwprintw(forest_map,45+5, 165,"@@@@@@@@@@@@@@@@@@@@");
     mvwprintw(forest_map,45+6, 165,"@@@@@@@@@@@@@@@@@@@@");
-    mvwprintw(forest_map,45+7, 165,"@@@@@@@@@@@@@@@@@@@@");
+    mvwprintw(forest_map,45+7, 165,"@@@@@@@@@@@@@@@@@@@@"); 
 
     wattron(forest_map,COLOR_PAIR(1));
     mvwprintw(forest_map,x-4,y+2,"_");  
@@ -1745,32 +1745,32 @@ void print_match(WINDOW* match,WINDOW* jauge_champion, WINDOW*jauge_player, poke
 
 void print_menu(WINDOW* win,int x,int y){
 
-    mvwprintw(win,2,COLS/10,"88b           d88  88888888888  888b      88  88        88");
-    mvwprintw(win,3,COLS/10,"888b         d888  88           8888b     88  88        88");
-    mvwprintw(win,4,COLS/10,"88`8b       d8'88  88           88 `8b    88  88        88");
-    mvwprintw(win,5,COLS/10,"88 `8b     d8' 88  88aaaaa      88  `8b   88  88        88");
-    mvwprintw(win,6,COLS/10,"88  `8b   d8'  88  88           88   `8b  88  88        88");
-    mvwprintw(win,7,COLS/10,"88   `8b d8'   88  88           88    `8b 88  88        88");
-    mvwprintw(win,8,COLS/10,"88    `888'    88  88           88     `8888  88a.    .a8P"); 
-    mvwprintw(win,9,COLS/10,"88     `8'     88  88888888888  88      `888   '88888888'");
+    mvwprintw(win,2,236/10,"88b           d88  88888888888  888b      88  88        88");
+    mvwprintw(win,3,236/10,"888b         d888  88           8888b     88  88        88");
+    mvwprintw(win,4,236/10,"88`8b       d8'88  88           88 `8b    88  88        88");
+    mvwprintw(win,5,236/10,"88 `8b     d8' 88  88aaaaa      88  `8b   88  88        88");
+    mvwprintw(win,6,236/10,"88  `8b   d8'  88  88           88   `8b  88  88        88");
+    mvwprintw(win,7,236/10,"88   `8b d8'   88  88           88    `8b 88  88        88");
+    mvwprintw(win,8,236/10,"88    `888'    88  88           88     `8888  88a.    .a8P"); 
+    mvwprintw(win,9,236/10,"88     `8'     88  88888888888  88      `888   '88888888'");
         
-    mvwprintw(win,13,COLS/15,"__   _____  _   _ ____    _____ _____    _    __  __ ");
-    mvwprintw(win,13+1,COLS/15,"\\ \\ / / _ \\| | | |  _ \\  |_   _| ____|  / \\  |  \\/  |");
-    mvwprintw(win,13+2,COLS/15," \\ V / | | | | | | |_) |   | | |  _|   / _ \\ | |\\/| |");
-    mvwprintw(win,13+3,COLS/15,"  | || |_| | |_| |  _ /    | | | |___ / ___ \\| |  | |");
-    mvwprintw(win,13+4,COLS/15,"  |_| '___/ '___/|_| '_\\   |_| |_____/_/   \\_\\_|  |_|");
+    mvwprintw(win,13,236/15,"__   _____  _   _ ____    _____ _____    _    __  __ ");
+    mvwprintw(win,13+1,236/15,"\\ \\ / / _ \\| | | |  _ \\  |_   _| ____|  / \\  |  \\/  |");
+    mvwprintw(win,13+2,236/15," \\ V / | | | | | | |_) |   | | |  _|   / _ \\ | |\\/| |");
+    mvwprintw(win,13+3,236/15,"  | || |_| | |_| |  _ /    | | | |___ / ___ \\| |  | |");
+    mvwprintw(win,13+4,236/15,"  |_| '___/ '___/|_| '_\\   |_| |_____/_/   \\_\\_|  |_|");
 
-    mvwprintw(win,22,COLS/15," ____    ___     _______ ");
-    mvwprintw(win,22+1,COLS/15,"/ ___|  / \\ \\   / / ____|");
-    mvwprintw(win,22+2,COLS/15,"'___ ' / _ \\ \\ / /|  _|  ");
-    mvwprintw(win,22+3,COLS/15," ___) / ___ \\ V / | |___ ");
-    mvwprintw(win,22+4,COLS/15,"|____/_/   '_\\_/  |_____|");
+    mvwprintw(win,22,236/15," ____    ___     _______ ");
+    mvwprintw(win,22+1,236/15,"/ ___|  / \\ \\   / / ____|");
+    mvwprintw(win,22+2,236/15,"'___ ' / _ \\ \\ / /|  _|  ");
+    mvwprintw(win,22+3,236/15," ___) / ___ \\ V / | |___ ");
+    mvwprintw(win,22+4,236/15,"|____/_/   '_\\_/  |_____|");
 
-    mvwprintw(win,31,COLS/15,  "  ___  _   _ ___ _____   _____ _   _ _____    ____    _    __  __ _____ "); 
-    mvwprintw(win,31+1,COLS/15,  " / _ \\| | | |_ _|_   _| |_   _| | | | ____|  / ___|  / \\  |  \\/  | ____|"); 
-    mvwprintw(win,31+2,COLS/15,  "| | | | | | || |  | |     | | | |_| |  _|   | |  _  / _ \\ | |\\/| |  _|  "); 
-    mvwprintw(win,31+3,COLS/15,  "| |_| | |_| || |  | |     | | |  _  | |___  | |_| |/ ___ \\| |  | | |___ "); 
-    mvwprintw(win,31+4,COLS/15,  " \\__\\__\\___/|___| |_|     |_| |_| |_|_____|  \\____/_/   \\_\\_|  |_|_____|"); 
+    mvwprintw(win,31,236/15,  "  ___  _   _ ___ _____   _____ _   _ _____    ____    _    __  __ _____ "); 
+    mvwprintw(win,31+1,236/15,  " / _ \\| | | |_ _|_   _| |_   _| | | | ____|  / ___|  / \\  |  \\/  | ____|"); 
+    mvwprintw(win,31+2,236/15,  "| | | | | | || |  | |     | | | |_| |  _|   | |  _  / _ \\ | |\\/| |  _|  "); 
+    mvwprintw(win,31+3,236/15,  "| |_| | |_| || |  | |     | | |  _  | |___  | |_| |/ ___ \\| |  | | |___ "); 
+    mvwprintw(win,31+4,236/15,  " \\__\\__\\___/|___| |_|     |_| |_| |_|_____|  \\____/_/   \\_\\_|  |_|_____|"); 
 
     mvwprintw(win,x,y,"    .");
     mvwprintw(win,x+1,y,"  .;;............");
@@ -1784,17 +1784,17 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
     
     for ( i = 0; i < 27; i++)
     {
-        mvwprintw(sac,1+i,(COLS/1.5)/2,"|");    //colonne du droite
+        mvwprintw(sac,1+i,(236/1.5)/2,"|");    //colonne du droite
     }    
 
     for ( i = 0; i < 27; i++)
     {
-        mvwprintw(sac,1+i,(COLS/1.5)/4,"|");    //colonne de gauche
+        mvwprintw(sac,1+i,(236/1.5)/4,"|");    //colonne de gauche
     }  
 
     for ( i = 0; i < 116; i++)
     {
-        mvwprintw(sac,(LINES/1.5)/3,1+i,"_");    //ligne
+        mvwprintw(sac,(63/1.5)/3,1+i,"_");    //ligne
     }
 
     mvwprintw(sac,x,y,"  ,");      
@@ -2586,7 +2586,20 @@ void create_map(WINDOW* map,trainer* player){
     mvwprintw(map,74+7,121,"  ||--+---|| |    | ||---+---||");                   
     mvwprintw(map,74+8,121,"  ||__|___|| |   -| ||___|___||");        //line = 49, col = 38  (+- 1)                 
     mvwprintw(map,74+9,121,"  |________|_|____|_|_________|");                   
-    mvwprintw(map,74+10,121," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");   
+    mvwprintw(map,74+10,121," ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
+
+    mvwprintw(map,104-3,117," ______________");
+    mvwprintw(map,104-2,117,"|__THE_LEAGUE__|");
+    mvwprintw(map,104-1,117,"        |  ");
+    mvwprintw(map,104,115,"===");
+    mvwprintw(map,104+1,116," ");
+    mvwprintw(map,104+2,116," ");
+    mvwprintw(map,104+3,116," ");
+    mvwprintw(map,104+4,116," ");     //line = 25, col = 256 (+- 1)
+    mvwprintw(map,104+5,116," ");
+    mvwprintw(map,104+6,116," ");
+    mvwprintw(map,104+7,116," ");
+    mvwprintw(map,104+8,115,"===");  
 
     if (player->is_rock_there==0)
     {
@@ -3188,7 +3201,7 @@ void print_computer_connect(WINDOW* pc, trainer* player){
 void print_evolution(WINDOW* evolve_win, pokemon poke, pokemon evolution){
     pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
-    WINDOW* text = subwin(evolve_win,20,COLS-1,LINES-21,0);
+    WINDOW* text = subwin(evolve_win,20,235,63-21,0);
     box(text,0,0);
 
     print_poke(evolve_win,poke,20,105,0);
