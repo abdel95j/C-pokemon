@@ -616,135 +616,215 @@ void physic_lab(int ch, int* x, int* y){
             break;
     }
 }
+
 void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
     int count_atk=1;
-    
-    int rand_encounter;// random number to determine if the palyer encounters a pokemon
-    int rand_wildpoke;// random number to determine the wild pokemon
-    rand_wildpoke=rand()%100 +1;// rand from 1 to 100
-    rand_encounter=rand()%100 +1;// same
-    
-    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
-
-    if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
-        rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon
-    }
 
     switch (ch)
     {
         case 'z':
         case KEY_UP:
-            if (*x!=1)
+            if (*x!=9)
             {
                 *x-=1;
             }
-            if(*x==31 && *y==125){
-        if(rand_encounter<=20){
-            clignotement(forest_map);
 
-        // case of charmander (33 %)
-            if(rand_wildpoke<=33){
-                duel_forest(player,charmander);
-            }
-
-            // case of squirtle (33 %)
-            else if(rand_wildpoke<=66){
-                duel_forest(player,squirtle);
-            }
-
-            // case of bulbasaur (34 %)
-            else if(rand_wildpoke<=100){
-             duel_forest(player,bulbasaur);   
-            }
-        }
-            }
-            break;
-        case 's':
-        case KEY_DOWN:
-            if (*x!=56)
+            if (*x==31 && *y<=149 && *y>=133) // arbre en haut a droite
             {
                 *x+=1;
             }
-          if(*x==31 && *y==125){
-        if(rand_encounter<=20){
-            clignotement(forest_map);
 
-        // case of charmander (33 %)
-            if(rand_wildpoke<=33){
-                duel_forest(player,charmander);    
+            if (*x==31 && *y<=59 && *y>=43) // arbre en haut a gauche
+            {
+                *x+=1;
+            }         
+
+            if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+            
+
+            if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
+                encouter_poke(forest_map,player);
             }
 
-            // case of squirtle (33 %)
-            else if(rand_wildpoke<=66){
-                duel_forest(player,squirtle);
+            if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
+                encouter_poke(forest_map,player);
             }
 
-            // case of bulbasaur (34 %)
-            else if(rand_wildpoke<=100){
-                duel_forest(player,bulbasaur);
+            if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
+                encouter_poke(forest_map,player);
             }
-        }
-          }
+
+            if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=109 && *y<=184){
+                encouter_poke(forest_map,player);
+            }
             break;
+
+        case 's':
+        case KEY_DOWN:
+            if (*x!=60)
+            {
+                *x+=1;
+            }
+
+            if (*x==36 && *y<=103 && *y>=87) // arbre en bas au milieu
+            {
+                *x-=1;
+            }
+
+            if (*x==24 && *y<=13) // arbre a gauche toute
+            {
+                *x-=1;
+            }
+            
+            if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=109 && *y<=184){
+                encouter_poke(forest_map,player);
+            }
+            break;
+
         case 'q':
         case KEY_LEFT:
-            if (*y!=1)
+            if (*y!=3)
             {
                 *y-=2;
             }  
-        if(*x==31 && *y==125){
-        if(rand_encounter<=20){
-            clignotement(forest_map);
 
-        // case of charmander (33 %)
-            if(rand_wildpoke<=33){
-                duel_forest(player,charmander);
-            }
-
-            // case of squirtle (33 %)
-            else if(rand_wildpoke<=66){
-                duel_forest(player,squirtle);
-            }
-
-            // case of bulbasaur (34 %)
-            else if(rand_wildpoke<=100){
-                duel_forest(player,bulbasaur);
-            }
-        }
-        }
-            break;
-        case 'd':
-        case KEY_RIGHT:
-            if (*y!=245)
+            if (*y==13 && *x>=24) // arbres tout a gauche
             {
                 *y+=2;
             }
-            if(*x==31 && *y==125){
-        if(rand_encounter<=20){
-            clignotement(forest_map);
 
-        // case of charmander (33 %)
-            if(rand_wildpoke<=33){
-                duel_forest(player,charmander);
+            if (*y==103 && *x>=36) // arbres en bas au milieu
+            {
+                *y+=2;
             }
 
-            // case of squirtle (33 %)
-            else if(rand_wildpoke<=66){
-                duel_forest(player,squirtle);
+            if (*y==149 && *x<=31) // arbres en haut a droite
+            {
+                *y+=2;
             }
 
-            // case of bulbasaur (34 %)
-            else if(rand_wildpoke<=100){
-                duel_forest(player,bulbasaur);
+            if (*y==59 && *x<=31) // arbres en haut a gauche
+            {
+                *y+=2;
             }
-        }
+            
+            if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=109 && *y<=184){
+                encouter_poke(forest_map,player);
+            }
+            break;
+
+        case 'd':
+        case KEY_RIGHT:
+            if (*y!=191)
+            {
+                *y+=2;
+            }
+
+            if (*y==133 && *x<=31) // arbres en haut a droite
+            {
+                *y-=2;
+            }
+
+            if (*y==87 && *x>=36) // arbres en bas au milieu
+            {
+                *y-=2;
+            }
+
+            if (*y==43 && *x<=31) // arbres en haut a gauche
+            {
+                *y-=2;
+            }
+
+            if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
+                encouter_poke(forest_map,player);
+            }
+
+            if(*x>=45 && *x<=52 && *y>=109 && *y<=185){
+                encouter_poke(forest_map,player);
             }
             break;
         default:
             break;
     }
-        }
+}
 
 void physic_shop(int ch, int* x, int* y){
     switch (ch)
@@ -909,7 +989,7 @@ void physic_shop(int ch, int* x, int* y){
     }
 }
 
-void physic_map(int ch, int* l, int* c){
+void physic_map(int ch, int* l, int* c,trainer* player){
 
     switch (ch)
     {
@@ -959,7 +1039,14 @@ void physic_map(int ch, int* l, int* c){
             {
                 *l=*l+1;
             }
-
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*l==26 && *c>=250)  // physic rock
+                {
+                    *l=*l+1;
+                }
+            }
+            
             if (*c<=14 && *l==68)   //physic "THE LEAGUE"
             {
                 *l=*l+1;
@@ -1004,6 +1091,14 @@ void physic_map(int ch, int* l, int* c){
                 *l=*l-1;
             }
 
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*l==20 && *c>=250)  // physic rock
+                {
+                    *l=*l-1;
+                }
+            }
+
             if (*c<=14 && *l==66)   //physic "THE LEAGUE"
             {
                 *l=*l-1;
@@ -1043,7 +1138,14 @@ void physic_map(int ch, int* l, int* c){
                 *c=*c-2;
             }
             
-            
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*l>=20 && *l<=26 && *c==250)  // physic rock
+                {
+                    *c=*c-2;
+                }
+            }
+
             break;
         case KEY_LEFT:
         case 'q':

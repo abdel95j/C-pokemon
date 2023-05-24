@@ -81,7 +81,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charmander->pv=35.0;
     charmander->pv_save=35.0;
     charmander->lvl=1;
-    charmander->catchrate=50;
+    charmander->catchrate=35;
     charmander->art_box=CHARMANDER;
     charmander->art_front=CHARMANDER;
     charmander->art_behind=CHARMANDER;
@@ -103,7 +103,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     bulbasaur->pv=40.0;
     bulbasaur->pv_save=40.0;
     bulbasaur->lvl=1;
-    bulbasaur->catchrate=50;
+    bulbasaur->catchrate=35;
     bulbasaur->art_box=BULBASAUR;
     bulbasaur->art_behind=BULBASAUR;
     bulbasaur->art_front=BULBASAUR;
@@ -125,7 +125,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     squirtle->pv=33.0;
     squirtle->pv_save=33.0;
     squirtle->lvl=1;
-    squirtle->catchrate=50;
+    squirtle->catchrate=35;
     squirtle->art_box=SQUIRTLE;
     squirtle->art_behind=SQUIRTLE;
     squirtle->art_front=SQUIRTLE;
@@ -147,7 +147,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     pikachu->pv=33.0;
     pikachu->pv_save=33.0;
     pikachu->lvl=1;
-    pikachu->catchrate=25;
+    pikachu->catchrate=15;
     pikachu->art_box=PIKACHU;
     pikachu->art_front=PIKACHU;
     pikachu->art_behind=PIKACHU;
@@ -900,7 +900,7 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
 }
 
 void create_newplayer(trainer* newplayer){
-    WINDOW* chatwin=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* chatwin=newwin(62,235,0,0);
     WINDOW* write=subwin(chatwin,5,50,30,55);
     nodelay(stdscr,FALSE);
     echo();
@@ -923,7 +923,8 @@ void create_newplayer(trainer* newplayer){
     newplayer->lvl=1;
     newplayer->money=200;
     newplayer->xp=0;
-    newplayer->is_on_water=0;
+    newplayer->is_on_water=0; // false
+    newplayer->is_rock_there=1; // true
 
     newplayer->inventory[POKEBALLS].quant=10;
     newplayer->inventory[POKEBALLS].type=OTHER;
@@ -986,7 +987,7 @@ void get_firstpoke(trainer* player){
 
     while (finish==0)
     {
-        WINDOW* pokewin=newwin(LINES-1,COLS-1,0,0);
+        WINDOW* pokewin=newwin(62,235,0,0);
         print_get_firstpoke(pokewin,x,y);   
         wrefresh(pokewin);
         ch=getch();
@@ -1036,7 +1037,7 @@ void evolvepoke(pokemon* poke){
     pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
-    WINDOW* evolve_win=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* evolve_win=newwin(62,235,0,0);
 
     pokemon temp;
     if (poke->type!=NOPOKEMON)
@@ -1129,6 +1130,7 @@ void evolvepoke(pokemon* poke){
 
     if (delwin(evolve_win)==ERR)
     {
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(48);
     }  
     system("killall -9 vlc >/dev/null 2>&1 &"); // stop evolve theme
@@ -1206,7 +1208,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
     while(finish==0)
     {
-        WINDOW* match=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+        WINDOW* match=newwin(63/1.5,236/1.5,63/6+1,236/6);
         WINDOW* text=subwin(match,13,80,40,39);
         WINDOW* actions=subwin(match,13,77,40,119);
         WINDOW *jauge_player = newwin(3, 21, 34, 155);
@@ -1279,9 +1281,14 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                 }
                 else // pokecatch
                 {
+                    mvwprintw(text,5,25,"                                     ");
+                    mvwprintw(text,5,25,"You ran away");
+                    wrefresh(text);
+                    sleep(2);
                     wclear(match);
                     wrefresh(match);
                     finish=1;
+                    return 1;
                     break;
                 }
 
@@ -1698,7 +1705,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(fight);
                                     }
-                                    sleep(1);
+                                    sleep(1);   
                                     *count_atk+=1;
                                     break;
                                 
@@ -1810,7 +1817,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         usleep(16667);
                         if (delwin(fight)==ERR)
                         {
-                            system("killall -9 vlc");
+                            system("killall -9 vlc >/dev/null 2>&1 &");
                             exit(47);
                         } 
                     }
@@ -1995,7 +2002,366 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                 }
                                 else // catch
                                 {
-                                    // to do
+                                    if (player->inventory[POKEBALLS].quant!=0)
+                                    {    
+                                        int sort;
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"You launch a pokeball on %s !",champion_poke->name);
+                                        wrefresh(text);
+                                        sleep(2);
+
+                                        player->inventory[POKEBALLS].quant-=1;
+
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"It shakes one time ...");
+
+                                        print_poke(match,pokenull,6,110,0);
+                                        mvwprintw(match,13,112,"(-o-)");
+
+                                        usleep(600000);
+                                        mvwprintw(match,13,112,"     ");
+                                        mvwprintw(match,13,112,"(o-)");
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(match);
+                                        usleep(600000);
+                                        mvwprintw(match,13,112,"     ");
+                                        mvwprintw(match,13,112,"(-o-)");
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(match);
+                                        usleep(600000);
+                                        mvwprintw(match,13,112,"     ");
+                                        mvwprintw(match,13,112,"(-o)");
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(match);
+                                        usleep(600000);
+                                        mvwprintw(match,13,112,"     ");
+                                        mvwprintw(match,13,112,"(-o-)");
+                                        jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                        wrefresh(match);
+                                        sleep(2);
+
+                                        sort=rand()%101;
+
+                                        if ((champion_poke->catchrate/100,0)+((champion_poke->pv_save/champion_poke->pv)/20)*100>=sort) // catched
+                                        {
+                                            mvwprintw(match,13,112,"*(-o-)*");
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+
+                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,25,"You got %s !",champion_poke->name);
+                                            wrefresh(text);
+                                            sleep(1);
+
+                                            if (player->poke1.type==NOPOKEMON)
+                                            {
+                                                player->poke1=*champion_poke;
+                                            }
+                                            else if (player->poke2.type==NOPOKEMON)
+                                            {
+                                                player->poke2=*champion_poke;
+                                            }
+                                            else if (player->poke3.type==NOPOKEMON)
+                                            {
+                                                player->poke3=*champion_poke;
+                                            }
+                                            else if (player->poke4.type==NOPOKEMON)
+                                            {
+                                                player->poke4=*champion_poke;
+                                            }
+                                            else if (player->poke5.type==NOPOKEMON)
+                                            {
+                                                player->poke5=*champion_poke;
+                                            }
+                                            else if (player->poke6.type==NOPOKEMON)
+                                            {
+                                                player->poke6=*champion_poke;
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,25,"Your pocket is full of pokemons !");
+                                                wrefresh(text);
+                                                sleep(1);
+                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
+                                                wrefresh(text);
+                                                sleep(1);
+                                            }
+
+                                            mvwprintw(text,5,25,"                                       ");
+                                            mvwprintw(text,5,25,"*You earned 50$*");
+                                            wrefresh(text);
+                                            sleep(1);
+                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                            wrefresh(text);
+                                            sleep(1);
+                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                            wrefresh(text);
+                                            sleep(3);
+
+                                            pokelvlup(text,5,25,1,player_poke);
+
+                                            player->money+=70;
+                                            player->xp+=player->lvl*10;
+
+                                            wclear(bag);
+                                            wrefresh(bag);
+                                            finish_bag=1;
+                                            mvwprintw(text,5,25,"                                     ");
+                                            wrefresh(text);
+                                            wclear(match);
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+                                            finish=1;
+                                            return 1;
+                                        }
+
+                                        else
+                                        {
+                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,25,"It shakes two times ...");
+                                            wrefresh(text);
+                                            sleep(1);
+
+                                            mvwprintw(match,13,112,"     ");
+                                            mvwprintw(match,13,112,"(-o-)");
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+                                            usleep(600000);
+                                            mvwprintw(match,13,112,"     ");
+                                            mvwprintw(match,13,112,"(o-)");
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+                                            usleep(600000);
+                                            mvwprintw(match,13,112,"     ");
+                                            mvwprintw(match,13,112,"(-o-)");
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+                                            usleep(600000);
+                                            mvwprintw(match,13,112,"     ");
+                                            mvwprintw(match,13,112,"(-o)");
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+                                            usleep(600000);
+                                            mvwprintw(match,13,112,"     ");
+                                            mvwprintw(match,13,112,"(-o-)");
+                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                            wrefresh(match);
+                                            sleep(2);
+
+                                            sort=rand()%101;
+
+                                            if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
+                                            {
+                                                mvwprintw(match,13,112,"*(-o-)*");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+
+                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,25,"You got %s !",champion_poke->name);
+                                                wrefresh(text);
+                                                sleep(1);
+
+                                                if (player->poke1.type==NOPOKEMON)
+                                                {
+                                                    player->poke1=*champion_poke;
+                                                }
+                                                else if (player->poke2.type==NOPOKEMON)
+                                                {
+                                                    player->poke2=*champion_poke;
+                                                }
+                                                else if (player->poke3.type==NOPOKEMON)
+                                                {
+                                                    player->poke3=*champion_poke;
+                                                }
+                                                else if (player->poke4.type==NOPOKEMON)
+                                                {
+                                                    player->poke4=*champion_poke;
+                                                }
+                                                else if (player->poke5.type==NOPOKEMON)
+                                                {
+                                                    player->poke5=*champion_poke;
+                                                }
+                                                else if (player->poke6.type==NOPOKEMON)
+                                                {
+                                                    player->poke6=*champion_poke;
+                                                }
+                                                else
+                                                {
+                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,25,"Your pocket is full of pokemons !");
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                }
+
+                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,25,"*You earned 50$*");
+                                                wrefresh(text);
+                                                sleep(1);
+                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                wrefresh(text);
+                                                sleep(1);
+                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                wrefresh(text);
+                                                sleep(3);
+
+                                                pokelvlup(text,5,25,1,player_poke);
+
+                                                player->money+=70;
+                                                player->xp+=player->lvl*10;
+
+                                                wclear(bag);
+                                                wrefresh(bag);
+                                                finish_bag=1;
+                                                mvwprintw(text,5,25,"                                     ");
+                                                wrefresh(text);
+                                                wclear(match);
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                finish=1;
+                                                return 1;
+                                            }
+
+                                            else
+                                            {
+                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,25,"It shakes three times ...");
+                                                wrefresh(text);
+                                                sleep(1);
+
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                usleep(600000);
+                                                mvwprintw(match,13,112,"     ");
+                                                mvwprintw(match,13,112,"(-o-)");
+                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                wrefresh(match);
+                                                sleep(2);
+
+                                                sort=rand()%101;
+
+                                                if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
+                                                {
+                                                    mvwprintw(match,13,112,"*(-o-)*");
+                                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                    wrefresh(match);
+
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"You got %s !",champion_poke->name);
+                                                    wrefresh(text);
+                                                    sleep(1);
+
+                                                    if (player->poke1.type==NOPOKEMON)
+                                                    {
+                                                        player->poke1=*champion_poke;
+                                                    }
+                                                    else if (player->poke2.type==NOPOKEMON)
+                                                    {
+                                                        player->poke2=*champion_poke;
+                                                    }
+                                                    else if (player->poke3.type==NOPOKEMON)
+                                                    {
+                                                        player->poke3=*champion_poke;
+                                                    }
+                                                    else if (player->poke4.type==NOPOKEMON)
+                                                    {
+                                                        player->poke4=*champion_poke;
+                                                    }
+                                                    else if (player->poke5.type==NOPOKEMON)
+                                                    {
+                                                        player->poke5=*champion_poke;
+                                                    }
+                                                    else if (player->poke6.type==NOPOKEMON)
+                                                    {
+                                                        player->poke6=*champion_poke;
+                                                    }
+                                                    else
+                                                    {
+                                                        mvwprintw(text,5,25,"                                       ");
+                                                        mvwprintw(text,5,25,"Your pocket is full of pokemons !");
+                                                        wrefresh(text);
+                                                        sleep(1);
+                                                        mvwprintw(text,5,25,"                                       ");
+                                                        mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
+                                                        wrefresh(text);
+                                                        sleep(1);
+                                                    }
+
+                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,25,"*You earned 50$*");
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                    wrefresh(text);
+                                                    sleep(3);
+
+                                                    pokelvlup(text,5,25,1,player_poke);
+
+                                                    player->money+=70;
+                                                    player->xp+=player->lvl*10;
+
+                                                    wclear(bag);
+                                                    wrefresh(bag);
+                                                    finish_bag=1;
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    wrefresh(text);
+                                                    wclear(match);
+                                                    jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                    wrefresh(match);
+                                                    finish=1;
+                                                    return 1;
+                                                }
+
+                                                else
+                                                {
+                                                    print_poke(match,*champion_poke,6,110,0);
+                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,25,"No ! He escaped !");
+                                                    wrefresh(text);
+                                                    sleep(1);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,25,"You don't have enough pokeballs");
+                                        wrefresh(text);
+                                        sleep(2);
+                                        mvwprintw(text,5,25,"                                     ");
+                                    }
                                 }
                             }
                             break;
@@ -2057,7 +2423,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
 //returns 1 if you won the 3 matches and 0 if you dont
 int duel(WINDOW* league_map,trainer* player, trainer champion){
-    WINDOW* blackscreen = newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen = newwin(62,235,0,0);
     int count_atk=1;
 
     if (player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0)
@@ -2544,43 +2910,156 @@ void lab(trainer* player){
         }
     }
 }
-void forest(trainer* player){
-    int finish=0,ch=ERR,quit=0;
-    int x=32,y=125;
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
-    wrefresh(blackscreen);
-    while(finish==0){
-    WINDOW* forest_map=newwin(62,252,0,0);
-    box(forest_map,0,0);
-    print_forest(forest_map,x,y);
-    wrefresh(forest_map);
 
-    ch=getch();
-    physic_forest(forest_map,ch,player,&x,&y);
+void encouter_poke(WINDOW* forest_map, trainer* player){
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
-    if (delwin(forest_map)==ERR)
-        {
-            system("killall -9 vlc");
-            exit(100);
+    WINDOW* blackscreen = newwin(62,235,0,0);
+
+    pokemon wildpoke;
+
+    int rand_encounter;// random number to determine if the player encounters a pokemon
+    int rand_wildpoke;// random number to determine the wild pokemon
+    rand_wildpoke=rand()%110 +1;// rand from 1 to 100
+    rand_encounter=rand()%100 +1;// same
+
+    int sortsign = rand()%1; // 0 = + et 1 = -
+    int sortlvl = rand()%2; // 0, 1 et 2
+
+    int moypoke = (player->poke1.lvl + player->poke2.lvl + player->poke3.lvl) / 3 ;
+
+    if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
+        rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon
+    }
+
+    if(rand_encounter<=10){
+        clignotement(forest_map);
+        wclear(blackscreen);
+        wrefresh(blackscreen);
+
+        // case of charmander (33 %)
+        if(rand_wildpoke<=33){
+            wildpoke=charmander;
         }
-    usleep(16667);
-    switch (ch) // actions
-        {
-            case 'e':
-            case '\r':
-            case '\n':
-                break;
-            case 'm':
-                menu(&quit,player);
-                break;
 
-            case 'i':
-                inventory(player);
+        // case of squirtle (33 %)
+        else if(rand_wildpoke<=66){
+            wildpoke=squirtle;
+        }
+
+        // case of bulbasaur (34 %)
+        else if(rand_wildpoke<=100){
+            wildpoke=bulbasaur;
+        }
+
+        // case of pikachu (10 %)
+        else if(rand_wildpoke<=110){
+            wildpoke=pikachu;
+        }
+
+        switch (sortsign)
+        {
+        case 0: // +
+            switch (sortlvl)
+            {
+            case 0:
+                wildpoke.lvl=moypoke;
+                break;
+            
+            case 1:
+                wildpoke.lvl=moypoke+1;
+                break;
+            
+            case 2:
+                wildpoke.lvl=moypoke+2;
                 break;
 
             default:
                 break;
+            }
+            break;
+
+        case 1: // -
+            switch (sortlvl)
+            {
+            case 0:
+                wildpoke.lvl=moypoke;
+                break;
+            
+            case 1:
+                wildpoke.lvl=moypoke-1;
+                break;
+            
+            case 2:
+                wildpoke.lvl=moypoke-2;
+                break;
+
+            default:
+                break;
+            }
+            break;
+        
+        default:
+            break;
         }
+
+        if (wildpoke.lvl<=0)
+        {
+            wildpoke.lvl=1;
+        }
+        
+        duel_forest(player,wildpoke);
+    }
+
+    if (delwin(blackscreen)==ERR)
+    {
+        system("killall -9 vlc");
+        exit(51);
+    }
+}
+
+void forest(trainer* player){
+    int finish=0,ch=ERR,quit=0;
+    int x=17,y=3;
+    WINDOW* blackscreen=newwin(62,235,0,0);
+    wrefresh(blackscreen);
+    while(finish==0){
+        WINDOW* forest_map=newwin(63,211,0,12);
+        print_forest(forest_map,x,y);
+        wrefresh(forest_map);
+
+        ch=getch();
+        physic_forest(forest_map,ch,player,&x,&y);
+
+        if (delwin(forest_map)==ERR)
+            {
+                system("killall -9 vlc");
+                exit(100);
+            }
+        usleep(16667);
+        switch (ch) // actions
+            {
+                case 'e':
+                case '\r':
+                case '\n':
+                    if (y==3)
+                    {
+                        finish=1;
+                        chargement();
+                    }
+                    break;
+                case 'm':
+                    menu(&quit,player);
+                    break;
+
+                case 'i':
+                    inventory(player);
+                    break;
+
+                default:
+                    break;
+            }
     }
     if (delwin(blackscreen)==ERR)
         {
@@ -2649,9 +3128,12 @@ void shop(trainer* player){
 }
 
 void your_team(trainer* player){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
     int x=1,y=1;
+
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
     
      while (finish==0)
     {
@@ -2695,474 +3177,761 @@ void your_team(trainer* player){
         case '\r':
             int finishact=0;
             int xact=5;
+            int ok=0; // to not let click on pokenull
             pokemon tmp;
 
-            while(finishact==0)
+            switch (x)
             {
-                WINDOW* actions=newwin(10,20,20,10);
-                box(actions,0,0);
+            case 1:
+                switch (y){
+                case 1:
+                    if (player->poke1.type!=NOPOKEMON)
+                    {
+                        ok=1;
+                    } 
+                    break;
 
-                mvwprintw(actions,1,2,"What do you want");
-                mvwprintw(actions,2,2,"to do ?");
-                mvwprintw(actions,5,6,"Move");
-                mvwprintw(actions,7,6,"Nothing");
-                mvwprintw(actions,xact,4,">");
-                wrefresh(actions);
+                case 2:
+                    if (player->poke2.type!=NOPOKEMON)
+                    {
+                        ok=1;
+                    } 
+                    break;
 
-                ch=getch();
+                case 3:
+                    if (player->poke3.type!=NOPOKEMON)
+                    {
+                        ok=1;
+                    }  
+                    break;
+                }
+                break;
 
-                switch (ch)
+            case 2:
+                switch (y){
+                case 1:
+                    if (player->poke4.type!=NOPOKEMON)
+                    {
+                        ok=1;
+                    } 
+                    break;
+
+                case 2:
+                    if (player->poke5.type!=NOPOKEMON)
+                    {
+                        ok=1;
+                    } 
+                    break;
+
+                case 3:
+                    if (player->poke6.type!=NOPOKEMON)
+                    {
+                        ok=1;
+                    } 
+                    break;
+                }
+                break;
+            
+            default:
+                break;
+            }
+
+            if (ok==1)
+            {
+                while(finishact==0)
                 {
-                case 'z':
-                case KEY_UP:
-                    if (xact!=5)
-                    {
-                        mvwprintw(actions,xact,4," ");
-                        xact-=2;
-                    }
-                    break;
+                    WINDOW* actions=newwin(10,20,20,10);
+                    box(actions,0,0);
 
-                case 's':
-                case KEY_DOWN:
-                    if (xact!=7)
-                    {
-                        mvwprintw(actions,xact,4," ");
-                        xact+=2;
-                    }
-                    break;
-
-                case ' ':
-                    wclear(actions);
+                    mvwprintw(actions,1,2,"What do you want");
+                    mvwprintw(actions,2,2,"to do ?");
+                    mvwprintw(actions,5,6,"Move");
+                    mvwprintw(actions,7,6,"Free");
+                    mvwprintw(actions,xact,4,">");
                     wrefresh(actions);
-                    finishact=1;
-                    break;
-                
-                case 'e':
-                case '\r':
-                case '\n':
-                    if (xact==7)
+
+                    print_yourteam(box1,box2,box3,box4,box5,box6,player,x,y);
+
+                    ch=getch();
+
+                    switch (ch)
                     {
+                    case 'z':
+                    case KEY_UP:
+                        if (xact!=5)
+                        {
+                            mvwprintw(actions,xact,4," ");
+                            xact-=2;
+                        }
+                        break;
+
+                    case 's':
+                    case KEY_DOWN:
+                        if (xact!=7)
+                        {
+                            mvwprintw(actions,xact,4," ");
+                            xact+=2;
+                        }
+                        break;
+
+                    case ' ':
                         wclear(actions);
                         wrefresh(actions);
                         finishact=1;
+                        break;
+
+                    case 'e':
+                    case '\r':
+                    case '\n':
+                        if (xact==7)
+                        {
+                            int whatpoke=0;
+                            if (x==1)
+                            {
+                                switch (y)
+                                {
+                                case 1:
+                                    tmp=player->poke1; 
+                                    whatpoke=1;
+                                    break;
+
+                                case 2:
+                                    tmp=player->poke2; 
+                                    whatpoke=2;
+                                    break;
+
+                                case 3:
+                                    tmp=player->poke3; 
+                                    whatpoke=3;
+                                    break;
+
+                                default:
+                                    break;
+                                }
+                            }
+
+                            if (x==2)
+                            {
+                                switch (y)
+                                {
+                                case 1:
+                                    tmp=player->poke4; 
+                                    whatpoke=4;
+                                    break;
+
+                                case 2:
+                                    tmp=player->poke5; 
+                                    whatpoke=5;
+                                    break;
+
+                                case 3:
+                                    tmp=player->poke6; 
+                                    whatpoke=6;
+                                    break;
+
+                                default:
+                                    break;
+                                }
+                            }
+
+                            int done=0,xsure=5;
+                            while (done==0)
+                            {
+                                mvwprintw(actions,1,2,"                ");
+                                mvwprintw(actions,2,2,"       ");
+                                mvwprintw(actions,5,6,"    ");
+                                mvwprintw(actions,7,6,"    ");
+                                mvwprintw(actions,xact,4," ");
+
+                                mvwprintw(actions,1,2," Are you sure ?");
+                                mvwprintw(actions,5,6,"Yes");
+                                mvwprintw(actions,7,6,"No");
+                                mvwprintw(actions,xsure,4,">");
+                                wrefresh(actions);
+
+                                ch=getch();
+
+                                switch (ch)
+                                {
+                                case ' ':
+                                    wclear(actions);
+                                    done=1;
+                                    break;
+
+                                case 'z':
+                                case KEY_UP:
+                                    if (xsure!=5)
+                                    {
+                                        mvwprintw(actions,xsure,4," ");
+                                        xsure-=2;
+                                    }
+                                    break;
+
+                                case 's':
+                                case KEY_DOWN:
+                                    if (xsure!=7)
+                                    {
+                                        mvwprintw(actions,xsure,4," ");
+                                        xsure+=2;
+                                    }
+                                    break;
+
+                                case 'e':
+                                case '\r':
+                                case '\n':
+                                    if (xsure==5) // yes
+                                    {
+                                        mvwprintw(actions,1,2,"                ");
+                                        mvwprintw(actions,2,2,"       ");
+                                        mvwprintw(actions,5,6,"    ");
+                                        mvwprintw(actions,7,6,"    ");
+                                        mvwprintw(actions,xsure,4," ");
+                                        switch (whatpoke)
+                                        {
+                                        case 1:
+                                            if (player->poke2.type==NOPOKEMON && player->poke3.type==NOPOKEMON && player->poke4.type==NOPOKEMON && player->poke5.type==NOPOKEMON && player->poke6.type==NOPOKEMON)
+                                            {
+                                                mvwprintw(actions,3,4,"You can't free");
+                                                mvwprintw(actions,4,2,"your last pokemon");
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(actions,3,5,"%s",player->poke1.name);
+                                                mvwprintw(actions,4,5,"released");
+                                                player->poke1=pokenull;
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            if (player->poke1.type==NOPOKEMON && player->poke3.type==NOPOKEMON && player->poke4.type==NOPOKEMON && player->poke5.type==NOPOKEMON && player->poke6.type==NOPOKEMON)
+                                            {
+                                                mvwprintw(actions,3,4,"You can't free");
+                                                mvwprintw(actions,4,2,"your last pokemon");
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(actions,3,5,"%s",player->poke2.name);
+                                                mvwprintw(actions,4,5,"released");
+                                                player->poke2=pokenull;
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            if (player->poke1.type==NOPOKEMON && player->poke2.type==NOPOKEMON && player->poke4.type==NOPOKEMON && player->poke5.type==NOPOKEMON && player->poke6.type==NOPOKEMON)
+                                            {
+                                                mvwprintw(actions,3,4,"You can't free");
+                                                mvwprintw(actions,4,2,"your last pokemon");
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(actions,3,5,"%s",player->poke3.name);
+                                                mvwprintw(actions,4,5,"released");
+                                                player->poke3=pokenull;
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            break;
+
+                                        case 4:
+                                            if (player->poke1.type==NOPOKEMON && player->poke3.type==NOPOKEMON && player->poke2.type==NOPOKEMON && player->poke5.type==NOPOKEMON && player->poke6.type==NOPOKEMON)
+                                            {
+                                                mvwprintw(actions,3,4,"You can't free");
+                                                mvwprintw(actions,4,2,"your last pokemon");
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(actions,3,5,"%s",player->poke4.name);
+                                                mvwprintw(actions,4,5,"released");
+                                                player->poke4=pokenull;
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            break;
+
+                                        case 5:
+                                            if (player->poke1.type==NOPOKEMON && player->poke3.type==NOPOKEMON && player->poke4.type==NOPOKEMON && player->poke2.type==NOPOKEMON && player->poke6.type==NOPOKEMON)
+                                            {
+                                                mvwprintw(actions,3,4,"You can't free");
+                                                mvwprintw(actions,4,2,"your last pokemon");
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(actions,3,5,"%s",player->poke5.name);
+                                                mvwprintw(actions,4,5,"released");
+                                                player->poke5=pokenull;
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            break;
+
+                                        case 6:
+                                            if (player->poke1.type==NOPOKEMON && player->poke3.type==NOPOKEMON && player->poke4.type==NOPOKEMON && player->poke5.type==NOPOKEMON && player->poke2.type==NOPOKEMON)
+                                            {
+                                                mvwprintw(actions,3,4,"You can't free");
+                                                mvwprintw(actions,4,2,"your last pokemon");
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            else
+                                            {
+                                                mvwprintw(actions,3,5,"%s",player->poke6.name);
+                                                mvwprintw(actions,4,5,"released");
+                                                player->poke6=pokenull;
+                                                wrefresh(actions);
+                                                sleep(2);
+                                            }
+                                            break;    
+                                        default:
+                                            break;
+                                        }
+                                        done=1;
+                                    }
+                                    else if (xsure==7) // no
+                                    {
+                                        wclear(actions);
+                                        done=1;
+                                        break;
+                                    }
+                                    break;
+
+                                default:
+                                    break;
+                                }
+
+                            }
+                        }
+
+                        else if (xact==5)
+                        {
+                            int whatpoke=0;
+                            if (x==1)
+                            {
+                                switch (y)
+                                {
+                                case 1:
+                                    tmp=player->poke1; 
+                                    whatpoke=1;
+                                    break;
+
+                                case 2:
+                                    tmp=player->poke2; 
+                                    whatpoke=2;
+                                    break;
+
+                                case 3:
+                                    tmp=player->poke3; 
+                                    whatpoke=3;
+                                    break;
+
+                                default:
+                                    break;
+                                }
+                            }
+
+                            if (x==2)
+                            {
+                                switch (y)
+                                {
+                                case 1:
+                                    tmp=player->poke4; 
+                                    whatpoke=4;
+                                    break;
+
+                                case 2:
+                                    tmp=player->poke5; 
+                                    whatpoke=5;
+                                    break;
+
+                                case 3:
+                                    tmp=player->poke6; 
+                                    whatpoke=6;
+                                    break;
+
+                                default:
+                                    break;
+                                }
+                            }
+
+                            int xmove=1,ymove=1,moved=0;
+                            while (moved==0)
+                            {
+                                box(yourteam,0,0);
+                                box(box1,0,0);
+                                box(box2,0,0);
+                                box(box3,0,0);
+                                box(box4,0,0);
+                                box(box5,0,0);
+                                box(box6,0,0);
+                                print_yourteam(box1,box2,box3,box4,box5,box6,player,xmove,ymove);
+                                physic_yourteam(ch,&xmove,&ymove);
+                                wrefresh(yourteam);
+
+                                ch=getch();
+                                switch (ch)
+                                {
+                                
+                                case ' ':
+                                    moved=1;
+                                    finishact=1;
+                                    wclear(actions);
+                                    wrefresh(actions);
+                                    break;
+
+                                case 'e':
+                                case '\n':
+                                case '\r':
+
+                                    if (whatpoke==1)
+                                    {
+                                        if (xmove==1)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke1=player->poke1;
+                                                player->poke1=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke1=player->poke2;
+                                                player->poke2=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke1=player->poke3;
+                                                player->poke3=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+
+                                        if (xmove==2)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke1=player->poke4;
+                                                player->poke4=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke1=player->poke5;
+                                                player->poke5=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke1=player->poke6;
+                                                player->poke6=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else if (whatpoke==2)
+                                    {
+                                        if (xmove==1)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke2=player->poke1;
+                                                player->poke1=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke2=player->poke2;
+                                                player->poke2=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke2=player->poke3;
+                                                player->poke3=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+
+                                        if (xmove==2)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke2=player->poke4;
+                                                player->poke4=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke2=player->poke5;
+                                                player->poke5=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke2=player->poke6;
+                                                player->poke6=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else if (whatpoke==3)
+                                    {
+                                        if (xmove==1)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke3=player->poke1;
+                                                player->poke1=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke3=player->poke2;
+                                                player->poke2=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke3=player->poke3;
+                                                player->poke3=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+
+                                        if (xmove==2)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke3=player->poke4;
+                                                player->poke4=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke3=player->poke5;
+                                                player->poke5=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke3=player->poke6;
+                                                player->poke6=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else if (whatpoke==4)
+                                    {
+                                        if (xmove==1)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke4=player->poke1;
+                                                player->poke1=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke4=player->poke2;
+                                                player->poke2=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke4=player->poke3;
+                                                player->poke3=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+
+                                        if (xmove==2)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke4=player->poke4;
+                                                player->poke4=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke4=player->poke5;
+                                                player->poke5=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke4=player->poke6;
+                                                player->poke6=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else if (whatpoke==5)
+                                    {
+                                        if (xmove==1)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke5=player->poke1;
+                                                player->poke1=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke5=player->poke2;
+                                                player->poke2=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke5=player->poke3;
+                                                player->poke3=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+
+                                        if (xmove==2)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke5=player->poke4;
+                                                player->poke4=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke5=player->poke5;
+                                                player->poke5=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke5=player->poke6;
+                                                player->poke6=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    else if (whatpoke==6)
+                                    {
+                                        if (xmove==1)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke6=player->poke1;
+                                                player->poke1=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke6=player->poke2;
+                                                player->poke2=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke6=player->poke3;
+                                                player->poke3=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+
+                                        if (xmove==2)
+                                        {
+                                            switch (ymove)
+                                            {
+                                            case 1:
+                                                player->poke6=player->poke4;
+                                                player->poke4=tmp;
+                                                break;
+
+                                            case 2:
+                                                player->poke6=player->poke5;
+                                                player->poke5=tmp;
+                                                break;
+
+                                            case 3:
+                                                player->poke6=player->poke6;
+                                                player->poke6=tmp;
+                                                break;
+
+                                            default:
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    moved=1;
+                                    finishact=1;
+                                    wclear(actions);
+                                    wrefresh(actions);
+                                    break;
+
+                                default:
+                                    break;
+                                }
+
+                                usleep(16667);
+                                wclear(yourteam);
+                            }
+                        }
+
+                        break;
+                    default:
+                        break;
                     }
-                    
-                    else if (xact==5)
+
+                    usleep(16667);
+                    if(delwin(actions)==ERR)
                     {
-                        int whatpoke=0;
-                        if (x==1)
-                        {
-                            switch (y)
-                            {
-                            case 1:
-                                tmp=player->poke1; 
-                                whatpoke=1;
-                                break;
-
-                            case 2:
-                                tmp=player->poke2; 
-                                whatpoke=2;
-                                break;
-
-                            case 3:
-                                tmp=player->poke3; 
-                                whatpoke=3;
-                                break;
-
-                            default:
-                                break;
-                            }
-                        }
-
-                        if (x==2)
-                        {
-                            switch (y)
-                            {
-                            case 1:
-                                tmp=player->poke4; 
-                                whatpoke=4;
-                                break;
-
-                            case 2:
-                                tmp=player->poke5; 
-                                whatpoke=5;
-                                break;
-
-                            case 3:
-                                tmp=player->poke6; 
-                                whatpoke=6;
-                                break;
-
-                            default:
-                                break;
-                            }
-                        }
-                        
-                        int xmove=1,ymove=1,moved=0;
-                        while (moved==0)
-                        {
-                            box(yourteam,0,0);
-                            box(box1,0,0);
-                            box(box2,0,0);
-                            box(box3,0,0);
-                            box(box4,0,0);
-                            box(box5,0,0);
-                            box(box6,0,0);
-                            print_yourteam(box1,box2,box3,box4,box5,box6,player,xmove,ymove);
-                            physic_yourteam(ch,&xmove,&ymove);
-                            wrefresh(yourteam);
-
-                            ch=getch();
-                            switch (ch)
-                            {
-                            
-                            case ' ':
-                                moved=1;
-                                finishact=1;
-                                wclear(actions);
-                                wrefresh(actions);
-                                break;
-                            
-                            case 'e':
-                            case '\n':
-                            case '\r':
-
-                                if (whatpoke==1)
-                                {
-                                    if (xmove==1)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke1=player->poke1;
-                                            player->poke1=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke1=player->poke2;
-                                            player->poke2=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke1=player->poke3;
-                                            player->poke3=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-
-                                    if (xmove==2)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke1=player->poke4;
-                                            player->poke4=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke1=player->poke5;
-                                            player->poke5=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke1=player->poke6;
-                                            player->poke6=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                else if (whatpoke==2)
-                                {
-                                    if (xmove==1)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke2=player->poke1;
-                                            player->poke1=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke2=player->poke2;
-                                            player->poke2=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke2=player->poke3;
-                                            player->poke3=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-
-                                    if (xmove==2)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke2=player->poke4;
-                                            player->poke4=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke2=player->poke5;
-                                            player->poke5=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke2=player->poke6;
-                                            player->poke6=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                else if (whatpoke==3)
-                                {
-                                    if (xmove==1)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke3=player->poke1;
-                                            player->poke1=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke3=player->poke2;
-                                            player->poke2=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke3=player->poke3;
-                                            player->poke3=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-
-                                    if (xmove==2)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke3=player->poke4;
-                                            player->poke4=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke3=player->poke5;
-                                            player->poke5=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke3=player->poke6;
-                                            player->poke6=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                else if (whatpoke==4)
-                                {
-                                    if (xmove==1)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke4=player->poke1;
-                                            player->poke1=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke4=player->poke2;
-                                            player->poke2=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke4=player->poke3;
-                                            player->poke3=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-
-                                    if (xmove==2)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke4=player->poke4;
-                                            player->poke4=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke4=player->poke5;
-                                            player->poke5=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke4=player->poke6;
-                                            player->poke6=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                else if (whatpoke==5)
-                                {
-                                    if (xmove==1)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke5=player->poke1;
-                                            player->poke1=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke5=player->poke2;
-                                            player->poke2=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke5=player->poke3;
-                                            player->poke3=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-
-                                    if (xmove==2)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke5=player->poke4;
-                                            player->poke4=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke5=player->poke5;
-                                            player->poke5=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke5=player->poke6;
-                                            player->poke6=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                else if (whatpoke==6)
-                                {
-                                    if (xmove==1)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke6=player->poke1;
-                                            player->poke1=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke6=player->poke2;
-                                            player->poke2=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke6=player->poke3;
-                                            player->poke3=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-
-                                    if (xmove==2)
-                                    {
-                                        switch (ymove)
-                                        {
-                                        case 1:
-                                            player->poke6=player->poke4;
-                                            player->poke4=tmp;
-                                            break;
-
-                                        case 2:
-                                            player->poke6=player->poke5;
-                                            player->poke5=tmp;
-                                            break;
-
-                                        case 3:
-                                            player->poke6=player->poke6;
-                                            player->poke6=tmp;
-                                            break;
-
-                                        default:
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                moved=1;
-                                finishact=1;
-                                wclear(actions);
-                                wrefresh(actions);
-                                break;
-
-                            default:
-                                break;
-                            }
-
-                            usleep(16667);
-                            wclear(yourteam);
-                        }
-                    }
-                    
-                    break;
-                default:
-                    break;
+                        system("killall -9 vlc >/dev/null 2>&1 &");
+                        exit(45);
+                    } 
                 }
-
-                usleep(16667);
-                if(delwin(actions)==ERR)
-                {
-                    system("killall -9 vlc >/dev/null 2>&1 &");
-                    exit(45);
-                } 
+                break;
+            default:
+                break;
             }
-            break;
-        default:
-            break;
         }
 
         usleep(16667);
@@ -3217,13 +3986,13 @@ void your_team(trainer* player){
 }
 
 void menu(int* quit,trainer* player){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int chmenu=ERR,menuexit=0;
     int x=13,y=95;
     
     while(chmenu!='m' && menuexit==0)
         {            
-            WINDOW* winmenu=newwin(LINES/1.5,COLS/1.5,LINES/6+1,COLS/6);
+            WINDOW* winmenu=newwin(63/1.5,236/1.5,63/6+1,236/6);
             WINDOW* jaugelvl=newwin(3,51,16,135);
 
             box(jaugelvl,0,0);
@@ -3265,7 +4034,7 @@ void menu(int* quit,trainer* player){
                         break;
 
                     case 22:
-                        chargement();
+                        save(player);
                         break;
 
                     case 13:
@@ -3307,7 +4076,7 @@ void menu(int* quit,trainer* player){
 }
 
 void inventory(trainer* player){
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
     int x=12,y=17;
 
@@ -3335,10 +4104,484 @@ void inventory(trainer* player){
         case ' ':
             finish=1;
             break;
+            
         case 'e':
         case '\n':
         case '\r':
-            // à faire
+            
+            if (x==12)
+            {
+                switch (y)
+                {
+                case 17: // pokeballs
+                    //inutile
+                    break;
+
+                case 57: // potions
+                    int finishpotion=0;
+                    int xpotion=4;
+
+                    while (finishpotion==0)
+                    {
+                        WINDOW* actions = newwin(10,20,20,10);
+                        box(actions,0,0);
+
+                        mvwprintw(actions,1,2,"What do you want");
+                        mvwprintw(actions,2,2,"to do ?");
+                        mvwprintw(actions,4,6,"Use");
+                        mvwprintw(actions,6,6,"Nothing");
+                        mvwprintw(actions,xpotion,4,">");
+                        wrefresh(actions);
+
+                        ch=getch();
+                        switch (ch)
+                        {
+                        case ' ':
+                            wclear(actions);
+                            wrefresh(actions);
+                            finishpotion=1;
+                            break;
+
+                        case 'z':
+                        case KEY_UP:
+                            if (xpotion!=4)
+                            {
+                                xpotion-=2;
+                            }
+                            break;
+
+                        case 's':
+                        case KEY_DOWN:
+                            if (xpotion!=6)
+                            {
+                                xpotion+=2;
+                            }
+                            break;
+
+                        case 'e':
+                        case '\r':
+                        case '\n':
+                            if (xpotion==6)
+                            {
+                                wclear(actions);
+                                wrefresh(actions);
+                                finishpotion=1;
+                            }
+                            else if (xpotion==4)
+                            {
+                                int finishchoice=0;
+                                int xchoice=3;
+                                while (finishchoice==0)
+                                {
+                                    wclear(actions);
+                                    box(actions,0,0);
+                                    mvwprintw(actions,1,2,"On which poke ?");
+                                    mvwprintw(actions,3,6,"%s",player->poke1.name);
+                                    mvwprintw(actions,4,6,"%s",player->poke2.name);
+                                    mvwprintw(actions,5,6,"%s",player->poke3.name);
+                                    mvwprintw(actions,6,6,"%s",player->poke4.name);
+                                    mvwprintw(actions,7,6,"%s",player->poke5.name);
+                                    mvwprintw(actions,8,6,"%s",player->poke6.name);
+                                    mvwprintw(actions,xchoice,4,">");
+                                    wrefresh(actions);
+
+                                    ch=getch();
+                                    switch (ch)
+                                    {
+                                    case ' ':
+                                        wclear(actions);
+                                        box(actions,0,0);
+                                        finishchoice=1;
+                                        break;
+
+                                    case 'z':
+                                    case KEY_UP:
+                                        if (xchoice!=3)
+                                        {
+                                            xchoice-=1;
+                                        }
+                                        break;
+
+                                    case 's':
+                                    case KEY_DOWN:
+                                        if (xchoice!=8)
+                                        {
+                                            xchoice+=1;
+                                        }
+                                        break;
+
+                                    case 'e':
+                                    case '\r':
+                                    case '\n':
+                                        switch (xchoice)
+                                        {
+                                        case 3: // poke1
+                                            if (player->poke1.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke1.pv<player->poke1.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke1.pv=player->poke1.pv*1.5;
+                                                if (player->poke1.pv>player->poke1.pv_save)
+                                                {
+                                                    player->poke1.pv=player->poke1.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke1.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        case 4: // poke2
+                                            if (player->poke2.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke2.pv<player->poke2.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke2.pv=player->poke2.pv*1.5;
+                                                if (player->poke2.pv>player->poke2.pv_save)
+                                                {
+                                                    player->poke2.pv=player->poke2.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke2.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 5: // poke3
+                                            if (player->poke3.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke3.pv<player->poke3.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke3.pv=player->poke3.pv*1.5;
+                                                if (player->poke3.pv>player->poke3.pv_save)
+                                                {
+                                                    player->poke3.pv=player->poke3.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke3.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 6: // poke4
+                                            if (player->poke4.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke4.pv<player->poke4.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke4.pv=player->poke4.pv*1.5;
+                                                if (player->poke4.pv>player->poke4.pv_save)
+                                                {
+                                                    player->poke4.pv=player->poke4.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke4.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 7: // poke5
+                                            if (player->poke5.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke5.pv<player->poke5.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke5.pv=player->poke5.pv*1.5;
+                                                if (player->poke5.pv>player->poke5.pv_save)
+                                                {
+                                                    player->poke5.pv=player->poke5.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke5.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 8: // poke6
+                                            if (player->poke6.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke6.pv<player->poke6.pv_save)
+                                            {
+                                                player->inventory[POTIONS].quant-=1;
+                                                player->poke6.pv=player->poke6.pv*1.5;
+                                                if (player->poke6.pv>player->poke6.pv_save)
+                                                {
+                                                    player->poke6.pv=player->poke6.pv_save;
+                                                }
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                mvwprintw(actions,1,2,"%s",player->poke6.name);
+                                                mvwprintw(actions,2,2,"healed");
+                                                wrefresh(actions);
+                                                sleep(1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        default:
+                                            break;
+                                        }
+
+                                        break;
+
+                                    default:
+                                        break;
+                                    }
+                                    usleep(16667);
+                                } 
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+
+                        usleep(16667);
+                        if (delwin(actions)==ERR)
+                        {
+                            system("killall -9 vlc >/dev/null 2>&1 &");
+                            exit(53);
+                        }
+                    }
+                    break;
+
+                case 97: // candys
+                    int finishcandy=0;
+                    int xcandy=4;
+
+                    while (finishcandy==0)
+                    {
+                        WINDOW* actions = newwin(10,20,20,10);
+                        box(actions,0,0);
+
+                        mvwprintw(actions,1,2,"What do you want");
+                        mvwprintw(actions,2,2,"to do ?");
+                        mvwprintw(actions,4,6,"Use");
+                        mvwprintw(actions,6,6,"Nothing");
+                        mvwprintw(actions,xcandy,4,">");
+                        wrefresh(actions);
+
+                        ch=getch();
+                        switch (ch)
+                        {
+                        case ' ':
+                            wclear(actions);
+                            wrefresh(actions);
+                            finishcandy=1;
+                            break;
+
+                        case 'z':
+                        case KEY_UP:
+                            if (xcandy!=4)
+                            {
+                                xcandy-=2;
+                            }
+                            break;
+
+                        case 's':
+                        case KEY_DOWN:
+                            if (xcandy!=6)
+                            {
+                                xcandy+=2;
+                            }
+                            break;
+
+                        case 'e':
+                        case '\r':
+                        case '\n':
+                            if (xcandy==6)
+                            {
+                                wclear(actions);
+                                wrefresh(actions);
+                                finishcandy=1;
+                            }
+                            else if (xcandy==4)
+                            {
+                                int finishchoice=0;
+                                int xchoice=3;
+                                while (finishchoice==0)
+                                {
+                                    wclear(actions);
+                                    box(actions,0,0);
+                                    mvwprintw(actions,1,2,"On which poke ?");
+                                    mvwprintw(actions,3,6,"%s",player->poke1.name);
+                                    mvwprintw(actions,4,6,"%s",player->poke2.name);
+                                    mvwprintw(actions,5,6,"%s",player->poke3.name);
+                                    mvwprintw(actions,6,6,"%s",player->poke4.name);
+                                    mvwprintw(actions,7,6,"%s",player->poke5.name);
+                                    mvwprintw(actions,8,6,"%s",player->poke6.name);
+                                    mvwprintw(actions,xchoice,4,">");
+                                    wrefresh(actions);
+
+                                    ch=getch();
+                                    switch (ch)
+                                    {
+                                    case ' ':
+                                        wclear(actions);
+                                        box(actions,0,0);
+                                        finishchoice=1;
+                                        break;
+
+                                    case 'z':
+                                    case KEY_UP:
+                                        if (xchoice!=3)
+                                        {
+                                            xchoice-=1;
+                                        }
+                                        break;
+
+                                    case 's':
+                                    case KEY_DOWN:
+                                        if (xchoice!=8)
+                                        {
+                                            xchoice+=1;
+                                        }
+                                        break;
+
+                                    case 'e':
+                                    case '\r':
+                                    case '\n':
+                                        switch (xchoice)
+                                        {
+                                        case 3: // poke1
+                                            if (player->poke1.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke1);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        case 4: // poke2
+                                            if (player->poke2.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke2);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 5: // poke3
+                                            if (player->poke3.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke3);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 6: // poke4
+                                            if (player->poke4.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke4);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 7: // poke5
+                                            if (player->poke5.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke5);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+
+                                        case 8: // poke6
+                                            if (player->poke6.type!=NOPOKEMON && player->inventory[CANDYS].quant>0)
+                                            {
+                                                player->inventory[CANDYS].quant-=1;
+                                                pokelvlup(bag_array,5,0,1,&player->poke6);
+                                                wclear(actions);
+                                                box(actions,0,0);
+                                                finishchoice=1;
+                                            }
+                                            break;
+                                        
+                                        default:
+                                            break;
+                                        }
+
+                                        break;
+
+                                    default:
+                                        break;
+                                    }
+                                    usleep(16667);
+                                } 
+                            }
+                            break;
+                        default:
+                            break;
+                        }
+
+                        usleep(16667);
+                        if (delwin(actions)==ERR)
+                        {
+                            system("killall -9 vlc >/dev/null 2>&1 &");
+                            exit(53);
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+            }
+
+            else if (x==26)
+            {
+                switch (x)
+                {
+                case 17: // SLOT4
+                    //inutile
+                    break;
+
+                case 57: // SLOT5
+                    //inutile
+                    break;
+
+                case 97: // SLOT6
+                    //inutile
+                    break;
+                default:
+                    break;
+                }
+                break;
+            }
+            
             break;
         default:
             break;
@@ -3366,18 +4609,40 @@ void inventory(trainer* player){
 }
 
 void roadto_league(trainer* player){
-    int l=97,c=70;
     int quit=0,finish=0, ch=ERR;
+    int l=103,c=70;
+
+    int flowerx1  = 50 + rand()%((50+31+1)-50);
+    int flowerx2  = 50 + rand()%((50+31+1)-50);
+    int flowerx3  = 50 + rand()%((50+31+1)-50);
+    int flowerx4  = 50 + rand()%((50+31+1)-50);
+    int flowerx5  = 50 + rand()%((50+31+1)-50);
+    int flowerx6  = 50 + rand()%((50+31+1)-50);
+    int flowerx7  = 50 + rand()%((50+31+1)-50);
+    int flowerx8  = 50 + rand()%((50+31+1)-50);
+    int flowerx9  = 50 + rand()%((50+31+1)-50);
+    int flowerx10 = 50 + rand()%((50+31+1)-50);
+
+    int flowery1  = 118 + rand()%((118+142+1)-118);
+    int flowery2  = 118 + rand()%((118+142+1)-118);
+    int flowery3  = 118 + rand()%((118+142+1)-118);
+    int flowery4  = 118 + rand()%((118+142+1)-118);
+    int flowery5  = 118 + rand()%((118+142+1)-118);
+    int flowery6  = 118 + rand()%((118+142+1)-118);
+    int flowery7  = 118 + rand()%((118+142+1)-118);
+    int flowery8  = 118 + rand()%((118+142+1)-118);
+    int flowery9  = 118 + rand()%((118+142+1)-118);
+    int flowery10 = 118 + rand()%((118+142+1)-118);
 
     while(finish==0)
     {
         WINDOW* road = newwin(200,400, 0, 0);
-        WINDOW* cam= subwin(road,LINES-1,COLS-1,l,c);
+        WINDOW* cam= subwin(road,62,235,l,c);
         WINDOW* cadre= subwin(road,111,150,29,116);
         WINDOW* chute= subwin(road,10,150,139,116);
         WINDOW* limite_bas= subwin(road,1,150,110,116);
         WINDOW* limite_haut= subwin(road,1,150,84,116);
-        WINDOW* blackscreen= newwin(LINES-1,COLS-1,0,0);
+        WINDOW* blackscreen= newwin(62,235,0,0);
 
         box(cadre,0,0);
         box(chute,0,0);
@@ -3385,10 +4650,11 @@ void roadto_league(trainer* player){
         box(limite_haut,0,0);
         mvwin(cam,0,0);
         print_roadto_league(road);
+        print_flowers(road,flowerx1,flowerx2,flowerx3,flowerx4,flowerx5,flowerx6,flowerx7,flowerx8,flowerx9,flowerx10,flowery1,flowery2,flowery3,flowery4,flowery5,flowery6,flowery7,flowery8,flowery9,flowery10);
         print_player(cam,player);
         physic_roadto_league(ch,&l,&c);
 
-        wrefresh(cam);
+        //mvwprintw(road,flowerx1-34,flowery1-119,"@"); // position exacte pour la fleur 1 pour la cam (joueur dessus)
 
         ch=getch();
 
@@ -3407,14 +4673,453 @@ void roadto_league(trainer* player){
             {
                 chargement();
                 league(player);
-            }
+                flowerx1  = 50 + rand()%((50+31+1)-50);
+                flowerx2  = 50 + rand()%((50+31+1)-50);
+                flowerx3  = 50 + rand()%((50+31+1)-50);
+                flowerx4  = 50 + rand()%((50+31+1)-50);
+                flowerx5  = 50 + rand()%((50+31+1)-50);
+                flowerx6  = 50 + rand()%((50+31+1)-50);
+                flowerx7  = 50 + rand()%((50+31+1)-50);
+                flowerx8  = 50 + rand()%((50+31+1)-50);
+                flowerx9  = 50 + rand()%((50+31+1)-50);
+                flowerx10 = 50 + rand()%((50+31+1)-50);
             
+                flowery1  = 118 + rand()%((118+142+1)-118);
+                flowery2  = 118 + rand()%((118+142+1)-118);
+                flowery3  = 118 + rand()%((118+142+1)-118);
+                flowery4  = 118 + rand()%((118+142+1)-118);
+                flowery5  = 118 + rand()%((118+142+1)-118);
+                flowery6  = 118 + rand()%((118+142+1)-118);
+                flowery7  = 118 + rand()%((118+142+1)-118);
+                flowery8  = 118 + rand()%((118+142+1)-118);
+                flowery9  = 118 + rand()%((118+142+1)-118);
+                flowery10 = 118 + rand()%((118+142+1)-118);
+            }
+
+            if (l==flowerx1-34 && c==flowery1-119 || c==flowery1-118 || c==flowery1-120) // grab flower1
+            {
+                flowerx1=0;
+                flowery1=0; // make it disapear
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx2-34 && c==flowery2-119 || c==flowery2-118 || c==flowery2-120) // grab flower2
+            {
+                flowerx2=0;
+                flowery2=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx3-34 && c==flowery3-119 || c==flowery3-118 || c==flowery3-120) // grab flower3
+            {
+                flowerx3=0;
+                flowery3=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx4-34 && c==flowery4-119 || c==flowery4-118 || c==flowery4-120) // grab flower4
+            {
+                flowerx4=0;
+                flowery4=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx5-34 && c==flowery5-119 || c==flowery5-118 || c==flowery5-120) // grab flower5
+            {
+                flowerx5=0;
+                flowery5=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx6-34 && c==flowery6-119 || c==flowery6-118 || c==flowery6-120) // grab flower6
+            {
+                flowerx6=0;
+                flowery6=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx7-34 && c==flowery7-119 || c==flowery7-118 || c==flowery7-120) // grab flower7
+            {
+                flowerx7=0;
+                flowery7=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx8-34 && c==flowery8-119 || c==flowery8-118 || c==flowery8-120) // grab flower8
+            {
+                flowerx8=0;
+                flowery8=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx9-34 && c==flowery9-119 || c==flowery9-118 || c==flowery9-120) // grab flower9
+            {
+                flowerx9=0;
+                flowery9=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
+
+            else if (l==flowerx10-34 && c==flowery10-119 || c==flowery10-187 || c==flowery10-021) // grab flower10
+            {
+                flowerx10=0;
+                flowery10=0; // make it disapear
+            
+                if (player->inventory[SLOT4].type==EMPTY)
+                {
+                    player->inventory[SLOT4].type=FLOWER;
+                    sprintf(player->inventory[SLOT4].name,"flowers");
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT4].type==FLOWER)
+                {
+                    player->inventory[SLOT4].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==EMPTY)
+                {
+                    player->inventory[SLOT5].type=FLOWER;
+                    sprintf(player->inventory[SLOT5].name,"flowers");
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT5].type==FLOWER)
+                {
+                    player->inventory[SLOT5].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==EMPTY)
+                {
+                    player->inventory[SLOT6].type=FLOWER;
+                    sprintf(player->inventory[SLOT6].name,"flowers");
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else if (player->inventory[SLOT6].type==FLOWER)
+                {
+                    player->inventory[SLOT6].quant+=1;
+                }
+                else 
+                {
+                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
+                    sleep(1);             
+                }
+            }
 
             if (l==76)  // border water down 
             {
                 if (player->poke1.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke1.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -3423,7 +5128,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke2.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke2.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -3432,7 +5137,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke3.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke3.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -3441,7 +5146,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke4.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke4.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -3450,7 +5155,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke5.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke5.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -3459,7 +5164,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke6.CTutil->type==SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke6.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
                     sleep(1);
                     l-=2;
@@ -3468,7 +5173,7 @@ void roadto_league(trainer* player){
 
                 else
                 {
-                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon have surf !");
+                    write_flush(cam,((63-2)/2)-1,((236-2)/2)+5,"None of your pokemon have surf !");
                     sleep(1);
                 }
             }
@@ -3489,7 +5194,7 @@ void roadto_league(trainer* player){
             {
                 if (player->poke1.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke1.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -3498,7 +5203,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke2.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke2.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -3507,7 +5212,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke3.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke3.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -3516,7 +5221,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke4.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke4.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -3525,7 +5230,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke5.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke5.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -3534,7 +5239,7 @@ void roadto_league(trainer* player){
 
                 else if (player->poke6.CTutil->type=SURF)
                 {
-                    mvwprintw(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"%s uses surf !",player->poke6.name);
+                    mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
                     sleep(1);
                     l+=2;
@@ -3543,7 +5248,7 @@ void roadto_league(trainer* player){
 
                 else
                 {
-                    write_flush(cam,((LINES-2)/2)-1,((COLS-2)/2)+5,"None of your pokemon have surf !");
+                    write_flush(cam,((63-2)/2)-1,((236-2)/2)+5,"None of your pokemon have surf !");
                     sleep(1);
                 }
             }
@@ -3560,6 +5265,8 @@ void roadto_league(trainer* player){
         default:
             break;
         }
+
+        wrefresh(cam);
 
         usleep(16667);
         if(delwin(cam)==ERR)
@@ -3601,9 +5308,12 @@ void roadto_league(trainer* player){
 }
 
 void main_menu(trainer* player,int* quit,int* x, int* y){
-    WINDOW* win=newwin(LINES-1,COLS-1,0,0);
-    WINDOW* blackscreen=newwin(LINES-1,COLS-1,0,0);
+    WINDOW* win=newwin(62,235,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
     int ch=ERR;
+
+    pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
     
     ch=getch();
     print_main_menu(win,*x,*y);
@@ -3645,11 +5355,11 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
             break;
 
         case 38:
-            create_newplayer(player);
-            get_firstpoke(player);
-            forest(player);
-            *quit=1;
-            chargement();
+            if (load(player)==1)
+            {
+                *quit=1;
+                chargement();
+            }
             break;
         
         default:
@@ -3677,17 +5387,17 @@ void game(trainer* player, int* quit,int* l,int* c){
     int ch=ERR;int i;int j;
     WINDOW* map = newwin(170,500, 0, 0);
     WINDOW* cadre= subwin(map,111, 266, 29,116);      //cadre = map réelle : origine sur map (29;116), dimensions (111;268)
-    WINDOW* cam=subwin(map,LINES-1,COLS-1,*l,*c);
+    WINDOW* cam=subwin(map,62,235,*l,*c);
     box(cadre,0,0);                                   //repérage : x_map = x_cadre + 29      y_map = y_cadre + 116
 
     mvwin(cam,0,0);
-    create_map(map);
+    create_map(map,player);
     print_player(cam,player); 
     wrefresh(cam); 
 
     ch=getch();
 
-    physic_map(ch,l,c); // colisions
+    physic_map(ch,l,c,player); // colisions
     switch (ch) // actions
     {
         case 'e':
@@ -3711,11 +5421,28 @@ void game(trainer* player, int* quit,int* l,int* c){
                 lab(player);
             }
 
-            if (*c==0 && *l>=70 && *l<=76) // road to league 
+            if (*c==0 && *l>=70 && *l<=76) // road to league area
             {
                 chargement();
                 roadto_league(player);
             }
+
+            if (player->is_rock_there==1) // TRUE
+            {
+                if (*c>=248 && *l>=23 && *l<=26) // rock area
+                {
+                    cinematique_rock(map,cam,player);
+                }
+            }
+            else
+            {
+                if (*c==256 && *l>=20 && *l<=26) // forest area
+                {
+                    chargement();
+                    forest(player); 
+                }
+            }
+
             break;
 
         case 'm':
@@ -3754,9 +5481,9 @@ void game(trainer* player, int* quit,int* l,int* c){
 void clignotement(WINDOW* fenetre){
     int count=0;
 
-    WINDOW* fenetre_backup = newwin(62,252,0,0);
+    WINDOW* fenetre_backup = newwin(63,211,0,12);
     for(count=0;count<3;count++){
-        copywin(fenetre,fenetre_backup,0,0,0,0,61,251,FALSE);
+        copywin(fenetre,fenetre_backup,0,0,0,0,62,210,FALSE);
         wrefresh(fenetre_backup);
         usleep(300000);
         wclear(fenetre_backup);
@@ -3765,6 +5492,7 @@ void clignotement(WINDOW* fenetre){
     }
      if(delwin(fenetre_backup)==ERR)
     {
+        system("killall -9 vlc >/dev/null 2>&1 &");
         exit(103);
     }
 }
@@ -3772,37 +5500,714 @@ void duel_forest(trainer * player,pokemon wild_poke){
     
     int count_atk=1;
 
-    if(player->poke1.pv>0){
-                    if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else{
-                        //defeat
-                    }
-                }
-                else if(player->poke2.pv>0){
-                    if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else{
-                        //defeat
-                    }
-                }
-                else{
-                    if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
-                        //victory
-                    }
-                    else{
-                        //defeat
-                    }
-                }
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop main theme
+    usleep(1000);
+    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
+
+    if(player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0){
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv==0 && player->poke2.pv>0 && player->poke3.pv>0){
+        if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv>0 && player->poke2.pv==0 && player->poke3.pv>0){
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv==0){
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv>0)
+    {
+        if(match(player,&player->poke3,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv>0 && player->poke2.pv==0 && player->poke3.pv==0)
+    {
+        if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+    else if(player->poke1.pv==0 && player->poke2.pv>0 && player->poke3.pv==0)
+    {
+        if(match(player,&player->poke2,&wild_poke,1,&count_atk)==1){
+            //victory
+        }
+        else{
+            //defeat
+        }
+    }
+
+    system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
+    usleep(1000);
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
+}
+
+// V1.0
+void save(trainer* player){
+
+    FILE* save1 = NULL;
+    FILE* save2 = NULL;
+    FILE* save3 = NULL;
+    FILE* save4 = NULL;
+    FILE* save5 = NULL;
+
+    FILE* save1r = NULL;
+    FILE* save2r = NULL;
+    FILE* save3r = NULL;
+    FILE* save4r = NULL;
+    FILE* save5r = NULL;
+
+    save1r=fopen("saves/save1","rb");
+    save2r=fopen("saves/save2","rb");
+    save3r=fopen("saves/save3","rb");
+    save4r=fopen("saves/save4","rb");
+    save5r=fopen("saves/save5","rb");
+
+    if (save1r == NULL)
+    {
+        exit(100);
+    }
+    if (save2r == NULL)
+    {
+        exit(101);
+    }
+    if (save3r == NULL)
+    {
+        exit(102);
+    }
+    if (save4r == NULL)
+    {
+        exit(103);
+    }
+    if (save5r == NULL)
+    {
+        exit(104);
+    }
+
+    int ch=ERR,finish=0;
+    int x=29;
+
+    while (finish==0)
+    {
+        WINDOW* save_win=newwin(62,235,0,0);
+        print_save(save_win,save1r,save2r,save3r,save4r,save5r,x);
+        wrefresh(save_win);
+
+        ch=getch();
+        switch (ch)
+        {
+        case ' ':
+            wclear(save_win);
+            wrefresh(save_win);
+            finish=1;
+            break;
+
+        case 'z':
+        case KEY_UP:
+            if (x!=29)
+            {
+                x-=2;
             }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (x!=37)
+            {
+                x+=2;
+            }  
+            break;
+
+        case 'e': // save
+        case '\r':
+        case '\n':
+            switch (x)
+            {
+            case 29: // save 1
+                fclose(save1r);
+                save1=fopen("saves/save1","wb+"); // delete content 
+                if (save1 == NULL)
+                {
+                    exit(105);
+                }
+                if(fwrite(player,sizeof(trainer),1,save1)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,29,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save1);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 31: // save 2
+                fclose(save2r);
+                save2=fopen("saves/save2","wb+");  // delete content 
+                if (save2 == NULL)
+                {
+                    exit(106);
+                }
+                if(fwrite(player,sizeof(trainer),1,save2)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,31,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save2);
+                fclose(save1r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 33: // save 3
+                fclose(save3r);
+                save3=fopen("saves/save3","wb+");  // delete content 
+                if (save3 == NULL)
+                {
+                    exit(107);
+                }
+                if(fwrite(player,sizeof(trainer),1,save3)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,33,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save3);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 35: // save 4
+                fclose(save4r);
+                save4=fopen("saves/save4","wb+");  // delete content 
+                if (save4 == NULL)
+                {
+                    exit(108);
+                }
+                if(fwrite(player,sizeof(trainer),1,save4)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,35,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save4);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save5r);
+                break;
+            
+            case 37: // save 5
+                fclose(save5r);
+                save5=fopen("saves/save5","wb+");  // delete content 
+                if (save5 == NULL)
+                {
+                    exit(109);
+                }
+                if(fwrite(player,sizeof(trainer),1,save5)!=1)
+                {
+                    exit(150);
+                }
+                mvwprintw(save_win,37,100,"Saved successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                fclose(save5);
+                finish=1;
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                break;
+            
+            default:
+                break;
+            }
+            break;
+
+        case 'x': // delete a save
+            switch (x)
+            {
+            case 29: // save 1
+                fclose(save1r);
+                save1=fopen("saves/save1","wb+"); // delete content 
+                if (save1 == NULL)
+                {
+                    exit(105);
+                }
+                mvwprintw(save_win,29,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save1);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 31: // save 2
+                fclose(save2r);
+                save2=fopen("saves/save2","wb+");  // delete content 
+                if (save2 == NULL)
+                {
+                    exit(106);
+                }
+                mvwprintw(save_win,31,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save2);
+                fclose(save1r);
+                fclose(save3r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 33: // save 3
+                fclose(save3r);
+                save3=fopen("saves/save3","wb+");  // delete content 
+                if (save3 == NULL)
+                {
+                    exit(107);
+                }
+                mvwprintw(save_win,33,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save3);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save4r);
+                fclose(save5r);
+                break;
+            
+            case 35: // save 4
+                fclose(save4r);
+                save4=fopen("saves/save4","wb+");  // delete content 
+                if (save4 == NULL)
+                {
+                    exit(108);
+                }
+                mvwprintw(save_win,35,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                finish=1;
+                fclose(save4);
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save5r);
+                break;
+            
+            case 37: // save 5
+                fclose(save5r);
+                save5=fopen("saves/save5","wb+");  // delete content 
+                if (save5 == NULL)
+                {
+                    exit(109);
+                }
+                mvwprintw(save_win,37,100,"Removed successfully !");
+                wrefresh(save_win);
+                sleep(2);
+                wclear(save_win);
+                wrefresh(save_win);
+                fclose(save5);
+                finish=1;
+                fclose(save1r);
+                fclose(save2r);
+                fclose(save3r);
+                fclose(save4r);
+                break;
+            
+            default:
+                break;
+            }
+        
+        default:
+            break;
+        }
+
+        usleep(16667);
+        if (delwin(save_win)==ERR)
+        {
+            system("killall -9 vlc >/dev/null 2>&1 &");
+            exit(50);
+        }
+    }
+}
+
+// V1.0
+int load(trainer* player){
+
+    FILE* save1r = NULL;
+    FILE* save2r = NULL;
+    FILE* save3r = NULL;
+    FILE* save4r = NULL;
+    FILE* save5r = NULL;
+
+    save1r=fopen("saves/save1","rb");
+    save2r=fopen("saves/save2","rb");
+    save3r=fopen("saves/save3","rb");
+    save4r=fopen("saves/save4","rb");
+    save5r=fopen("saves/save5","rb");
+
+    if (save1r == NULL)
+    {
+        exit(100);
+    }
+    if (save2r == NULL)
+    {
+        exit(101);
+    }
+    if (save3r == NULL)
+    {
+        exit(102);
+    }
+    if (save4r == NULL)
+    {
+        exit(103);
+    }
+    if (save5r == NULL)
+    {
+        exit(104);
+    }
+
+    int ch=ERR,finish=0;
+    int x=29;
+
+    while (finish==0)
+    {
+        WINDOW* load_win=newwin(62,235,0,0);
+        print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+        wrefresh(load_win);
+
+        ch=getch();
+        switch (ch)
+        {
+        case ' ':
+            wclear(load_win);
+            wrefresh(load_win);
+            finish=1; 
+            return 0;  
+            break;
+
+        case 'z':
+        case KEY_UP:
+            if (x!=29)
+            {
+                x-=2;
+            }
+            break;
+
+        case 's':
+        case KEY_DOWN:
+            if (x!=37)
+            {
+                x+=2;
+            }  
+            break;
+
+        case 'e': // save
+        case '\r':
+        case '\n':
+            switch (x)
+            {
+            case 29: // save 1
+                fseek(save1r,0,SEEK_END);
+                if(ftell(save1r)==0)
+                {
+                    mvwprintw(load_win,29,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    rewind(save1r);
+                    fread(player,sizeof(trainer),1,save1r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 31: // save 2
+                fseek(save2r,0,SEEK_END);
+                if(ftell(save2r)==0)
+                {
+                    mvwprintw(load_win,29,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    rewind(save2r);
+                    fread(player,sizeof(trainer),1,save2r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 33: // save 3
+                fseek(save3r,0,SEEK_END);
+                if(ftell(save3r)==0)
+                {
+                    mvwprintw(load_win,29,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    rewind(save3r);
+                    fread(player,sizeof(trainer),1,save3r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 35: // save 4
+                fseek(save4r,0,SEEK_END);
+                if(ftell(save4r)==0)
+                {
+                    mvwprintw(load_win,29,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    rewind(save4r);
+                    fread(player,sizeof(trainer),1,save4r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            case 37: // save 5
+                fseek(save5r,0,SEEK_END);
+                if(ftell(save5r)==0)
+                {
+                    mvwprintw(load_win,29,100,"No save data found in this file");
+                    wrefresh(load_win);
+                    sleep(2);
+                }
+                else
+                {
+                    rewind(save5r);
+                    fread(player,sizeof(trainer),1,save5r);
+                    mvwprintw(load_win,29,100,"Loaded successfully !");
+                    wrefresh(load_win);
+                    sleep(2);
+                    wclear(load_win);
+                    wrefresh(load_win);
+                    finish=1;
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    return 1;
+                }
+                break;
+            
+            default:
+                break;
+            }
+            break;
+
+        case 'x': // delete a save
+            switch (x)
+            {
+            case 29: // save 1
+                save1r=fopen("saves/save1","wb+"); // delete content 
+                if (save1r == NULL)
+                {
+                    exit(105);
+                }
+                mvwprintw(load_win,29,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+                wrefresh(load_win);
+                break;
+            
+            case 31: // save 2
+                save2r=fopen("saves/save2","wb+");  // delete content 
+                if (save2r == NULL)
+                {
+                    exit(106);
+                }
+                mvwprintw(load_win,31,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+                wrefresh(load_win);
+                break;
+            
+            case 33: // save 3
+                save3r=fopen("saves/save3","wb+");  // delete content 
+                if (save3r == NULL)
+                {
+                    exit(107);
+                }
+                mvwprintw(load_win,33,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+                wrefresh(load_win);
+                break;
+            
+            case 35: // save 4
+                save4r=fopen("saves/save4","wb+");  // delete content 
+                if (save4r == NULL)
+                {
+                    exit(108);
+                }
+                mvwprintw(load_win,35,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+                wrefresh(load_win);
+                break;
+            
+            case 37: // save 5
+                save5r=fopen("saves/save5","wb+");  // delete content 
+                if (save5r == NULL)
+                {
+                    exit(109);
+                }
+                mvwprintw(load_win,37,100,"Removed successfully !");
+                wrefresh(load_win);
+                sleep(2);
+                print_load(load_win,save1r,save2r,save3r,save4r,save5r,x);
+                wrefresh(load_win);
+                break;
+            
+            default:
+                break;
+            }
+        
+        default:
+            break;
+        }
+
+        usleep(16667);
+        if (delwin(load_win)==ERR)
+        {
+            system("killall -9 vlc >/dev/null 2>&1 &");
+            exit(50);
+        }
+    }    
+
+}

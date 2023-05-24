@@ -31,10 +31,12 @@ int main(){
     }
 
     //set fullscreen if not already set
-    if (LINES== 59 || LINES<63 && COLS<236)
+    if (LINES<63 || COLS<236)
     {
         system("xdotool key FN+F11"); //sudo apt install xdotool
     }  
+
+    //63 = 63 , 236 = 236
 
     //launch music
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &");  // sudo apt_get install vlc

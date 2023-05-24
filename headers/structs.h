@@ -29,6 +29,7 @@
 #define SURF 1
 #define LEER 2
 #define ROAR 3
+#define FLOWER 4
 
 //champions_art
 #define CHAMPIONBLUE 1
@@ -78,6 +79,7 @@ typedef struct
     int money;
     int art;
     int is_on_water;
+    int is_rock_there;
     pokemon pokefight;
     pokemon poke1;
     pokemon poke2;
@@ -87,6 +89,6 @@ typedef struct
     pokemon poke6;
     pokemon pc[20];
     object inventory[6];
-}trainer;
+}trainer; // V1.0
 
 #endif
