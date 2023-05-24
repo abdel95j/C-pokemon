@@ -1039,7 +1039,6 @@ void physic_map(int ch, int* l, int* c,trainer* player){
             {
                 *l=*l+1;
             }
-
             if (player->is_rock_there==1) // TRUE
             {
                 if (*l==26 && *c>=250)  // physic rock
