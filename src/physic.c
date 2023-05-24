@@ -624,8 +624,8 @@ void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
     rand_wildpoke=rand()%100 +1;// rand from 1 to 100
     rand_encounter=rand()%100 +1;// same
     
-    pokemon charmander,pokenull,bulbasaur,squirtle;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle);
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
 
     if(player->poke1.pv==0 && player->poke2.pv==0 && player->poke3.pv==0){
         rand_encounter=100; // cannot meet a wild pokemon without an alive pokemon

@@ -3647,7 +3647,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         case 38:
             create_newplayer(player);
             get_firstpoke(player);
-            league(player);
+            forest(player);
             *quit=1;
             chargement();
             break;
