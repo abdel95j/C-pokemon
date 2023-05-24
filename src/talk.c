@@ -168,7 +168,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
             case 6:  //  potion
                 mvwprintw(shop_map,15,37,"                       ");
                 mvwprintw(shop_map,16,37,"              ");
-                write_flush(shop_map,15,37,"How many candys");
+                write_flush(shop_map,15,37,"How many potions");
                 write_flush(shop_map,16,37,"do you need ?");
                 
                 curs_set(1);
@@ -214,7 +214,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
                         write_flush(shop_map,15,37,"You bought %d",howmany);
-                        write_flush(shop_map,16,37,"candys !");   
+                        write_flush(shop_map,16,37,"potions !");   
                         sleep(2);
                         mvwprintw(shop_map,15,37,"                       ");
                         mvwprintw(shop_map,16,37,"              ");
@@ -249,7 +249,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 nodelay(stdscr,FALSE);
                 howmany=-1;
                 
-                while (howmany=0)
+                while (howmany<0)
                 {
                     while(wscanw(shop_map,"%d",&howmany)!=1){
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone

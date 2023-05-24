@@ -18,7 +18,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     //
     //          si le pokemon est un pokemon évolué ex : dracaufeu mettez son lvl à 25 (lvl d'évolution)
     //          et soyez logique sur les stats (aidez vous de la fonction pokelvlup et faites 25 fois ce qui
-    //          augmente pour 1 lvl) + rajoutez sa sous évolution dans la fonction evolvepoke 
+    //          augmente pour 1 lvl) + rajoutez sa sous évolution dans la fonction evolvepoke + silent_evolvepoke
     //          exemple : si j'ajoute dracaufeu alors je vais créer le système d'evolution de salamèche dans evolvepoke 
     //
     //          lvlup 1 fois :
@@ -36,7 +36,10 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     //
     //      4 : l'ajouter dans toutes les declarations de pokemons + init poke (suivez les erreurs sur vscode ça aide)
     //          exemple :    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu, nouveau-pokemon;
-    //                      init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu, &nouveau-pokemon);   
+    //                      init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu, &nouveau-pokemon);       
+    //
+    //      4.5 : l'ajouter dans le taux de drop de la fonction encounter poke SI C'EST UN POKEMON RENCONTRABLE DANS LA FORET
+    //            -> monter le rand poke du taux de drop (10 par exemple) puis créer le if <= au nouveau rand poke
     //
     //      5 : créer ses sprites (images d'affichage) dans les fonctions print_poke et print_art_box 
     //          pour les sprites taper "<nom du pokemon> sprite front/back" sur google et chercher des images jolies et cohérentes puis
@@ -1136,6 +1139,101 @@ void evolvepoke(pokemon* poke){
     system("killall -9 vlc >/dev/null 2>&1 &"); // stop evolve theme
 }
 
+void silent_evolvepoke(pokemon* poke){
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+
+    pokemon temp;
+    if (poke->type!=NOPOKEMON)
+    {
+        switch (poke->art_box)
+        {
+        case CHARMANDER:
+            if (poke->lvl>=25)
+            {
+                int diff=poke->lvl-25;
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                *poke=charizard;
+                
+                sprintf(poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf(poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+
+                silent_pokelvlup(diff,poke);
+            }
+            break;
+
+        case BULBASAUR:
+            if (poke->lvl>=25)
+            {
+                int diff=poke->lvl-25;
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                //*poke=venusaur;
+                
+                sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+
+                silent_pokelvlup(diff,poke);
+            }
+            break;
+
+        case SQUIRTLE:
+            if (poke->lvl>=25)
+            {
+                int diff=poke->lvl-25;
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                //*poke=blastoise;
+                
+                sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+            
+                silent_pokelvlup(diff,poke);
+            }
+            break;
+
+        case PIKACHU:
+            if (poke->lvl>=25)
+            {
+                int diff=poke->lvl-25;
+                sprintf(temp.CTstat->name,"%s",poke->CTstat->name);               
+                sprintf(temp.CTutil->name,"%s",poke->CTutil->name);               
+                temp.CTstat->type=poke->CTstat->type;
+                temp.CTutil->type=poke->CTutil->type;
+
+                //*poke=raichu;
+                
+                sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
+                sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
+                poke->CTstat->type=temp.CTstat->type;
+                poke->CTutil->type=temp.CTutil->type;
+            
+                silent_pokelvlup(diff,poke);
+            }
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+
 void silent_pokelvlup(int times, pokemon* player_poke){
     pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
@@ -1150,6 +1248,7 @@ void silent_pokelvlup(int times, pokemon* player_poke){
             player_poke->pv+=2;
             player_poke->pv_save+=2;
         }
+        silent_evolvepoke(player_poke);
     }
 }
 
@@ -4176,13 +4275,13 @@ void inventory(trainer* player){
                                     wclear(actions);
                                     box(actions,0,0);
                                     mvwprintw(actions,1,2,"On which poke ?");
-                                    mvwprintw(actions,3,6,"%s",player->poke1.name);
-                                    mvwprintw(actions,4,6,"%s",player->poke2.name);
-                                    mvwprintw(actions,5,6,"%s",player->poke3.name);
-                                    mvwprintw(actions,6,6,"%s",player->poke4.name);
-                                    mvwprintw(actions,7,6,"%s",player->poke5.name);
-                                    mvwprintw(actions,8,6,"%s",player->poke6.name);
-                                    mvwprintw(actions,xchoice,4,">");
+                                    mvwprintw(actions,3,3,"%s %.0f/%.0f",player->poke1.name,player->poke1.pv,player->poke1.pv_save);
+                                    mvwprintw(actions,4,3,"%s %.0f/%.0f",player->poke2.name,player->poke2.pv,player->poke2.pv_save);
+                                    mvwprintw(actions,5,3,"%s %.0f/%.0f",player->poke3.name,player->poke3.pv,player->poke3.pv_save);
+                                    mvwprintw(actions,6,3,"%s %.0f/%.0f",player->poke4.name,player->poke4.pv,player->poke4.pv_save);
+                                    mvwprintw(actions,7,3,"%s %.0f/%.0f",player->poke5.name,player->poke5.pv,player->poke5.pv_save);
+                                    mvwprintw(actions,8,3,"%s %.0f/%.0f",player->poke6.name,player->poke6.pv,player->poke6.pv_save);
+                                    mvwprintw(actions,xchoice,1,">");
                                     wrefresh(actions);
 
                                     ch=getch();
@@ -4426,13 +4525,13 @@ void inventory(trainer* player){
                                     wclear(actions);
                                     box(actions,0,0);
                                     mvwprintw(actions,1,2,"On which poke ?");
-                                    mvwprintw(actions,3,6,"%s",player->poke1.name);
-                                    mvwprintw(actions,4,6,"%s",player->poke2.name);
-                                    mvwprintw(actions,5,6,"%s",player->poke3.name);
-                                    mvwprintw(actions,6,6,"%s",player->poke4.name);
-                                    mvwprintw(actions,7,6,"%s",player->poke5.name);
-                                    mvwprintw(actions,8,6,"%s",player->poke6.name);
-                                    mvwprintw(actions,xchoice,4,">");
+                                    mvwprintw(actions,3,3,"%s lv %d",player->poke1.name,player->poke1.lvl);
+                                    mvwprintw(actions,4,3,"%s lv %d",player->poke2.name,player->poke2.lvl);
+                                    mvwprintw(actions,5,3,"%s lv %d",player->poke3.name,player->poke3.lvl);
+                                    mvwprintw(actions,6,3,"%s lv %d",player->poke4.name,player->poke4.lvl);
+                                    mvwprintw(actions,7,3,"%s lv %d",player->poke5.name,player->poke5.lvl);
+                                    mvwprintw(actions,8,3,"%s lv %d",player->poke6.name,player->poke6.lvl);
+                                    mvwprintw(actions,xchoice,1,">");
                                     wrefresh(actions);
 
                                     ch=getch();
@@ -5117,7 +5216,7 @@ void roadto_league(trainer* player){
 
             if (l==76)  // border water down 
             {
-                if (player->poke1.CTutil->type==SURF)
+                if (player->poke1.CTutil->type==SURF && player->poke1.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
@@ -5126,7 +5225,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke2.CTutil->type==SURF)
+                else if (player->poke2.CTutil->type==SURF && player->poke2.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
@@ -5135,7 +5234,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke3.CTutil->type==SURF)
+                else if (player->poke3.CTutil->type==SURF && player->poke3.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
@@ -5144,7 +5243,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke4.CTutil->type==SURF)
+                else if (player->poke4.CTutil->type==SURF && player->poke4.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
@@ -5153,7 +5252,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke5.CTutil->type==SURF)
+                else if (player->poke5.CTutil->type==SURF && player->poke5.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
@@ -5162,7 +5261,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke6.CTutil->type==SURF)
+                else if (player->poke6.CTutil->type==SURF && player->poke6.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
@@ -5192,7 +5291,7 @@ void roadto_league(trainer* player){
             
             else if (l==48) // border water up
             {
-                if (player->poke1.CTutil->type=SURF)
+                if (player->poke1.CTutil->type=SURF && player->poke1.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
@@ -5201,7 +5300,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke2.CTutil->type=SURF)
+                else if (player->poke2.CTutil->type=SURF && player->poke2.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
@@ -5210,7 +5309,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke3.CTutil->type=SURF)
+                else if (player->poke3.CTutil->type=SURF && player->poke3.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
@@ -5219,7 +5318,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke4.CTutil->type=SURF)
+                else if (player->poke4.CTutil->type=SURF && player->poke4.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
@@ -5228,7 +5327,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke5.CTutil->type=SURF)
+                else if (player->poke5.CTutil->type=SURF && player->poke5.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
@@ -5237,7 +5336,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke6.CTutil->type=SURF)
+                else if (player->poke6.CTutil->type=SURF && player->poke6.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
