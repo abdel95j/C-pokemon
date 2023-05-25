@@ -1372,6 +1372,9 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
     int finish=0, ch=ERR;   
     int x=32,y=88;
 
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
+
     while(finish==0)
     {
         WINDOW* match=newwin(63/1.5,236/1.5,63/6+1,236/6);
@@ -1387,6 +1390,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
         pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
         init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
+
+        pokemon wildpoke = *champion_poke;
 
         print_match(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
         mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
@@ -1440,14 +1445,14 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
             case 38: // RUN
                 if (League0_Catch1==0) // trainer match
                 {
-                    mvwprintw(text,5,25,"                                     ");
+                    mvwprintw(text,5,20,"                                                 ");
                     mvwprintw(text,5,25,"You can't run from a trainer challenge !");
                     wrefresh(text);
                     sleep(1);
                 }
                 else // pokecatch
                 {
-                    mvwprintw(text,5,25,"                                     ");
+                    mvwprintw(text,5,20,"                                                 ");
                     mvwprintw(text,5,25,"You ran away");
                     wrefresh(text);
                     sleep(2);
@@ -1842,6 +1847,9 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         mvwprintw(text,5,23,"%s's defense has decreased",champion_poke->name);
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(fight);
+                                        if(champion_poke->def<=0){
+                                            champion_poke->def=0;
+                                        }
                                     }
                                     sleep(1);
                                     *count_atk+=1;
@@ -1870,6 +1878,9 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         mvwprintw(text,5,23,"%s's attack has decreased",champion_poke->name);
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(fight);
+                                        if(champion_poke->atk<=0){
+                                            champion_poke->atk=0;
+                                        }
                                     }
                                     sleep(1);   
                                     *count_atk+=1;
@@ -2055,12 +2066,12 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                     if (player_poke->pv>0 && player_poke->pv<player_poke->pv_save)
                                     {
                                         player->inventory[POTIONS].quant-=1;
-                                        player_poke->pv=player_poke->pv*1.5;
+                                        player_poke->pv+=player_poke->pv_save/2;
                                         if (player_poke->pv>player_poke->pv_save)
                                         {
                                             player_poke->pv=player_poke->pv_save;
                                         }
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                         mvwprintw(text,5,25,"%s healed successfully",player_poke->name);
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         sleep(2);
@@ -2138,23 +2149,23 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                     }
                                     else if(player_poke->pv<=0)
                                     {
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                         mvwprintw(text,5,25,"%s needs to be revived",player_poke->name);
                                     }
                                     else if (player_poke->pv==player_poke->pv_save)
                                     {
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                         mvwprintw(text,5,25,"%s already has maximum HP",player_poke->name);
                                     }
                                 }
                                 else
                                 {
-                                    mvwprintw(text,5,25,"                                     ");
+                                    mvwprintw(text,5,20,"                                                 ");
                                     mvwprintw(text,5,25,"You need more potions to do this");
                                 }
                                 wrefresh(text);
                                 sleep(1);
-                                mvwprintw(text,5,25,"                                     ");
+                                mvwprintw(text,5,20,"                                                 ");
                                 mvwprintw(text,5,25,"What object do you want to use ?");
                                 wrefresh(text);
                             }
@@ -2162,11 +2173,11 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                             {
                                 if (League0_Catch1==0) // trainer match
                                 {
-                                    mvwprintw(text,5,25,"                                     ");
+                                    mvwprintw(text,5,20,"                                                 ");
                                     mvwprintw(text,5,25,"You can't use that on the champion !");
                                     wrefresh(text);
                                     sleep(1);
-                                    mvwprintw(text,5,25,"                                     ");
+                                    mvwprintw(text,5,20,"                                                 ");
                                     wrefresh(text);
                                 }
                                 else // catch
@@ -2174,14 +2185,14 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                     if (player->inventory[POKEBALLS].quant!=0)
                                     {    
                                         int sort;
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                         mvwprintw(text,5,25,"You launch a pokeball on %s !",champion_poke->name);
                                         wrefresh(text);
                                         sleep(2);
 
                                         player->inventory[POKEBALLS].quant-=1;
 
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                         mvwprintw(text,5,25,"It shakes one time ...");
 
                                         print_poke(match,pokenull,6,110,0);
@@ -2217,34 +2228,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(match);
 
-                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,20,"                                                 ");
                                             mvwprintw(text,5,25,"You got %s !",champion_poke->name);
                                             wrefresh(text);
                                             sleep(1);
 
                                             if (player->poke1.type==NOPOKEMON)
                                             {
-                                                player->poke1=*champion_poke;
+                                                player->poke1=wildpoke;
                                             }
                                             else if (player->poke2.type==NOPOKEMON)
                                             {
-                                                player->poke2=*champion_poke;
+                                                player->poke2=wildpoke;
                                             }
                                             else if (player->poke3.type==NOPOKEMON)
                                             {
-                                                player->poke3=*champion_poke;
+                                                player->poke3=wildpoke;
                                             }
                                             else if (player->poke4.type==NOPOKEMON)
                                             {
-                                                player->poke4=*champion_poke;
+                                                player->poke4=wildpoke;
                                             }
                                             else if (player->poke5.type==NOPOKEMON)
                                             {
-                                                player->poke5=*champion_poke;
+                                                player->poke5=wildpoke;
                                             }
                                             else if (player->poke6.type==NOPOKEMON)
                                             {
-                                                player->poke6=*champion_poke;
+                                                player->poke6=wildpoke;
                                             }
                                             else
                                             {
@@ -2262,11 +2273,11 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             mvwprintw(text,5,25,"*You earned 50$*");
                                             wrefresh(text);
                                             sleep(1);
-                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,20,"                                                 ");
                                             mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                             wrefresh(text);
                                             sleep(1);
-                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,20,"                                                 ");
                                             mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                             wrefresh(text);
                                             sleep(3);
@@ -2279,7 +2290,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             wclear(bag);
                                             wrefresh(bag);
                                             finish_bag=1;
-                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,20,"                                                 ");
                                             wrefresh(text);
                                             wclear(match);
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
@@ -2290,7 +2301,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                         else
                                         {
-                                            mvwprintw(text,5,25,"                                     ");
+                                            mvwprintw(text,5,20,"                                                 ");
                                             mvwprintw(text,5,25,"It shakes two times ...");
                                             wrefresh(text);
                                             sleep(1);
@@ -2329,34 +2340,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                 wrefresh(match);
 
-                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,20,"                                                 ");
                                                 mvwprintw(text,5,25,"You got %s !",champion_poke->name);
                                                 wrefresh(text);
                                                 sleep(1);
 
                                                 if (player->poke1.type==NOPOKEMON)
                                                 {
-                                                    player->poke1=*champion_poke;
+                                                    player->poke1=wildpoke;
                                                 }
                                                 else if (player->poke2.type==NOPOKEMON)
                                                 {
-                                                    player->poke2=*champion_poke;
+                                                    player->poke2=wildpoke;
                                                 }
                                                 else if (player->poke3.type==NOPOKEMON)
                                                 {
-                                                    player->poke3=*champion_poke;
+                                                    player->poke3=wildpoke;
                                                 }
                                                 else if (player->poke4.type==NOPOKEMON)
                                                 {
-                                                    player->poke4=*champion_poke;
+                                                    player->poke4=wildpoke;
                                                 }
                                                 else if (player->poke5.type==NOPOKEMON)
                                                 {
-                                                    player->poke5=*champion_poke;
+                                                    player->poke5=wildpoke;
                                                 }
                                                 else if (player->poke6.type==NOPOKEMON)
                                                 {
-                                                    player->poke6=*champion_poke;
+                                                    player->poke6=wildpoke;
                                                 }
                                                 else
                                                 {
@@ -2374,11 +2385,11 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 mvwprintw(text,5,25,"*You earned 50$*");
                                                 wrefresh(text);
                                                 sleep(1);
-                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,20,"                                                 ");
                                                 mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                                 wrefresh(text);
                                                 sleep(1);
-                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,20,"                                                 ");
                                                 mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                                 wrefresh(text);
                                                 sleep(3);
@@ -2391,7 +2402,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 wclear(bag);
                                                 wrefresh(bag);
                                                 finish_bag=1;
-                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,20,"                                                 ");
                                                 wrefresh(text);
                                                 wclear(match);
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
@@ -2402,7 +2413,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                             else
                                             {
-                                                mvwprintw(text,5,25,"                                     ");
+                                                mvwprintw(text,5,20,"                                                 ");
                                                 mvwprintw(text,5,25,"It shakes three times ...");
                                                 wrefresh(text);
                                                 sleep(1);
@@ -2441,34 +2452,34 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                     wrefresh(match);
 
-                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,20,"                                                 ");
                                                     mvwprintw(text,5,25,"You got %s !",champion_poke->name);
                                                     wrefresh(text);
                                                     sleep(1);
 
                                                     if (player->poke1.type==NOPOKEMON)
                                                     {
-                                                        player->poke1=*champion_poke;
+                                                        player->poke1=wildpoke;
                                                     }
                                                     else if (player->poke2.type==NOPOKEMON)
                                                     {
-                                                        player->poke2=*champion_poke;
+                                                        player->poke2=wildpoke;
                                                     }
                                                     else if (player->poke3.type==NOPOKEMON)
                                                     {
-                                                        player->poke3=*champion_poke;
+                                                        player->poke3=wildpoke;
                                                     }
                                                     else if (player->poke4.type==NOPOKEMON)
                                                     {
-                                                        player->poke4=*champion_poke;
+                                                        player->poke4=wildpoke;
                                                     }
                                                     else if (player->poke5.type==NOPOKEMON)
                                                     {
-                                                        player->poke5=*champion_poke;
+                                                        player->poke5=wildpoke;
                                                     }
                                                     else if (player->poke6.type==NOPOKEMON)
                                                     {
-                                                        player->poke6=*champion_poke;
+                                                        player->poke6=wildpoke;
                                                     }
                                                     else
                                                     {
@@ -2486,11 +2497,11 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     mvwprintw(text,5,25,"*You earned 50$*");
                                                     wrefresh(text);
                                                     sleep(1);
-                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,20,"                                                 ");
                                                     mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                                     wrefresh(text);
                                                     sleep(1);
-                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,20,"                                                 ");
                                                     mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                                     wrefresh(text);
                                                     sleep(3);
@@ -2503,7 +2514,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     wclear(bag);
                                                     wrefresh(bag);
                                                     finish_bag=1;
-                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,20,"                                                 ");
                                                     wrefresh(text);
                                                     wclear(match);
                                                     jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
@@ -2515,7 +2526,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 else
                                                 {
                                                     print_poke(match,*champion_poke,6,110,0);
-                                                    mvwprintw(text,5,25,"                                     ");
+                                                    mvwprintw(text,5,20,"                                                 ");
                                                     mvwprintw(text,5,25,"No ! He escaped !");
                                                     wrefresh(text);
                                                     sleep(1);
@@ -2591,7 +2602,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                             wrefresh(text);
                                                             wrefresh(bag);
                                                             sleep(2);
-                                                            mvwprintw(text,5,25,"                                     ");
+                                                            mvwprintw(text,5,20,"                                                 ");
                                                         }
                                                     }
                                                 }
@@ -2600,11 +2611,11 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                     }
                                     else
                                     {
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                         mvwprintw(text,5,25,"You don't have enough pokeballs");
                                         wrefresh(text);
                                         sleep(2);
-                                        mvwprintw(text,5,25,"                                     ");
+                                        mvwprintw(text,5,20,"                                                 ");
                                     }
                                 }
                             }
@@ -4480,7 +4491,7 @@ void inventory(trainer* player){
                                             if (player->poke1.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke1.pv<player->poke1.pv_save)
                                             {
                                                 player->inventory[POTIONS].quant-=1;
-                                                player->poke1.pv=player->poke1.pv*1.5;
+                                                player->poke1.pv+=player->poke1.pv_save/2;
                                                 if (player->poke1.pv>player->poke1.pv_save)
                                                 {
                                                     player->poke1.pv=player->poke1.pv_save;
@@ -4501,7 +4512,7 @@ void inventory(trainer* player){
                                             if (player->poke2.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke2.pv<player->poke2.pv_save)
                                             {
                                                 player->inventory[POTIONS].quant-=1;
-                                                player->poke2.pv=player->poke2.pv*1.5;
+                                                player->poke2.pv+=player->poke2.pv_save/2;
                                                 if (player->poke2.pv>player->poke2.pv_save)
                                                 {
                                                     player->poke2.pv=player->poke2.pv_save;
@@ -4522,7 +4533,7 @@ void inventory(trainer* player){
                                             if (player->poke3.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke3.pv<player->poke3.pv_save)
                                             {
                                                 player->inventory[POTIONS].quant-=1;
-                                                player->poke3.pv=player->poke3.pv*1.5;
+                                                player->poke3.pv+=player->poke3.pv_save/2;
                                                 if (player->poke3.pv>player->poke3.pv_save)
                                                 {
                                                     player->poke3.pv=player->poke3.pv_save;
@@ -4543,7 +4554,7 @@ void inventory(trainer* player){
                                             if (player->poke4.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke4.pv<player->poke4.pv_save)
                                             {
                                                 player->inventory[POTIONS].quant-=1;
-                                                player->poke4.pv=player->poke4.pv*1.5;
+                                                player->poke4.pv+=player->poke4.pv_save/2;
                                                 if (player->poke4.pv>player->poke4.pv_save)
                                                 {
                                                     player->poke4.pv=player->poke4.pv_save;
@@ -4564,7 +4575,7 @@ void inventory(trainer* player){
                                             if (player->poke5.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke5.pv<player->poke5.pv_save)
                                             {
                                                 player->inventory[POTIONS].quant-=1;
-                                                player->poke5.pv=player->poke5.pv*1.5;
+                                                player->poke5.pv+=player->poke5.pv_save/2;
                                                 if (player->poke5.pv>player->poke5.pv_save)
                                                 {
                                                     player->poke5.pv=player->poke5.pv_save;
@@ -4585,7 +4596,7 @@ void inventory(trainer* player){
                                             if (player->poke6.type!=NOPOKEMON && player->inventory[POTIONS].quant>0 && player->poke6.pv<player->poke6.pv_save)
                                             {
                                                 player->inventory[POTIONS].quant-=1;
-                                                player->poke6.pv=player->poke6.pv*1.5;
+                                                player->poke6.pv+=player->poke6.pv_save/2;
                                                 if (player->poke6.pv>player->poke6.pv_save)
                                                 {
                                                     player->poke6.pv=player->poke6.pv_save;
@@ -5724,11 +5735,7 @@ void game(trainer* player, int* quit,int* l,int* c){
 
         case 'i':
             inventory(player);
-            break;
-
-        case 'p':
-            *quit=1;
-                break;
+            break;  
 
         default:
             break;
