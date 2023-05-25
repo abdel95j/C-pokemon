@@ -22,12 +22,12 @@ int main(){
 
     if(has_colors()==FALSE){
         printf("Your terminal does not support colors");
-        exit(1);
+        exit(1000);
     }
 
     if(can_change_color()==FALSE){
         printf("Your terminal does not support color changing");
-        exit(1);
+        exit(1000);
     }
 
     //set fullscreen if not already set

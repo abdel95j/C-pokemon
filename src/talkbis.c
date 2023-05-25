@@ -598,7 +598,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                     if (delwin(blank)==ERR)
                     {
                         system("killall -9 vlc >/dev/null 2>&1 &");
-                        exit(35);
+                        exit(84);
                     }
                 }
                 
@@ -1131,7 +1131,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                     if (delwin(blank)==ERR)
                     {
                         system("killall -9 vlc >/dev/null 2>&1 &");
-                        exit(35);
+                        exit(85);
                     }
                 }
                 
@@ -1662,7 +1662,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
                     if (delwin(blank)==ERR)
                     {
                         system("killall -9 vlc >/dev/null 2>&1 &");
-                        exit(35);
+                        exit(86);
                     }
                 }
                 
@@ -1676,7 +1676,7 @@ void talkto_prof(WINDOW* lab_map, trainer* player){
         if (delwin(chat)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(34);
+            exit(87);
         }  
     }
 }
@@ -2637,17 +2637,17 @@ void computer(trainer* player){
     if (delwin(ID)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(26);
+        exit(88);
     }
     if (delwin(MDP)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(27);
+        exit(89);
     }
     if (delwin(pc)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(25);
+        exit(90);
     }
 
     //UTILISATION DU PC
@@ -2812,17 +2812,17 @@ void computer(trainer* player){
         if (delwin(out)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(29);
+            exit(91);
         }
         if (delwin(in)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(30);
+            exit(92);
         }
         if (delwin(pc)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(28);
+            exit(93);
         }
     }
 }

@@ -51,7 +51,7 @@ void chargement(int time){
     if(f==NULL){
         printw("ouverture du fichier ratée");
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(1);
+        exit(71);
     }
 
     while(sec!=6){
@@ -142,12 +142,12 @@ void chargement(int time){
     if (delwin(pikachu_screen)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(13);
+        exit(72);
     }
     if (delwin(blackscreen)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(21);
+        exit(73);
     }
     int ch;
     while((ch=getch())!=ERR){
@@ -2112,6 +2112,34 @@ void print_inventory(WINDOW* sac,trainer* player, int x,int y){
         mvwprintw(sac,16+8,13,"    |//");   
         mvwprintw(sac,17,30,"x%d",player->inventory[SLOT4].quant);
     }
+
+    if (player->inventory[4].type==FLOWER)
+    {
+        mvwprintw(sac,16,53,  "   _ _");
+        mvwprintw(sac,16+1,53," _{ ' }_");
+        mvwprintw(sac,16+2,53,"{ `.!.` }");
+        mvwprintw(sac,16+3,53,"',_/Y\\_,'");
+        mvwprintw(sac,16+4,53,"  {_,_}");
+        mvwprintw(sac,16+5,53,"    |");
+        mvwprintw(sac,16+6,53,"  (\\|");
+        mvwprintw(sac,16+7,53,"   \\| /)");
+        mvwprintw(sac,16+8,53,"    |//");   
+        mvwprintw(sac,17,70,"x%d",player->inventory[SLOT5].quant);
+    }
+
+    if (player->inventory[5].type==FLOWER)
+    {
+        mvwprintw(sac,16,92,  "   _ _");
+        mvwprintw(sac,16+1,92," _{ ' }_");
+        mvwprintw(sac,16+2,92,"{ `.!.` }");
+        mvwprintw(sac,16+3,92,"',_/Y\\_,'");
+        mvwprintw(sac,16+4,92,"  {_,_}");
+        mvwprintw(sac,16+5,92,"    |");
+        mvwprintw(sac,16+6,92,"  (\\|");
+        mvwprintw(sac,16+7,92,"   \\| /)");
+        mvwprintw(sac,16+8,92,"    |//");   
+        mvwprintw(sac,17,110,"x%d",player->inventory[SLOT6].quant);
+    }
 }
 
 void print_art_box(WINDOW* box,trainer player,int whatpoke){
@@ -3710,7 +3738,7 @@ void print_evolution(WINDOW* evolve_win, pokemon poke, pokemon evolution){
     if(delwin(text)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(40);
+        exit(74);
     }
 }
 
@@ -3821,7 +3849,7 @@ void cinematique_rock(WINDOW* map,WINDOW* cam, trainer* player){
     }
     else
     {
-        exit(47); // no pokemon in the pocket -> error not possible
+        exit(76); // no pokemon in the pocket -> error not possible
     }
     
     for (int i = 0; i<strlen(talk2); i++) // write flush modifié pour fonctionner avec la cam

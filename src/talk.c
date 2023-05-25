@@ -769,7 +769,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     if (delwin(blank)==ERR)
                     {
                         system("killall -9 vlc >/dev/null 2>&1 &");
-                        exit(33);
+                        exit(77);
                     }
                 }
                 break;
@@ -841,9 +841,11 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                             {
                                 mvwprintw(shop_map,15,37,"                       ");
                                 mvwprintw(shop_map,16,37,"                     ");
-                                write_flush(shop_map,15,37,"You have %d flowers",player->inventory[SLOT4].quant);
+                                write_flush(shop_map,15,37,"You have %d flowers in",player->inventory[SLOT4].quant);
+                                write_flush(shop_map,16,37,"your 4th pocket");
                                 sleep(1);
                                 mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                       ");
                                 write_flush(shop_map,15,37,"How many do you want");
                                 write_flush(shop_map,16,37,"to sell ?");
 
@@ -937,11 +939,11 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                             {
                                 mvwprintw(shop_map,15,37,"                       ");
                                 mvwprintw(shop_map,16,37,"                     ");
-                                write_flush(shop_map,15,37,"What do you want to");
-                                write_flush(shop_map,16,37,"buy today ?");
-                                write_flush(shop_map,15,37,"You have %d flowers",player->inventory[SLOT5].quant);
+                                write_flush(shop_map,15,37,"You have %d flowers in",player->inventory[SLOT5].quant);
+                                write_flush(shop_map,16,37,"your 5th pocket");
                                 sleep(1);
                                 mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                       ");
                                 write_flush(shop_map,15,37,"How many do you want");
                                 write_flush(shop_map,16,37,"to sell ?");
 
@@ -1035,11 +1037,11 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                             {
                                 mvwprintw(shop_map,15,37,"                       ");
                                 mvwprintw(shop_map,16,37,"                     ");
-                                write_flush(shop_map,15,37,"What do you want to");
-                                write_flush(shop_map,16,37,"buy today ?");
-                                write_flush(shop_map,15,37,"You have %d flowers",player->inventory[SLOT6].quant);
+                                write_flush(shop_map,15,37,"You have %d flowers in",player->inventory[SLOT6].quant);
+                                write_flush(shop_map,16,37,"your 6th pocket");
                                 sleep(1);
                                 mvwprintw(shop_map,15,37,"                       ");
+                                mvwprintw(shop_map,16,37,"                       ");
                                 write_flush(shop_map,15,37,"How many do you want");
                                 write_flush(shop_map,16,37,"to sell ?");
 
@@ -1157,7 +1159,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                     if (delwin(blank)==ERR)
                     {
                         system("killall -9 vlc >/dev/null 2>&1 &");
-                        exit(52);
+                        exit(78);
                     } 
                 }
                 break;
@@ -1176,7 +1178,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
         if (delwin(buy_stuff)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(23);
+            exit(79);
         }   
     }
 }
@@ -1268,7 +1270,7 @@ void talkto_mom(WINDOW* house_map, trainer* player){
         if (delwin(chat)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(26);
+            exit(80);
         }
     }
 }
@@ -1434,7 +1436,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
             if (delwin(chat)==ERR)
             {
                 system("killall -9 vlc >/dev/null 2>&1 &");
-                exit(41);
+                exit(81);
             }
         }
     }   
@@ -1616,7 +1618,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
             if (delwin(chat)==ERR)
             {
                 system("killall -9 vlc >/dev/null 2>&1 &");
-                exit(41);
+                exit(82);
             }
         }
     }  
@@ -1778,7 +1780,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
             if (delwin(chat)==ERR)
             {
                 system("killall -9 vlc >/dev/null 2>&1 &");
-                exit(41);
+                exit(83);
             }
         }
     }  

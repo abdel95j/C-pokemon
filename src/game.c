@@ -1108,6 +1108,7 @@ void evolvepoke(pokemon* poke){
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     WINDOW* evolve_win=newwin(62,235,0,0);
+    WINDOW* blackscreen=newwin(62,235,0,0);
 
     pokemon temp;
     if (poke->type!=NOPOKEMON)
@@ -1198,10 +1199,18 @@ void evolvepoke(pokemon* poke){
         }
     }
 
+    wclear(blackscreen);
+    wrefresh(blackscreen);
+
     if (delwin(evolve_win)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
         exit(48);
+    }  
+    if (delwin(evolve_win)==ERR)
+    {
+        system("killall -9 vlc >/dev/null 2>&1 &");
+        exit(55);
     }  
     system("killall -9 vlc >/dev/null 2>&1 &"); // stop evolve theme
 }
@@ -1995,7 +2004,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         if (delwin(fight)==ERR)
                         {
                             system("killall -9 vlc >/dev/null 2>&1 &");
-                            exit(47);
+                            exit(60);
                         } 
                     }
                 }
@@ -2630,7 +2639,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         if (delwin(bag)==ERR)
                         {
                             system("killall -9 vlc >/dev/null 2>&1 &");
-                            exit(47);
+                            exit(61);
                         } 
                     }  
                 }
@@ -2909,7 +2918,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
             if (delwin(blackscreen)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(47);
+            exit(62);
         }  
         system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
         usleep(1000);
@@ -2928,7 +2937,7 @@ int duel(WINDOW* league_map,trainer* player, trainer champion){
         if (delwin(blackscreen)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(47);
+            exit(63);
         }  
         system("killall -9 vlc >/dev/null 2>&1 &"); // stop battle theme
         usleep(1000);
@@ -3085,7 +3094,7 @@ void league(trainer* player){
         if (delwin(line_wall_league)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(37);
+            exit(64);
         }
         if (delwin(arena_zone)==ERR)
         {
@@ -3095,7 +3104,7 @@ void league(trainer* player){
         if (delwin(league_map)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(36);
+            exit(65);
         }
     }
 }
@@ -3389,12 +3398,12 @@ void shop(trainer* player){
         if (delwin(line_wall)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(12);
+            exit(13);
         }
         if (delwin(shop_map)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(11);
+            exit(14);
         }
     }
 }
@@ -4197,7 +4206,7 @@ void your_team(trainer* player){
                     if(delwin(actions)==ERR)
                     {
                         system("killall -9 vlc >/dev/null 2>&1 &");
-                        exit(45);
+                        exit(66);
                     } 
                 }
                 break;
@@ -4220,7 +4229,7 @@ void your_team(trainer* player){
         if(delwin(box3)==ERR)
         {
             system("killall -9 vlc >/dev/null 2>&1 &");
-            exit(38);
+            exit(67);
         }
         if(delwin(box4)==ERR)
         {
@@ -4335,7 +4344,7 @@ void menu(int* quit,trainer* player){
             if(delwin(jaugelvl)==ERR)
             {
                 system("killall -9 vlc >/dev/null 2>&1 &");
-                exit(47);
+                exit(68);
             }
         }
         wclear(blackscreen);
@@ -4836,7 +4845,7 @@ void inventory(trainer* player){
                         if (delwin(actions)==ERR)
                         {
                             system("killall -9 vlc >/dev/null 2>&1 &");
-                            exit(53);
+                            exit(69);
                         }
                     }
                     break;
@@ -4928,6 +4937,9 @@ void roadto_league(trainer* player){
         WINDOW* limite_haut= subwin(road,1,150,84,116);
         WINDOW* blackscreen= newwin(62,235,0,0);
 
+        int place=0;
+        int gone=0;
+
         box(cadre,0,0);
         box(chute,0,0);
         box(limite_bas,0,0);
@@ -4944,6 +4956,235 @@ void roadto_league(trainer* player){
 
         switch (ch)
         {
+        case 'p':
+                if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant>0)
+                {
+
+                    if (flowerx1==0)
+                    {
+                        flowerx1=l+34;
+                        flowery1=c+119;
+                        place=1;
+                    }
+                    else if (flowerx2==0)
+                    {
+                        flowerx2=l+34;
+                        flowery2=c+119;
+                        place=1;
+                    }
+                    else if (flowerx3==0)
+                    {
+                        flowerx3=l+34;
+                        flowery3=c+119;
+                        place=1;
+                    }
+                    else if (flowerx4==0)
+                    {
+                        flowerx4=l+34;
+                        flowery4=c+119;
+                        place=1;
+                    }
+                    else if (flowerx5==0)
+                    {
+                        flowerx5=l+34;
+                        flowery5=c+119;
+                        place=1;
+                    }
+                    else if (flowerx6==0)
+                    {
+                        flowerx6=l+34;
+                        flowery6=c+119;
+                        place=1;
+                    }
+                    else if (flowerx7==0)
+                    {
+                        flowerx7=l+34;
+                        flowery7=c+119;
+                        place=1;
+                    }
+                    else if (flowerx8==0)
+                    {
+                        flowerx8=l+34;
+                        flowery8=c+119;
+                        place=1;
+                    }
+                    else if (flowerx9==0)
+                    {
+                        flowerx9=l+34;
+                        flowery9=c+119;
+                        place=1;
+                    }
+                    else if (flowerx10==0)
+                    {
+                        flowerx10=l+34;
+                        flowery10=c+119;
+                        place=1;
+                    }
+
+                    if(place==1)
+                    {
+                        player->inventory[SLOT4].quant-=1;
+
+                        if (player->inventory[SLOT4].quant==0)
+                        {
+                            player->inventory[SLOT4].type=EMPTY;
+                            sprintf(player->inventory[SLOT4].name,"empty");
+                        }
+                    }
+                }
+
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant>0)
+                {
+                    if (flowerx1==0)
+                    {
+                        flowerx1=l+34;
+                        flowery1=c+119;
+                        place=1;
+                    }
+                    else if (flowerx2==0)
+                    {
+                        flowerx2=l+34;
+                        flowery2=c+119;
+                        place=1;
+                    }
+                    else if (flowerx3==0)
+                    {
+                        flowerx3=l+34;
+                        flowery3=c+119;
+                        place=1;
+                    }
+                    else if (flowerx4==0)
+                    {
+                        flowerx4=l+34;
+                        flowery4=c+119;
+                        place=1;
+                    }
+                    else if (flowerx5==0)
+                    {
+                        flowerx5=l+34;
+                        flowery5=c+119;
+                        place=1;
+                    }
+                    else if (flowerx6==0)
+                    {
+                        flowerx6=l+34;
+                        flowery6=c+119;
+                        place=1;
+                    }
+                    else if (flowerx7==0)
+                    {
+                        flowerx7=l+34;
+                        flowery7=c+119;
+                        place=1;
+                    }
+                    else if (flowerx8==0)
+                    {
+                        flowerx8=l+34;
+                        flowery8=c+119;
+                        place=1;
+                    }
+                    else if (flowerx9==0)
+                    {
+                        flowerx9=l+34;
+                        flowery9=c+119;
+                        place=1;
+                    }
+                    else if (flowerx10==0)
+                    {
+                        flowerx10=l+34;
+                        flowery10=c+119;
+                        place=1;
+                    }
+
+                    if(place==1)
+                    {
+                        player->inventory[SLOT5].quant-=1;
+
+                        if (player->inventory[SLOT5].quant==0)
+                        {
+                            player->inventory[SLOT5].type=EMPTY;
+                            sprintf(player->inventory[SLOT5].name,"empty");
+                        }
+                    }
+                }
+
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant>0)
+                {
+                    if (flowerx1==0)
+                    {
+                        flowerx1=l+34;
+                        flowery1=c+119;
+                        place=1;
+                    }
+                    else if (flowerx2==0)
+                    {
+                        flowerx2=l+34;
+                        flowery2=c+119;
+                        place=1;
+                    }
+                    else if (flowerx3==0)
+                    {
+                        flowerx3=l+34;
+                        flowery3=c+119;
+                        place=1;
+                    }
+                    else if (flowerx4==0)
+                    {
+                        flowerx4=l+34;
+                        flowery4=c+119;
+                        place=1;
+                    }
+                    else if (flowerx5==0)
+                    {
+                        flowerx5=l+34;
+                        flowery5=c+119;
+                        place=1;
+                    }
+                    else if (flowerx6==0)
+                    {
+                        flowerx6=l+34;
+                        flowery6=c+119;
+                        place=1;
+                    }
+                    else if (flowerx7==0)
+                    {
+                        flowerx7=l+34;
+                        flowery7=c+119;
+                        place=1;
+                    }
+                    else if (flowerx8==0)
+                    {
+                        flowerx8=l+34;
+                        flowery8=c+119;
+                        place=1;
+                    }
+                    else if (flowerx9==0)
+                    {
+                        flowerx9=l+34;
+                        flowery9=c+119;
+                        place=1;
+                    }
+                    else if (flowerx10==0)
+                    {
+                        flowerx10=l+34;
+                        flowery10=c+119;
+                        place=1;
+                    }
+
+                    if(place==1)
+                    {
+                        player->inventory[SLOT6].quant-=1;
+
+                        if (player->inventory[SLOT6].quant==0)
+                        {
+                            player->inventory[SLOT6].type=EMPTY;
+                            sprintf(player->inventory[SLOT6].name,"empty");
+                        }
+                    }
+                }
+            print_flowers(road,flowerx1,flowerx2,flowerx3,flowerx4,flowerx5,flowerx6,flowerx7,flowerx8,flowerx9,flowerx10,flowery1,flowery2,flowery3,flowery4,flowery5,flowery6,flowery7,flowery8,flowery9,flowery10);
+            wrefresh(cam);
+            break;
         case 'e':
         case '\n':
         case '\r':
@@ -4982,420 +5223,461 @@ void roadto_league(trainer* player){
 
             if (l==flowerx1-34 && c==flowery1-119 || c==flowery1-118 || c==flowery1-120) // grab flower1
             {
-                flowerx1=0;
-                flowery1=0; // make it disapear
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx1=0;
+                    flowery1=0; // make it disapear
                 }
             }
 
             else if (l==flowerx2-34 && c==flowery2-119 || c==flowery2-118 || c==flowery2-120) // grab flower2
             {
-                flowerx2=0;
-                flowery2=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx2=0;
+                    flowery2=0; // make it disapear
                 }
             }
 
             else if (l==flowerx3-34 && c==flowery3-119 || c==flowery3-118 || c==flowery3-120) // grab flower3
             {
-                flowerx3=0;
-                flowery3=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx3=0;
+                    flowery3=0; // make it disapear
                 }
             }
 
             else if (l==flowerx4-34 && c==flowery4-119 || c==flowery4-118 || c==flowery4-120) // grab flower4
             {
-                flowerx4=0;
-                flowery4=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx4=0;
+                    flowery4=0; // make it disapear
                 }
             }
 
             else if (l==flowerx5-34 && c==flowery5-119 || c==flowery5-118 || c==flowery5-120) // grab flower5
             {
-                flowerx5=0;
-                flowery5=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx5=0;
+                    flowery5=0; // make it disapear
                 }
             }
 
             else if (l==flowerx6-34 && c==flowery6-119 || c==flowery6-118 || c==flowery6-120) // grab flower6
             {
-                flowerx6=0;
-                flowery6=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx6=0;
+                    flowery6=0; // make it disapear
                 }
             }
 
             else if (l==flowerx7-34 && c==flowery7-119 || c==flowery7-118 || c==flowery7-120) // grab flower7
             {
-                flowerx7=0;
-                flowery7=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx7=0;
+                    flowery7=0; // make it disapear
                 }
             }
 
             else if (l==flowerx8-34 && c==flowery8-119 || c==flowery8-118 || c==flowery8-120) // grab flower8
             {
-                flowerx8=0;
-                flowery8=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx8=0;
+                    flowery8=0; // make it disapear
                 }
             }
 
             else if (l==flowerx9-34 && c==flowery9-119 || c==flowery9-118 || c==flowery9-120) // grab flower9
             {
-                flowerx9=0;
-                flowery9=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT4].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx9=0;
+                    flowery9=0; // make it disapear
                 }
             }
 
-            else if (l==flowerx10-34 && c==flowery10-119 || c==flowery10-187 || c==flowery10-021) // grab flower10
+            else if (l==flowerx10-34 && c==flowery10-119 || c==flowery10-118 || c==flowery10-120) // grab flower10
             {
-                flowerx10=0;
-                flowery10=0; // make it disapear
-            
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
                     player->inventory[SLOT4].type=FLOWER;
                     sprintf(player->inventory[SLOT4].name,"flowers");
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT4].type==FLOWER)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant<5)
                 {
                     player->inventory[SLOT4].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT5].type==EMPTY)
                 {
                     player->inventory[SLOT5].type=FLOWER;
                     sprintf(player->inventory[SLOT5].name,"flowers");
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT5].type==FLOWER)
+                else if (player->inventory[SLOT5].type==FLOWER && player->inventory[SLOT5].quant<5)
                 {
                     player->inventory[SLOT5].quant+=1;
+                    gone=1;
                 }
                 else if (player->inventory[SLOT6].type==EMPTY)
                 {
                     player->inventory[SLOT6].type=FLOWER;
                     sprintf(player->inventory[SLOT6].name,"flowers");
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else if (player->inventory[SLOT6].type==FLOWER)
+                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
                     player->inventory[SLOT6].quant+=1;
+                    gone=1;
                 }
-                else 
+
+                if (gone==1)
                 {
-                    write_flush(cam,((63-2)/2)+1,((236-2)/2)+6,"You don't have enough space in your inventory");   
-                    sleep(1);             
+                    flowerx10=0;
+                    flowery10=0; // make it disapear
                 }
             }
 
@@ -5536,6 +5818,7 @@ void roadto_league(trainer* player){
                     sleep(1);
                 }
             }
+            
             break;
         
         case 'm':
@@ -5663,7 +5946,7 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     if(delwin(blackscreen)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
-        exit(7);
+        exit(70);
     }
 }
 
