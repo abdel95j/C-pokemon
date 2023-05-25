@@ -20,12 +20,16 @@ void write_flush(WINDOW* win, int x, int y,char* phrase,...){
     va_end(arguments);
     //display
     for (int i = 0; i<strlen(localstringString); i++)
-        {
-            mvwprintw(win,x,y+i,"%c",localstringString[i]);
-            fflush(stdout);
-            wrefresh(win);
-            usleep(50000);
-        }
+    {
+        mvwprintw(win,x,y+i,"%c",localstringString[i]);
+        fflush(stdout);
+        wrefresh(win);
+        usleep(50000);
+    }
+    int ch;
+    while((ch=getch())!=ERR){
+
+    }
 }
 
 void talkto_cashier(WINDOW* shop_map, trainer* player){

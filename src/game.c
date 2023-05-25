@@ -10,7 +10,7 @@
 #include "../headers/talk.h"
 #include "../headers/talkbis.h"
 
-void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle, pokemon* pikachu, pokemon* charizard){
+void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle, pokemon* pikachu, pokemon* charizard,pokemon* blastoise,pokemon* venusaur,pokemon* raichu){
 
     // PROCÉDURE D'AJOUT D'UN NOUVEAU POKEMON :
     //
@@ -172,7 +172,7 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charizard->pv=83.0;
     charizard->pv_save=83.0;
     charizard->lvl=25;
-    charizard->catchrate=0;
+    charizard->catchrate=10;
     charizard->art_box=CHARIZARD;
     charizard->art_front=CHARIZARD;
     charizard->art_behind=CHARIZARD;
@@ -185,7 +185,73 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(charizard->speatk,"flare-blitz");
     sprintf(charizard->CTutil->name,"none");
     sprintf(charizard->CTstat->name,"none");
-    sprintf(charizard->name,"Charizard");  
+    sprintf(charizard->name,"Charizard"); 
+
+    //blastoise -
+    blastoise->atk=32.0;
+    blastoise->def=40.0/100;
+    blastoise->dodge=7;
+    blastoise->pv=85.0;
+    blastoise->pv_save=85.0;
+    blastoise->lvl=25;
+    blastoise->catchrate=10;
+    blastoise->art_box=BLASTOISE;
+    blastoise->art_front=BLASTOISE;
+    blastoise->art_behind=BLASTOISE;
+    blastoise->type=WATER;
+    blastoise->CTstat->type=0;     
+    blastoise->CTutil->type=0; 
+    blastoise->CTstat->quant=0;
+    blastoise->CTutil->quant=0;    
+    sprintf(blastoise->basicatk,"water-gun");
+    sprintf(blastoise->speatk,"hydro-blast");
+    sprintf(blastoise->CTutil->name,"none");
+    sprintf(blastoise->CTstat->name,"none");
+    sprintf(blastoise->name,"Blastoise"); 
+
+    //venusaur -
+    venusaur->atk=30.0;
+    venusaur->def=45.0/100;
+    venusaur->dodge=5;
+    venusaur->pv=90.0;
+    venusaur->pv_save=90.0;
+    venusaur->lvl=25;
+    venusaur->catchrate=10;
+    venusaur->art_box=VENUSAUR;
+    venusaur->art_front=VENUSAUR;
+    venusaur->art_behind=VENUSAUR;
+    venusaur->type=GRASS;
+    venusaur->CTstat->type=0;     
+    venusaur->CTutil->type=0; 
+    venusaur->CTstat->quant=0;
+    venusaur->CTutil->quant=0;    
+    sprintf(venusaur->basicatk,"leef-storm");
+    sprintf(venusaur->speatk,"solar-beam");
+    sprintf(venusaur->CTutil->name,"none");
+    sprintf(venusaur->CTstat->name,"none");
+    sprintf(venusaur->name,"Venusaur"); 
+
+    //raichu -
+    raichu->atk=33.0;
+    raichu->def=38.0/100;
+    raichu->dodge=20;
+    raichu->pv=80.0;
+    raichu->pv_save=80.0;
+    raichu->lvl=25;
+    raichu->catchrate=10;
+    raichu->art_box=RAICHU;
+    raichu->art_front=RAICHU;
+    raichu->art_behind=RAICHU;
+    raichu->type=ELECTRIC;
+    raichu->CTstat->type=0;     
+    raichu->CTutil->type=0; 
+    raichu->CTstat->quant=0;
+    raichu->CTutil->quant=0;    
+    sprintf(raichu->basicatk,"iron-tail");
+    sprintf(raichu->speatk,"thunder");
+    sprintf(raichu->CTutil->name,"none");
+    sprintf(raichu->CTstat->name,"none");
+    sprintf(raichu->name,"Raichu"); 
 }
 
 void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
@@ -193,8 +259,8 @@ void init_champions(trainer*player,trainer*blue, trainer*red, trainer*yellow){
     int sort2=rand()%2;    int lvlsort2=rand()%2;
     int moy_lvl=(player->poke1.lvl+player->poke2.lvl+player->poke3.lvl)/3;
 
-    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     sprintf(blue->name,"Blue");
     blue->poke1=squirtle;
@@ -909,8 +975,8 @@ void create_newplayer(trainer* newplayer){
     echo();
     curs_set(1);
 
-    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     box(write,0,0);
     print_newtrainer(chatwin);
@@ -985,8 +1051,8 @@ void get_firstpoke(trainer* player){
     int finish=0,ch=ERR;
     int x=50,y=50;
 
-    pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     while (finish==0)
     {
@@ -1034,11 +1100,12 @@ void get_firstpoke(trainer* player){
             exit(3);
         }
     } 
+
 }
 
 void evolvepoke(pokemon* poke){
-    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     WINDOW* evolve_win=newwin(62,235,0,0);
 
@@ -1077,14 +1144,14 @@ void evolvepoke(pokemon* poke){
                 temp.CTstat->type=poke->CTstat->type;
                 temp.CTutil->type=poke->CTutil->type;
 
-                //*poke=venusaur;
+                *poke=venusaur;
                 
                 sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
                 sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
                 poke->CTstat->type=temp.CTstat->type;
                 poke->CTutil->type=temp.CTutil->type;
 
-                //print_evolution(evolve_win,bulbasaur,venasaur;
+                print_evolution(evolve_win,bulbasaur,venusaur);
             }
             break;
 
@@ -1096,14 +1163,14 @@ void evolvepoke(pokemon* poke){
                 temp.CTstat->type=poke->CTstat->type;
                 temp.CTutil->type=poke->CTutil->type;
 
-                //*poke=blastoise;
+                *poke=blastoise;
                 
                 sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
                 sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
                 poke->CTstat->type=temp.CTstat->type;
                 poke->CTutil->type=temp.CTutil->type;
             
-                //print_evolution(evolve_win,squirtle,blastoise);
+                print_evolution(evolve_win,squirtle,blastoise);
             }
             break;
 
@@ -1115,14 +1182,14 @@ void evolvepoke(pokemon* poke){
                 temp.CTstat->type=poke->CTstat->type;
                 temp.CTutil->type=poke->CTutil->type;
 
-                //*poke=raichu;
+                *poke=raichu;
                 
                 sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
                 sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
                 poke->CTstat->type=temp.CTstat->type;
                 poke->CTutil->type=temp.CTutil->type;
             
-                //print_evolution(evolve_win,pikachu,raichu);
+                print_evolution(evolve_win,pikachu,raichu);
             }
             break;
 
@@ -1140,8 +1207,8 @@ void evolvepoke(pokemon* poke){
 }
 
 void silent_evolvepoke(pokemon* poke){
-    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     pokemon temp;
     if (poke->type!=NOPOKEMON)
@@ -1177,7 +1244,7 @@ void silent_evolvepoke(pokemon* poke){
                 temp.CTstat->type=poke->CTstat->type;
                 temp.CTutil->type=poke->CTutil->type;
 
-                //*poke=venusaur;
+                *poke=venusaur;
                 
                 sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
                 sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
@@ -1197,7 +1264,7 @@ void silent_evolvepoke(pokemon* poke){
                 temp.CTstat->type=poke->CTstat->type;
                 temp.CTutil->type=poke->CTutil->type;
 
-                //*poke=blastoise;
+                *poke=blastoise;
                 
                 sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
                 sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
@@ -1217,7 +1284,7 @@ void silent_evolvepoke(pokemon* poke){
                 temp.CTstat->type=poke->CTstat->type;
                 temp.CTutil->type=poke->CTutil->type;
 
-                //*poke=raichu;
+                *poke=raichu;
                 
                 sprintf (poke->CTstat->name,"%s",temp.CTstat->name);               
                 sprintf (poke->CTutil->name,"%s",temp.CTutil->name);               
@@ -1235,8 +1302,8 @@ void silent_evolvepoke(pokemon* poke){
 }
 
 void silent_pokelvlup(int times, pokemon* player_poke){
-    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     if (player_poke->type!=0)
     {
@@ -1253,8 +1320,8 @@ void silent_pokelvlup(int times, pokemon* player_poke){
 }
 
 void pokelvlup(WINDOW* win,int x,int y,int times, pokemon* player_poke){
-    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     if (player_poke->type!=NOPOKEMON)
     {
@@ -1318,8 +1385,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
         box(jauge_champion,0,0);
         box(jauge_player,0,0);
 
-        pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
-        init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+        pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+        init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
         print_match(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
         mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
@@ -1942,6 +2009,9 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                         mvwprintw(match,30+2,82,"| _ \\/ _ \\ (_ |");
                         mvwprintw(match,30+3,82,"|___/_/ \\_\\___|");
 
+                        mvwprintw(bag,3,46,"    ");
+                        mvwprintw(bag,5,48,"    "); // clear x number zone 
+                        
                         mvwprintw(bag,3,38,"%s",player->inventory[POTIONS].name);
                         mvwprintw(bag,3,46,"x%d",player->inventory[POTIONS].quant);
                         mvwprintw(bag,5,38,"%s",player->inventory[POKEBALLS].name);
@@ -2117,29 +2187,29 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         print_poke(match,pokenull,6,110,0);
                                         mvwprintw(match,13,112,"(-o-)");
 
-                                        usleep(600000);
+                                        usleep(400000);
                                         mvwprintw(match,13,112,"     ");
                                         mvwprintw(match,13,112,"(o-)");
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(match);
-                                        usleep(600000);
+                                        usleep(400000);
                                         mvwprintw(match,13,112,"     ");
                                         mvwprintw(match,13,112,"(-o-)");
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(match);
-                                        usleep(600000);
+                                        usleep(400000);
                                         mvwprintw(match,13,112,"     ");
                                         mvwprintw(match,13,112,"(-o)");
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(match);
-                                        usleep(600000);
+                                        usleep(400000);
                                         mvwprintw(match,13,112,"     ");
                                         mvwprintw(match,13,112,"(-o-)");
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(match);
                                         sleep(2);
 
-                                        sort=rand()%101;
+                                        sort=rand()%201;
 
                                         if ((champion_poke->catchrate/100,0)+((champion_poke->pv_save/champion_poke->pv)/20)*100>=sort) // catched
                                         {
@@ -2229,29 +2299,29 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             mvwprintw(match,13,112,"(-o-)");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(match);
-                                            usleep(600000);
+                                            usleep(400000);
                                             mvwprintw(match,13,112,"     ");
                                             mvwprintw(match,13,112,"(o-)");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(match);
-                                            usleep(600000);
+                                            usleep(400000);
                                             mvwprintw(match,13,112,"     ");
                                             mvwprintw(match,13,112,"(-o-)");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(match);
-                                            usleep(600000);
+                                            usleep(400000);
                                             mvwprintw(match,13,112,"     ");
                                             mvwprintw(match,13,112,"(-o)");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(match);
-                                            usleep(600000);
+                                            usleep(400000);
                                             mvwprintw(match,13,112,"     ");
                                             mvwprintw(match,13,112,"(-o-)");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(match);
                                             sleep(2);
 
-                                            sort=rand()%101;
+                                            sort=rand()%201;
 
                                             if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
                                             {
@@ -2341,29 +2411,29 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 mvwprintw(match,13,112,"(-o-)");
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                 wrefresh(match);
-                                                usleep(600000);
+                                                usleep(400000);
                                                 mvwprintw(match,13,112,"     ");
                                                 mvwprintw(match,13,112,"(o-)");
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                 wrefresh(match);
-                                                usleep(600000);
+                                                usleep(400000);
                                                 mvwprintw(match,13,112,"     ");
                                                 mvwprintw(match,13,112,"(-o-)");
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                 wrefresh(match);
-                                                usleep(600000);
+                                                usleep(400000);
                                                 mvwprintw(match,13,112,"     ");
                                                 mvwprintw(match,13,112,"(-o)");
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                 wrefresh(match);
-                                                usleep(600000);
+                                                usleep(400000);
                                                 mvwprintw(match,13,112,"     ");
                                                 mvwprintw(match,13,112,"(-o-)");
                                                 jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                                 wrefresh(match);
                                                 sleep(2);
 
-                                                sort=rand()%101;
+                                                sort=rand()%201;
 
                                                 if (champion_poke->catchrate/(champion_poke->pv/champion_poke->pv_save)*1.8>=sort) // catched
                                                 {
@@ -2449,6 +2519,81 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     mvwprintw(text,5,25,"No ! He escaped !");
                                                     wrefresh(text);
                                                     sleep(1);
+                                                    mvwprintw(match,13,112,"     ");
+                                                    print_poke(match,*champion_poke,6,110,0);
+                                                    wrefresh(match);
+                                                    *count_atk+=1;
+                                                    int has_atk=1;
+                                                    int dmg = player_poke->atk-(player_poke->atk * champion_poke->def);
+                                                    int dmg_opponent = champion_poke->atk-(champion_poke->atk * player_poke->def);
+                                                    if (dmg<=0)
+                                                    {
+                                                        dmg=1;
+                                                    } 
+                                                    //champ turn
+                                                    if (has_atk==1)
+                                                    {
+                                                        mvwprintw(text,5,15,"                                                         ");
+                                                        sleep(1);
+                                                        int whatatk=rand()%101;
+                                                        if (whatatk<=10)
+                                                        {
+                                                            mvwprintw(text,5,15,"                                                         ");
+                                                            wrefresh(text);
+                                                            wrefresh(bag);
+                                                            sleep(1);
+                                                            mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->speatk,player_poke->name);
+                                                            player_poke->pv-=2*dmg;
+                                                            if (player_poke->pv<=0)
+                                                            {
+                                                                player_poke->pv=0;
+                                                                finish=1;
+                                                                finish_bag=1;
+                                                                has_atk=0;
+                                                                *count_atk=1;
+                                                                mvwprintw(text,5,15,"                                                         ");
+                                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                                print_poke(match,pokenull,17,10,1);
+                                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                                wrefresh(bag);
+                                                                sleep(2);
+                                                                return 0;
+                                                            }
+                                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                            wrefresh(text);
+                                                            wrefresh(bag);
+                                                            sleep(2);
+                                                        }
+                                                        else
+                                                        {
+                                                            mvwprintw(text,5,15,"                                                         ");
+                                                            wrefresh(text);
+                                                            wrefresh(bag);
+                                                            sleep(1);
+                                                            mvwprintw(text,5,23,"%s uses %s on your %s !",champion_poke->name,champion_poke->basicatk,player_poke->name);
+                                                            player_poke->pv-=dmg;
+                                                            if (player_poke->pv<=0)
+                                                            {
+                                                                player_poke->pv=0;
+                                                                finish=1;
+                                                                finish_bag=1;
+                                                                has_atk=0;
+                                                                *count_atk=1;
+                                                                mvwprintw(text,5,15,"                                                         ");
+                                                                mvwprintw(text,5,23,"%s has 0 hp ! He leaves the stage",player_poke->name);
+                                                                print_poke(match,pokenull,17,10,1);
+                                                                jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                                wrefresh(bag);
+                                                                sleep(2);
+                                                                return 0;
+                                                            }
+                                                            jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
+                                                            wrefresh(text);
+                                                            wrefresh(bag);
+                                                            sleep(2);
+                                                            mvwprintw(text,5,25,"                                     ");
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -3011,8 +3156,8 @@ void lab(trainer* player){
 }
 
 void encouter_poke(WINDOW* forest_map, trainer* player){
-    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
     WINDOW* blackscreen = newwin(62,235,0,0);
 
@@ -3063,15 +3208,15 @@ void encouter_poke(WINDOW* forest_map, trainer* player){
             switch (sortlvl)
             {
             case 0:
-                wildpoke.lvl=moypoke;
+                silent_pokelvlup(moypoke,&wildpoke);
                 break;
             
             case 1:
-                wildpoke.lvl=moypoke+1;
+                silent_pokelvlup(moypoke+1,&wildpoke);
                 break;
             
             case 2:
-                wildpoke.lvl=moypoke+2;
+                silent_pokelvlup(moypoke+2,&wildpoke);
                 break;
 
             default:
@@ -3083,15 +3228,15 @@ void encouter_poke(WINDOW* forest_map, trainer* player){
             switch (sortlvl)
             {
             case 0:
-                wildpoke.lvl=moypoke;
+                silent_pokelvlup(moypoke,&wildpoke);
                 break;
             
             case 1:
-                wildpoke.lvl=moypoke-1;
+                silent_pokelvlup(moypoke-1,&wildpoke);
                 break;
             
             case 2:
-                wildpoke.lvl=moypoke-2;
+                silent_pokelvlup(moypoke-2,&wildpoke);
                 break;
 
             default:
@@ -3105,9 +3250,26 @@ void encouter_poke(WINDOW* forest_map, trainer* player){
 
         if (wildpoke.lvl<=0)
         {
-            wildpoke.lvl=1;
+            // case of charmander (33 %)
+            if(rand_wildpoke<=33){
+                wildpoke=charmander;
+            }
+
+            // case of squirtle (33 %)
+            else if(rand_wildpoke<=66){
+                wildpoke=squirtle;
+            }
+
+            // case of bulbasaur (34 %)
+            else if(rand_wildpoke<=100){
+                wildpoke=bulbasaur;
+            }
+
+            // case of pikachu (10 %)
+            else if(rand_wildpoke<=110){
+                wildpoke=pikachu;
+            }
         }
-        
         duel_forest(player,wildpoke);
     }
 
@@ -3231,8 +3393,8 @@ void your_team(trainer* player){
     int finish=0,ch=ERR;
     int x=1,y=1;
 
-    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
     
      while (finish==0)
     {
@@ -4572,6 +4734,8 @@ void inventory(trainer* player){
                                                 wclear(actions);
                                                 box(actions,0,0);
                                                 finishchoice=1;
+                                                finishcandy=1;
+                                                finish=1;
                                             }
                                             break;
                                         
@@ -4583,6 +4747,8 @@ void inventory(trainer* player){
                                                 wclear(actions);
                                                 box(actions,0,0);
                                                 finishchoice=1;
+                                                finishcandy=1;
+                                                finish=1;
                                             }
                                             break;
 
@@ -4594,6 +4760,8 @@ void inventory(trainer* player){
                                                 wclear(actions);
                                                 box(actions,0,0);
                                                 finishchoice=1;
+                                                finishcandy=1;
+                                                finish=1;
                                             }
                                             break;
 
@@ -4605,6 +4773,8 @@ void inventory(trainer* player){
                                                 wclear(actions);
                                                 box(actions,0,0);
                                                 finishchoice=1;
+                                                finishcandy=1;
+                                                finish=1;
                                             }
                                             break;
 
@@ -4616,6 +4786,8 @@ void inventory(trainer* player){
                                                 wclear(actions);
                                                 box(actions,0,0);
                                                 finishchoice=1;
+                                                finishcandy=1;
+                                                finish=1;
                                             }
                                             break;
 
@@ -4627,6 +4799,8 @@ void inventory(trainer* player){
                                                 wclear(actions);
                                                 box(actions,0,0);
                                                 finishchoice=1;
+                                                finishcandy=1;
+                                                finish=1;
                                             }
                                             break;
                                         
@@ -5411,8 +5585,8 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     WINDOW* blackscreen=newwin(62,235,0,0);
     int ch=ERR;
 
-    pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull, charmander, bulbasaur, squirtle, pikachu, charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
     
     ch=getch();
     print_main_menu(win,*x,*y);
@@ -6308,5 +6482,4 @@ int load(trainer* player){
             exit(50);
         }
     }    
-
 }

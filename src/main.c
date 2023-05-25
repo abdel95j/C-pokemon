@@ -61,7 +61,6 @@ int main(){
         {
             main_menu(&player,&exitmenu,&x,&y);
         }
-
         game(&player,&quit,&l,&c);
     }
     

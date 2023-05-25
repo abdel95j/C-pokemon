@@ -43,6 +43,9 @@
 #define BULBASAUR 3
 #define PIKACHU 4
 #define CHARIZARD 5
+#define BLASTOISE 6
+#define VENUSAUR 7
+#define RAICHU 8
 
 typedef struct
 {

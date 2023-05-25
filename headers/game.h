@@ -9,7 +9,7 @@ void menu(int* quit, trainer* player);
 void create_newplayer(trainer* newplayer);
 void get_firstpoke(trainer* player);
 void house(trainer* player);
-void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle,pokemon* pikachu, pokemon* charizard);
+void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokemon* squirtle,pokemon* pikachu, pokemon* charizard,pokemon* blastoise,pokemon* venusaur,pokemon* raichu);
 void shop(trainer* player);
 void forest(trainer* player);
 void roadto_league(trainer* player);

@@ -132,7 +132,6 @@ void chargement(int time){
         {
             count_points++;
         }
-
         rewind(f);
     }
     
@@ -149,6 +148,10 @@ void chargement(int time){
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
         exit(21);
+    }
+    int ch;
+    while((ch=getch())!=ERR){
+
     }
 }
 
@@ -220,17 +223,56 @@ void print_poke(WINDOW* win,pokemon poke,int x, int y,int FRONT0_BACK1){
             mvwprintw(win,x+9,y,"   ..//     /*/");  
             break;
 
+        case BLASTOISE:
+            mvwprintw(win,x,y,"         ####$*/#           ");
+            mvwprintw(win,x+1,y,"(&&&  ###########@$  *#  @");
+            mvwprintw(win,x+2,y,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(win,x+3,y,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(win,x+4,y,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(win,x+5,y,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(win,x+6,y,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(win,x+7,y,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(win,x+8,y,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(win,x+9,y,"    .//*$#        //,#/@ ");  
+            break;
+
+        case VENUSAUR:
+            mvwprintw(win,x,y,"           $$       $         ");
+            mvwprintw(win,x+1,y,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(win,x+2,y,"   ((. $***.******.**(***(  ");
+            mvwprintw(win,x+3,y,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(win,x+4,y,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(win,x+5,y," (,(((($(((((,,(((((((((,,,@");
+            mvwprintw(win,x+6,y,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(win,x+7,y,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(win,x+8,y,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(win,x+9,y,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(win,x,y,"    $             ");
+            mvwprintw(win,x+1,y,"   &&& &        ");
+            mvwprintw(win,x+2,y,"     &&& $.     ");
+            mvwprintw(win,x+3,y,".       *   &   ");
+            mvwprintw(win,x+4,y,"(*.*,. &&     * ");
+            mvwprintw(win,x+5,y,".$$$$&#        ,");
+            mvwprintw(win,x+6,y,".&*&&&$$        ");
+            mvwprintw(win,x+7,y," &@@@@$&$      ,");
+            mvwprintw(win,x+8,y," ($$@@&$$.**.   ");  
+            mvwprintw(win,x+9,y,".,.   .**      ");  
+            break;
+
         case NOPOKEMON:
-            mvwprintw(win,x,y,"                             ");
-            mvwprintw(win,x+1,y,"                           ");
-            mvwprintw(win,x+2,y,"                           ");
-            mvwprintw(win,x+3,y,"                           ");
-            mvwprintw(win,x+4,y,"                           ");
-            mvwprintw(win,x+5,y,"                           ");
-            mvwprintw(win,x+6,y,"                           ");
-            mvwprintw(win,x+7,y,"                           ");
-            mvwprintw(win,x+8,y,"                           ");  
-            mvwprintw(win,x+9,y,"                           ");  
+            mvwprintw(win,x,y,"                              ");
+            mvwprintw(win,x+1,y,"                            ");
+            mvwprintw(win,x+2,y,"                            ");
+            mvwprintw(win,x+3,y,"                            ");
+            mvwprintw(win,x+4,y,"                            ");
+            mvwprintw(win,x+5,y,"                            ");
+            mvwprintw(win,x+6,y,"                            ");
+            mvwprintw(win,x+7,y,"                            ");
+            mvwprintw(win,x+8,y,"                            ");  
+            mvwprintw(win,x+9,y,"                            ");  
             break;
         
         default:
@@ -303,6 +345,42 @@ void print_poke(WINDOW* win,pokemon poke,int x, int y,int FRONT0_BACK1){
             mvwprintw(win,x+7,y,"/(   //////////(//,           ");
             mvwprintw(win,x+8,y,"    #//////////(,//,((/,*   ");  
             break;
+
+        case BLASTOISE:
+            mvwprintw(win,x,y,"            /@**(***//     ");
+            mvwprintw(win,x+1,y,"            @*/,@(,,,,     ");
+            mvwprintw(win,x+2,y,"   ,.@   ***,,*/&*(.,.       ");
+            mvwprintw(win,x+3,y,"    //*****///**/$@/,  ..&   ");
+            mvwprintw(win,x+4,y,"   #//*////(((((/#/(../**&   ");
+            mvwprintw(win,x+5,y,"  ((//((((((##(####  ///**** ");
+            mvwprintw(win,x+6,y,"  ((((((#((#((((((...@//////@");
+            mvwprintw(win,x+7,y,"  (#####((##((((#.,.,,       ");
+            mvwprintw(win,x+8,y,"**(#####(##(((  . /***       ");
+            break;
+
+        case VENUSAUR:
+            mvwprintw(win,x,y,"      /,//((&*((**(////       ");
+            mvwprintw(win,x+1,y," $(,*/$*.,**&/.,,**&(./(    ");
+            mvwprintw(win,x+2,y," $##///.,@$($($&&((/($#(##  ");
+            mvwprintw(win,x+3,y,"(**$&@@($(@&@@(#$(&@$*(/((  ");
+            mvwprintw(win,x+4,y,"@ $@,,(#,((((&##@$(/$&$,*,#(");
+            mvwprintw(win,x+5,y,"##$#/,,,(,##########$#$#(//$");
+            mvwprintw(win,x+6,y,"$##################/(/#####(");
+            mvwprintw(win,x+7,y,"####$$########$###$###,###, ");
+            mvwprintw(win,x+8,y,"  (((( /(    .$####(/       ");
+            break;  
+
+        case RAICHU:
+            mvwprintw(win,x,y,"         $#$$$$*   ");
+            mvwprintw(win,x+1,y,"     $    ($(     ");
+            mvwprintw(win,x+2,y,"   /   ,,       / ");
+            mvwprintw(win,x+3,y," *   ..,,,&&$$//* ");
+            mvwprintw(win,x+4,y,"*        $$$##(/  ");
+            mvwprintw(win,x+5,y,"        (//*/(/*  ");
+            mvwprintw(win,x+6,y,",      (/(//*(/*/*");
+            mvwprintw(win,x+7,y," ,    $#*(((#((/  ");
+            mvwprintw(win,x+8,y,"       $/    (,.  ");
+            break;  
 
         case NOPOKEMON:
             mvwprintw(win,x,y,"                                          ");
@@ -2104,6 +2182,45 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             mvwprintw(box,6+8,3,"   ((/ ###(//#//////(      ");  
             mvwprintw(box,6+9,3,"   ..//     /*/");  
             break;
+
+        case BLASTOISE:
+            mvwprintw(box,6,3,"         ####$*/#           ");
+            mvwprintw(box,6+1,3,"(&&&  ###########@$  *#  @");
+            mvwprintw(box,6+2,3,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(box,6+3,3,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(box,6+4,3,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(box,6+5,3,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(box,6+6,3,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(box,6+7,3,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(box,6+8,3,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(box,6+9,3,"    .//*$#        //,#/@ ");  
+            break;
+
+        case VENUSAUR:
+            mvwprintw(box,6,1,"           $$       $         ");
+            mvwprintw(box,6+1,1,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(box,6+2,1,"   ((. $***.******.**(***(  ");
+            mvwprintw(box,6+3,1,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(box,6+4,1,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(box,6+5,1," (,(((($(((((,,(((((((((,,,");
+            mvwprintw(box,6+6,1,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(box,6+7,1,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(box,6+8,1,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(box,6+9,1,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(box,6,5,"    $             ");
+            mvwprintw(box,6+1,5,"   &&& &        ");
+            mvwprintw(box,6+2,5,"     &&& $.     ");
+            mvwprintw(box,6+3,5,".       *   &   ");
+            mvwprintw(box,6+4,5,"(*.*,. &&     * ");
+            mvwprintw(box,6+5,5,".$$$$&#        ,");
+            mvwprintw(box,6+6,5,".&*&&&$$        ");
+            mvwprintw(box,6+7,5," &@@@@$&$      ,");
+            mvwprintw(box,6+8,5," ($$@@&$$.**.   ");  
+            mvwprintw(box,6+9,5,".,.   .**      ");  
+            break;
         
         default:
             break;
@@ -2173,6 +2290,45 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             mvwprintw(box,6+7,3,"    //@@@@@##.#      #.    ");
             mvwprintw(box,6+8,3,"   ((/ ###(//#//////(      ");  
             mvwprintw(box,6+9,3,"   ..//     /*/");  
+            break;
+
+        case BLASTOISE:
+            mvwprintw(box,6,3,"         ####$*/#           ");
+            mvwprintw(box,6+1,3,"(&&&  ###########@$  *#  @");
+            mvwprintw(box,6+2,3,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(box,6+3,3,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(box,6+4,3,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(box,6+5,3,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(box,6+6,3,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(box,6+7,3,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(box,6+8,3,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(box,6+9,3,"    .//*$#        //,#/@ ");  
+            break;
+
+        case VENUSAUR:
+            mvwprintw(box,6,1,"           $$       $         ");
+            mvwprintw(box,6+1,1,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(box,6+2,1,"   ((. $***.******.**(***(  ");
+            mvwprintw(box,6+3,1,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(box,6+4,1,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(box,6+5,1," (,(((($(((((,,(((((((((,,,@");
+            mvwprintw(box,6+6,1,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(box,6+7,1,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(box,6+8,1,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(box,6+9,1,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(box,6,5,"    $             ");
+            mvwprintw(box,6+1,5,"   &&& &        ");
+            mvwprintw(box,6+2,5,"     &&& $.     ");
+            mvwprintw(box,6+3,5,".       *   &   ");
+            mvwprintw(box,6+4,5,"(*.*,. &&     * ");
+            mvwprintw(box,6+5,5,".$$$$&#        ,");
+            mvwprintw(box,6+6,5,".&*&&&$$        ");
+            mvwprintw(box,6+7,5," &@@@@$&$      ,");
+            mvwprintw(box,6+8,5," ($$@@&$$.**.   ");  
+            mvwprintw(box,6+9,5,".,.   .**      ");  
             break;
         
         default:
@@ -2245,6 +2401,45 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             mvwprintw(box,6+9,3,"   ..//     /*/");  
             break;
         
+        case BLASTOISE:
+            mvwprintw(box,6,3,"         ####$*/#           ");
+            mvwprintw(box,6+1,3,"(&&&  ###########@$  *#  @");
+            mvwprintw(box,6+2,3,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(box,6+3,3,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(box,6+4,3,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(box,6+5,3,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(box,6+6,3,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(box,6+7,3,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(box,6+8,3,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(box,6+9,3,"    .//*$#        //,#/@ ");  
+            break;
+
+        case VENUSAUR:
+            mvwprintw(box,6,1,"           $$       $         ");
+            mvwprintw(box,6+1,1,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(box,6+2,1,"   ((. $***.******.**(***(  ");
+            mvwprintw(box,6+3,1,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(box,6+4,1,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(box,6+5,1," (,(((($(((((,,(((((((((,,,@");
+            mvwprintw(box,6+6,1,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(box,6+7,1,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(box,6+8,1,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(box,6+9,1,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(box,6,5,"    $             ");
+            mvwprintw(box,6+1,5,"   &&& &        ");
+            mvwprintw(box,6+2,5,"     &&& $.     ");
+            mvwprintw(box,6+3,5,".       *   &   ");
+            mvwprintw(box,6+4,5,"(*.*,. &&     * ");
+            mvwprintw(box,6+5,5,".$$$$&#        ,");
+            mvwprintw(box,6+6,5,".&*&&&$$        ");
+            mvwprintw(box,6+7,5," &@@@@$&$      ,");
+            mvwprintw(box,6+8,5," ($$@@&$$.**.   ");  
+            mvwprintw(box,6+9,5,".,.   .**      ");  
+            break;
+
         default:
             break;
         }
@@ -2315,6 +2510,45 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             mvwprintw(box,6+9,3,"   ..//     /*/");  
             break;
         
+        case BLASTOISE:
+            mvwprintw(box,6,3,"         ####$*/#           ");
+            mvwprintw(box,6+1,3,"(&&&  ###########@$  *#  @");
+            mvwprintw(box,6+2,3,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(box,6+3,3,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(box,6+4,3,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(box,6+5,3,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(box,6+6,3,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(box,6+7,3,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(box,6+8,3,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(box,6+9,3,"    .//*$#        //,#/@ ");  
+            break;
+
+        case VENUSAUR:
+            mvwprintw(box,6,1,"           $$       $         ");
+            mvwprintw(box,6+1,1,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(box,6+2,1,"   ((. $***.******.**(***(  ");
+            mvwprintw(box,6+3,1,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(box,6+4,1,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(box,6+5,1," (,(((($(((((,,(((((((((,,,@");
+            mvwprintw(box,6+6,1,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(box,6+7,1,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(box,6+8,1,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(box,6+9,1,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(box,6,5,"    $             ");
+            mvwprintw(box,6+1,5,"   &&& &        ");
+            mvwprintw(box,6+2,5,"     &&& $.     ");
+            mvwprintw(box,6+3,5,".       *   &   ");
+            mvwprintw(box,6+4,5,"(*.*,. &&     * ");
+            mvwprintw(box,6+5,5,".$$$$&#        ,");
+            mvwprintw(box,6+6,5,".&*&&&$$        ");
+            mvwprintw(box,6+7,5," &@@@@$&$      ,");
+            mvwprintw(box,6+8,5," ($$@@&$$.**.   ");  
+            mvwprintw(box,6+9,5,".,.   .**      ");  
+            break;
+
         default:
             break;
         }
@@ -2384,7 +2618,46 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             mvwprintw(box,6+8,3,"   ((/ ###(//#//////(      ");  
             mvwprintw(box,6+9,3,"   ..//     /*/");  
             break;
+
+        case BLASTOISE:
+            mvwprintw(box,6,3,"         ####$*/#           ");
+            mvwprintw(box,6+1,3,"(&&&  ###########@$  *#  @");
+            mvwprintw(box,6+2,3,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(box,6+3,3,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(box,6+4,3,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(box,6+5,3,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(box,6+6,3,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(box,6+7,3,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(box,6+8,3,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(box,6+9,3,"    .//*$#        //,#/@ ");  
+            break;
         
+        case VENUSAUR:
+            mvwprintw(box,6,1,"           $$       $         ");
+            mvwprintw(box,6+1,1,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(box,6+2,1,"   ((. $***.******.**(***(  ");
+            mvwprintw(box,6+3,1,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(box,6+4,1,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(box,6+5,1," (,(((($(((((,,(((((((((,,,@");
+            mvwprintw(box,6+6,1,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(box,6+7,1,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(box,6+8,1,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(box,6+9,1,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(box,6,5,"    $             ");
+            mvwprintw(box,6+1,5,"   &&& &        ");
+            mvwprintw(box,6+2,5,"     &&& $.     ");
+            mvwprintw(box,6+3,5,".       *   &   ");
+            mvwprintw(box,6+4,5,"(*.*,. &&     * ");
+            mvwprintw(box,6+5,5,".$$$$&#        ,");
+            mvwprintw(box,6+6,5,".&*&&&$$        ");
+            mvwprintw(box,6+7,5," &@@@@$&$      ,");
+            mvwprintw(box,6+8,5," ($$@@&$$.**.   ");  
+            mvwprintw(box,6+9,5,".,.   .**      ");  
+            break;
+
         default:
             break;
         }
@@ -2453,6 +2726,45 @@ void print_art_box(WINDOW* box,trainer player,int whatpoke){
             mvwprintw(box,6+7,3,"    //@@@@@##.#      #.    ");
             mvwprintw(box,6+8,3,"   ((/ ###(//#//////(      ");  
             mvwprintw(box,6+9,3,"   ..//     /*/");  
+            break;
+
+        case BLASTOISE:
+            mvwprintw(box,6,3,"         ####$*/#           ");
+            mvwprintw(box,6+1,3,"(&&&  ###########@$  *#  @");
+            mvwprintw(box,6+2,3,"  ((,&@&&&&&@$&#.@@@.&((* ");
+            mvwprintw(box,6+3,3,"   .# #/.#$$( #.,##$#@..* ");
+            mvwprintw(box,6+4,3,"   .//.@&&&@@@@$####.@//  ");
+            mvwprintw(box,6+5,3,"     /&&&&&@@@@/,   @@@(  ");
+            mvwprintw(box,6+6,3,"       #&&&&&&&&&&&@(@@@  ");
+            mvwprintw(box,6+7,3,"     /// ###$@&&@*$$$##$(*");
+            mvwprintw(box,6+8,3,"     .,(/// $$#$.(####$   ");  
+            mvwprintw(box,6+9,3,"    .//*$#        //,#/@ ");  
+            break;
+
+        case VENUSAUR:
+            mvwprintw(box,6,1,"           $$       $         ");
+            mvwprintw(box,6+1,1,"     .###$,,@.&/.$#$$,*     ");
+            mvwprintw(box,6+2,1,"   ((. $***.******.**(***(  ");
+            mvwprintw(box,6+3,1,"    @(*((* $$(($@*..((.,    ");
+            mvwprintw(box,6+4,1,"    #(($(@$$($$$($((@(      ");
+            mvwprintw(box,6+5,1," (,(((($(((((,,(((((((((,,,@");
+            mvwprintw(box,6+6,1,"   @(*$,,,,**((#$#####,@$$  ");
+            mvwprintw(box,6+7,1,",((**#*(*(((#*((((($/###//$ ");
+            mvwprintw(box,6+8,1,"((**(***(((((##(((#$/#/@//$ ");  
+            mvwprintw(box,6+9,1,"((((#$(#((($#### $/#**** @@");  
+            break;
+
+        case RAICHU:
+            mvwprintw(box,6,5,"    $             ");
+            mvwprintw(box,6+1,5,"   &&& &        ");
+            mvwprintw(box,6+2,5,"     &&& $.     ");
+            mvwprintw(box,6+3,5,".       *   &   ");
+            mvwprintw(box,6+4,5,"(*.*,. &&     * ");
+            mvwprintw(box,6+5,5,".$$$$&#        ,");
+            mvwprintw(box,6+6,5,".&*&&&$$        ");
+            mvwprintw(box,6+7,5," &@@@@$&$      ,");
+            mvwprintw(box,6+8,5," ($$@@&$$.**.   ");  
+            mvwprintw(box,6+9,5,".,.   .**      ");  
             break;
         
         default:
@@ -3349,8 +3661,8 @@ void print_computer_connect(WINDOW* pc, trainer* player){
 }
 
 void print_evolution(WINDOW* evolve_win, pokemon poke, pokemon evolution){
-    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard;
-    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard);
+    pokemon pokenull,charmander,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
+    init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
     WINDOW* text = subwin(evolve_win,20,235,63-21,0);
     box(text,0,0);
 
@@ -3535,12 +3847,18 @@ void cinematique_rock(WINDOW* map,WINDOW* cam, trainer* player){
         usleep(50000);
     }
     sleep(2);
+
+    int ch;
+    while((ch=getch())!=ERR){
+
+    }
+
     for (int i = 0; i < strlen("Press any key to break the rock"); i++) // delete
     {
         mvwprintw(map,47,364+i," ");
     }
 
-    int ch=ERR;
+    ch=ERR;
 
     nodelay(stdscr,FALSE);
     ch=getch();
@@ -3548,6 +3866,10 @@ void cinematique_rock(WINDOW* map,WINDOW* cam, trainer* player){
     nodelay(stdscr,TRUE);
 
     // pause
+
+    while((ch=getch())!=ERR){
+
+    }
 
     for (int i = 0; i<strlen("Well done ! See ya !"); i++) // write flush modifié pour fonctionner avec la cam
     {
