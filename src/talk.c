@@ -26,10 +26,6 @@ void write_flush(WINDOW* win, int x, int y,char* phrase,...){
         wrefresh(win);
         usleep(50000);
     }
-    int ch;
-    while((ch=getch())!=ERR){
-
-    }
 }
 
 void talkto_cashier(WINDOW* shop_map, trainer* player){

@@ -1207,7 +1207,7 @@ void evolvepoke(pokemon* poke){
         system("killall -9 vlc >/dev/null 2>&1 &");
         exit(48);
     }  
-    if (delwin(evolve_win)==ERR)
+    if (delwin(blackscreen)==ERR)
     {
         system("killall -9 vlc >/dev/null 2>&1 &");
         exit(55);
