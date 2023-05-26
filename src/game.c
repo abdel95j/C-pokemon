@@ -169,8 +169,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     charizard->atk=35.0;
     charizard->def=35.0/100;
     charizard->dodge=8;
-    charizard->pv=83.0;
-    charizard->pv_save=83.0;
+    charizard->pv=85.0;
+    charizard->pv_save=85.0;
     charizard->lvl=25;
     charizard->catchrate=10;
     charizard->art_box=CHARIZARD;
@@ -188,11 +188,11 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(charizard->name,"Charizard"); 
 
     //blastoise -
-    blastoise->atk=32.0;
+    blastoise->atk=34.0;
     blastoise->def=40.0/100;
     blastoise->dodge=7;
-    blastoise->pv=85.0;
-    blastoise->pv_save=85.0;
+    blastoise->pv=83.0;
+    blastoise->pv_save=83.0;
     blastoise->lvl=25;
     blastoise->catchrate=10;
     blastoise->art_box=BLASTOISE;
@@ -210,8 +210,8 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(blastoise->name,"Blastoise"); 
 
     //venusaur -
-    venusaur->atk=30.0;
-    venusaur->def=45.0/100;
+    venusaur->atk=33.0;
+    venusaur->def=50.0/100;
     venusaur->dodge=5;
     venusaur->pv=90.0;
     venusaur->pv_save=90.0;
@@ -232,11 +232,11 @@ void init_poke(pokemon* pokenull, pokemon* charmander, pokemon* bulbasaur, pokem
     sprintf(venusaur->name,"Venusaur"); 
 
     //raichu -
-    raichu->atk=33.0;
-    raichu->def=38.0/100;
+    raichu->atk=35.0;
+    raichu->def=40.0/100;
     raichu->dodge=20;
-    raichu->pv=80.0;
-    raichu->pv_save=80.0;
+    raichu->pv=83.0;
+    raichu->pv_save=83.0;
     raichu->lvl=25;
     raichu->catchrate=10;
     raichu->art_box=RAICHU;
@@ -1384,6 +1384,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
     pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
+    pokemon wildpoke = *champion_poke;
+
     while(finish==0)
     {
         WINDOW* match=newwin(63/1.5,236/1.5,63/6+1,236/6);
@@ -1397,10 +1399,6 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
         box(jauge_champion,0,0);
         box(jauge_player,0,0);
 
-        pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
-        init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
-
-        pokemon wildpoke = *champion_poke;
 
         print_match(match,jauge_champion,jauge_player,*player_poke,*champion_poke,x,y);
         mvwprintw(text,5,25,"What do you want to do %s ?",player->name);
@@ -1588,6 +1586,26 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(fight);
                                         sleep(2);
+                                        if (League0_Catch1==1)
+                                        {
+                                            mvwprintw(text,5,25,"                                       ");
+                                            mvwprintw(text,5,25,"*You earned 50$*");
+                                            wrefresh(text);
+                                            sleep(1);
+                                            mvwprintw(text,5,20,"                                                 ");
+                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                            wrefresh(text);
+                                            sleep(1);
+                                            mvwprintw(text,5,20,"                                                 ");
+                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                            wrefresh(text);
+                                            sleep(3);
+
+                                            pokelvlup(text,5,25,1,player_poke);
+
+                                            player->money+=70;
+                                            player->xp+=player->lvl*10;
+                                        }
                                         return 1;
                                     }
                                 }
@@ -1720,6 +1738,26 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                             wrefresh(fight);
                                             sleep(2);
+                                            if (League0_Catch1==1)
+                                            {
+                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,25,"*You earned 50$*");
+                                                wrefresh(text);
+                                                sleep(1);
+                                                mvwprintw(text,5,20,"                                                 ");
+                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                wrefresh(text);
+                                                sleep(1);
+                                                mvwprintw(text,5,20,"                                                 ");
+                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                wrefresh(text);
+                                                sleep(3);
+
+                                                pokelvlup(text,5,25,1,player_poke);
+
+                                                player->money+=70;
+                                                player->xp+=player->lvl*10;
+                                            }
                                             return 1;
                                         }
                                     }
@@ -1854,6 +1892,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         sleep(2);
                                         mvwprintw(text,5,23,"                                        ");
                                         mvwprintw(text,5,23,"%s's defense has decreased",champion_poke->name);
+                                        wrefresh(text);
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(fight);
                                         if(champion_poke->def<=0){
@@ -1885,6 +1924,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                         sleep(2);
                                         mvwprintw(text,5,15,"                                                         ");
                                         mvwprintw(text,5,23,"%s's attack has decreased",champion_poke->name);
+                                        wrefresh(text);
                                         jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
                                         wrefresh(fight);
                                         if(champion_poke->atk<=0){
@@ -2242,6 +2282,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             wrefresh(text);
                                             sleep(1);
 
+                                            wildpoke.pv=champion_poke->pv;
+
                                             if (player->poke1.type==NOPOKEMON)
                                             {
                                                 player->poke1=wildpoke;
@@ -2354,6 +2396,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 wrefresh(text);
                                                 sleep(1);
 
+                                                wildpoke.pv=champion_poke->pv;
+
                                                 if (player->poke1.type==NOPOKEMON)
                                                 {
                                                     player->poke1=wildpoke;
@@ -2465,6 +2509,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     mvwprintw(text,5,25,"You got %s !",champion_poke->name);
                                                     wrefresh(text);
                                                     sleep(1);
+
+                                                    wildpoke.pv=champion_poke->pv;
 
                                                     if (player->poke1.type==NOPOKEMON)
                                                     {
@@ -3779,7 +3825,10 @@ void your_team(trainer* player){
                                         default:
                                             break;
                                         }
+                                        wclear(actions);
+                                        wrefresh(actions);
                                         done=1;
+                                        finishact=1;
                                     }
                                     else if (xsure==7) // no
                                     {
