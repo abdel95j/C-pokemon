@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							LAUNCH THE GAME
+LAUNCH THE GAME
 Operating system needed : Linux
 
 To play the game : open the terminal, head to the right folder : c-pokemon/
@@ -10,7 +10,7 @@ compilation command : gcc -o c-pokemon src/game.c src/talkbis.c src/talk.c src/p
 execution command : ./c-pokemon
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							TECHNICAL NEEDS
+TECHNICAL NEEDS
 
 For the technical aspect you'll need to have a terminal which can at least display 63x236 characters (63 lines and 236 columns) -> you can dezoom by using 'ctrl' + '-' and zoom with 'ctrl' + '+'.
 For a better experience, play in fullscreen mode by pressing "F11".
@@ -19,7 +19,7 @@ ESSENTIAL : To play the game you'll have to install the ncurses library in your 
 OPTIONAL : To play the game with its musics you'll have to get vlc media player by typing "sudo apt-get install vlc" in your terminal.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							   COMMANDS
+COMMANDS
 
 During the entire game, when having to make a choice or do something you'll have the possibility to go back with the 'spacebar'. The spacebar will allow you to go back in your choices at most of the times, just like a 'B' or 'O' button.
 
@@ -29,7 +29,7 @@ The game controls are 'i' to open the inventory (NOT EVERYWHERE) and 'm' to open
 There is an exception in the road to go to the league, after picking up a flower by pressing 'e'/'ENTER_KEY' while being on it, you can plant it again in the ground by pressing the 'p' touch.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							   THE LORE
+THE LORE
 
 Here are the main instructions to play the game we made but we'll try not to be too precise to let you discover the game by yourself.
 
@@ -60,12 +60,12 @@ As in pokemon, the main goal is to become the master of the league ! And, for th
 Have fun playing our first game ! If you find bugs don't hesitate to let us know ! We don't think that our program is perfect. Thank you by advance ! You gotta catch 'em all !
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							    KNOWN BUGS
+KNOWN BUGS
 
 NONE. Just kidding x). We have a single bug repport to do, in fact sometimes when you pick a flower from the ground, it just stays there and another flower disapear and go to your inventory x). It's a really rare bug, it happens 1 time on 50 so we didn't solve it because of it rarity. You just have to click again to pick the right flower so it's not a big bug but we want you to know it just in case.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							    THANKS TO
+THANKS TO
 
 - OpenAI
 We have to admit it, without ChatGPT our understanding of curses.h would have taken a longer time... Than you OpenAI for this masterpiece, we love you.
@@ -80,7 +80,7 @@ Sir, we apologize about the lenght of our project. We wish you a good luck with 
 Miss, we hope you'll love the ending of this ambition. The idea of making a map came from you and we would surely didn't have done all of this without your support. It was a pleasure to see you as happy as us seing the project grow day by day.
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							     CREDITS
+CREDITS
 
 Adam Terrak
 Ayman Ouguerd
@@ -88,7 +88,7 @@ Abdelah El Harsal
 C̶h̶a̶t̶G̶P̶T̶ ̶(̶I̶t̶ ̶d̶i̶d̶ ̶j̶u̶s̶t̶ ̶h̶e̶l̶p̶ ̶u̶s̶ ̶a̶t̶ ̶t̶h̶e̶ ̶b̶e̶g̶i̶n̶i̶n̶g̶ ̶t̶o̶ ̶b̶e̶ ̶h̶o̶n̶e̶s̶t̶ ̶X̶D̶)
 
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-																							     CONTACT
+CONTACT
 
 e.aterrak@gmail.com
 shortlink for the 20/20 grade : https://cours.cyu.fr/grade/report/overview/index.php
