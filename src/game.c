@@ -5001,7 +5001,7 @@ void roadto_league(trainer* player){
         switch (ch)
         {
         case 'p':
-                if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant>0)
+                if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant>0)
                 {
 
                     if (flowerx1==0)
@@ -5067,12 +5067,12 @@ void roadto_league(trainer* player){
 
                     if(place==1)
                     {
-                        player->inventory[SLOT4].quant-=1;
+                        player->inventory[SLOT6].quant-=1;
 
-                        if (player->inventory[SLOT4].quant==0)
+                        if (player->inventory[SLOT6].quant==0)
                         {
-                            player->inventory[SLOT4].type=EMPTY;
-                            sprintf(player->inventory[SLOT4].name,"empty");
+                            player->inventory[SLOT6].type=EMPTY;
+                            sprintf(player->inventory[SLOT6].name,"empty");
                         }
                     }
                 }
@@ -5152,7 +5152,7 @@ void roadto_league(trainer* player){
                     }
                 }
 
-                else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant>0)
+                else if (player->inventory[SLOT4].type==FLOWER && player->inventory[SLOT4].quant>0)
                 {
                     if (flowerx1==0)
                     {
@@ -5217,12 +5217,12 @@ void roadto_league(trainer* player){
 
                     if(place==1)
                     {
-                        player->inventory[SLOT6].quant-=1;
+                        player->inventory[SLOT4].quant-=1;
 
-                        if (player->inventory[SLOT6].quant==0)
+                        if (player->inventory[SLOT4].quant==0)
                         {
-                            player->inventory[SLOT6].type=EMPTY;
-                            sprintf(player->inventory[SLOT6].name,"empty");
+                            player->inventory[SLOT4].type=EMPTY;
+                            sprintf(player->inventory[SLOT4].name,"empty");
                         }
                     }
                 }
@@ -5300,7 +5300,7 @@ void roadto_league(trainer* player){
                 }
                 else if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant<5)
                 {
-                    player->inventory[SLOT5].quant+=1;
+                    player->inventory[SLOT6].quant+=1;
                     gone=1;
                 }
 

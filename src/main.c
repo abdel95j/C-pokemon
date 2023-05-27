@@ -21,19 +21,19 @@ int main(){
     curs_set(0);
 
     if(has_colors()==FALSE){
-        printf("Your terminal does not support colors");
-        exit(1000);
+        printf("Your terminal does not support colors, the game will launch without colors in 3 seconds");
+        sleep(3);
     }
 
     if(can_change_color()==FALSE){
-        printf("Your terminal does not support color changing");
-        exit(1000);
+        printf("Your terminal does not support color changing, the game will launch without color changing in 3 seconds");
+        sleep(3);
     } 
 
     //63 = 63 , 236 = 236
 
     //launch music
-    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &");  // sudo apt_get install vlc
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &");  // sudo apt-get install vlc
 
     // INIT COLOR PAIR FOR WATTR
     init_pair(1,COLOR_RED,COLOR_BLACK);     // red = 1
