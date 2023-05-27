@@ -1372,8 +1372,8 @@ void pokelvlup(WINDOW* win,int x,int y,int times, pokemon* player_poke){
 void playerlvlup(trainer* player){
     if (player->xp>=player->lvl*100)
     {
+        player->xp-=player->lvl*100;
         player->lvl+=1;
-        player->xp=0;
     }
 }
 
@@ -2322,11 +2322,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             wrefresh(text);
                                             sleep(1);
                                             mvwprintw(text,5,20,"                                                 ");
-                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
-                                            wrefresh(text);
-                                            sleep(1);
-                                            mvwprintw(text,5,20,"                                                 ");
-                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*30);
                                             wrefresh(text);
                                             sleep(3);
 
@@ -2438,7 +2434,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 wrefresh(text);
                                                 sleep(1);
                                                 mvwprintw(text,5,20,"                                                 ");
-                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*30);
                                                 wrefresh(text);
                                                 sleep(3);
 
@@ -2550,7 +2546,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     wrefresh(text);
                                                     sleep(1);
                                                     mvwprintw(text,5,20,"                                                 ");
-                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*30);
                                                     wrefresh(text);
                                                     sleep(3);
 
