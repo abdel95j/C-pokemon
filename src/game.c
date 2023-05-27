@@ -4949,6 +4949,8 @@ void roadto_league(trainer* player){
     int quit=0,finish=0, ch=ERR;
     int l=103,c=70;
 
+    player->poke1.CTutil->type=SURF;
+
     int flowerx1  = 50 + rand()%((50+31+1)-50);
     int flowerx2  = 50 + rand()%((50+31+1)-50);
     int flowerx3  = 50 + rand()%((50+31+1)-50);
@@ -5001,6 +5003,8 @@ void roadto_league(trainer* player){
         switch (ch)
         {
         case 'p':
+            if (l<48 && l>13)
+            {
                 if (player->inventory[SLOT6].type==FLOWER && player->inventory[SLOT6].quant>0)
                 {
 
@@ -5226,6 +5230,7 @@ void roadto_league(trainer* player){
                         }
                     }
                 }
+            }
             print_flowers(road,flowerx1,flowerx2,flowerx3,flowerx4,flowerx5,flowerx6,flowerx7,flowerx8,flowerx9,flowerx10,flowery1,flowery2,flowery3,flowery4,flowery5,flowery6,flowery7,flowery8,flowery9,flowery10);
             wrefresh(cam);
             break;
@@ -5265,7 +5270,7 @@ void roadto_league(trainer* player){
                 flowery10 = 118 + rand()%((118+142+1)-118);
             }
 
-            if (l==flowerx1-34 && c==flowery1-119 || c==flowery1-118 || c==flowery1-120) // grab flower1
+            if (l==flowerx1-34 && c==flowery1-119 || l==flowerx1-34 && c==flowery1-118 || l==flowerx1-34 && c==flowery1-120) // grab flower1
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5311,7 +5316,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx2-34 && c==flowery2-119 || c==flowery2-118 || c==flowery2-120) // grab flower2
+            else if (l==flowerx2-34 && c==flowery2-119 || l==flowerx2-34 && c==flowery2-118 || l==flowerx2-34 && c==flowery2-120) // grab flower2
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5357,7 +5362,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx3-34 && c==flowery3-119 || c==flowery3-118 || c==flowery3-120) // grab flower3
+            else if (l==flowerx3-34 && c==flowery3-119 || l==flowerx3-34 && c==flowery3-118 || l==flowerx3-34 && c==flowery3-120) // grab flower3
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5403,7 +5408,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx4-34 && c==flowery4-119 || c==flowery4-118 || c==flowery4-120) // grab flower4
+            else if (l==flowerx4-34 && c==flowery4-119 || l==flowerx4-34 && c==flowery4-118 || l==flowerx4-34 && c==flowery4-120) // grab flower4
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5449,7 +5454,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx5-34 && c==flowery5-119 || c==flowery5-118 || c==flowery5-120) // grab flower5
+            else if (l==flowerx5-34 && c==flowery5-119 || l==flowerx5-34 && c==flowery5-118 || l==flowerx5-34 && c==flowery5-120) // grab flower5
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5495,7 +5500,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx6-34 && c==flowery6-119 || c==flowery6-118 || c==flowery6-120) // grab flower6
+            else if (l==flowerx6-34 && c==flowery6-119 || l==flowerx6-34 && c==flowery6-118 || l==flowerx6-34 && c==flowery6-120) // grab flower6
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5541,7 +5546,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx7-34 && c==flowery7-119 || c==flowery7-118 || c==flowery7-120) // grab flower7
+            else if (l==flowerx7-34 && c==flowery7-119 || l==flowerx7-34 && c==flowery7-118 || l==flowerx7-34 && c==flowery7-120) // grab flower7
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5587,7 +5592,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx8-34 && c==flowery8-119 || c==flowery8-118 || c==flowery8-120) // grab flower8
+            else if (l==flowerx8-34 && c==flowery8-119 || l==flowerx8-34 && c==flowery8-118 || l==flowerx8-34 && c==flowery8-120) // grab flower8
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5633,7 +5638,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx9-34 && c==flowery9-119 || c==flowery9-118 || c==flowery9-120) // grab flower9
+            else if (l==flowerx9-34 && c==flowery9-119 || l==flowerx9-34 && c==flowery9-118 || l==flowerx9-34 && c==flowery9-120) // grab flower9
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
@@ -5679,7 +5684,7 @@ void roadto_league(trainer* player){
                 }
             }
 
-            else if (l==flowerx10-34 && c==flowery10-119 || c==flowery10-118 || c==flowery10-120) // grab flower10
+            else if (l==flowerx10-34 && c==flowery10-119 || l==flowerx10-34 && c==flowery10-118 || l==flowerx10-34 && c==flowery10-120) // grab flower10
             {
                 if (player->inventory[SLOT4].type==EMPTY)
                 {
