@@ -1373,6 +1373,7 @@ void playerlvlup(trainer* player){
     if (player->xp>=player->lvl*100)
     {
         player->lvl+=1;
+        player->xp=0;
     }
 }
 
