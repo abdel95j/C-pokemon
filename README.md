@@ -12,6 +12,8 @@ If you were used to play pokemon in your youth you'll feel just like it's a back
 
 For the technical aspect you'll need to have a terminal which can at least display 63x236 characters (63 lines and 236 columns).
 
+To play the game with its musics you'll have to get vlc media player commands by typing "sudo apt_get install vlc" in your terminal.
+
 During the entire game, when having to make a choice or do something you'll have the possibility to go back with the 'spacebar'. The spacebar will allow you to go back in your choices at most of the times, just like a 'B' or 'O' button.
 
 The mooving controls are 'z' and 'UP_ARROW' to moove forward, 's' and 'DOWN_ARROW' to moove backward, 'd' and 'RIGHT_ARROW' to go to the right, 'q' and 'LEFT_ARROW' to go to the left.

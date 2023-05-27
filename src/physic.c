@@ -640,32 +640,32 @@ void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
             }         
 
             if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
             
 
             if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=109 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
             break;
 
@@ -687,31 +687,31 @@ void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
             }
             
             if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=109 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
             break;
 
@@ -743,31 +743,31 @@ void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
             }
             
             if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=109 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
             break;
 
@@ -794,31 +794,31 @@ void physic_forest(WINDOW* forest_map,int ch,trainer* player, int* x, int* y){
             }
 
             if(*x>=12 && *x<=19 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=67 && *y<=87){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=87 && *y<=128){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=12 && *x<=19 && *y>=165 && *y<=184){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=21 && *y<=40){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=67 && *y<=86){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
 
             if(*x>=45 && *x<=52 && *y>=109 && *y<=185){
-                encouter_poke(forest_map,player);
+                encounter_poke(forest_map,player);
             }
             break;
         default:

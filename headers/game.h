@@ -26,7 +26,7 @@ void duel_forest(trainer * player,pokemon wild_poke);
 void playerlvlup(trainer* player);
 void evolvepoke(pokemon* poke);
 void silent_evolvepoke(pokemon* poke);
-void encouter_poke(WINDOW* forest_map, trainer* player);
+void encounter_poke(WINDOW* forest_map, trainer* player);
 void save(trainer* player);
 int load(trainer* player);
 

@@ -28,13 +28,7 @@ int main(){
     if(can_change_color()==FALSE){
         printf("Your terminal does not support color changing");
         exit(1000);
-    }
-
-    //set fullscreen if not already set
-    if (LINES<63 || COLS<236)
-    {
-        system("xdotool key FN+F11"); //sudo apt install xdotool
-    }  
+    } 
 
     //63 = 63 , 236 = 236
 

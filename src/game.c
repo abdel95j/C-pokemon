@@ -1593,18 +1593,16 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             wrefresh(text);
                                             sleep(1);
                                             mvwprintw(text,5,20,"                                                 ");
-                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
-                                            wrefresh(text);
-                                            sleep(1);
-                                            mvwprintw(text,5,20,"                                                 ");
-                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                            mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*20);
                                             wrefresh(text);
                                             sleep(3);
 
                                             pokelvlup(text,5,25,1,player_poke);
 
                                             player->money+=70;
-                                            player->xp+=player->lvl*10;
+                                            player->xp+=player->lvl*20;
+
+                                            playerlvlup(player);
                                         }
                                         return 1;
                                     }
@@ -1745,18 +1743,16 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 wrefresh(text);
                                                 sleep(1);
                                                 mvwprintw(text,5,20,"                                                 ");
-                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
-                                                wrefresh(text);
-                                                sleep(1);
-                                                mvwprintw(text,5,20,"                                                 ");
-                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
+                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*25);
                                                 wrefresh(text);
                                                 sleep(3);
 
                                                 pokelvlup(text,5,25,1,player_poke);
 
                                                 player->money+=70;
-                                                player->xp+=player->lvl*10;
+                                                player->xp+=player->lvl*25;
+                                           
+                                                playerlvlup(player);
                                             }
                                             return 1;
                                         }
@@ -2310,17 +2306,17 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                             }
                                             else
                                             {
-                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,20,"                                       ");
                                                 mvwprintw(text,5,25,"Your pocket is full of pokemons !");
                                                 wrefresh(text);
                                                 sleep(1);
-                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,20,"                                       ");
                                                 mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
                                                 wrefresh(text);
                                                 sleep(1);
                                             }
 
-                                            mvwprintw(text,5,25,"                                       ");
+                                            mvwprintw(text,5,20,"                                       ");
                                             mvwprintw(text,5,25,"*You earned 50$*");
                                             wrefresh(text);
                                             sleep(1);
@@ -2337,6 +2333,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                             player->money+=70;
                                             player->xp+=player->lvl*10;
+
+                                            playerlvlup(player);
 
                                             wclear(bag);
                                             wrefresh(bag);
@@ -2424,22 +2422,18 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                 }
                                                 else
                                                 {
-                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,20,"                                       ");
                                                     mvwprintw(text,5,25,"Your pocket is full of pokemons !");
                                                     wrefresh(text);
                                                     sleep(1);
-                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,20,"                                       ");
                                                     mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
                                                     wrefresh(text);
                                                     sleep(1);
                                                 }
 
-                                                mvwprintw(text,5,25,"                                       ");
+                                                mvwprintw(text,5,20,"                                       ");
                                                 mvwprintw(text,5,25,"*You earned 50$*");
-                                                wrefresh(text);
-                                                sleep(1);
-                                                mvwprintw(text,5,20,"                                                 ");
-                                                mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                                 wrefresh(text);
                                                 sleep(1);
                                                 mvwprintw(text,5,20,"                                                 ");
@@ -2451,6 +2445,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                                 player->money+=70;
                                                 player->xp+=player->lvl*10;
+
+                                                playerlvlup(player);
 
                                                 wclear(bag);
                                                 wrefresh(bag);
@@ -2538,22 +2534,18 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
                                                     }
                                                     else
                                                     {
-                                                        mvwprintw(text,5,25,"                                       ");
+                                                        mvwprintw(text,5,20,"                                       ");
                                                         mvwprintw(text,5,25,"Your pocket is full of pokemons !");
                                                         wrefresh(text);
                                                         sleep(1);
-                                                        mvwprintw(text,5,25,"                                       ");
+                                                        mvwprintw(text,5,20,"                                       ");
                                                         mvwprintw(text,5,25,"Go put a pokemon on the pc or free it");
                                                         wrefresh(text);
                                                         sleep(1);
                                                     }
 
-                                                    mvwprintw(text,5,25,"                                       ");
+                                                    mvwprintw(text,5,20,"                                       ");
                                                     mvwprintw(text,5,25,"*You earned 50$*");
-                                                    wrefresh(text);
-                                                    sleep(1);
-                                                    mvwprintw(text,5,20,"                                                 ");
-                                                    mvwprintw(text,5,25,"*You earned %d xp*",player->lvl*10);
                                                     wrefresh(text);
                                                     sleep(1);
                                                     mvwprintw(text,5,20,"                                                 ");
@@ -2565,6 +2557,8 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                                     player->money+=70;
                                                     player->xp+=player->lvl*10;
+    
+                                                    playerlvlup(player);
 
                                                     wclear(bag);
                                                     wrefresh(bag);
@@ -3221,7 +3215,7 @@ void lab(trainer* player){
     }
 }
 
-void encouter_poke(WINDOW* forest_map, trainer* player){
+void encounter_poke(WINDOW* forest_map, trainer* player){
     pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
     init_poke(&pokenull,&charmander,&bulbasaur,&squirtle,&pikachu,&charizard,&blastoise,&venusaur,&raichu);
 
@@ -3244,6 +3238,10 @@ void encouter_poke(WINDOW* forest_map, trainer* player){
     }
 
     if(rand_encounter<=10){
+        system("killall -9 vlc >/dev/null 2>&1 &"); // stop main theme
+        usleep(1000);
+        system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
+
         clignotement(forest_map);
         wclear(blackscreen);
         wrefresh(blackscreen);
@@ -5939,6 +5937,13 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
     wrefresh(win);
     switch (ch)
     {
+    case ' ':
+        //simply exit the game
+        system("killall -9 vlc >/dev/null 2>&1 &");
+        endwin();
+        exit(0);
+        break;
+
         // colisions
     case 'z':
     case KEY_UP:
@@ -6111,10 +6116,6 @@ void clignotement(WINDOW* fenetre){
 void duel_forest(trainer * player,pokemon wild_poke){
     
     int count_atk=1;
-
-    system("killall -9 vlc >/dev/null 2>&1 &"); // stop main theme
-    usleep(1000);
-    system("cvlc ressources/Battle-Theme.mp3 >/dev/null 2>&1 &"); // start battle theme
 
     if(player->poke1.pv>0 && player->poke2.pv>0 && player->poke3.pv>0){
         if(match(player,&player->poke1,&wild_poke,1,&count_atk)==1){
