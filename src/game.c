@@ -3453,6 +3453,10 @@ void shop(trainer* player){
 void your_team(trainer* player){
     WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
+    int finishact=0;
+    int xact=5;
+    int ok=0; // to not let click on pokenull
+    pokemon tmp;
     int x=1,y=1;
 
     pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
@@ -3498,11 +3502,6 @@ void your_team(trainer* player){
         case 'e':
         case '\n':
         case '\r':
-            int finishact=0;
-            int xact=5;
-            int ok=0; // to not let click on pokenull
-            pokemon tmp;
-
             switch (x)
             {
             case 1:
