@@ -30,6 +30,9 @@ void write_flush(WINDOW* win, int x, int y,char* phrase,...){
 
 void talkto_cashier(WINDOW* shop_map, trainer* player){
     int finish=0,ch=ERR;
+    int finishCT=0;
+    int finishSell=0;
+    int xsell=0;
     int x=4;
 
     write_flush(shop_map,15,37,"Hello! What do you want");
@@ -310,7 +313,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 break;
 
             case 10: // CT
-                int finishCT=0;
+                finishCT=0;
                 x=4;
 
                 mvwprintw(shop_map,15,37,"                       ");
@@ -771,8 +774,8 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 break;
 
             case 12:  //  Sell
-                int finishSell=0;
-                int xsell=4;
+                finishSell=0;
+                xsell=4;
 
                 mvwprintw(shop_map,15,37,"                       ");
                 mvwprintw(shop_map,16,37,"                     ");

@@ -5815,7 +5815,7 @@ void roadto_league(trainer* player){
             
             else if (l==48) // border water up
             {
-                if (player->poke1.CTutil->type=SURF && player->poke1.type==WATER)
+                if (player->poke1.CTutil->type==SURF && player->poke1.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke1.name);
                     wrefresh(cam);
@@ -5824,7 +5824,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke2.CTutil->type=SURF && player->poke2.type==WATER)
+                else if (player->poke2.CTutil->type==SURF && player->poke2.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke2.name);
                     wrefresh(cam);
@@ -5833,7 +5833,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke3.CTutil->type=SURF && player->poke3.type==WATER)
+                else if (player->poke3.CTutil->type==SURF && player->poke3.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke3.name);
                     wrefresh(cam);
@@ -5842,7 +5842,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke4.CTutil->type=SURF && player->poke4.type==WATER)
+                else if (player->poke4.CTutil->type==SURF && player->poke4.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke4.name);
                     wrefresh(cam);
@@ -5851,7 +5851,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke5.CTutil->type=SURF && player->poke5.type==WATER)
+                else if (player->poke5.CTutil->type==SURF && player->poke5.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke5.name);
                     wrefresh(cam);
@@ -5860,7 +5860,7 @@ void roadto_league(trainer* player){
                     player->is_on_water=1;
                 }
 
-                else if (player->poke6.CTutil->type=SURF && player->poke6.type==WATER)
+                else if (player->poke6.CTutil->type==SURF && player->poke6.type==WATER)
                 {
                     mvwprintw(cam,((63-2)/2)-1,((236-2)/2)+5,"%s uses surf !",player->poke6.name);
                     wrefresh(cam);
