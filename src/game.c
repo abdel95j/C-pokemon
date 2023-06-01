@@ -2720,9 +2720,6 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
             exit(42);
         }  
     }
-    wclear(match);
-    wrefresh(match);
-    finish=1;
     return 1;
 }
 
