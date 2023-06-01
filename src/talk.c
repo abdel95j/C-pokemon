@@ -110,7 +110,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 
                 while (howmany<0)
                 {
-                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                    while(wscanw(shop_map,"%d",&howmany)!=1 || howmany<0){
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                         wmove(shop_map,18,37);
                     }
@@ -182,7 +182,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 
                 while (howmany<0)
                 {
-                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                    while(wscanw(shop_map,"%d",&howmany)!=1 || howmany<0){
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                         wmove(shop_map,18,37);
                     }
@@ -254,7 +254,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
                 
                 while (howmany<0)
                 {
-                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                    while(wscanw(shop_map,"%d",&howmany)!=1 || howmany<0){
                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                         wmove(shop_map,18,37);
                     }
@@ -856,7 +856,7 @@ void talkto_cashier(WINDOW* shop_map, trainer* player){
 
                                 while (howmany<0)
                                 {
-                                    while(wscanw(shop_map,"%d",&howmany)!=1){
+                                    while(wscanw(shop_map,"%d",&howmany)!=1 || howmany<0){
                                         mvwprintw(shop_map,18,37,"                             "); // clear scan zone
                                         wmove(shop_map,18,37);
                                     }

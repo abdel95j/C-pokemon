@@ -2268,7 +2268,7 @@ int match(trainer* player,pokemon* player_poke, pokemon* champion_poke, int Leag
 
                                         sort=rand()%201;
 
-                                        if ((champion_poke->catchrate/100,0)+((champion_poke->pv_save/champion_poke->pv)/20)*100>=sort) // catched
+                                        if (((champion_poke->catchrate)/100,0)+((champion_poke->pv_save/champion_poke->pv)/20)*100>=sort) // catched
                                         {
                                             mvwprintw(match,13,112,"*(-o-)*");
                                             jauges_refresh(match,jauge_player,jauge_champion,*player_poke,*champion_poke);
@@ -6831,5 +6831,6 @@ int load(trainer* player){
             system("killall -9 vlc >/dev/null 2>&1 &");
             exit(50);
         }
-    }    
+    }  
+    return 1;  
 }
