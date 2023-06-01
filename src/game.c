@@ -4949,8 +4949,6 @@ void roadto_league(trainer* player){
     int quit=0,finish=0, ch=ERR;
     int l=103,c=70;
 
-    player->poke1.CTutil->type=SURF;
-
     int flowerx1  = 50 + rand()%((50+31+1)-50);
     int flowerx2  = 50 + rand()%((50+31+1)-50);
     int flowerx3  = 50 + rand()%((50+31+1)-50);
