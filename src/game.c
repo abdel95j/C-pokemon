@@ -3454,9 +3454,8 @@ void your_team(trainer* player){
     WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
     int finishact=0;
-    int xact=5;
+    int xact=0;
     int ok=0; // to not let click on pokenull
-    pokemon tmp;
     int x=1,y=1;
 
     pokemon charmander,pokenull,bulbasaur,squirtle,pikachu,charizard,blastoise,venusaur,raichu;
@@ -3502,6 +3501,11 @@ void your_team(trainer* player){
         case 'e':
         case '\n':
         case '\r':
+            finishact=0;
+            xact=5;
+            ok=0; // to not let click on pokenull
+            pokemon tmp;
+
             switch (x)
             {
             case 1:
@@ -4403,6 +4407,12 @@ void menu(int* quit,trainer* player){
 void inventory(trainer* player){
     WINDOW* blackscreen=newwin(62,235,0,0);
     int finish=0,ch=ERR;
+    int finishpotion=0;
+    int finishchoice=0;
+    int xchoice=0;
+    int xpotion=0;
+    int finishcandy=0;
+    int xcandy=0;
     int x=12,y=17;
 
     while (finish==0)
@@ -4443,8 +4453,8 @@ void inventory(trainer* player){
                     break;
 
                 case 57: // potions
-                    int finishpotion=0;
-                    int xpotion=4;
+                    finishpotion=0;
+                    xpotion=4;
 
                     while (finishpotion==0)
                     {
@@ -4494,8 +4504,8 @@ void inventory(trainer* player){
                             }
                             else if (xpotion==4)
                             {
-                                int finishchoice=0;
-                                int xchoice=3;
+                                finishchoice=0;
+                                xchoice=3;
                                 while (finishchoice==0)
                                 {
                                     wclear(actions);
@@ -4693,8 +4703,8 @@ void inventory(trainer* player){
                     break;
 
                 case 97: // candys
-                    int finishcandy=0;
-                    int xcandy=4;
+                    finishcandy=0;
+                    xcandy=4;
 
                     while (finishcandy==0)
                     {
@@ -4744,8 +4754,8 @@ void inventory(trainer* player){
                             }
                             else if (xcandy==4)
                             {
-                                int finishchoice=0;
-                                int xchoice=3;
+                                finishchoice=0;
+                                xchoice=3;
                                 while (finishchoice==0)
                                 {
                                     wclear(actions);
