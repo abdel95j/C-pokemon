@@ -77,10 +77,12 @@ typedef struct
 typedef struct 
 {
     char name[30];
+    int admin;
     int lvl;
     int xp;
     int money;
     int art;
+    int has_won;
     int is_on_water;
     int is_rock_there;
     pokemon pokefight;

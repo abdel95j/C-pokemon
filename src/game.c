@@ -1,6 +1,7 @@
 #include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <time.h>
 #include "../headers/game.h"
@@ -990,6 +991,8 @@ void create_newplayer(trainer* newplayer){
     }
 
     newplayer->lvl=1;
+    newplayer->admin=0;
+    newplayer->has_won=0; // false
     newplayer->money=200;
     newplayer->xp=0;
     newplayer->is_on_water=0; // false
@@ -5998,8 +6001,118 @@ void main_menu(trainer* player,int* quit,int* x, int* y){
         }
         break;  
     
-    default:
-        break;
+    // admin mode
+    case '*' :  
+        int finishadmin=0;
+        char mdpcheck[20];
+        char mdpget[20];
+        nodelay(stdscr,FALSE);
+        curs_set(1);
+
+        while (finishadmin==0)
+        {
+            WINDOW* mdpwin=subwin(win,5,100,20,20);
+            box(mdpwin,0,0);
+            mvwprintw(mdpwin,0,35,"  ENTER THE ADMIN PASSWORD  ");
+            mvwprintw(win,61,2,"Write ""exit"" to go back");
+            wrefresh(win);
+
+            FILE* admin = fopen("ressources/admin","rb+");
+            fread(mdpget,sizeof(char[20]),1,admin);
+
+            wmove(mdpwin,2,30);
+
+            while (wscanw(mdpwin,"%s",mdpcheck)!=1)
+            {
+                mvwprintw(mdpwin,2,30,"                                   ");
+                wmove(mdpwin,2,30);
+            }
+
+            if (strcmp(mdpcheck,mdpget)==0) // good answer
+            {
+                //create admin
+
+                player->admin=1;
+                sprintf(player->name,"admin");
+                player->lvl=999999;
+                player->has_won=1; // true
+                player->money=1000000;
+                player->xp=0;
+                player->is_on_water=0; // false
+                player->is_rock_there=0; // false
+
+                player->inventory[POKEBALLS].quant=1000;
+                player->inventory[POKEBALLS].type=OTHER;
+                sprintf(player->inventory[POKEBALLS].name,"pokeballs"); 
+
+                player->inventory[POTIONS].quant=1000;
+                player->inventory[POTIONS].type=OTHER;
+                sprintf(player->inventory[POTIONS].name,"potions"); 
+
+                player->inventory[CANDYS].quant=1000;
+                player->inventory[CANDYS].type=OTHER;
+                sprintf(player->inventory[CANDYS].name,"candys"); 
+
+                player->inventory[SLOT4].quant=0;
+                player->inventory[SLOT4].type=EMPTY;
+                sprintf(player->inventory[SLOT4].name,"empty"); 
+
+                player->inventory[SLOT5].quant=0;
+                player->inventory[SLOT5].type=EMPTY;
+                sprintf(player->inventory[SLOT5].name,"empty"); 
+
+                player->inventory[SLOT6].quant=EMPTY;
+                player->inventory[SLOT6].type=0;
+                sprintf(player->inventory[SLOT6].name,"empty"); 
+
+                for (int i = 0; i < 20; i++)
+                {
+                    player->pc[i]=pokenull;
+                }
+
+                player->pokefight=pokenull;
+                player->poke1=pikachu;
+                silent_pokelvlup(99,&player->poke1);
+
+                player->poke2=charmander;
+                silent_pokelvlup(99,&player->poke2);
+
+                player->poke3=squirtle;
+                silent_pokelvlup(99,&player->poke3);
+                player->poke3.CTutil->type=SURF;
+                sprintf(player->poke3.CTutil->name,"Surf");
+
+                player->poke4=bulbasaur;
+                silent_pokelvlup(99,&player->poke4);
+
+                player->poke5=pokenull;
+
+                player->poke6=pokenull;
+
+                finishadmin=1;
+                *quit=1;
+            }
+
+            if (strcmp(mdpcheck,"exit")==0) // exit
+            {
+                finishadmin=1;
+            }
+
+            else
+            {
+                mvwprintw(mdpwin,2,30,"                                   ");
+                wmove(mdpwin,2,30);
+            }          
+            
+            usleep(16667);
+            if(delwin(mdpwin)==ERR)
+            {
+                system("killall -9 vlc >/dev/null 2>&1 &");
+                exit(1000);
+            }
+        }
+        nodelay(stdscr,TRUE);
+        curs_set(0);
     }
     usleep(16667);
     if(delwin(win)==ERR)
@@ -6207,7 +6320,7 @@ void duel_forest(trainer * player,pokemon wild_poke){
     system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // restart main theme
 }
 
-// V1.0
+// V1.1 (added has_won in player struct since 1.0)
 void save(trainer* player){
 
     FILE* save1 = NULL;
@@ -6286,130 +6399,139 @@ void save(trainer* player){
         case 'e': // save
         case '\r':
         case '\n':
-            switch (x)
+            if (player->admin==1)
             {
-            case 29: // save 1
-                fclose(save1r);
-                save1=fopen("saves/save1","wb+"); // delete content 
-                if (save1 == NULL)
-                {
-                    exit(105);
-                }
-                if(fwrite(player,sizeof(trainer),1,save1)!=1)
-                {
-                    exit(150);
-                }
-                mvwprintw(save_win,29,100,"Saved successfully !");
+                mvwprintw(save_win,29,100,"You can't save in admin mode");
                 wrefresh(save_win);
-                sleep(2);
-                wclear(save_win);
-                wrefresh(save_win);
-                finish=1;
-                fclose(save1);
-                fclose(save2r);
-                fclose(save3r);
-                fclose(save4r);
-                fclose(save5r);
-                break;
-            
-            case 31: // save 2
-                fclose(save2r);
-                save2=fopen("saves/save2","wb+");  // delete content 
-                if (save2 == NULL)
+                sleep(1);
+            }
+            else
+            {
+                switch (x)
                 {
-                    exit(106);
+                case 29: // save 1
+                    fclose(save1r);
+                    save1=fopen("saves/save1","wb+"); // delete content 
+                    if (save1 == NULL)
+                    {
+                        exit(105);
+                    }
+                    if(fwrite(player,sizeof(trainer),1,save1)!=1)
+                    {
+                        exit(150);
+                    }
+                    mvwprintw(save_win,29,100,"Saved successfully !");
+                    wrefresh(save_win);
+                    sleep(2);
+                    wclear(save_win);
+                    wrefresh(save_win);
+                    finish=1;
+                    fclose(save1);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    break;
+                
+                case 31: // save 2
+                    fclose(save2r);
+                    save2=fopen("saves/save2","wb+");  // delete content 
+                    if (save2 == NULL)
+                    {
+                        exit(106);
+                    }
+                    if(fwrite(player,sizeof(trainer),1,save2)!=1)
+                    {
+                        exit(150);
+                    }
+                    mvwprintw(save_win,31,100,"Saved successfully !");
+                    wrefresh(save_win);
+                    sleep(2);
+                    wclear(save_win);
+                    wrefresh(save_win);
+                    finish=1;
+                    fclose(save2);
+                    fclose(save1r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    break;
+                
+                case 33: // save 3
+                    fclose(save3r);
+                    save3=fopen("saves/save3","wb+");  // delete content 
+                    if (save3 == NULL)
+                    {
+                        exit(107);
+                    }
+                    if(fwrite(player,sizeof(trainer),1,save3)!=1)
+                    {
+                        exit(150);
+                    }
+                    mvwprintw(save_win,33,100,"Saved successfully !");
+                    wrefresh(save_win);
+                    sleep(2);
+                    wclear(save_win);
+                    wrefresh(save_win);
+                    finish=1;
+                    fclose(save3);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save4r);
+                    fclose(save5r);
+                    break;
+                
+                case 35: // save 4
+                    fclose(save4r);
+                    save4=fopen("saves/save4","wb+");  // delete content 
+                    if (save4 == NULL)
+                    {
+                        exit(108);
+                    }
+                    if(fwrite(player,sizeof(trainer),1,save4)!=1)
+                    {
+                        exit(150);
+                    }
+                    mvwprintw(save_win,35,100,"Saved successfully !");
+                    wrefresh(save_win);
+                    sleep(2);
+                    wclear(save_win);
+                    wrefresh(save_win);
+                    finish=1;
+                    fclose(save4);
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save5r);
+                    break;
+                
+                case 37: // save 5
+                    fclose(save5r);
+                    save5=fopen("saves/save5","wb+");  // delete content 
+                    if (save5 == NULL)
+                    {
+                        exit(109);
+                    }
+                    if(fwrite(player,sizeof(trainer),1,save5)!=1)
+                    {
+                        exit(150);
+                    }
+                    mvwprintw(save_win,37,100,"Saved successfully !");
+                    wrefresh(save_win);
+                    sleep(2);
+                    wclear(save_win);
+                    wrefresh(save_win);
+                    fclose(save5);
+                    finish=1;
+                    fclose(save1r);
+                    fclose(save2r);
+                    fclose(save3r);
+                    fclose(save4r);
+                    break;
+                
+                default:
+                    break;
                 }
-                if(fwrite(player,sizeof(trainer),1,save2)!=1)
-                {
-                    exit(150);
-                }
-                mvwprintw(save_win,31,100,"Saved successfully !");
-                wrefresh(save_win);
-                sleep(2);
-                wclear(save_win);
-                wrefresh(save_win);
-                finish=1;
-                fclose(save2);
-                fclose(save1r);
-                fclose(save3r);
-                fclose(save4r);
-                fclose(save5r);
-                break;
-            
-            case 33: // save 3
-                fclose(save3r);
-                save3=fopen("saves/save3","wb+");  // delete content 
-                if (save3 == NULL)
-                {
-                    exit(107);
-                }
-                if(fwrite(player,sizeof(trainer),1,save3)!=1)
-                {
-                    exit(150);
-                }
-                mvwprintw(save_win,33,100,"Saved successfully !");
-                wrefresh(save_win);
-                sleep(2);
-                wclear(save_win);
-                wrefresh(save_win);
-                finish=1;
-                fclose(save3);
-                fclose(save1r);
-                fclose(save2r);
-                fclose(save4r);
-                fclose(save5r);
-                break;
-            
-            case 35: // save 4
-                fclose(save4r);
-                save4=fopen("saves/save4","wb+");  // delete content 
-                if (save4 == NULL)
-                {
-                    exit(108);
-                }
-                if(fwrite(player,sizeof(trainer),1,save4)!=1)
-                {
-                    exit(150);
-                }
-                mvwprintw(save_win,35,100,"Saved successfully !");
-                wrefresh(save_win);
-                sleep(2);
-                wclear(save_win);
-                wrefresh(save_win);
-                finish=1;
-                fclose(save4);
-                fclose(save1r);
-                fclose(save2r);
-                fclose(save3r);
-                fclose(save5r);
-                break;
-            
-            case 37: // save 5
-                fclose(save5r);
-                save5=fopen("saves/save5","wb+");  // delete content 
-                if (save5 == NULL)
-                {
-                    exit(109);
-                }
-                if(fwrite(player,sizeof(trainer),1,save5)!=1)
-                {
-                    exit(150);
-                }
-                mvwprintw(save_win,37,100,"Saved successfully !");
-                wrefresh(save_win);
-                sleep(2);
-                wclear(save_win);
-                wrefresh(save_win);
-                fclose(save5);
-                finish=1;
-                fclose(save1r);
-                fclose(save2r);
-                fclose(save3r);
-                fclose(save4r);
-                break;
-            
-            default:
-                break;
             }
             break;
 

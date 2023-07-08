@@ -1380,6 +1380,10 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         player->money+=70;
                         player->xp+=player->lvl*50;
                         playerlvlup(player);
+                        if (player->has_won==0)
+                        {
+                            player->has_won=1;
+                        }
                         break;
 
                     case 0:
@@ -1564,6 +1568,7 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         player->money+=70;
                         player->xp+=player->lvl*50;
                         playerlvlup(player);
+                        
                         break;
 
                     case 0:
@@ -1589,6 +1594,10 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         player->money+=30;
                         player->xp+=player->lvl*25;
                         playerlvlup(player);
+                        if (player->has_won==0)
+                        {
+                            player->has_won=1;
+                        }
                         break;
 
                     case 2:
@@ -1728,6 +1737,10 @@ void talkto_champion(WINDOW* league_map,trainer*player,trainer champion, int* ha
                         player->money+=70;
                         player->xp+=player->lvl*50;
                         playerlvlup(player);
+                        if (player->has_won==0)
+                        {
+                            player->has_won=1;
+                        }
                         break;
 
                     case 0:
