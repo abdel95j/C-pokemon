@@ -10,55 +10,58 @@
 #include "../headers/talk.h"
 #include "../headers/talkbis.h"
 
-int main(){
+int main()
+{
     srand(time(NULL));
     initscr();
     cbreak();
     noecho();
     start_color();
-    nodelay(stdscr,TRUE);
-    keypad(stdscr,TRUE);
+    nodelay(stdscr, TRUE);
+    keypad(stdscr, TRUE);
     curs_set(0);
 
-    if(has_colors()==FALSE){
+    if (has_colors() == FALSE)
+    {
         printf("Your terminal does not support colors, the game will launch without colors in 3 seconds");
         sleep(3);
     }
 
-    if(can_change_color()==FALSE){
+    if (can_change_color() == FALSE)
+    {
         printf("Your terminal does not support color changing, the game will launch without color changing in 3 seconds");
         sleep(3);
-    } 
+    }
 
-    //63 = 63 , 236 = 236
+    // 63 = 63 , 236 = 236
 
-    //launch music
-    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &");  // sudo apt-get install vlc
+    // launch music
+    system("cvlc ressources/Main-Theme.mp3 >/dev/null 2>&1 &"); // sudo apt-get install vlc
 
     // INIT COLOR PAIR FOR WATTR
-    init_pair(1,COLOR_RED,COLOR_BLACK);     // red = 1
-    init_pair(2,COLOR_MAGENTA,COLOR_BLACK); // magenta = 2
-    init_pair(3,COLOR_YELLOW,COLOR_BLACK);  // yellow = 3
-    init_pair(4,COLOR_BLUE,COLOR_BLACK);    // blue = 4
-    init_pair(5,COLOR_GREEN,COLOR_BLACK);    // green = 5
+    init_pair(1, COLOR_RED, COLOR_BLACK);     // red = 1
+    init_pair(2, COLOR_MAGENTA, COLOR_BLACK); // magenta = 2
+    init_pair(3, COLOR_YELLOW, COLOR_BLACK);  // yellow = 3
+    init_pair(4, COLOR_BLUE, COLOR_BLACK);    // blue = 4
+    init_pair(5, COLOR_GREEN, COLOR_BLACK);   // green = 5
 
-
-    int quit=0,exitmenu=0;
-    int l=52,c=130; //position caméra
-    int x=28,y=8; //position curseur menu principal
+    int quit = 0, exitmenu = 0;
+    int l = 52, c = 130; // position caméra
+    int x = 28, y = 8;   // position curseur menu principal
 
     trainer player;
 
-    while (quit==0)
+    while (quit == 0)
     {
-        while (exitmenu==0)
+        while (exitmenu == 0)
         {
-            main_menu(&player,&exitmenu,&x,&y);
+            main_menu(&player, &exitmenu, &x, &y);
+            usleep(33333);
         }
-        game(&player,&quit,&l,&c);
+        game(&player, &quit, &l, &c);
     }
-    
-    //end music
+
+    // end music
     system("killall -9 vlc >/dev/null 2>&1 &");
     endwin();
     return 0;
