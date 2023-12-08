@@ -1,4 +1,4 @@
-#C-Pokemon
+#c-pokemon
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 LAUNCH THE GAME
@@ -64,22 +64,19 @@ Have fun playing our first game ! If you find bugs don't hesitate to let us know
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 KNOWN BUGS
 
-NONE. Just kidding x). We have a single bug repport to do, in fact sometimes when you pick a flower from the ground, it just stays there and another flower disapear and go to your inventory x). It's a really rare bug, it happens 1 time on 50 so we didn't solve it because of it rarity. You just have to click again to pick the right flower so it's not a big bug but we want you to know it just in case.
+We have a single bug repport to do, in fact sometimes when you pick a flower from the ground, it just stays there and another flower disapear and go to your inventory. It's a really rare bug, it happens 1 time on 50 so we didn't solve it because of it rarity. You just have to click again to pick the right flower so it's not a big bug but we want you to know it just in case.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 THANKS TO
-
-- OpenAI
-We have to admit it, without ChatGPT our understanding of curses.h would have taken a longer time... Than you OpenAI for this masterpiece, we love you.
 
 - Amine Zahaf (friend)
 We are really grateful for the help Mr Zahaf provided us. Your advices were essential to manage our team and be as effective as possible, we learned a lot from you and we want to thank you for all of your precious advices.
 
 - Romuald Grignon (teacher) 
-Sir, we apologize about the lenght of our project. We wish you a good luck with the correction. We love you sir, you're our inspiration, one day we'll also code an entire game just in an week-end. Thank you for your help and your time, this project would have never existed without you (the "top" command is on top !). 
+Sir, we apologize about the lenght of our project. We wish you a good luck with the correction. We love you sir, you're our inspiration, one day we'll also code an entire game just in a week-end. Thank you for your help and your time, this project would have never existed without you (the "top" command is on top !). 
 
 - Eva Ansermin (teacher)
-Miss, we hope you'll love the ending of this ambition. The idea of making a map came from you and we would surely didn't have done all of this without your support. It was a pleasure to see you as happy as us seing the project grow day by day.
+Miss, we hope you'll love the ending of this ambition. The idea of making a map came from you and we would surely didn't have done all of this without your support. It was a pleasure to see you as happy as us seing the project evolve day by day.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 CREDITS
@@ -87,16 +84,15 @@ CREDITS
 Adam Terrak
 Ayman Ouguerd
 Abdelah El Harsal
-C̶h̶a̶t̶G̶P̶T̶ ̶(̶I̶t̶ ̶d̶i̶d̶ ̶j̶u̶s̶t̶ ̶h̶e̶l̶p̶ ̶u̶s̶ ̶a̶t̶ ̶t̶h̶e̶ ̶b̶e̶g̶i̶n̶i̶n̶g̶ ̶t̶o̶ ̶b̶e̶ ̶h̶o̶n̶e̶s̶t̶ ̶X̶D̶)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 CONTACT
 
 e.aterrak@gmail.com
-shortlink for the 20/20 grade : https://cours.cyu.fr/grade/report/overview/index.php
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 RESULTS
 
-We got a 20/20 and were ranked 1st out of 323 students yay
+We got 20/20 and were ranked 1/323 students
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
